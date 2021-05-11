@@ -1,0 +1,80 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+$skeleton-animation: loading-skeleton 1s ease-out .15s infinite alternate;
+$skeleton-color: #eaedf1;
+$skeleton-bone-height-1line: 24px;
+
+// Dashboard Status
+$skeleton-status-bone-height: $skeleton-bone-height-1line; // position out of alpha
+$skeleton-status-bone: linear-gradient($skeleton-color $skeleton-status-bone-height, transparent 0);
+$skeleton-status-position: 0 10px;
+$skeleton-status-data-position: $skeleton-status-position;
+$skeleton-status-data-size: 200px;
+$skeleton-status-metadata-position: 45px 0;
+$skeleton-status-metadata-size: 80px 15px;
+$skeleton-status-resource-icon: radial-gradient(circle 12px at center, $skeleton-color 100%, transparent 0);
+$skeleton-status-resource-icon-position: $skeleton-status-position;
+$skeleton-status-resource-icon-size: $skeleton-bone-height-1line $skeleton-bone-height-1line;
+$skeleton-status-resource-position: 45px 24px;
+$skeleton-status-resource-size: 75%;
+
+// Dashboard Activity
+$skeleton-activity-bone: linear-gradient($skeleton-color $skeleton-bone-height-1line, transparent 0);
+$skeleton-activity-icon: radial-gradient(circle 12px at center, $skeleton-color 100%, transparent 0);
+$skeleton-activity-icon-position: 0 0;
+$skeleton-activity-icon-size: $skeleton-status-resource-icon-size;
+$skeleton-activity-position: 45px 0;
+$skeleton-activity-size: auto;
+
+.skeleton-text {
+  animation: $skeleton-animation;
+  background: $skeleton-color;
+  height: $skeleton-bone-height-1line;
+  opacity: 0;
+  &::after {
+    background-repeat: no-repeat;
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.co-volume-snapshot__body {
+    display: inline-flex;
+}
+
+.co-volume-snapshot__form {
+    margin: var(--pf-global--spacer--md) 0;
+}
+
+.co-volume-snapshot__details-body {
+    margin-bottom: var(--pf-global--spacer--md);
+}
+
+.co-volume-snapshot__alert-body {
+    margin-top: var(--pf-global--spacer--md);
+}
+
+.co-volume-snapshot__info {
+    max-width: 50%;
+    margin-right: 0;
+    @media(max-width: $screen-sm-max) {
+        display: none;
+      }
+}
+
+.skeleton-activity {
+  animation: $skeleton-animation;
+  background: $skeleton-color;
+  opacity: 0;
+  border-radius: 6px;
+  margin: 0.5rem 0.7em 0.5rem 0.7em;
+  height: 30px;
+  &::after {
+    background-repeat: no-repeat;
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+}

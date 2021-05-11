@@ -1,0 +1,45 @@
+{
+  "name": "@console/odf-ibm-storage-plugin",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build": "yarn clean && NODE_ENV=production yarn ts-node ./node_modules/.bin/webpack --mode=production",
+    "build-dev": "yarn clean && yarn ts-node ./node_modules/.bin/webpack --mode=development",
+    "http-server": "./http-server.sh ./dist",
+    "ts-node": "ts-node -O '{\"module\":\"commonjs\"}' -I '/node_modules/(?!(@console)/)/'"
+  },
+  "dependencies": {
+    "react": "17.0.1"
+  },
+  "devDependencies": {
+    "@openshift-console/dynamic-plugin-sdk":"link:./plugin-sdk",
+    "@types/react": "16.8.13",
+    "@patternfly/patternfly": "4.96.2",
+    "@patternfly/react-core": "4.106.2",
+    "url-loader": "^4.1.1",
+    "resolve-url-loader": "2.x",
+    "sass-loader": "6.x",
+    "style-loader": "^0.23.1",
+    "http-server": "0.12.x",
+    "ts-loader": "6.2.2",
+    "ts-node": "5.0.1",
+    "typescript": "3.8.3",
+    "webpack": "5.0.0-beta.16",
+    "webpack-cli": "4.5.x"
+  },
+  "consolePlugin": {
+    "name": "odf-ibm-storage-plugin",
+    "version": "0.0.0",
+    "displayName": "Console Demo Plugin",
+    "description": "Plasma reactors online. Initiating hyper drive.",
+    "exposedModules": {
+      "barUtils": "./utils/bar",
+      "fooPage" : "./components/Foo",
+      "createStorageSystemPage" : "./components/create-storage-instance/create-storage-instance"
+    },
+    "dependencies": {
+      "@console/pluginAPI": "*"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "@openshift-console/dynamic-plugin-sdk",
+  "version": "0.0.0-alpha1",
+  "description": "Tools and APIs for building OpenShift Console dynamic plugins",
+  "main": "lib/extensions/index.js",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": "./lib/extensions/index.js",
+    "./webpack": "./lib/webpack/ConsoleRemotePlugin.js",
+    "./api": "./lib/api/api.js"
+  },
+  "readme": "README.md",
+  "peerDependencies": {
+    "webpack": "5.0.0-beta.16"
+  }
+}
