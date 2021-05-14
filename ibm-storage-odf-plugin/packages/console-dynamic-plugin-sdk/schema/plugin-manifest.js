@@ -180,7 +180,7 @@ export default {
       "properties": {
         "type": {
           "type": "string",
-          "const": "console.flag/createIBMStorage"
+          "const": "console.odf/createIBMStorage"
         },
         "properties": {
           "type": "object",

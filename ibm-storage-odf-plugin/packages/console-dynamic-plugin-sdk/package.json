@@ -1,6 +1,6 @@
 {
   "name": "@openshift-console/dynamic-plugin-sdk",
-  "version": "0.0.0-alpha1",
+  "version": "0.0.0-fixed",
   "description": "Tools and APIs for building OpenShift Console dynamic plugins",
   "main": "lib/extensions/index.js",
   "license": "Apache-2.0",

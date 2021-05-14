@@ -20,15 +20,15 @@
 18. [`console.dashboards/tab`](#console.dashboards/tab)
 19. [`console.file-upload`](#console.file-upload)
 20. [`console.flag`](#console.flag)
-21. [`console.flag/createIBMStorage`](#console.flag/createIBMStorage)
-22. [`console.flag/foo`](#console.flag/foo)
-23. [`console.flag/model`](#console.flag/model)
-24. [`console.global-config`](#console.global-config)
-25. [`console.navigation/href`](#console.navigation/href)
-26. [`console.navigation/resource-cluster`](#console.navigation/resource-cluster)
-27. [`console.navigation/resource-ns`](#console.navigation/resource-ns)
-28. [`console.navigation/section`](#console.navigation/section)
-29. [`console.navigation/separator`](#console.navigation/separator)
+21. [`console.flag/foo`](#console.flag/foo)
+22. [`console.flag/model`](#console.flag/model)
+23. [`console.global-config`](#console.global-config)
+24. [`console.navigation/href`](#console.navigation/href)
+25. [`console.navigation/resource-cluster`](#console.navigation/resource-cluster)
+26. [`console.navigation/resource-ns`](#console.navigation/resource-ns)
+27. [`console.navigation/section`](#console.navigation/section)
+28. [`console.navigation/separator`](#console.navigation/separator)
+29. [`console.odf/createIBMStorage`](#console.odf/createIBMStorage)
 30. [`console.page/resource/details`](#console.page/resource/details)
 31. [`console.page/resource/list`](#console.page/resource/list)
 32. [`console.page/resource/tab`](#console.page/resource/tab)
@@ -380,20 +380,6 @@ Gives full control over Console feature flags.
 
 ---
 
-## `console.flag/createIBMStorage`
-
-### Summary
-
-(not available)
-
-### Properties
-
-| Name | Value Type | Optional | Description |
-| ---- | ---------- | -------- | ----------- |
-| `handler` | `CodeRef<(SetFooFeatureFlag: CreateIBMStorageProgs) => React.ReactNode>` | no | Used to set/unset arbitrary feature flags. |
-
----
-
 ## `console.flag/foo`
 
 ### Summary
@@ -543,6 +529,20 @@ Adds new Console feature flag driven by the presence of a CRD on the cluster.
 | `dataAttributes` | `{ [key: string]: string; }` | yes | Adds data attributes to the DOM. |
 | `insertBefore` | `string \| string[]` | yes | Insert this item before the item referenced here. For arrays, the first one found in order is used. |
 | `insertAfter` | `string \| string[]` | yes | Insert this item after the item referenced here. For arrays, the first one found in order is used. `insertBefore` takes precedence. |
+
+---
+
+## `console.odf/createIBMStorage`
+
+### Summary
+
+(not available)
+
+### Properties
+
+| Name | Value Type | Optional | Description |
+| ---- | ---------- | -------- | ----------- |
+| `handler` | `CodeRef<(SetFooFeatureFlag: CreateIBMStorageProgs) => React.ReactNode>` | no | Used to set/unset arbitrary feature flags. |
 
 ---
 

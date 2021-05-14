@@ -21,7 +21,7 @@
   */
 [
   {
-    "type": "console.flag/createIBMStorage",
+    "type": "console.odf/createIBMStorage",
     "properties": {
       "handler": { "$codeRef": "createStorageSystemPage" }
     }
