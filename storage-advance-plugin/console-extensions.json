@@ -8,32 +8,9 @@
  */
 [
   {
-    "type": "console.flag",
-    "properties": {
-      "handler": { "$codeRef": "barUtils.testHandler" }
-    }
-  },
-  {
-    "type": "console.flag/foo",
-    "properties": {
-      "handler": { "$codeRef": "fooPage" }
-    }
-  },
-  {
     "type": "console.flag/createIBMStorage",
     "properties": {
-      "handler": { "$codeRef": "createStorageSystemPage.VolumeSnapshotComponent" }
-    }
-  },
-  {
-    "type": "console.flag/model",
-    "properties": {
-      "flag": "EXAMPLE",
-      "model": {
-        "group": "kubevirt.io",
-        "version": "v1alpha3",
-        "kind": "ExampleModel"
-      }
+      "handler": { "$codeRef": "createStorageSystemPage" }
     }
   }
 ]

@@ -1,39 +1,10 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
-//import { Link } from 'react-router-dom';
-//import { useTranslation } from 'react-i18next';
-//import { match } from 'react-router';
-
 import { 
   ActionGroup, 
   Button,
   //TextInput,
  } from '@patternfly/react-core';
-
-//import {
-  //LoadingBox,
-  //ListDropdown,
-  //ButtonBar,
-  //history,
-  //ResourceIcon,
-  //resourceObjPath,
-  //HandlePromiseProps,
-  //withHandlePromise,
-  //convertToBaseValue,
-  //humanizeBinaryBytes,
-//} from '@console/internal/components/utils';
-//import {
-  //K8sKind,
-  //referenceForModel,
-  //k8sCreate,
-  //referenceFor,
-  //VolumeSnapshotClassKind,
-  //StorageClassResourceKind,
-  //PersistentVolumeClaimKind,
-  //k8sGet,
-  //VolumeSnapshotKind,
-  //apiVersionForModel,
-//} from '@console/internal/module/k8s';
 import {
   K8sKind,
 } from '../../models';
@@ -41,26 +12,11 @@ import {
   referenceForModel,
   apiVersionForModel,
 } from '../../utils/k8s';
-//import {K8sResourceCommon} from '@console/dynamic-plugin-sdk/src/extensions/console-types';
-//import { connectToPlural } from '@console/internal/kinds';
-//import {
-  //PersistentVolumeClaimModel,
-  //VolumeSnapshotModel,
-  //VolumeSnapshotClassModel,
-  //StorageClassModel,
-  //NamespaceModel,
-//} from '@console/internal/models';
-//import { accessModeRadios } from '@console/internal/components/storage/shared';
-//import { PVCDropdown } from '@console/internal/components/utils/pvc-dropdown';
-//import { getName, getNamespace } from '@console/shared';
-//import { PVCStatus } from '@console/internal/components/persistent-volume-claim';
-//import { useK8sWatchResource } from '@console/internal/components/utils/k8s-watch-hook';
-
 import './_create-storage-instance.scss';
 import { StorageInstanceModel } from '../../models';
 import { StorageInstanceKind } from '../../types';
 
-const CreateSnapshotForm = (props: SnapshotResourceProps)  => {
+const CreateStorageForm = (props: StorageResourceProps)  => {
   //const { t } = useTranslation();
   const {
     //plural,
@@ -242,24 +198,20 @@ const CreateSnapshotForm = (props: SnapshotResourceProps)  => {
   );
 };
 
-export const VolumeSnapshotComponent: React.FC<VolumeSnapshotComponentProps> = (props) => {
+export const IBMStorageODFCreationPage: React.FC<IBMStorageODFCreationPageProps> = (props) => {
   const params = props;
 
   return (
-    <CreateSnapshotForm
+    <CreateStorageForm
       plural={referenceForModel(StorageInstanceModel)}
       namespace={params?.ns}
     />
   );
 };
 
-//const StorageInstance = ({ match: { params }}) => {
-//  return VolumeSnapshotComponent(params);
-//};
+export default IBMStorageODFCreationPage;
 
-
-
-type SnapshotResourceProps = {
+type StorageResourceProps = {
   namespace?: string;
   resourceName?: string;
   kindObj?: K8sKind;
@@ -268,7 +220,7 @@ type SnapshotResourceProps = {
 
 
 
-type VolumeSnapshotComponentProps = {
+type IBMStorageODFCreationPageProps = {
   ns?: string; 
   plural?: string; 
   name?: string ;

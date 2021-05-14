@@ -34,8 +34,6 @@
     "displayName": "Console Demo Plugin",
     "description": "Plasma reactors online. Initiating hyper drive.",
     "exposedModules": {
-      "barUtils": "./utils/bar",
-      "fooPage" : "./components/Foo",
       "createStorageSystemPage" : "./components/create-storage-instance/create-storage-instance"
     },
     "dependencies": {

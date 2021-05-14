@@ -35,7 +35,7 @@ Plugin metadata is declared via the `consolePlugin` object.
   "private": true,
   // scripts, dependencies, devDependencies, ...
   "consolePlugin": {
-    "name": "console-demo-plugin",
+    "name": "odf-ibm-storage-plugin",
     "version": "0.0.0",
     "displayName": "Console Demo Plugin",
     "description": "Plasma reactors online. Initiating hyper drive.",
@@ -143,11 +143,11 @@ chunk when needed.
 
 ## Plugin development
 
-Run Bridge locally and instruct it to proxy e.g. `/api/plugins/console-demo-plugin` requests directly
+Run Bridge locally and instruct it to proxy e.g. `/api/plugins/odf-ibm-storage-plugin` requests directly
 to your local plugin asset server (web server hosting the plugin's generated assets):
 
 ```sh
-./bin/bridge -plugins console-demo-plugin=http://localhost:9001/
+./bin/bridge -plugins odf-ibm-storage-plugin=http://localhost:9001/
 ```
 
 Your plugin should start loading automatically upon Console application startup. Inspect the value of

@@ -1,10 +1,14 @@
-# ibm-storage-odf-console
-ibm-storage-odf-console provides IBM storage specific console page, which will be loaded by ODF console when end users access IBM storage. It's specially designed for displaying IBM specific storage attributes to customer. Current scope includes IBM flashsystem only.
+# OpenShift Console Demo Plugin
+
+This project emulates a standalone repository hosting a sample
+[dynamic plugin](/frontend/packages/console-dynamic-plugin-sdk/README.md) for OpenShift Console.
+
+It is meant to serve as a reference for Console plugin developers and for testing dynamic plugin
+capabilities via end-to-end tests.
 
 ## Local development
 
-1. `yarn install` to install dependency packages.
-2. `cd storage-plugin` and `yarn build` to build the plugin, generating output to `dist` directory
+1. `yarn build` to build the plugin, generating output to `dist` directory
 2. `yarn http-server` to start an HTTP server hosting the generated assets
 
 ```
@@ -15,6 +19,18 @@ Available on:
   http://10.40.192.80:9001
 Hit CTRL-C to stop the server
 ```
+
+The server runs on port 9001 with caching disabled and CORS enabled. Additional
+[server options](https://github.com/http-party/http-server#available-options) can be passed to
+the script, for example:
+
+```sh
+yarn http-server -a 127.0.0.1
+```
+
+See the plugin development section in
+[Console Dynamic Plugins README](/frontend/packages/console-dynamic-plugin-sdk/README.md) for details
+on how to run Bridge using local plugins.
 
 ## Deployment on cluster
 
