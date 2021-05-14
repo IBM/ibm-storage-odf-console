@@ -6,11 +6,41 @@
  * 'moduleName.exportName' (referring to a named export) or 'moduleName' (referring to the
  * 'default' export). Only the plugin's exposed modules may be used in code references.
  */
+ /*
+  {
+    "type": "console.page/route",
+    "properties": {
+      "exact": true,
+      "path": ["/ibm-storage-odf-console"],
+      "component": {
+        "$codeRef": "ibmStorageConsolePage"
+      }
+    }
+  },
+  
+  */
 [
   {
     "type": "console.flag/createIBMStorage",
     "properties": {
       "handler": { "$codeRef": "createStorageSystemPage" }
+    }
+  },
+  {
+    "type": "console.dashboards/tab",
+    "properties": {
+      "id": "ibm-storage-odf-console",
+      "title": "ODF IBM Storage"
+    }
+  },
+  {
+    "type": "console.dashboards/card",
+    "properties": {
+      "tab": "ibm-storage-odf-console",
+      "position": "LEFT",
+      "loader": {
+        "$codeRef": "ibmStorageConsolePage"
+      }
     }
   }
 ]

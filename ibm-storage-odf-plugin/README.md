@@ -1,4 +1,4 @@
-# OpenShift Console Demo Plugin
+# OpenShift Console ODF IBM Storage Plugin
 
 This project emulates a standalone repository hosting a sample
 [dynamic plugin](/frontend/packages/console-dynamic-plugin-sdk/README.md) for OpenShift Console.
@@ -61,7 +61,7 @@ oc edit console.operator.openshift.io cluster
 # ...
 spec:
   plugins:
-    - odf-ibm-storage-plugin
+    - ibm-storage-odf-plugin
 # ...
 ```
 
@@ -71,15 +71,15 @@ Following commands should be executed in Console repository root.
 
 1. Build the image:
    ```sh
-   docker build -f Dockerfile.plugins.demo -t quay.io/$USER/odf-ibm-storage-plugin .
+   docker build -f Dockerfile.plugins.demo -t quay.io/$USER/ibm-storage-odf-plugin .
    ```
 2. Run the image:
    ```sh
-   docker run -it -p 9001:9001 quay.io/$USER/odf-ibm-storage-plugin
+   docker run -it -p 9001:9001 quay.io/$USER/ibm-storage-odf-plugin
    ```
 3. Push the image to image registry:
    ```sh
-   docker push quay.io/$USER/odf-ibm-storage-plugin
+   docker push quay.io/$USER/ibm-storage-odf-plugin
    ```
 
 Update and apply `oc-manifest.yaml` to use a custom plugin image.
