@@ -1,2 +1,0 @@
-export const mergeExtensionProperties = (e, properties) => Object.freeze(Object.assign(Object.assign({}, e), { properties: Object.assign({}, e.properties, properties) }));
-//# sourceMappingURL=store.js.map

@@ -1,0 +1,33 @@
+[
+  {
+    "type": "console.navigation/href",
+    "properties": {
+      "id": "odfdashboard",
+      "insertBefore": "persistentvolumes",
+      "section": "storage",
+      "name": "Storage Systems",
+      "href": "/k8s/all-namespaces/odf.ibm.com~v1alpha1~FlashSystemCluster"
+    }
+  },
+  {
+    "type": "console.page/resource/details",
+    "properties": {
+      "model": {
+        "group": "odf.ibm.com",
+        "version": "v1alpha1",
+        "kind": "FlashSystemCluster"
+      },
+      "component":{"$codeRef": "IBMStorageODFDetailPage"}
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "exact": true,
+      "path": ["/k8s/ns/:ns/odf.ibm.com~v1alpha1~FlashSystemCluster/~new/form"],
+      "component": {
+        "$codeRef": "createStorageSystemPage.StorageInstance"
+      }
+    }
+  }
+]

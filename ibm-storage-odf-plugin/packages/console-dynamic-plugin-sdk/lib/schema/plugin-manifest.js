@@ -1,1 +1,0 @@
-//# sourceMappingURL=plugin-manifest.js.map

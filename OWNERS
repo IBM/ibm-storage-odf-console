@@ -1,0 +1,6 @@
+reviewers:
+  - shdn@cn.ibm.com
+approvers:
+  - shdn@cn.ibm.com
+labels:
+  - component/storage
