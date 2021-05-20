@@ -44,15 +44,14 @@ const tableColumnClasses = [
   '', // Namespace
   classNames('pf-m-hidden', 'pf-m-visible-on-lg'), // Status
   classNames('pf-m-hidden', 'pf-m-visible-on-lg'), // AvailableSize
-  classNames('pf-m-hidden', 'pf-m-visible-on-xl'), // UsedSize
-  classNames('pf-m-hidden', 'pf-m-visible-on-2xl'), // Vendor
-  classNames('pf-m-hidden', 'pf-m-visible-on-2xl'), // ID
+  classNames('pf-m-hidden', 'pf-m-visible-on-lg'), // UsedSize
+  classNames('pf-m-hidden', 'pf-m-visible-on-xl'), // Endpoint
   classNames('pf-m-hidden', 'pf-m-visible-on-2xl'), // Created At
   Kebab.columnClass,
 ];
 
 export const advanceStorageManagementStatus = ({ status }: { status?: StorageInstanceStatus}) => {
-  const readyToUse = status?.state;
+  const readyToUse = status?.phase;
   return readyToUse ? readyToUse : 'Pending';
 };
 
@@ -62,8 +61,9 @@ export const advanceStorageManagementStatusFilters = [
     type: 'advanceStorageManagement-status',
     reducer: advanceStorageManagementStatus,
     items: [
-      { id: 'Available', title: 'Available' },
-      { id: 'Degraded', title: 'Degraded' },
+      { id: 'Ready', title: 'Ready' },
+      { id: 'Not Ready', title: 'Not Ready' },
+      { id: 'Warning', title: 'Warning' },
       { id: 'Error', title: 'Error' },
     ],
   },
@@ -86,7 +86,7 @@ const Header = (disableItems = {}) => () =>
     },
     {
       title: 'Status',
-      sortFunc: 'status.state',
+      sortFunc: 'status.phase',
       transforms: [sortable],
       props: { className: tableColumnClasses[2] },
     },
@@ -103,26 +103,20 @@ const Header = (disableItems = {}) => () =>
       props: { className: tableColumnClasses[4] },
     },
     {
-      title: 'Vendor',
-      sortField: 'spec.vendor',
+      title: 'Endpoint',
+      sortField: 'spec.endpoint',
       transforms: [sortable],
       props: { className: tableColumnClasses[5] },
-    },
-    {
-      title: 'ID',
-      sortField: 'status.id',
-      transforms: [sortable],
-      props: { className: tableColumnClasses[6] },
     },
     {
       title: 'Created At',
       sortField: 'metadata.creationTimeStamp',
       transforms: [sortable],
-      props: { className: tableColumnClasses[7] },
+      props: { className: tableColumnClasses[6] },
     },
     {
       title: '',
-      props: { className: tableColumnClasses[8] },
+      props: { className: tableColumnClasses[7] },
     },
   ].filter((item) => !disableItems[item.title]);
 
@@ -144,7 +138,7 @@ const Row: RowFunction<StorageInstanceKind> = ({ key, obj, style, index, customD
         <ResourceLink kind={NamespaceModel.kind} name={namespace} />
       </TableData>
       <TableData className={tableColumnClasses[2]}>
-        <Status status={obj?.status?.state} />
+        <Status status={obj?.status?.phase} />
       </TableData>
       <TableData className={tableColumnClasses[3]}>
       <Status status={availablesize} />
@@ -153,15 +147,12 @@ const Row: RowFunction<StorageInstanceKind> = ({ key, obj, style, index, customD
         <Status status={usedsize} />
       </TableData>
       <TableData className={tableColumnClasses[5]}>
-        <Status status={obj?.spec.vendor} />
+        <Status status={obj?.spec.endpoint} />
       </TableData>
       <TableData className={tableColumnClasses[6]}>
-        <Status status={obj.status?.id} />
-      </TableData>
-      <TableData className={tableColumnClasses[7]}>
         <Timestamp timestamp={creationTimestamp} />
       </TableData>
-      <TableData className={tableColumnClasses[8]}>
+      <TableData className={tableColumnClasses[7]}>
         <ResourceKebab
           kind={referenceForModel(StorageInstanceModel)}
           resource={obj}

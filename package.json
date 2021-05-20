@@ -26,7 +26,8 @@
     },
     "exposedModules": {
       "createStorageSystemPage" : "./src/components/create-storage-instance/create-storage-instance",
-      "IBMStorageODFDetailPage" : "./src/advance-storage-management-details"
+      "IBMStorageODFDetailPage" : "./src/advance-storage-management-details",
+      "IBMStorageODFListPage" : "./src/advance-storage-management-list"
     }
   }
 }

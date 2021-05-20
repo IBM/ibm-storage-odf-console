@@ -21,6 +21,17 @@
     }
   },
   {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "odf.ibm.com",
+        "version": "v1alpha1",
+        "kind": "FlashSystemCluster"
+      },
+      "component":{"$codeRef": "IBMStorageODFListPage"}
+    }
+  },
+  {
     "type": "console.page/route",
     "properties": {
       "exact": true,
