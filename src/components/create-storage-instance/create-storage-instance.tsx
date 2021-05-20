@@ -8,6 +8,7 @@ import {
   ActionGroup, 
   Button,
   //TextInput,
+  Checkbox,
  } from '@patternfly/react-core';
 
 import {
@@ -69,6 +70,8 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
   const [username, setUserName] = React.useState(``);
   const [password, setPassword] = React.useState(``);
   const [showPassword, setShowPassword] = React.useState(false);
+  const [createDefaultStorageClass, setDefaultStorageClass] = React.useState(false);
+  const [poolName, setPoolName] = React.useState(``);
 
   const handleEndpoint: React.ReactEventHandler<HTMLInputElement> = (event) =>
     setEndpoint(event.currentTarget.value);
@@ -78,6 +81,11 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
     setPassword(event.currentTarget.value);
   const handlestorageName: React.ReactEventHandler<HTMLInputElement> = (event) =>
     setstorageName(event.currentTarget.value);
+  const handleDefaultStorageClass = (checked: boolean) => {
+    setDefaultStorageClass(checked);
+  };
+  const handlePoolName: React.ReactEventHandler<HTMLInputElement> = (event) =>
+    setPoolName(event.currentTarget.value);
 
 
   const create = (event: React.FormEvent<EventTarget>) => {
@@ -112,6 +120,9 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
           name: storageName,
           namespace: namespace,
         },
+        defaultPool:{
+          poolName: poolName,
+        }
       },
     };
     k8sCreate(SecretModel, storageSecretTemplate);
@@ -120,6 +131,27 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
       history.push(resourceObjPath(resource, referenceFor(resource)));
     });
   };
+
+  var createDefaultStorageClassPage;
+  if(createDefaultStorageClass) {
+    createDefaultStorageClassPage = (<div className="subline-with-2-words">
+            <label className="control-label co-required" htmlFor="snapshot-name">
+              Pool Name
+            </label>
+            <input
+              className="pf-c-form-control"
+              type="text"
+              onChange={handlePoolName}
+              name="endpoint"
+              id="endpoint"
+              value={poolName}
+              required
+            />
+          </div>)
+  } else {
+    createDefaultStorageClassPage = (<div className="form-group co-pre-wrap">
+    </div>)
+  }
 
   return (
     <div className="co-volume-snapshot__body">
@@ -220,6 +252,13 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
                 </Button>
                 </>
               )}
+              <Checkbox
+              label="Create Default StorageClass"
+              onChange={handleDefaultStorageClass}
+              isChecked={createDefaultStorageClass}
+              id="createDefaultStorageClass"
+              />
+              {createDefaultStorageClassPage}
               <ButtonBar >
                 <ActionGroup className="pf-c-form">
                   <Button
