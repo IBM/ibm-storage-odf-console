@@ -1,5 +1,16 @@
 [
   {
+    "type": "console.flag/model",
+    "properties": {
+      "flag": "ODF_IBM_STORAGE",
+      "model": {
+        "group": "odf.ibm.com",
+        "version": "v1alpha1",
+        "kind": "FlashSystemCluster"
+      }
+    }
+  },
+  {
     "type": "console.navigation/href",
     "properties": {
       "id": "odfdashboard",
@@ -7,6 +18,9 @@
       "section": "storage",
       "name": "Storage Systems",
       "href": "/k8s/all-namespaces/odf.ibm.com~v1alpha1~FlashSystemCluster"
+    },
+    "flags": {
+      "required": ["ODF_IBM_STORAGE"]
     }
   },
   {
@@ -18,6 +32,9 @@
         "kind": "FlashSystemCluster"
       },
       "component":{"$codeRef": "IBMStorageODFDetailPage"}
+    },
+    "flags": {
+      "required": ["ODF_IBM_STORAGE"]
     }
   },
   {
@@ -29,6 +46,9 @@
         "kind": "FlashSystemCluster"
       },
       "component":{"$codeRef": "IBMStorageODFListPage"}
+    },
+    "flags": {
+      "required": ["ODF_IBM_STORAGE"]
     }
   },
   {
@@ -39,6 +59,9 @@
       "component": {
         "$codeRef": "createStorageSystemPage.StorageInstance"
       }
+    },
+    "flags": {
+      "required": ["ODF_IBM_STORAGE"]
     }
   }
 ]

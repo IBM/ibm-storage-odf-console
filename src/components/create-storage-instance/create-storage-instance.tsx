@@ -120,13 +120,32 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
           name: storageName,
           namespace: namespace,
         },
+      },
+    };
+    const storageInstanceTemplateWithDefaultPool: StorageInstanceKind = {
+      apiVersion: apiVersionForModel(StorageInstanceModel),
+      kind: StorageInstanceModel.kind,
+      metadata: {
+        name: storageName,
+        namespace: namespace,
+      },
+      spec: {
+        name: storageName,
+        endpoint: endpoint,
+        insecureSkipVerify: true,
+        secret:{
+          name: storageName,
+          namespace: namespace,
+        },
         defaultPool:{
           poolName: poolName,
         }
       },
     };
     k8sCreate(SecretModel, storageSecretTemplate);
-    promises.push(k8sCreate(StorageInstanceModel, storageInstanceTemplate));
+    createDefaultStorageClass? 
+      promises.push(k8sCreate(StorageInstanceModel, storageInstanceTemplateWithDefaultPool))
+      : promises.push(k8sCreate(StorageInstanceModel, storageInstanceTemplate));
     handlePromise(Promise.all(promises), (resource) => {
       history.push(resourceObjPath(resource, referenceFor(resource)));
     });
