@@ -161,7 +161,7 @@ const AdvanceStorageManagementTable: React.FC<AdvanceStorageManagementTableProps
   <Table
     {...props}
     aria-label="Advance Storage Management Table"
-    Header={Header(props.customData.disableItems)}
+    Header={Header(props.customData?.disableItems)}
     Row={Row}
     virtualize
   />
