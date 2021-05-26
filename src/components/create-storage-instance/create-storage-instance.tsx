@@ -17,7 +17,7 @@ import {
   ButtonBar,
   history,
   //ResourceIcon,
-  resourceObjPath,
+  //resourceObjPath,
   HandlePromiseProps,
   withHandlePromise,
   //convertToBaseValue,
@@ -28,7 +28,7 @@ import {
   SecretKind,
   referenceForModel,
   k8sCreate,
-  referenceFor,
+  //referenceFor,
   //StorageClassResourceKind,
   //PersistentVolumeClaimKind,
   //k8sGet,
@@ -147,7 +147,7 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
       promises.push(k8sCreate(StorageInstanceModel, storageInstanceTemplateWithDefaultPool))
       : promises.push(k8sCreate(StorageInstanceModel, storageInstanceTemplate));
     handlePromise(Promise.all(promises), (resource) => {
-      history.push(resourceObjPath(resource, referenceFor(resource)));
+      history.push(`/k8s/ns/${namespace}/${referenceForModel(StorageInstanceModel)}`);
     });
   };
 
