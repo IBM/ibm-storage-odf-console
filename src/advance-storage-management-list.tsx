@@ -3,8 +3,6 @@ import { match } from 'react-router';
 import * as classNames from 'classnames';
 import { sortable } from '@patternfly/react-table';
 import {
-  K8sResourceKind,
-  PersistentVolumeClaimKind,
   referenceForModel,
 } from '@console/internal/module/k8s';
 import {
@@ -27,11 +25,7 @@ import {
   Status,
   getBadgeFromType,
   BadgeType,
-  getName,
-  //getNamespace,
-  FLAGS,
 } from '@console/shared';
-import { useFlag } from '@console/shared/src/hooks/flag';
 import {StorageInstanceModel} from './models';
 import {StorageInstanceKind} from './types';
 import {StorageInstanceStatus} from './types';
@@ -120,7 +114,7 @@ const Header = (disableItems = {}) => () =>
     },
   ].filter((item) => !disableItems[item.title]);
 
-const Row: RowFunction<StorageInstanceKind> = ({ key, obj, style, index, customData }) => {
+const Row: RowFunction<StorageInstanceKind> = ({ key, obj, style, index }) => {
   const { name, namespace, creationTimestamp } = obj?.metadata || {};
   const availablesize = obj?.status?.capacity?.maxCapacity;
   const usedsize = obj?.status?.capacity?.usedCapacity;
@@ -174,14 +168,11 @@ const AdvanceStorageManagementTable: React.FC<AdvanceStorageManagementTableProps
 );
 
 export const AdvanceStorageManagementListPage: React.FC<AdvanceStorageManagementPageProps> = (props) => {
-  const canListVSC = useFlag(FLAGS.CAN_LIST_VSC);
   const namespace = props.namespace || props.match?.params?.ns || 'all-namespaces';
   const createProps = {
-    //to: `/k8s/${namespace === 'all-namespaces' ? namespace : `ns/${namespace}`}/${
     to: `/k8s/${namespace === 'all-namespaces' ? 'ns/default' : `ns/${namespace}`}/${
       props.match?.params?.plural ||referenceForModel(StorageInstanceModel)
     }/~new/form`, 
-    //}/~new`,
   };
   return (
     <ListPage
@@ -192,45 +183,20 @@ export const AdvanceStorageManagementListPage: React.FC<AdvanceStorageManagement
       canCreate
       createProps={createProps}
       badge={getBadgeFromType(BadgeType.TECH)}
-      customData={{ disableItems: { 'Snapshot Content': !canListVSC } }}
     />
   );
 };
-
-const checkAdvanceStorage: CheckAdvanceStorage = (StorageInstanceinstance, pvc) => {
-  StorageInstanceinstance.filter(
-    (snapshot) =>
-      snapshot?.spec?.source?.persistentVolumeClaimName === getName(pvc)
-  );
-  return StorageInstanceinstance;
-}
 
 const FilteredAdvanceStorageManagementTable: React.FC<FilteredAdvanceStorageManagementTable> = (props) => {
   const { data, customData } = props;
   return (
     <Table
       {...props}
-      data={checkAdvanceStorage(data, customData.pvc)}
+      data={data}
       aria-label="Storage Table"
       Header={Header(customData?.disableItems)}
       Row={Row}
       virtualize
-    />
-  );
-};
-
-export const AdvanceStorageManagementPVCPage: React.FC<AdvanceStorageManagementPVCPage> = (props) => {
-  const canListVSC = useFlag(FLAGS.CAN_LIST_VSC);
-  return (
-    <ListPage
-      {...props}
-      kind={referenceForModel(StorageInstanceModel)}
-      ListComponent={FilteredAdvanceStorageManagementTable}
-      rowFilters={advanceStorageManagementStatusFilters}
-      customData={{
-        pvc: props.obj,
-        disableItems: { Source: true, 'Snapshot Content': !canListVSC },
-      }}
     />
   );
 };
@@ -240,20 +206,10 @@ type AdvanceStorageManagementPageProps = {
   match: match<{ ns?: string; plural?: string }>;
 };
 
-type CheckAdvanceStorage = (
-  volumeSnapshots: StorageInstanceKind[],
-  pvc: K8sResourceKind,
-) => StorageInstanceKind[];
-
 type FilteredAdvanceStorageManagementTable = {
   data: StorageInstanceKind[];
   customData: { [key: string]: any };
 };
-
-type AdvanceStorageManagementPVCPage = {
-  obj: PersistentVolumeClaimKind;
-};
-
 
 type AdvanceStorageManagementTableProps = {
   customData: { [key: string]: any };
