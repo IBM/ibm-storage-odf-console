@@ -138,7 +138,7 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
           namespace: namespace,
         },
         defaultPool:{
-          poolName: poolName,
+          poolname: poolName,
         }
       },
     };
@@ -161,8 +161,8 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
               className="pf-c-form-control"
               type="text"
               onChange={handlePoolName}
-              name="endpoint"
-              id="endpoint"
+              name="poolname"
+              id="poolname"
               value={poolName}
               required
             />
