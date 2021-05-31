@@ -11,7 +11,6 @@ import DashboardCard from '@console/shared/src/components/dashboard/dashboard-ca
 import DashboardCardTitle from '@console/shared/src/components/dashboard/dashboard-card/DashboardCardTitle';
 import DashboardCardBody from '@console/shared/src/components/dashboard/dashboard-card/DashboardCardBody';
 import { getInstantVectorStats } from '@console/internal/components/graphs/utils';
-import { breakdownQueryMap } from '../../../../constants/queries';
 import { BreakdownQueryMapODF } from '../../../../constants/queries';
 import { PROJECTS } from '../../../../constants/index';
 import { BreakdownCardBody } from '../breakdown-card/breakdown-body';
@@ -20,7 +19,7 @@ import { getSelectOptions } from '../breakdown-card/breakdown-dropdown';
 import './capacity-breakdown-card.scss';
 import {OdfDashboardContext} from '../../../../odf-dashboard';
 
-const keys = Object.keys(breakdownQueryMap);
+const keys = Object.keys(BreakdownQueryMapODF);
 const breakdownSelectItems = getSelectOptions(keys);
 
 const BreakdownCard: React.FC<DashboardItemProps> = ({

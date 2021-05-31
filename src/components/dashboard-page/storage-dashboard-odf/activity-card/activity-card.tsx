@@ -11,7 +11,6 @@ import ActivityBody, {
   RecentEventsBody,
   OngoingActivityBody,
 } from '@console/shared/src/components/dashboard/activity-card/ActivityBody';
-import { PrometheusResponse } from '@console/internal/components/graphs';
 import { getNamespace } from '@console/shared';
 import {
   DashboardItemProps,
@@ -20,10 +19,7 @@ import {
 import { referenceForModel } from '@console/internal/module/k8s/k8s';
 import { SubscriptionModel, SubscriptionKind } from '@console/operator-lifecycle-manager';
 import { IBM_STORAGE_ODF_OPERATOR } from '../../../../constants/index';
-import { DATA_RESILIENCY_QUERY, StorageDashboardQuery } from '../../../../constants/queries';
-import { getResiliencyProgress } from '../../../../utils';
 import {
-   //OCSServiceModel, 
    StorageInstanceModel,     
   } from '../../../../models';
 import { isClusterExpandActivity, ClusterExpandActivity } from './cluster-expand-activity';
@@ -90,22 +86,12 @@ const OngoingActivity = withDashboardResources(
     React.useEffect(() => {
       watchK8sResource(subscriptionResource);
       watchK8sResource(storageClusterResource);
-      watchPrometheus(DATA_RESILIENCY_QUERY[StorageDashboardQuery.RESILIENCY_PROGRESS]);
       return () => {
         stopWatchK8sResource(subscriptionResource);
         stopWatchK8sResource(storageClusterResource);
-        stopWatchPrometheusQuery(DATA_RESILIENCY_QUERY[StorageDashboardQuery.RESILIENCY_PROGRESS]);
       };
     }, [watchPrometheus, stopWatchPrometheusQuery, watchK8sResource, stopWatchK8sResource]);
 
-    const progressResponse = prometheusResults.getIn([
-      DATA_RESILIENCY_QUERY[StorageDashboardQuery.RESILIENCY_PROGRESS],
-      'data',
-    ]) as PrometheusResponse;
-    const progressError = prometheusResults.getIn([
-      DATA_RESILIENCY_QUERY[StorageDashboardQuery.RESILIENCY_PROGRESS],
-      'loadError',
-    ]);
     const subscriptions = resources?.subs as FirehoseResult;
     const subscriptionsLoaded = subscriptions?.loaded;
     const odfSubscription: SubscriptionKind = getODFSubscription(subscriptions);
@@ -117,12 +103,6 @@ const OngoingActivity = withDashboardResources(
     const prometheusActivities = [];
     const resourceActivities = [];
 
-    if (getResiliencyProgress(progressResponse) < 1) {
-      prometheusActivities.push({
-        results: progressResponse,
-        loader: () => import('./data-resiliency-activity').then((m) => m.DataResiliency),
-      });
-    }
     if (isOCSUpgradeActivity(odfSubscription)) {
       resourceActivities.push({
         resource: odfSubscription,
@@ -139,7 +119,7 @@ const OngoingActivity = withDashboardResources(
     }
     return (
       <OngoingActivityBody
-        loaded={(progressResponse || progressError) && subscriptionsLoaded && storageClustersLoaded}
+        loaded={subscriptionsLoaded && storageClustersLoaded}
         resourceActivities={resourceActivities}
         prometheusActivities={prometheusActivities}
       />

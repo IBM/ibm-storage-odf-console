@@ -1,15 +1,15 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import { Gallery, GalleryItem } from '@patternfly/react-core';
-//import AlertsBody from '@console/shared/src/components/dashboard/status-card/AlertsBody';
-//import AlertItem from '@console/shared/src/components/dashboard/status-card/AlertItem';
-//import { alertURL } from '@console/internal/components/monitoring/utils';
 import DashboardCard from '@console/shared/src/components/dashboard/dashboard-card/DashboardCard';
 import DashboardCardBody from '@console/shared/src/components/dashboard/dashboard-card/DashboardCardBody';
 import DashboardCardHeader from '@console/shared/src/components/dashboard/dashboard-card/DashboardCardHeader';
 import DashboardCardTitle from '@console/shared/src/components/dashboard/dashboard-card/DashboardCardTitle';
 import HealthBody from '@console/shared/src/components/dashboard/status-card/HealthBody';
 import HealthItem from '@console/shared/src/components/dashboard/status-card/HealthItem';
+import AlertsBody from '@console/shared/src/components/dashboard/status-card/AlertsBody';
+import AlertItem from '@console/shared/src/components/dashboard/status-card/AlertItem';
+import { alertURL } from '@console/internal/components/monitoring/utils';
 import { FirehoseResource } from '@console/internal/components/utils/index';
 import { referenceForModel } from '@console/internal/module/k8s/k8s';
 import {
@@ -17,10 +17,32 @@ import {
   DashboardItemProps,
 } from '@console/internal/components/dashboard/with-dashboard-resources';
 import { useK8sWatchResource } from '@console/internal/components/utils/k8s-watch-hook';
-import { getStoHealthState } from './utils';
+import { getStoHealthState, filterIBMFlashSystemAlerts } from './utils';
 import { StorageInstanceKind } from '../../../../types';
 import { StorageInstanceModel } from '../../../../models';
 import {OdfDashboardContext} from '../../../../odf-dashboard';
+
+export const IBMFlashSystemAlerts = withDashboardResources(
+  ({ watchAlerts, stopWatchAlerts, notificationAlerts }) => {
+    React.useEffect(() => {
+      watchAlerts();
+      return () => {
+        stopWatchAlerts();
+      };
+    }, [watchAlerts, stopWatchAlerts]);
+    //const { obj } = React.useContext(OdfDashboardContext);
+    const { data, loaded, loadError } = notificationAlerts || {};
+    const alerts = filterIBMFlashSystemAlerts(data);
+
+    return (
+      <AlertsBody error={!_.isEmpty(loadError)}>
+        {loaded &&
+          alerts.length > 0 &&
+          alerts.map((alert) => <AlertItem key={alertURL(alert, alert.rule.id)} alert={alert} />)}
+      </AlertsBody>
+    );
+  },
+);
 
 export const StatusCard: React.FC<DashboardItemProps> = ({
   }) => {
@@ -66,7 +88,7 @@ export const StatusCard: React.FC<DashboardItemProps> = ({
             </GalleryItem>
           </Gallery>
         </HealthBody>
-        {/*<CephAlerts /> */}
+        <IBMFlashSystemAlerts/>
       </DashboardCardBody>
     </DashboardCard>
   );

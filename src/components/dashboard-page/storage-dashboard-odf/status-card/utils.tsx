@@ -1,8 +1,10 @@
-import { PrometheusHealthHandler, ResourceHealthHandler } from '@console/plugin-sdk';
+import * as _ from 'lodash';
+import { ResourceHealthHandler } from '@console/plugin-sdk';
 import { HealthState } from '@console/shared/src/components/dashboard/status-card/states';
-import { getResiliencyProgress } from '../../../../utils';
+import { Alert } from '@console/internal/components/monitoring/types';
 import { WatchStoResource } from '../../../../types';
 import { StorageInstanceKind } from '../../../../types';
+import { IBM_FlASHSYSTEM } from '../../../../constants/index';
 
 const StoHealthStatus = {
   Ready: {
@@ -38,20 +40,15 @@ export const getStoHealthState: ResourceHealthHandler<WatchStoResource> = ({ sto
   return StoHealthStatus[status] || { state: HealthState.UNKNOWN };
 };
 export const StorageStatus = (data: StorageInstanceKind) => (data?.status?.phase);
-
-export const getDataResiliencyState: PrometheusHealthHandler = (responses) => {
-  const progress: number = getResiliencyProgress(responses[0].response);
-  if (responses[0].error) {
-    return { state: HealthState.NOT_AVAILABLE };
-  }
-  if (!responses[0].response) {
-    return { state: HealthState.LOADING };
-  }
-  if (Number.isNaN(progress)) {
-    return { state: HealthState.UNKNOWN };
-  }
-  if (progress < 1) {
-    return { state: HealthState.PROGRESS, message: 'Progressing' };
-  }
-  return { state: HealthState.OK };
+export const filterStorageSystemCRAlerts = (alerts: Alert[],data: StorageInstanceKind): Alert[] => {
+  const storageName = (_.get(data, 'metadata.name'));
+  const nameSpace = (_.get(data, 'metadata.namespace'));
+  const getAlertName = (alert: Alert): string => (_.get(alert, 'labels.container'));
+  const getAlertNameSpace = (alert: Alert): string => (_.get(alert, 'labels.namespace'));
+  const filteredAlerts = alerts.filter((alert) => (getAlertName(alert) === storageName && getAlertNameSpace(alert) === nameSpace));
+  return filteredAlerts;
 };
+export const filterIBMFlashSystemAlerts = (alerts: Alert[]): Alert[] =>
+  alerts.filter((alert) => (_.get(alert, 'annotations.storage_type'))?.toLowerCase() === IBM_FlASHSYSTEM.toLowerCase());
+
+
