@@ -201,8 +201,8 @@ export const AdvanceStorageManagementListPage = (props) => {
     namespace,
     query: query[1],
   });
-  const usedCap = humanizeBinaryBytes(response0?.data?.result?.[0].value?.[1]);
-  const availableCap = humanizeBinaryBytes(response1?.data?.result?.[0].value?.[1]);
+  const usedCap = humanizeBinaryBytes(response0?.data?.result?.[0]?.value?.[1]);
+  const availableCap = humanizeBinaryBytes(response1?.data?.result?.[0]?.value?.[1]);
   
   const customData = {usedCap: usedCap?.string, availableCap: availableCap?.string};
   
