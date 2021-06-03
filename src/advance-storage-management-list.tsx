@@ -30,10 +30,14 @@ import {
 import {StorageInstanceModel} from './models';
 //import {StorageInstanceKind} from './types';
 //import {StorageInstanceStatus} from './types';
-//import { CAPACITY_BREAKDOWN_QUERIES_ODF, StorageDashboardQuery } from './constants/queries';
+import { IBM_STORAGE_ODF_OPERATOR } from './constants/index';
 import { PrometheusEndpoint } from '@console/internal/components/graphs/helpers';
 import { usePrometheusPoll } from '@console/internal/components/graphs/prometheus-poll-hook';
 //import { usePrometheusQueries } from '@console/shared/src/components/dashboard/utilization-card/prometheus-hook';
+import {
+  useK8sWatchResource,
+} from '@console/internal/components/utils/k8s-watch-hook';
+import { SubscriptionKind, SubscriptionModel } from '@console/operator-lifecycle-manager';
 
 const { common } = Kebab.factory;
 const menuActions = [...common];
@@ -183,8 +187,19 @@ const AdvanceStorageManagementTable = (props) => {
 
 export const AdvanceStorageManagementListPage = (props) => {
   const namespace = props.namespace || props.match?.params?.ns || 'all-namespaces';
+
+  // get odf namespace
+  const subscriptionResource = {
+    isList: true,
+    kind: referenceForModel(SubscriptionModel),
+    fieldSelector: `metadata.name=${IBM_STORAGE_ODF_OPERATOR}`,
+  };
+  const [subscriptions] = useK8sWatchResource<SubscriptionKind[]>(subscriptionResource);
+  const odfSubscription = subscriptions?.[0];
+  const odfNamespace = odfSubscription?.metadata?.namespace;
+
   const createProps = {
-    to: `/k8s/${namespace === 'all-namespaces' ? 'ns/default' : `ns/${namespace}`}/${
+    to: `/k8s/${namespace === 'all-namespaces' ? `ns/${odfNamespace}` : `ns/${namespace}`}/${
       props.match?.params?.plural ||referenceForModel(StorageInstanceModel)
     }/~new/form`, 
   };

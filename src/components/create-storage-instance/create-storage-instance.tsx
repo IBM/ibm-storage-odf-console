@@ -311,10 +311,15 @@ const VolumeStorageComponent: React.FC<VolumeStorageComponentProps> = (props) =>
   );
 };
 
-export const StorageInstance = ({ match: { params }}) => {
-  return VolumeStorageComponent(params);
+export const StorageInstance = (prog: StorageInstanceProps) => {
+  return VolumeStorageComponent(prog?.match?.params);
 };
 
+type StorageInstanceProps = {
+  match?:{
+    params: any,
+  }
+};
 
 type StorageResourceProps = HandlePromiseProps & {
   namespace?: string;

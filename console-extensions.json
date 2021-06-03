@@ -68,7 +68,7 @@
     "type": "console.page/route",
     "properties": {
       "exact": true,
-      "path": ["k8s/ns/odf-test/clusterserviceversions/ibm-storage-odf-operator.v0.1.0/odf.ibm.com~v1alpha1~FlashSystemCluster/~new"],
+      "path": ["/k8s/ns/:ns/clusterserviceversions/:appName/odf.ibm.com~v1alpha1~FlashSystemCluster/~new"],
       "component": {
         "$codeRef": "createStorageSystemPage.StorageInstance"
       }
