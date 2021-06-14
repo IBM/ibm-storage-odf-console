@@ -72,6 +72,7 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [createDefaultStorageClass, setDefaultStorageClass] = React.useState(false);
   const [poolName, setPoolName] = React.useState(``);
+  const [storageclassName, setStorageclassName] = React.useState(``);
 
   const handleEndpoint: React.ReactEventHandler<HTMLInputElement> = (event) =>
     setEndpoint(event.currentTarget.value);
@@ -86,7 +87,8 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
   };
   const handlePoolName: React.ReactEventHandler<HTMLInputElement> = (event) =>
     setPoolName(event.currentTarget.value);
-
+  const handleStorageclassName: React.ReactEventHandler<HTMLInputElement> = (event) =>
+    setStorageclassName(event.currentTarget.value);
 
   const create = (event: React.FormEvent<EventTarget>) => {
     event.preventDefault();
@@ -139,6 +141,7 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
         },
         defaultPool:{
           poolname: poolName,
+          storageclassname: storageclassName,
         }
       },
     };
@@ -154,6 +157,18 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
   var createDefaultStorageClassPage;
   if(createDefaultStorageClass) {
     createDefaultStorageClassPage = (<div className="subline-with-2-words">
+            <label className="control-label co-required" htmlFor="snapshot-name">
+              StorageClass Name
+            </label>
+            <input
+              className="pf-c-form-control"
+              type="text"
+              onChange={handleStorageclassName}
+              name="storageclassname"
+              id="storageclassname"
+              value={storageclassName}
+              required
+            />
             <label className="control-label co-required" htmlFor="snapshot-name">
               Pool Name
             </label>

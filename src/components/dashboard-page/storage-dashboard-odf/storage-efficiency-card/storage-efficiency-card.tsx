@@ -81,6 +81,9 @@ const StorageEfficiencyCard: React.FC<DashboardItemProps> = ({
       'The ratio of the data physical stored (after compression), compared to the size of the data received from the client.',
     getStats: compressionStats,
   };
+  // todo 
+  // refine compression ratio
+  if(compressionRatioProps){};
 
   const savingsProps = {
     stats: Number(saved),
@@ -97,7 +100,8 @@ const StorageEfficiencyCard: React.FC<DashboardItemProps> = ({
         <DashboardCardTitle>Storage Efficiency</DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody className="co-dashboard-card__body--no-padding">
-        <EfficiencyItemBody {...compressionRatioProps} />
+        {//<EfficiencyItemBody {...compressionRatioProps} />
+        }
         <EfficiencyItemBody {...savingsProps} />
       </DashboardCardBody>
     </DashboardCard>
