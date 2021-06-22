@@ -3,7 +3,6 @@ import * as models from './models';
 import {
   ClusterServiceVersionAction,
   DashboardsCard,
-  DashboardsOverviewUtilizationItem,
   DashboardsTab,
   HorizontalNavTab,
   KebabActions,
@@ -28,7 +27,6 @@ type ConsumedExtensions =
   | ModelDefinition
   | DashboardsTab
   | DashboardsCard
-  | DashboardsOverviewUtilizationItem
   | RoutePage
   | CustomFeatureFlag
   | ClusterServiceVersionAction
