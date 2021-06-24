@@ -24,7 +24,6 @@ export const StorageInstanceModel: K8sKind = {
   abbr: 'FS',
   namespaced: true,
   kind: 'FlashSystemCluster', 
-  id: 'FlashSystem',
   crd: true,
 };
 
