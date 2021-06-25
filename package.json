@@ -1,0 +1,66 @@
+{
+  "name": "ibm-storage-odf-plugin",
+  "version": "0.0.0",
+  "description": "IBM Storage Plugin Openshift ODF",
+  "main": "index.js",
+  "author": "shdn-ibm <shdn@cn.ibm.com>",
+  "private": true,
+  "repository": "git@github.com:IBM/ibm-storage-odf-console.git",
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build": "yarn clean && NODE_ENV=production yarn ts-node ./node_modules/.bin/webpack",
+    "build-dev": "yarn clean && yarn ts-node ./node_modules/.bin/webpack",
+    "http-server": "./http-server.sh ./dist",
+    "ts-node": "ts-node -O '{\"module\":\"commonjs\"}' -I '/node_modules/(?!(@console)/)/'"
+  },
+  "dependencies": {
+    "@patternfly/patternfly": "4.103.6",
+    "@patternfly/react-core": "4.121.1",
+    "@patternfly/react-table": "4.27.7",
+    "@types/node": "^14.14.34",
+    "@types/react-helmet": "^6.1.1",
+    "classnames": "^2.3.1",
+    "lodash-es": "^4.17.21",
+    "react": "16.9.0",
+    "react-dom": "^17.0.1",
+    "react-helmet": "^6.1.0",
+    "react-i18next": "^11.8.11",
+    "react-router": "5.1.2",
+    "react-router-dom": "5.1.2"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.4",
+    "@types/react": "16.8.13",
+    "@types/react-router-dom": "5.1.2",
+    "@console/dynamic-plugin-sdk": "link:../console/frontend/packages/console-dynamic-plugin-sdk/dist",
+    "cache-loader": "1.x",
+    "comment-json": "4.x",
+    "css-loader": "0.28.x",
+    "file-loader": "1.x",
+    "http-server": "0.12.x",
+    "mini-css-extract-plugin": "0.4.x",
+    "node-sass": "^5.0.0",
+    "read-pkg": "5.x",
+    "resolve-url-loader": "2.x",
+    "sass-loader": "6.x",
+    "style-loader": "^0.23.1",
+    "thread-loader": "1.x",
+    "ts-loader": "6.2.2",
+    "ts-node": "5.0.1",
+    "typescript": "3.8.3",
+    "webpack": "5.0.0-beta.16",
+    "webpack-cli": "4.5.x"
+  },
+  "consolePlugin": {
+    "name": "ibm-storage-odf-plugin",
+    "version": "0.0.0",
+    "displayName": "IBM Storage Plugin",
+    "description": "IBM Storage Plugin for Openshift ODF",
+    "dependencies": {
+      "@console/pluginAPI": "*"
+    },
+    "exposedModules": {
+      "IBMStorageODFDetailPage" : "./odf-dashboard"
+    }
+  }
+}
