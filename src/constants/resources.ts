@@ -16,11 +16,17 @@
 import {
   WatchK8sResource,
 } from "@console/dynamic-plugin-sdk";
-import { StorageInstanceModel } from '../models';
+import { StorageInstanceModel, SubscriptionModel, ClusterServiceVersionModel } from '../models';
 import {referenceForModel} from "../selectors/index";
 
-export const operatorResource: WatchK8sResource = {
-  kind: "operators.coreos.com~v1alpha1~ClusterServiceVersion",
+export const SubscriptionResource: WatchK8sResource = {
+    isList: true,
+    kind: referenceForModel(SubscriptionModel),
+    namespaced: false,
+};
+
+export const OperatorResource: WatchK8sResource = {
+  kind: referenceForModel(ClusterServiceVersionModel),
   isList: true,
 };
   

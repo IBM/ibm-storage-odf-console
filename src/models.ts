@@ -27,3 +27,29 @@ export const StorageInstanceModel: K8sKind = {
   crd: true,
 };
 
+export const SubscriptionModel: K8sKind = {
+  kind: 'Subscription',
+  label: 'Subscription',
+  labelPlural: 'Subscriptions',
+  apiGroup: 'operators.coreos.com',
+  apiVersion: 'v1alpha1',
+  abbr: 'SUB',
+  namespaced: true,
+  crd: true,
+  plural: 'subscriptions',
+  legacyPluralURL: true,
+};
+
+export const ClusterServiceVersionModel: K8sKind = {
+  kind: 'ClusterServiceVersion',
+  label: 'ClusterServiceVersion',
+  labelPlural: 'ClusterServiceVersions',
+  apiGroup: 'operators.coreos.com',
+  apiVersion: 'v1alpha1',
+  abbr: 'CSV',
+  namespaced: true,
+  crd: true,
+  plural: 'clusterserviceversions',
+  propagationPolicy: 'Foreground',
+  legacyPluralURL: true,
+};

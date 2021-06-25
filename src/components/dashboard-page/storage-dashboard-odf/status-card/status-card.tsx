@@ -21,8 +21,6 @@ export const StatusCard: React.FC<any> = (props) => {
   const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace));
   const flashHealthState = getFlashsystemHealthState({ sto: { data: data, loaded: loaded, loadError: loadError } });
 
-  console.log({data: data});
-
   return (
     <Card className="co-dashboard-card co-dashboard-card--gradient">
       <CardHeader className="co-dashboard-card__header">
@@ -33,7 +31,7 @@ export const StatusCard: React.FC<any> = (props) => {
           <Gallery className="co-overview-status__health" hasGutter>
             <GalleryItem>
               <HealthItem
-                title="Storage System"
+                title={props?.match?.params?.name}
                 state={flashHealthState.state}
                 details={flashHealthState.message}
               />
