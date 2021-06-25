@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ibm-storage-odf-plugin
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ibm-storage-odf-plugin
+  namespace: ibm-storage-odf-plugin
+  labels:
+    app: ibm-storage-odf-plugin
+    app.kubernetes.io/component: ibm-storage-odf-plugin
+    app.kubernetes.io/instance: ibm-storage-odf-plugin
+    app.kubernetes.io/part-of: ibm-storage-odf-plugin
+    app.openshift.io/runtime-namespace: ibm-storage-odf-plugin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ibm-storage-odf-plugin
+  template:
+    metadata:
+      labels:
+        app: ibm-storage-odf-plugin
+    spec:
+      containers:
+        - name: ibm-storage-odf-plugin
+          image: quay.io/shdn/ibm-storage-odf-plugin
+          ports:
+            - containerPort: 9003
+              protocol: TCP
+          imagePullPolicy: Always
+          args:
+            - '--ssl'
+            - '--cert=/var/serving-cert/tls.crt'
+            - '--key=/var/serving-cert/tls.key'
+          volumeMounts:
+            - name: console-serving-cert
+              readOnly: true
+              mountPath: /var/serving-cert
+      volumes:
+        - name: console-serving-cert
+          secret:
+            secretName: console-serving-cert
+            defaultMode: 420
+      restartPolicy: Always
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.openshift.io/serving-cert-secret-name: console-serving-cert
+  name: ibm-storage-odf-plugin
+  namespace: ibm-storage-odf-plugin
+  labels:
+    app: ibm-storage-odf-plugin
+    app.kubernetes.io/component: ibm-storage-odf-plugin
+    app.kubernetes.io/instance: ibm-storage-odf-plugin
+    app.kubernetes.io/part-of: ibm-storage-odf-plugin
+spec:
+  ports:
+    - name: 9003-tcp
+      protocol: TCP
+      port: 9003
+      targetPort: 9003
+  selector:
+    app: ibm-storage-odf-plugin
+  type: ClusterIP
+  sessionAffinity: None
+---
+apiVersion: console.openshift.io/v1alpha1
+kind: ConsolePlugin
+metadata:
+  name: ibm-storage-odf-plugin
+spec:
+  displayName: 'IBM Storage Plugin for Openshift ODF'
+  service:
+    name: ibm-storage-odf-plugin
+    namespace: ibm-storage-odf-plugin
+    port: 9003
+    basePath: '/'

@@ -20,17 +20,17 @@ const UpperSection: React.FC = (props) => {
   return (
     <Grid hasGutter>
       <GridItem span={8}>
-        <StatusCard />
+        <StatusCard {...props}/>
       </GridItem>
     </Grid>
   );
 };
 
-const ODFDashboard: React.FC = () => {
+const ODFDashboard: React.FC = (props) => {
   return (
     <>
       <div className="co-dashboard-body">
-        <UpperSection />
+        <UpperSection {...props}/>
       </div>
     </>
   );

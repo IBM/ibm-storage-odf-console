@@ -15,12 +15,13 @@ import {
 import { getFlashsystemHealthState } from './utils';
 import { StorageInstanceKind } from '../../../../types';
 //import { StorageInstanceModel } from '../../../../models';
-import {FlashSystemResource} from '../../../../constants/resources'
+import {GetFlashSystemResource} from '../../../../constants/resources'
 
-export const StatusCard: React.FC = (props) => {
-  console.log({props: props});
-  const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(FlashSystemResource);
-  const flashHealthState = getFlashsystemHealthState({ sto: { data: [data], loaded: loaded, loadError: loadError } });
+export const StatusCard: React.FC<any> = (props) => {
+  const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace));
+  const flashHealthState = getFlashsystemHealthState({ sto: { data: data, loaded: loaded, loadError: loadError } });
+
+  console.log({data: data});
 
   return (
     <Card className="co-dashboard-card co-dashboard-card--gradient">

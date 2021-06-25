@@ -28,3 +28,13 @@ export const FlashSystemResource: WatchK8sResource = {
   kind: referenceForModel(StorageInstanceModel),
   isList: true,
 };
+
+export const GetFlashSystemResource =(name: string, namespace?: string)=> {
+  const resource: WatchK8sResource = {
+    kind: referenceForModel(StorageInstanceModel),
+    name: name,
+    namespace: namespace,
+    isList: true,
+  }
+  return resource;
+}
