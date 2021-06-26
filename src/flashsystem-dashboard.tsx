@@ -2,12 +2,12 @@ import * as React from 'react';
 import * as _ from 'lodash';
 import { Helmet } from "react-helmet";
 import { HorizontalNav, PageHeading } from "@console/dynamic-plugin-sdk/api";
-import { Grid, GridItem, gridSpans } from "@patternfly/react-core";
+import { Grid, GridItem } from "@patternfly/react-core";
 
 //import InventoryCard from './components/dashboard-page/storage-dashboard-odf/inventory-card';
-import DetailsCard from './components/dashboard-page/storage-dashboard-odf/details-card/details-card';
-import StatusCard from './components/dashboard-page/storage-dashboard-odf/status-card/status-card';
-//import StorageEfficiencyCard from './components/dashboard-page/storage-dashboard-odf/storage-efficiency-card/storage-efficiency-card';
+import DetailsCard from './components/details-card/details-card';
+import StatusCard from './components/status-card/status-card';
+import StorageEfficiencyCard from './components/storage-efficiency-card/storage-efficiency-card';
 //import UtilizationCard from './components/dashboard-page/storage-dashboard-odf/utilization-card/utilization-card';
 //import RawCapacityCard from './components/dashboard-page/storage-dashboard-odf/raw-capacity-card/raw-capacity-card';
 //import CapacityBreakdownCard from './components/dashboard-page/storage-dashboard-odf/capacity-breakdown/capacity-breakdown-card';
@@ -16,23 +16,40 @@ import StatusCard from './components/dashboard-page/storage-dashboard-odf/status
 //import {StorageInstanceKind} from './types';
 //import {StorageInstanceStatus} from './types';
 
-const lefCardWidth = 3;
-const mainCardWidth = 6;
-const rightCardWidth = 3;
-const mainCardOffset = lefCardWidth;
-const rightCardOffset = (mainCardOffset + mainCardWidth) as gridSpans;
-
 const UpperSection: React.FC = (props) => {
   return (
     <Grid hasGutter>
-      <GridItem span={lefCardWidth}>
-        <DetailsCard {...props}/>
+      <GridItem span={3}>
+        <Grid hasGutter>
+          <GridItem>
+            <DetailsCard {...props}/>
+          </GridItem>
+          <GridItem>
+            <StorageEfficiencyCard/>
+          </GridItem>
+          {/* <GridItem>
+            <InventoryCard/>
+          </GridItem> */}
+        </Grid>        
       </GridItem>
-      <GridItem span={mainCardWidth} offset={mainCardOffset}>
-        <StatusCard {...props}/>
+      <GridItem span={6}>
+        <Grid hasGutter>
+          <GridItem>
+            <StatusCard {...props}/>
+          </GridItem>
+          <GridItem>
+            {/* <RawCapacityCard {...props}/> */}
+          </GridItem>
+          <GridItem>
+            {/* <CapacityBreakdownCard {...props}/> */}
+          </GridItem>
+          <GridItem>
+            {/* <UtilizationCard {...props}/> */}
+          </GridItem>
+        </Grid>        
       </GridItem>
-      <GridItem span={rightCardWidth} offset={rightCardOffset}>
-        <StatusCard {...props}/>
+      <GridItem span={3} >
+        {/* <ActivityCard {...props}/> */}
       </GridItem>
     </Grid>
   );
