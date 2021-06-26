@@ -38,7 +38,7 @@ const UpperSection: React.FC = (props) => {
   );
 };
 
-const ODFDashboard: React.FC = (props) => {
+const FlashsystemDashboard: React.FC = (props) => {
   return (
     <>
       <div className="co-dashboard-body">
@@ -48,13 +48,13 @@ const ODFDashboard: React.FC = (props) => {
   );
 };
 
-const ODFDashboardPage: React.FC<any> = (props) => {
+const FlashsystemDashboardPage: React.FC<any> = (props) => {
   const title = "IBM FlashSystem";
   const allPages = [
     {
       href: "",
       name: "Overview",
-      component: ODFDashboard,
+      component: FlashsystemDashboard,
     },
   ];
   return (
@@ -68,6 +68,6 @@ const ODFDashboardPage: React.FC<any> = (props) => {
   );
 };
 
-export default ODFDashboardPage;
+export default FlashsystemDashboardPage;
 
 

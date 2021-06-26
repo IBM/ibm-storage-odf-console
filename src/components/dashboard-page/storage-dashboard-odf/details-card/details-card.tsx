@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as _ from 'lodash';
-//import { Link } from 'react-router-dom';
+import { Link, BrowserRouter as Router, } from 'react-router-dom';
 import {
     Card,
     CardBody,
@@ -13,42 +13,37 @@ import {
 } from "@console/dynamic-plugin-sdk/api";
 import {DetailItem} from './DetailItem';
 import DetailsBody from './DetailsBody';
-//import {ExternalLink} from './Link';
+import {ExternalLink} from './Link';
 import { 
   StorageInstanceKind, 
-  //K8sKind,
+  K8sKind,
  } from '../../../../types';
 import { 
   getEndpoint,  
-  //getIBMStorageODFVersion,
-  //resourcePathFromModel,
+  getIBMStorageODFVersion,
+  resourcePathFromModel,
   } from '../../../../selectors';
 import {
-  //ClusterServiceVersionModel,
+  ClusterServiceVersionModel,
 } from '../../../../models';
 import {
   GetFlashSystemResource, 
-  //SubscriptionResource, 
+  SubscriptionResource, 
 } from '../../../../constants/resources'
 
 const DetailsCard: React.FC<any> = (props) => {
   const flashClusterResource = GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace);
   const [data, flashsystemloaded, flashsystemloadError] = useK8sWatchResource<StorageInstanceKind>(flashClusterResource);
-  //const [subscriptions, subscriptionloaded, subscriptionloadError] = useK8sWatchResource<K8sKind[]>(SubscriptionResource);
-  
-  console.log({data: data});
+  const [subscriptions, subscriptionloaded, subscriptionloadError] = useK8sWatchResource<K8sKind[]>(SubscriptionResource);
 
   const stoData = data?.[0];
   const endpointAddress = getEndpoint(stoData);
-  //const odfVersion = getIBMStorageODFVersion(subscriptions);
-  /*
-  const odfPath = `${resourcePathFromModel(
+  const flashOperatorVersion = getIBMStorageODFVersion(subscriptions);
+  const operatorPath = `${resourcePathFromModel(
     ClusterServiceVersionModel,
-    odfVersion,
+    flashOperatorVersion,
     stoData?.metadata.namespace,
   )}`;
-  */
- const odfVersion = 'test123' + endpointAddress;
 
   return (
     <Card className="co-dashboard-card co-dashboard-card--gradient">
@@ -60,62 +55,10 @@ const DetailsCard: React.FC<any> = (props) => {
           <DetailItem
             key="operator-name"
             title="Operator Name"
-            error={!!flashsystemloadError }
-            isLoading={!flashsystemloaded }
+            error={!!subscriptionloadError }
+            isLoading={!subscriptionloaded }
           >
-            
-          </DetailItem>
-          <DetailItem
-            key="provider"
-            title="Provider"
-            error={!!flashsystemloadError}
-            isLoading={!flashsystemloaded}
-          >
-            
-            </DetailItem>
-          <DetailItem
-            key="mode"
-            title="Mode"
-            error={!!flashsystemloadError}
-            isLoading={!flashsystemloaded}
-          >
-            External
-          </DetailItem>
-          <DetailItem
-            key="storage-type"
-            title="Storage Type"
-            error={!!flashsystemloadError}
-            isLoading={!flashsystemloaded}
-          >
-            Block
-          </DetailItem>
-          <DetailItem
-            key="version"
-            title="Version"
-            error={!!flashsystemloadError}
-            isLoading={!flashsystemloaded}
-          >
-            {odfVersion}
-          </DetailItem>
-        </DetailsBody>
-    </CardBody>
-  </Card>
-  );
-  /*
-  return (
-    <DashboardCard>
-      <DashboardCardHeader>
-        <DashboardCardTitle>Details</DashboardCardTitle>
-      </DashboardCardHeader>
-      <DashboardCardBody>
-        <DetailsBody>
-          <DetailItem
-            key="operator-name"
-            title="Operator Name"
-            error={!!flashsystemloadError}
-            isLoading={!flashsystemloaded || !subscriptionsLoaded}
-          >
-            <Link to={odfPath}>OpenShift Data Foundation - IBM</Link>
+            <Router> <Link to={operatorPath} onClick={() => window.location.href=operatorPath}>OpenShift Data Foundation - IBM</Link> </Router>
           </DetailItem>
           <DetailItem
             key="provider"
@@ -150,12 +93,12 @@ const DetailsCard: React.FC<any> = (props) => {
             error={!!flashsystemloadError}
             isLoading={!flashsystemloaded}
           >
-            {odfVersion}
+            {flashOperatorVersion}
           </DetailItem>
         </DetailsBody>
-      </DashboardCardBody>
-    </DashboardCard>
-  );*/
+    </CardBody>
+  </Card>
+  );
 };
 
 export default DetailsCard;
