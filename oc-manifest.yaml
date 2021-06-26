@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: ibm-storage-odf-plugin
-          image: quay.io/shdn/ibm-storage-odf-plugin
+          image: quay.io/shdn/ibm-storage-odf-plugin:latest
           ports:
             - containerPort: 9003
               protocol: TCP

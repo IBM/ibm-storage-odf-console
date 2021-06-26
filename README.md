@@ -1,6 +1,13 @@
 # ibm-storage-odf-console
 ibm-storage-odf-console provides IBM storage specific console page, which will be loaded by ODF console when end users access IBM storage. It's specially designed for displaying IBM specific storage attributes to customer. Current scope includes IBM flashsystem only.
 
+## Dependency
+Refer the Readme in below repo to install the nessesary packages. IBM storage plugin works with OCP console dynamic plugin and ODF console. It is enabled after ibm-storage-odf-operator installed sucessfully. 
+```
+https://github.com/bipuladh/odf-console
+https://github.com/openshift/console
+https://github.com/IBM/ibm-storage-odf-operator
+```
 ## Local development
 
 1. `git clone https://github.com/IBM/ibm-storage-odf-console.git` to clone this repo.
@@ -9,8 +16,8 @@ ibm-storage-odf-console provides IBM storage specific console page, which will b
 
 
 ## Deployment in a cluster
-Console dynamic plugins are supposed to be deployed via [OLM operators](https://github.com/operator-framework).
-In case of demo plugin, we just apply a minimal OpenShift manifest which adds the necessary resources.
+IBM storage plugins are supposed to be deployed via [OLM operators](https://github.com/operator-framework).
+In case of testing this plugin, we just apply a minimal OpenShift manifest which adds the necessary resources.
 
 ```sh
 oc apply -f oc-manifest.yaml
@@ -23,7 +30,7 @@ a trusted CA certificate.
 
 ## Enabling the plugin
 
-Once deployed on the cluster, demo plugin must be enabled before it can be loaded by Console.
+Once deployed on the cluster, this plugin must be enabled before it can be loaded by Console.
 
 To enable the plugin manually, edit [Console operator](https://github.com/openshift/console-operator)
 config and make sure the plugin's name is listed in the `spec.plugins` sequence (add one if missing):
@@ -45,5 +52,5 @@ spec:
 Following commands should be executed in Console repository root.
 1. Build the image
 ```
-docker build -f Dockerfile -t quay.io/$USER/ibm-storage-odf-plugin .
+docker build -f Dockerfile -t quay.io/shdn/ibm-storage-odf-plugin:latest .
 ```
