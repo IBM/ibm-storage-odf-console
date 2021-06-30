@@ -24,7 +24,7 @@ import { StorageInstanceKind, EventKind } from '../../types';
 
 const eventsResource: FirehoseResource = { isList: true, kind: EventModel.kind, prop: 'events' };
 
-const RecentEvent = (props) =>{
+const RecentEvent: React.FC = (props) =>{
   const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace));
   const namespace= loaded && !loadError? data?.[0]?.metadata.namespace: '';
   const odfEventNamespaceKindFilter = (event: EventKind): boolean => {
