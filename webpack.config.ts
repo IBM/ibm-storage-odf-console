@@ -78,6 +78,7 @@ const config: webpack.Configuration = {
   },
   externals: {
     "@console/dynamic-plugin-sdk/api": "api",
+    "@console/dynamic-plugin-sdk/provisional": "api",
   },
 };
 

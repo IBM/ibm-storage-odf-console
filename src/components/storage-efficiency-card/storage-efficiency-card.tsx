@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  usePrometheusQuery,
-} from "@console/dynamic-plugin-sdk/api";
+import { useDashboardPrometheusQuery as usePrometheusQuery } from "@console/dynamic-plugin-sdk/provisional";
 
 import {
   Card,

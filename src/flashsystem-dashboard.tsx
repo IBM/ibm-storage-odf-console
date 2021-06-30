@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import { Helmet } from "react-helmet";
-import { HorizontalNav, PageHeading } from "@console/dynamic-plugin-sdk/api";
+import { HorizontalNav, PageHeading } from "@console/dynamic-plugin-sdk/provisional";
 import { Grid, GridItem } from "@patternfly/react-core";
 
 //import InventoryCard from './components/dashboard-page/storage-dashboard-odf/inventory-card';

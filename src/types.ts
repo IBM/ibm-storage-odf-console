@@ -105,3 +105,9 @@ export type StorageInstanceKind = {
   spec: StorageInstanceSpec;
   status?: StorageInstanceStatus;
 } & K8sResourceCommon;
+
+export type SecretKind = {
+  data?: { [key: string]: string };
+  stringData?: { [key: string]: string };
+  type?: string;
+} & K8sResourceCommon;

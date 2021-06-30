@@ -53,3 +53,17 @@ export const ClusterServiceVersionModel: K8sKind = {
   propagationPolicy: 'Foreground',
   legacyPluralURL: true,
 };
+
+export const SecretModel: K8sKind = {
+  apiVersion: 'v1',
+  apiGroup: 'core',
+  label: 'Secret',
+  labelKey: 'public~Secret',
+  plural: 'secrets',
+  abbr: 'S',
+  namespaced: true,
+  kind: 'Secret',
+  id: 'secret',
+  labelPlural: 'Secrets',
+  labelPluralKey: 'public~Secrets',
+};
