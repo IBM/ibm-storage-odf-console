@@ -53,15 +53,15 @@ const RawCapacityCard: React.FC<any> = (props)  => {
       <DashboardCardHeader>
         <DashboardCardTitle>{t('Phycical Capacity Overview')}</DashboardCardTitle>
       </DashboardCardHeader>
-      <DashboardCardBody className="ceph-raw-usage__container">
+      <DashboardCardBody className="flashsystem-raw-usage__container">
         {loaded && !loadError && (
           <>
-            <div className="ceph-raw-usage__item ceph-raw-usage__legend">
+            <div className="flashsystem-raw-usage__item flashsystem-raw-usage__legend">
               <ChartLegend
                 fill={colorScale[0]}
                 title={t('Used')}
                 text={usedCapacity.string}
-                titleClassName="ceph-raw-card-legend__title--pad"
+                titleClassName="flashsystem-raw-card-legend__title--pad"
               />
               <ChartLegend
                 fill={colorScale[1]}
@@ -69,7 +69,7 @@ const RawCapacityCard: React.FC<any> = (props)  => {
                 text={availableCapacity.string}
               />
             </div>
-            <div className="ceph-raw-usage__item ceph-raw-usage__chart">
+            <div className="flashsystem-raw-usage__item flashsystem-raw-usage__chart">
               <ChartDonut
                 ariaDesc={t('Available versus Used Capacity')}
                 ariaTitle={t('Available versus Used Capacity')}
@@ -97,12 +97,12 @@ const RawCapacityCard: React.FC<any> = (props)  => {
 };
 
 const LoadingCardBody: React.FC = () => (
-  <div className="ceph-raw-usage__container">
-    <div className="ceph-raw-usage-loading__legend">
-      <div className="ceph-raw-usage-loading-legend__item skeleton-activity" />
-      <div className="ceph-raw-usage-loading-legend__item skeleton-activity" />
+  <div className="flashsystem-raw-usage__container">
+    <div className="flashsystem-raw-usage-loading__legend">
+      <div className="flashsystem-raw-usage-loading-legend__item skeleton-activity" />
+      <div className="flashsystem-raw-usage-loading-legend__item skeleton-activity" />
     </div>
-    <div className="ceph-raw-usage-loading__chart skeleton-activity" />
+    <div className="flashsystem-raw-usage-loading__chart skeleton-activity" />
   </div>
 );
 
@@ -110,7 +110,7 @@ const ErrorCardBody: React.FC = () => {
   const { t } = useTranslation();
   return (
     <>
-      <div className="ceph-raw-usage--error text-muted">
+      <div className="flashsystem-raw-usage--error text-muted">
         {t('storage-advance~Not Available')}
       </div>
     </>
@@ -118,13 +118,13 @@ const ErrorCardBody: React.FC = () => {
 };
 
 const ChartLegend: React.FC<ChartLegendProps> = ({ fill, title, text, titleClassName }) => (
-  <div className="ceph-raw-card-legend__container">
-    <div className="ceph-raw-card-legend__index-block">
-      <div className="ceph-raw-card-legend__color-square" style={{ backgroundColor: fill }} />
-      <div className={classNames('ceph-raw-card-legend__title', titleClassName)}>{title}</div>
+  <div className="flashsystem-raw-card-legend__container">
+    <div className="flashsystem-raw-card-legend__index-block">
+      <div className="flashsystem-raw-card-legend__color-square" style={{ backgroundColor: fill }} />
+      <div className={classNames('flashsystem-raw-card-legend__title', titleClassName)}>{title}</div>
     </div>
-    <div className="ceph-raw-card-legend__value-block">
-      <div className="ceph-raw-card-legend__text">{text}</div>
+    <div className="flashsystem-raw-card-legend__value-block">
+      <div className="flashsystem-raw-card-legend__text">{text}</div>
     </div>
   </div>
 );
