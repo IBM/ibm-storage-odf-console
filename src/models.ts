@@ -67,3 +67,33 @@ export const SecretModel: K8sKind = {
   labelPlural: 'Secrets',
   labelPluralKey: 'public~Secrets',
 };
+
+export const PersistentVolumeClaimModel: K8sKind = {
+  label: 'PersistentVolumeClaim',
+  // t('public~PersistentVolumeClaim')
+  labelKey: 'public~PersistentVolumeClaim',
+  apiVersion: 'v1',
+  plural: 'persistentvolumeclaims',
+  abbr: 'PVC',
+  namespaced: true,
+  kind: 'PersistentVolumeClaim',
+  id: 'persistentvolumeclaim',
+  labelPlural: 'PersistentVolumeClaims',
+  // t('public~PersistentVolumeClaims')
+  labelPluralKey: 'public~PersistentVolumeClaims',
+};
+
+export const EventModel: K8sKind = {
+  apiVersion: 'v1',
+  label: 'Event',
+  // t('public~Event')
+  labelKey: 'public~Event',
+  plural: 'events',
+  abbr: 'E',
+  namespaced: true,
+  kind: 'Event',
+  id: 'event',
+  labelPlural: 'Events',
+  // t('public~Events')
+  labelPluralKey: 'public~Events',
+};

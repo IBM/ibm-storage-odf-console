@@ -75,5 +75,8 @@ export const getId = (storage: K8sKind) =>
 export const getVersion = (storage: K8sKind) =>
   _.get(storage, ['status', 'version']);
 
+export const getNamespace = (resource) =>
+  _.get(resource, ['metadata', 'namespace']);
+
 export const getEndpoint = (secret: SecretKind) =>
   _.get(secret, ['data', 'management_address']);
