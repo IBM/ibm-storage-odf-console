@@ -11,8 +11,10 @@ import { Base64 } from 'js-base64';
 import {
     useK8sWatchResource,
 } from "@console/dynamic-plugin-sdk/api";
-import {DetailItem} from './DetailItem';
-import DetailsBody from './DetailsBody';
+import {
+  DetailItem,
+  DetailsBody,
+} from "@console/dynamic-plugin-sdk/provisional";
 import {ExternalLink} from './Link';
 import { 
   StorageInstanceKind, 
