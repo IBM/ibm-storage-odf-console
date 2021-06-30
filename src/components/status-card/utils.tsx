@@ -15,18 +15,18 @@ enum HealthState {
 }
 
 const FlashsystemHealthStatus = {
-  Ready: {
+  'Ready': {
     state: HealthState.OK,
   },
   'Not Ready': {
     state: HealthState.WARNING,
     message: 'Warning',
   },
-  Error: {
+  'Error': {
     state: HealthState.ERROR,
     message: 'Error',
   },
-  PROCESSING: {
+  'PROCESSING': {
     state: HealthState.PROGRESS,
     message: 'PROGRESS',
   },
