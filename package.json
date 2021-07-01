@@ -2,7 +2,6 @@
   "name": "ibm-storage-odf-plugin",
   "version": "0.0.0",
   "description": "IBM Storage Plugin Openshift ODF",
-  "main": "index.js",
   "author": "shdn-ibm <shdn@cn.ibm.com>",
   "private": true,
   "repository": "git@github.com:IBM/ibm-storage-odf-console.git",
@@ -15,6 +14,7 @@
   },
   "dependencies": {
     "@patternfly/patternfly": "4.103.6",
+    "@patternfly/react-charts": "6.14.29",
     "@patternfly/react-core": "4.121.1",
     "@patternfly/react-table": "4.27.7",
     "@types/node": "^14.14.34",

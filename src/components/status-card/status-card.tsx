@@ -24,9 +24,11 @@ import {
   GalleryItem,
 } from "@patternfly/react-core";
 import {
-  HealthItem,
   useK8sWatchResource,
 } from "@console/dynamic-plugin-sdk/api";
+import {
+  HealthItem,
+} from "@console/dynamic-plugin-sdk/provisional";
 import { getFlashsystemHealthState } from './utils';
 import { StorageInstanceKind } from '../../types';
 //import { StorageInstanceModel } from '../../../../models';

@@ -22,16 +22,19 @@ import {
     CardHeader,
     CardTitle,
   } from "@patternfly/react-core";
-
+import { Base64 } from 'js-base64';
 import {
     useK8sWatchResource,
 } from "@console/dynamic-plugin-sdk/api";
-import {DetailItem} from './DetailItem';
-import DetailsBody from './DetailsBody';
+import {
+  DetailItem,
+  DetailsBody,
+} from "@console/dynamic-plugin-sdk/provisional";
 import {ExternalLink} from './Link';
 import { 
   StorageInstanceKind, 
   K8sKind,
+  SecretKind
  } from '../../types';
 import { 
   getEndpoint,  
@@ -43,7 +46,8 @@ import {
 } from '../../models';
 import {
   GetFlashSystemResource, 
-  SubscriptionResource, 
+  SubscriptionResource,
+  GetSecretResource 
 } from '../../constants/resources'
 
 const DetailsCard: React.FC<any> = (props) => {
@@ -52,7 +56,10 @@ const DetailsCard: React.FC<any> = (props) => {
   const [subscriptions, subscriptionloaded, subscriptionloadError] = useK8sWatchResource<K8sKind[]>(SubscriptionResource);
 
   const stoData = data?.[0];
-  const endpointAddress = getEndpoint(stoData);
+  const flashSecretResource = GetSecretResource(stoData?.metadata?.name, stoData?.metadata?.namespace);
+  const [secret, secretloaded, secretloadError] = useK8sWatchResource<SecretKind>(flashSecretResource);
+  const endpointAddress = secretloaded && !secretloadError ? Base64.decode(getEndpoint(secret)) : '';
+
   const flashOperatorVersion = getIBMStorageODFVersion(subscriptions);
   const operatorPath = `${resourcePathFromModel(
     ClusterServiceVersionModel,

@@ -17,6 +17,7 @@ import * as _ from 'lodash';
 
 import {
   K8sKind,
+  SecretKind
 } from "../types";
 import { IBM_STORAGE_ODF_OPERATOR } from '../constants';
 
@@ -74,5 +75,8 @@ export const getId = (storage: K8sKind) =>
 export const getVersion = (storage: K8sKind) =>
   _.get(storage, ['status', 'version']);
 
-export const getEndpoint = (storage: K8sKind) =>
-  _.get(storage, ['spec', 'endpoint']);
+export const getNamespace = (resource) =>
+  _.get(resource, ['metadata', 'namespace']);
+
+export const getEndpoint = (secret: SecretKind) =>
+  _.get(secret, ['data', 'management_address']);

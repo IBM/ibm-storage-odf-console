@@ -16,7 +16,7 @@
 import {
   WatchK8sResource,
 } from "@console/dynamic-plugin-sdk";
-import { StorageInstanceModel, SubscriptionModel, ClusterServiceVersionModel } from '../models';
+import { StorageInstanceModel, SubscriptionModel, ClusterServiceVersionModel, SecretModel } from '../models';
 import {referenceForModel} from "../selectors/index";
 
 export const SubscriptionResource: WatchK8sResource = {
@@ -44,3 +44,13 @@ export const GetFlashSystemResource =(name: string, namespace?: string)=> {
   }
   return resource;
 }
+
+export const GetSecretResource  =(name?: string, namespace?: string) => {
+    const resource: WatchK8sResource = {
+        isList: false,
+        kind: SecretModel.kind,
+        namespace: namespace,
+        name: name,
+      }
+    return resource;
+};

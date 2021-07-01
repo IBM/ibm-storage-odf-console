@@ -16,7 +16,7 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import { Helmet } from "react-helmet";
-import { HorizontalNav, PageHeading } from "@console/dynamic-plugin-sdk/api";
+import { HorizontalNav, PageHeading } from "@console/dynamic-plugin-sdk/provisional";
 import { Grid, GridItem } from "@patternfly/react-core";
 
 //import InventoryCard from './components/dashboard-page/storage-dashboard-odf/inventory-card';
@@ -26,7 +26,7 @@ import StorageEfficiencyCard from './components/storage-efficiency-card/storage-
 //import UtilizationCard from './components/dashboard-page/storage-dashboard-odf/utilization-card/utilization-card';
 //import RawCapacityCard from './components/dashboard-page/storage-dashboard-odf/raw-capacity-card/raw-capacity-card';
 //import CapacityBreakdownCard from './components/dashboard-page/storage-dashboard-odf/capacity-breakdown/capacity-breakdown-card';
-//import ActivityCard from './components/dashboard-page/storage-dashboard-odf/activity-card/activity-card';
+//import ActivityCard from './components/activity-card/activity-card';
 //import {StorageInstanceModel} from './models';
 //import {StorageInstanceKind} from './types';
 //import {StorageInstanceStatus} from './types';
