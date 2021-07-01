@@ -97,3 +97,49 @@ export const EventModel: K8sKind = {
   // t('public~Events')
   labelPluralKey: 'public~Events',
 };
+
+export const ProjectModel: K8sKind = {
+  apiVersion: 'v1',
+  apiGroup: 'project.openshift.io',
+  label: 'Project',
+  // t('public~Project')
+  labelKey: 'public~Project',
+  plural: 'projects',
+  abbr: 'PR',
+  kind: 'Project',
+  id: 'project',
+  labelPlural: 'Projects',
+  // t('public~Projects')
+  labelPluralKey: 'public~Projects',
+};
+
+export const PodModel: K8sKind = {
+  apiVersion: 'v1',
+  label: 'Pod',
+  // t('public~Pod')
+  labelKey: 'public~Pod',
+  plural: 'pods',
+  abbr: 'P',
+  namespaced: true,
+  kind: 'Pod',
+  id: 'pod',
+  labelPlural: 'Pods',
+  // t('public~Pods')
+  labelPluralKey: 'public~Pods',
+};
+
+export const StorageClassModel: K8sKind = {
+  label: 'StorageClass',
+  // t('public~StorageClass')
+  labelKey: 'public~StorageClass',
+  labelPlural: 'StorageClasses',
+  // t('public~StorageClasses')
+  labelPluralKey: 'public~StorageClasses',
+  apiVersion: 'v1',
+  apiGroup: 'storage.k8s.io',
+  plural: 'storageclasses',
+  abbr: 'SC',
+  namespaced: false,
+  kind: 'StorageClass',
+  id: 'storageclass',
+};
