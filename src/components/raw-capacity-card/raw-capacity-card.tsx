@@ -51,7 +51,7 @@ const RawCapacityCard: React.FC<any> = (props)  => {
   return (
     <DashboardCard>
       <DashboardCardHeader>
-        <DashboardCardTitle>{t('Phycical Capacity Overview')}</DashboardCardTitle>
+        <DashboardCardTitle>{t('Physical Capacity Overview')}</DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody className="flashsystem-raw-usage__container">
         {loaded && !loadError && (
