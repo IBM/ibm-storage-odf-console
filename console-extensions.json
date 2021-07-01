@@ -1,0 +1,53 @@
+[
+  {
+    "type": "console.flag/model",
+    "properties": {
+      "flag": "ODF_IBM_STORAGE",
+      "model": {
+        "group": "odf.ibm.com",
+        "version": "v1alpha1",
+        "kind": "FlashSystemCluster"
+      }
+    }
+  },
+  {
+    "type": "console.navigation/href",
+    "properties": {
+      "id": "ibmstoragesystem",
+      "insertBefore": "persistentvolumes",
+      "section": "storage",
+      "name": "IBM Flash Systems",
+      "href": "/k8s/all-namespaces/odf.ibm.com~v1alpha1~FlashSystemCluster"
+    },
+    "flags": {
+      "required": ["ODF_IBM_STORAGE"]
+    }
+  },
+  {
+    "type": "console.page/resource/details",
+    "properties": {
+      "model": {
+        "group": "odf.ibm.com",
+        "version": "v1alpha1",
+        "kind": "FlashSystemCluster"
+      },
+      "component":{"$codeRef": "IBMStorageODFDetailPage"}
+    },
+    "flags": {
+      "required": ["ODF_IBM_STORAGE"]
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "exact": true,
+      "path": ["/odf/system/FlashSystemCluster/:name"],
+      "component": {
+        "$codeRef": "IBMStorageODFDetailPage"
+      }
+    },
+    "flags": {
+      "required": ["ODF_IBM_STORAGE"]
+    }
+  }
+]
