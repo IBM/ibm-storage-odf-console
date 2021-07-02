@@ -12,25 +12,29 @@ import {
   useK8sWatchResource,
 } from "@console/dynamic-plugin-sdk/api";
 import { FirehoseResource } from "@console/dynamic-plugin-sdk";
-import {getNamespace} from "../../selectors/index";
-//import { IBM_STORAGE_ODF_OPERATOR } from '../../constants/index';
-import {
-   PersistentVolumeClaimModel, 
-   EventModel,    
+import { IBM_STORAGE_CSI_PROVISIONER } from '../../constants/index';
+import { 
+   EventModel, 
+   StorageInstanceModel,   
   } from '../../models';
 import './activity-card.scss';
-import {GetFlashSystemResource} from '../../constants/resources';
-import { StorageInstanceKind, EventKind } from '../../types';
+//import {GetFlashSystemResource} from '../../constants/resources';
+import { EventKind } from '../../types';
 
 const eventsResource: FirehoseResource = { isList: true, kind: EventModel.kind, prop: 'events' };
 
-const RecentEvent: React.FC = (props) =>{
-  const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace));
-  const namespace= loaded && !loadError? data?.[0]?.metadata.namespace: '';
+const RecentEvent = (props) =>{
+  //const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace));
+  //const name= loaded && !loadError? data?.[0]?.metadata.name: '';
+  //const namespace= loaded && !loadError? data?.[0]?.metadata.namespace: '';
+  const name = props?.match?.params?.name;
   const odfEventNamespaceKindFilter = (event: EventKind): boolean => {
-    const eventKind = event?.involvedObject?.kind;
-    const eventNamespace = getNamespace(event);
-    return eventNamespace === namespace || eventKind === PersistentVolumeClaimModel.kind;
+    const eventSource = event?.source?.component;
+    const isIBMStorageCSIprovisioner = eventSource.indexOf(IBM_STORAGE_CSI_PROVISIONER) != -1;
+    const isFlashsystemClusterKind = eventSource.indexOf(StorageInstanceModel.kind) != -1;
+    const eventName =  _.get(event, ['metadata', 'name']);
+    const isNameIncluded = eventName.indexOf(name) != -1;
+    return isFlashsystemClusterKind || isIBMStorageCSIprovisioner || isNameIncluded;
   };
   const [events, eventsLoaded] = useK8sWatchResource(eventsResource);
   return (
