@@ -1,0 +1,13 @@
+[
+  {
+    "type": "console.flag/model",
+    "properties": {
+      "flag": "ODF_IBM_STORAGE",
+      "model": {
+        "group": "odf.ibm.com",
+        "version": "v1alpha1",
+        "kind": "FlashSystemCluster"
+      }
+    }
+  }
+]
