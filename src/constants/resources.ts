@@ -17,7 +17,7 @@ import {
   WatchK8sResource,
 } from "@console/dynamic-plugin-sdk";
 import { StorageInstanceModel, SubscriptionModel, ClusterServiceVersionModel, SecretModel } from '../models';
-import {referenceForModel} from "../selectors/index";
+import {referenceForModel} from "../selectors";
 
 export const SubscriptionResource: WatchK8sResource = {
     isList: true,
