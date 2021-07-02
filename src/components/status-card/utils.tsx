@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import * as _ from 'lodash';
-//import { WatchFlashSystemResource } from '../../../../types';
 import { StorageInstanceKind } from '../../types';
 //import { IBM_FlASHSYSTEM } from '../../../../constants/index';
 
@@ -63,6 +62,5 @@ export const getFlashsystemHealthState = ({ sto }) => {
   return FlashsystemHealthStatus[status] || { state: HealthState.UNKNOWN };
 };
 export const StorageStatus = (data: StorageInstanceKind) => (data?.status?.phase);
-
 
 
