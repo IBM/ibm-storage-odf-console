@@ -31,7 +31,6 @@
  import { EFFICIENCY_SAVING_QUERY } from "../../constants/queries";
  import './storage-efficiency-card.scss';
  
- 
  const StorageEfficiencyCardBody: React.FC = () => {
    const { t } = useTranslation();
    const [saving, ,] = usePrometheusQuery(
