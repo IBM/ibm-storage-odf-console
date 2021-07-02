@@ -39,10 +39,6 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.3.tgz#90420f9f9c6d3987f176a19a7d8e764271a2f55d"
   integrity sha512-Fxt+AfXgjMoin2maPIYzFZnQjAXjAL0PHscM5pRTtatFqB+vZxAM9tLp2Optnuw3QOQC40jTNeGYFOMvyf7v9g==
 
-"@dynamic-sdk/provisional-api@file:../console/frontend/packages/console-dynamic-plugin-sdk/dist/dynamic-sdk-provisional-api-v0.0.0-fixed.tgz":
-  version "0.0.0-fixed"
-  resolved "file:../console/frontend/packages/console-dynamic-plugin-sdk/dist/dynamic-sdk-provisional-api-v0.0.0-fixed.tgz#7a2201933dd50ad0d9daa0dfc7e0b6cb801cc439"
-
 "@patternfly/patternfly@4.103.6":
   version "4.103.6"
   resolved "https://registry.yarnpkg.com/@patternfly/patternfly/-/patternfly-4.103.6.tgz#a01b1dced931eb4971a6c7366901fdde81a52284"
