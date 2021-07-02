@@ -18,12 +18,14 @@ import { useTranslation } from 'react-i18next';
 import { useDashboardPrometheusQuery as usePrometheusQuery } from "@console/dynamic-plugin-sdk/provisional";
 
 import {
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
   Tooltip,
 } from "@patternfly/react-core";
+import {
+  DashboardCard,
+  DashboardCardBody,
+  DashboardCardHeader,
+  DashboardCardTitle,
+} from '@console/dynamic-plugin-sdk/provisional';
 import OutlinedQuestionCircleIcon from "@patternfly/react-icons/dist/js/icons/outlined-question-circle-icon";
 import { humanizeBinaryBytes } from "../../humanize";
 import { EFFICIENCY_SAVING_QUERY } from "../../constants/queries";
@@ -64,14 +66,14 @@ const StorageEfficiencyCardBody: React.FC = () => {
 const StorageEfficiencyCard: React.FC = () => {
   const { t } = useTranslation();
   return (
-  <Card className="co-dashboard-card co-dashboard-card--gradient">
-    <CardHeader className="co-dashboard-card__header">
-      <CardTitle className="co-dashboard-card__title">{t('Storage Efficiency')}</CardTitle>
-    </CardHeader>
-    <CardBody className="co-dashboard-card__body">
+  <DashboardCard gradient>
+    <DashboardCardHeader>
+      <DashboardCardTitle>{t('Storage Efficiency')}</DashboardCardTitle>
+    </DashboardCardHeader>
+    <DashboardCardBody>
       <StorageEfficiencyCardBody/>
-    </CardBody>
-  </Card>
+    </DashboardCardBody>
+  </DashboardCard>
 )};
 
 export default StorageEfficiencyCard;
