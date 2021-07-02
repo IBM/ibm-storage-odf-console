@@ -58,20 +58,19 @@ export const SecretModel: K8sKind = {
   apiVersion: 'v1',
   apiGroup: 'core',
   label: 'Secret',
-  labelKey: 'public~Secret',
+  labelKey: 'Secret',
   plural: 'secrets',
   abbr: 'S',
   namespaced: true,
   kind: 'Secret',
   id: 'secret',
   labelPlural: 'Secrets',
-  labelPluralKey: 'public~Secrets',
+  labelPluralKey: 'Secrets',
 };
 
 export const PersistentVolumeClaimModel: K8sKind = {
   label: 'PersistentVolumeClaim',
-  // t('public~PersistentVolumeClaim')
-  labelKey: 'public~PersistentVolumeClaim',
+  labelKey: 'PersistentVolumeClaim',
   apiVersion: 'v1',
   plural: 'persistentvolumeclaims',
   abbr: 'PVC',
@@ -79,21 +78,18 @@ export const PersistentVolumeClaimModel: K8sKind = {
   kind: 'PersistentVolumeClaim',
   id: 'persistentvolumeclaim',
   labelPlural: 'PersistentVolumeClaims',
-  // t('public~PersistentVolumeClaims')
-  labelPluralKey: 'public~PersistentVolumeClaims',
+  labelPluralKey: 'PersistentVolumeClaims',
 };
 
 export const EventModel: K8sKind = {
   apiVersion: 'v1',
   label: 'Event',
-  // t('public~Event')
-  labelKey: 'public~Event',
+  labelKey: 'Event',
   plural: 'events',
   abbr: 'E',
   namespaced: true,
   kind: 'Event',
   id: 'event',
   labelPlural: 'Events',
-  // t('public~Events')
-  labelPluralKey: 'public~Events',
+  labelPluralKey: 'Events',
 };
