@@ -16,25 +16,23 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import { Link, BrowserRouter as Router, } from 'react-router-dom';
-import {
-    Card,
-    CardBody,
-    CardHeader,
-    CardTitle,
-  } from "@patternfly/react-core";
 import { Base64 } from 'js-base64';
 import {
     useK8sWatchResource,
 } from "@console/dynamic-plugin-sdk/api";
 import {
+  DashboardCard,
+  DashboardCardBody,
+  DashboardCardHeader,
+  DashboardCardTitle,
   DetailItem,
   DetailsBody,
-} from "@console/dynamic-plugin-sdk/provisional";
+} from '@console/dynamic-plugin-sdk/provisional';
 import {ExternalLink} from './Link';
 import { 
   StorageInstanceKind, 
   K8sKind,
-  SecretKind
+  SecretKind,
  } from '../../types';
 import { 
   getEndpoint,  
@@ -68,11 +66,11 @@ const DetailsCard: React.FC<any> = (props) => {
   )}`;
 
   return (
-    <Card className="co-dashboard-card co-dashboard-card--gradient">
-    <CardHeader className="co-dashboard-card__header">
-      <CardTitle className="co-dashboard-card__title">Details</CardTitle>
-    </CardHeader>
-    <CardBody className="co-dashboard-card__body">
+    <DashboardCard>
+      <DashboardCardHeader>
+        <DashboardCardTitle>Details</DashboardCardTitle>
+      </DashboardCardHeader>
+      <DashboardCardBody>
        <DetailsBody>
           <DetailItem
             key="operator-name"
@@ -118,8 +116,8 @@ const DetailsCard: React.FC<any> = (props) => {
             {flashOperatorVersion}
           </DetailItem>
         </DetailsBody>
-    </CardBody>
-  </Card>
+        </DashboardCardBody>
+    </DashboardCard>
   );
 };
 
