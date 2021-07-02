@@ -59,7 +59,7 @@
       "@console/pluginAPI": "*"
     },
     "exposedModules": {
-     
+      "IBMStorageODFDetailPage" : "./flashsystem-dashboard"
     }
   }
 }
