@@ -15,7 +15,6 @@
  */
 import * as _ from 'lodash';
 import { StorageInstanceKind } from '../../types';
-//import { IBM_FlASHSYSTEM } from '../../../../constants/index';
 
 enum HealthState {
   OK = "OK",
