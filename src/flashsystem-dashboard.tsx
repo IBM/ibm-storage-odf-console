@@ -20,9 +20,9 @@ import { HorizontalNav, PageHeading } from "@console/dynamic-plugin-sdk/provisio
 import { Grid, GridItem } from "@patternfly/react-core";
 
 //import InventoryCard from './components/dashboard-page/storage-dashboard-odf/inventory-card';
-import DetailsCard from './components/details-card/details-card';
-import StatusCard from './components/status-card/status-card';
-import StorageEfficiencyCard from './components/storage-efficiency-card/storage-efficiency-card';
+// import DetailsCard from './components/details-card/details-card';
+// import StatusCard from './components/status-card/status-card';
+// import StorageEfficiencyCard from './components/storage-efficiency-card/storage-efficiency-card';
 //import UtilizationCard from './components/dashboard-page/storage-dashboard-odf/utilization-card/utilization-card';
 //import RawCapacityCard from './components/dashboard-page/storage-dashboard-odf/raw-capacity-card/raw-capacity-card';
 //import CapacityBreakdownCard from './components/dashboard-page/storage-dashboard-odf/capacity-breakdown/capacity-breakdown-card';
@@ -37,10 +37,10 @@ const UpperSection: React.FC = (props) => {
       <GridItem span={3}>
         <Grid hasGutter>
           <GridItem>
-            <DetailsCard {...props}/>
+            {/* <DetailsCard {...props}/> */}
           </GridItem>
           <GridItem>
-            <StorageEfficiencyCard/>
+            {/* <StorageEfficiencyCard/> */}
           </GridItem>
           {/* <GridItem>
             <InventoryCard/>
@@ -50,7 +50,7 @@ const UpperSection: React.FC = (props) => {
       <GridItem span={6}>
         <Grid hasGutter>
           <GridItem>
-            <StatusCard {...props}/>
+            {/* <StatusCard {...props}/> */}
           </GridItem>
           <GridItem>
             {/* <RawCapacityCard {...props}/> */}

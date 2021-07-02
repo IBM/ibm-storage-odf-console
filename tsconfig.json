@@ -9,7 +9,6 @@
     "experimentalDecorators": true,
     "noUnusedLocals": true,
     "skipLibCheck": true,
-    "sourceMap": true,
     "paths": {
       "@console/dynamic-plugin-sdk/api": [
         "node_modules/@console/dynamic-plugin-sdk/lib/api/api"
