@@ -183,5 +183,23 @@ return {
 };
 });
 
+export const humanizeBinaryBytesWithoutB = (v, initialUnit, preferredUnit) =>
+  humanize(v, "binaryBytesWithoutB", true, initialUnit, preferredUnit);
 export const humanizeBinaryBytes = (v, initialUnit, preferredUnit) =>
-humanize(v, "binaryBytes", true, initialUnit, preferredUnit);
+  humanize(v, "binaryBytes", true, initialUnit, preferredUnit);
+export const humanizeDecimalBytes = (v, initialUnit, preferredUnit) =>
+  humanize(v, "decimalBytes", true, initialUnit, preferredUnit);
+export const humanizeDecimalBytesPerSec = (v, initialUnit, preferredUnit) =>
+  humanize(v, "decimalBytesPerSec", true, initialUnit, preferredUnit);
+export const humanizePacketsPerSec = (v, initialUnit, preferredUnit) =>
+  humanize(v, "packetsPerSec", true, initialUnit, preferredUnit);
+export const humanizeNumber = (v, initialUnit, preferredUnit) =>
+  humanize(v, "numeric", true, initialUnit, preferredUnit);
+export const humanizeNumberSI = (v, initialUnit, preferredUnit) =>
+  humanize(v, "SI", true, initialUnit, preferredUnit);
+export const humanizeSeconds = (v, initialUnit, preferredUnit) =>
+  humanize(v, "seconds", true, initialUnit, preferredUnit);
+export const secondsToNanoSeconds = (value) => {
+  const val = Number(value);
+  return Number.isFinite(val) ? val * 1000 ** 3 : 0;
+};  
