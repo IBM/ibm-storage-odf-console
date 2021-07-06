@@ -25,14 +25,12 @@ import { IBM_STORAGE_ODF_OPERATOR } from '../constants';
 
 export const getPodVolumes = (pod: PodKind): PodKind['spec']['volumes'] =>
   pod && pod.spec && pod.spec.volumes ? pod.spec.volumes : [];
-  
+
 export const referenceForModel = (storage: K8sKind) => {
   const kind=`${storage.apiGroup}~${storage.apiVersion}~${storage.kind}`;
   return kind;
 }
 
-<<<<<<< Updated upstream
-=======
 export const resourcePathFromModel = (model: K8sKind, name?: string, namespace?: string) => {
   const { plural, namespaced, crd } = model;
 
@@ -131,8 +129,6 @@ export const getCustomizedPods = (podData: K8sResourceKind[], provisionerName: s
   return filterPods;
 }
 
-
->>>>>>> Stashed changes
 export const getIBMStorageODFVersion = (items: K8sKind[]): string => {
   const itemsData: K8sKind[] = items;
   const operator: K8sKind = _.find(
