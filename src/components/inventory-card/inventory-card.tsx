@@ -21,12 +21,12 @@ import {
   DashboardCardHeader,
   DashboardCardTitle,
   DashboardCardBody,
+  ResourceInventoryItem，
  } from "@console/dynamic-plugin-sdk/provisional";
 import { FirehoseResource } from "@console/dynamic-plugin-sdk";
 import {
   useK8sWatchResource,
 } from "@console/dynamic-plugin-sdk/api";
-import { ResourceInventoryItem } from '@console/shared/src/components/dashboard/inventory-card/InventoryItem';
 import {
   PersistentVolumeModel,
   PersistentVolumeClaimModel,
