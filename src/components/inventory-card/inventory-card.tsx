@@ -68,29 +68,12 @@ const podResource: FirehoseResource = {
 };
 
 export const InventoryCard: React.FC<any> = (props) => {
-  //const { t } = useTranslation();
   const currentProvisioner = IBM_STORAGE_CSI_PROVISIONER;
-
   const [pvcsData, pvcsLoaded, pvcsLoadError] = useK8sWatchResource<K8sResourceCommon[]>(pvcResource);
-  
-  //const pvcsLoaded = _.get(resources.pvcs, 'loaded');
-  //const pvcsLoadError = _.get(resources.pvcs, 'loadError');
-  //const pvcsData = _.get(resources.pvcs, 'data', []) as K8sResourceKind[];
-
   const [pvsData, pvsLoaded, pvsLoadError] = useK8sWatchResource<K8sResourceCommon[]>(pvResource);
-  //const pvsLoaded = _.get(resources.pvs, 'loaded');
-  //const pvsLoadError = _.get(resources.pvs, 'loadError');
-  //const pvsData = _.get(resources.pvs, 'data', []) as K8sResourceKind[];
-
   const [podsData, podsLoaded, podsLoadError] = useK8sWatchResource<K8sResourceCommon[]>(podResource);
-  //const podsLoaded = _.get(resources.pods, 'loaded');
-  //const podsLoadError = _.get(resources.pods, 'loadError');
-  //const podsData = _.get(resources.pods, 'data', []) as K8sResourceKind[];
-
   const [scData, scLoaded, scLoadError] = useK8sWatchResource<K8sResourceCommon[]>(scResource);
-  //const scLoaded = _.get(resources.sc, 'loaded');
-  //const scLoadError = _.get(resources.sc, 'loadError');
-  //const scData = _.get(resources.sc, 'data', []) as K8sResourceKind[];
+
   const filteredSC = getCustomizedSC(scData, currentProvisioner);
   const filteredSCNames = filteredSC.map((sc) => _.get(sc, 'metadata.name'));
 
