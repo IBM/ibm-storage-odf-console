@@ -95,7 +95,6 @@ export const InventoryCard: React.FC<any> = (props) => {
           error={!!scLoadError}
           kind={StorageClassModel}
           resources={filteredSC}
-          //mapper={getPVCStatusGroups}
           showLink={true}
           basePath={scHref}
         />
