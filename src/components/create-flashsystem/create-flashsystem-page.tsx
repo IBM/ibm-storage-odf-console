@@ -20,49 +20,29 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-//import { match } from 'react-router';
 
 import { 
   ActionGroup, 
   Button,
-  //TextInput,
   Checkbox,
  } from '@patternfly/react-core';
 
 import {
-  //LoadingBox,
-  //ListDropdown,
   ButtonBar,
   history,
-  //ResourceIcon,
-  //resourceObjPath,
   HandlePromiseProps,
   withHandlePromise,
-  //convertToBaseValue,
-  //humanizeBinaryBytes,
 } from '@console/internal/components/utils';
 import {
   K8sKind,
   SecretKind,
   referenceForModel,
   k8sCreate,
-  //referenceFor,
-  //StorageClassResourceKind,
-  //PersistentVolumeClaimKind,
-  //k8sGet,
   apiVersionForModel,
 } from '@console/internal/module/k8s';
-//import { connectToPlural } from '@console/internal/kinds';
 import {
   SecretModel
-  //StorageClassModel,
-  //NamespaceModel,
 } from '@console/internal/models';
-//import { accessModeRadios } from '@console/internal/components/storage/shared';
-//import { PVCDropdown } from '@console/internal/components/utils/pvc-dropdown';
-//import { getName, getNamespace } from '@console/shared';
-//import { PVCStatus } from '@console/internal/components/persistent-volume-claim';
-//import { useK8sWatchResource } from '@console/internal/components/utils/k8s-watch-hook';
 
 import './_create-storage-instance.scss';
 import { StorageInstanceModel } from '../../models';
@@ -74,15 +54,10 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
     plural,
     namespace,
     handlePromise,
-    //inProgress,
-    //errorMessage,
   } = props;
 
-  //const [pvcName, setPVCName] = React.useState(resourceName);
-  //const [pvcObj, setPVCObj] = React.useState<PersistentVolumeClaimKind>(null);
   const [storageName, setstorageName] = React.useState(`flashsystem-example`);
   const title = 'Create New Storage System';
-
 
   const [endpoint, setEndpoint] = React.useState(``);
   const [username, setUserName] = React.useState(``);
@@ -175,7 +150,7 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
   var createDefaultStorageClassPage;
   if(createDefaultStorageClass) {
     createDefaultStorageClassPage = (<div className="subline-with-2-words">
-            <label className="control-label co-required" htmlFor="snapshot-name">
+            <label className="control-label co-required" >
               StorageClass Name
             </label>
             <input
@@ -187,7 +162,7 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
               value={storageclassName}
               required
             />
-            <label className="control-label co-required" htmlFor="snapshot-name">
+            <label className="control-label co-required" >
               Pool Name
             </label>
             <input
@@ -227,7 +202,7 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
         <form className="co-m-pane__body-group" onSubmit={create}>
           
           <div className="form-group co-volume-snapshot__form">
-            <label className="control-label co-required" htmlFor="snapshot-name">
+            <label className="control-label co-required" >
               Name
             </label>
             <input
@@ -240,7 +215,7 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
               required
             />
           
-            <label className="control-label co-required" htmlFor="endpoint">
+            <label className="control-label co-required" >
               Endpoint
             </label>
             <input
@@ -256,7 +231,7 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
             Rest API IP address of IBM Storage FlashSystem 
             </p>
           
-            <label className="control-label co-required" htmlFor="username">
+            <label className="control-label co-required" >
               Username
             </label>
             <input
@@ -269,7 +244,7 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
               required
             />
           
-            <label className="control-label co-required" htmlFor="password">
+            <label className="control-label co-required" >
               Password
             </label>
             
@@ -285,7 +260,7 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
                     required
                   />
                   <Button isSmall isInline variant="link" onClick={() => setShowPassword(false)}>
-                    {t('kubevirt-plugin~Hide password')}
+                    {t('Hide password')}
                   </Button>
                 </>
               ) : (
@@ -300,7 +275,7 @@ const CreateStorageForm = withHandlePromise<StorageResourceProps>((props) => {
                     required
                   />
                 <Button isSmall isInline variant="link" onClick={() => setShowPassword(true)}>
-                  {t('kubevirt-plugin~Show password')}
+                  {t('Show password')}
                 </Button>
                 </>
               )}
