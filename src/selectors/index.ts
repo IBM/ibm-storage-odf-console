@@ -94,7 +94,7 @@ export const getCustomizedPVCs = (
   );
 };
 
-export const getCustomizedSC = (scData: K8sResourceKind[], provisionerName: string): K8sResourceKind[] =>
+export const getCustomizedSC = (scData: K8sResourceKind[] = [], provisionerName: string): K8sResourceKind[] =>
   scData.filter((sc) => {
     return [provisionerName].some((provisioner: string) =>
       _.get(sc, 'provisioner', '').includes(provisioner),
@@ -109,7 +109,7 @@ export const getPodPVCs = (pod: PodKind): string[] => {
   return podPVCs;
 }
 
-export const getCustomizedPods = (podData: K8sResourceKind[], provisionerName: string, pvcsData: K8sResourceKind[]): K8sResourceKind[] =>{
+export const getCustomizedPods = (podData: K8sResourceKind[] = [], provisionerName: string, pvcsData: K8sResourceKind[]): K8sResourceKind[] =>{
   var filterPods:K8sResourceKind[] = [];
   var flag:boolean = false;
   for(let pod of podData) {
