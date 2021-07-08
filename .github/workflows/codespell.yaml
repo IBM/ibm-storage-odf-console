@@ -18,3 +18,4 @@ jobs:
       with:
         check_filenames: true
         check_hidden: true
+        exclude_file: yarn.lock
