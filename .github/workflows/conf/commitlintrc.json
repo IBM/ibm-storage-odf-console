@@ -74,6 +74,7 @@
                 "action",
                 "api",
                 "docs",
+                "feature",
                 "fix",
                 "test"
             ]
