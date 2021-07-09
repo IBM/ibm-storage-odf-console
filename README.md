@@ -2,7 +2,7 @@
 ibm-storage-odf-console provides IBM storage specific console page, which will be loaded by ODF console when end users access IBM storage. It's specially designed for displaying IBM specific storage attributes to customer. Current scope includes IBM flashsystem only.
 
 ## Dependency
-Refer the Readme in below repo to install the nessesary packages. IBM storage plugin works with OCP console dynamic plugin and ODF console. It is enabled after ibm-storage-odf-operator installed sucessfully. 
+Refer the Readme in below repo to install the necessary packages. IBM storage plugin works with OCP console dynamic plugin and ODF console. It is enabled after ibm-storage-odf-operator installed successfully. 
 ```
 https://github.com/bipuladh/odf-console
 https://github.com/openshift/console
