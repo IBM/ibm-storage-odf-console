@@ -33,15 +33,11 @@ import {
    StorageInstanceModel,   
   } from '../../models';
 import './activity-card.scss';
-//import {GetFlashSystemResource} from '../../constants/resources';
 import { EventKind } from '../../types';
 
 const eventsResource: FirehoseResource = { isList: true, kind: EventModel.kind, prop: 'events' };
 
 const RecentEvent = (props) =>{
-  //const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace));
-  //const name= loaded && !loadError? data?.[0]?.metadata.name: '';
-  //const namespace= loaded && !loadError? data?.[0]?.metadata.namespace: '';
   const name = props?.match?.params?.name;
   const odfEventNamespaceKindFilter = (event: EventKind): boolean => {
     const eventSource = event?.source?.component;
