@@ -37,7 +37,7 @@ import { EventKind } from '../../types';
 
 const eventsResource: FirehoseResource = { isList: true, kind: EventModel.kind, prop: 'events' };
 
-const RecentEvent = (props) =>{
+const RecentEvent : React.FC= (props) =>{
   const name = props?.match?.params?.name;
   const odfEventNamespaceKindFilter = (event: EventKind): boolean => {
     const eventSource = event?.source?.component;
