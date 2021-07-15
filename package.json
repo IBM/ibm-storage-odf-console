@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@patternfly/patternfly": "4.103.6",
-    "@patternfly/react-charts": "6.14.29",
+    "@patternfly/react-charts": "6.15.3",
     "@patternfly/react-core": "4.121.1",
     "@patternfly/react-table": "4.27.7",
     "classnames": "^2.3.1",
@@ -23,15 +23,15 @@
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "react-i18next": "^11.8.11",
-    "react-router": "5.1.2",
-    "react-router-dom": "5.1.2"
+    "react-router": "5.2.0",
+    "react-router-dom": "5.2.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.34",
     "@types/react-helmet": "^6.1.1",
     "@types/lodash-es": "^4.17.4",
     "@types/react": "16.8.13",
-    "@types/react-router-dom": "5.1.2",
+    "@types/react-router-dom": "5.1.8",
     "@console/dynamic-plugin-sdk": "link:../console/frontend/packages/console-dynamic-plugin-sdk/dist",
     "cache-loader": "1.x",
     "comment-json": "4.x",

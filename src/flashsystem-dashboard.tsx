@@ -16,10 +16,15 @@
  import * as React from 'react';
  import * as _ from 'lodash';
  import { Helmet } from "react-helmet";
+ import { RouteComponentProps } from "react-router";
  import { HorizontalNav, PageHeading } from "@console/dynamic-plugin-sdk/provisional";
  import { Grid, GridItem } from "@patternfly/react-core";
  
  import StorageEfficiencyCard from './components/storage-efficiency-card/storage-efficiency-card';
+
+ export type ODFDashboardProps = {
+  match: RouteComponentProps["match"];
+};
 
  const UpperSection: React.FC = (props) => {
    return (
@@ -35,7 +40,7 @@
    );
  };
  
- const FlashsystemDashboard: React.FC = (props) => {
+ const FlashsystemDashboard: React.FC<ODFDashboardProps> = (props) => {
    return (
      <>
        <div className="co-dashboard-body">
@@ -45,7 +50,7 @@
    );
  };
  
- const FlashsystemDashboardPage: React.FC<any> = (props) => {
+ const FlashsystemDashboardPage: React.FC<ODFDashboardProps> = ({ match }) => {
    const title = "IBM FlashSystem";
    const allPages = [
      {
@@ -60,7 +65,7 @@
          <title>{title}</title>
        </Helmet>
        <PageHeading title={title} detail={true} />
-       <HorizontalNav match={props?.match} pages={allPages} noStatusBox />
+       <HorizontalNav match={match} pages={allPages} noStatusBox />
      </>
    );
  };
