@@ -556,10 +556,6 @@ babel-code-frame@^6.26.0:
     esutils "^2.0.2"
     js-tokens "^3.0.2"
 
-"@console/dynamic-plugin-sdk@link:../console/frontend/packages/console-dynamic-plugin-sdk/dist":
-  version "0.0.0"
-  uid ""
-
 balanced-match@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-0.4.2.tgz#cb3f3e3c732dc0f01ee70b403f302e61d7709838"

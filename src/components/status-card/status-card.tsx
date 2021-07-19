@@ -32,54 +32,17 @@ import {
   AlertItem,
   usePrometheusPoll,
 } from "@console/dynamic-plugin-sdk/internalAPI";
-import {
-  Alert,
-  PrometheusLabels,
-  PrometheusRule,
-} from "@console/dynamic-plugin-sdk/lib/api/common-types";
 import { 
   getFlashsystemHealthState, 
   filterIBMFlashSystemAlerts,
   alertURL,
+  PrometheusRulesResponse,
+  getAlertsFromPrometheusResponse,
  } from './utils';
 import { StorageInstanceKind } from '../../types';
 import {GetFlashSystemResource} from '../../constants/resources'
 
-type Group = {
-  rules: PrometheusRule[];
-  file: string;
-  name: string;
-};
-export type PrometheusRulesResponse = {
-  data: {
-    groups: Group[];
-  };
-  status: string;
-};
 
-export const labelsToParams = (labels: PrometheusLabels) =>
-  _.map(
-    labels,
-    (v, k) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`
-  ).join("&");
-
-const getAlertsFromPrometheusResponse = (response: PrometheusRulesResponse) => {
-  const alerts: Alert[] = [];
-  response?.data?.groups?.forEach((group) => {
-    group.rules.forEach((rule) => {
-      rule?.alerts?.forEach((alert) => {
-        alerts.push({
-          rule: {
-            ...rule,
-            id: group.name,
-          },
-          ...alert,
-        });
-      });
-    });
-  });
-  return alerts;
-};
 const IBMFlashSystemAlerts: React.FC = () => {
   const [rules, alertsError, alertsLoaded] = usePrometheusPoll({
     query: "",

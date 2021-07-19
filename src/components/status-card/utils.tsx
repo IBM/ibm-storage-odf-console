@@ -17,6 +17,7 @@ import * as _ from 'lodash';
 import {
   Alert,
   PrometheusLabels,
+  PrometheusRule,
 } from "@console/dynamic-plugin-sdk/lib/api/common-types";
 import { StorageInstanceKind } from '../../types';
 import { IBM_FlASHSYSTEM } from '../../constants/index';
@@ -67,21 +68,30 @@ export const getFlashsystemHealthState = ({ sto }) => {
 };
 export const StorageStatus = (data: StorageInstanceKind) => (data?.status?.phase);
 
-export type MonitoringResource = {
-  abbr: string;
-  kind: string;
-  label: string;
-  plural: string;
-};
-export const AlertResource: MonitoringResource = {
+export const AlertResource = {
   kind: 'Alert',
   label: 'Alert',
   plural: '/monitoring/alerts',
   abbr: 'AL',
 };
 
+type Group = {
+  rules: PrometheusRule[];
+  file: string;
+  name: string;
+};
+export type PrometheusRulesResponse = {
+  data: {
+    groups: Group[];
+  };
+  status: string;
+};
+
 export const labelsToParams = (labels: PrometheusLabels) =>
-  _.map(labels, (v, k) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join('&');
+  _.map(
+    labels,
+    (v, k) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`
+  ).join("&");
 
 export const alertURL = (alert: Alert, ruleID: string) =>
   `${AlertResource.plural}/${ruleID}?${labelsToParams(alert.labels)}`;
@@ -89,3 +99,20 @@ export const alertURL = (alert: Alert, ruleID: string) =>
 export const filterIBMFlashSystemAlerts = (alerts: Alert[]): Alert[] =>
   alerts.filter((alert) => (_.get(alert, 'annotations.storage_type'))?.toLowerCase() === IBM_FlASHSYSTEM.toLowerCase());
 
+export const getAlertsFromPrometheusResponse = (response: PrometheusRulesResponse) => {
+    const alerts: Alert[] = [];
+    response?.data?.groups?.forEach((group) => {
+      group.rules.forEach((rule) => {
+        rule?.alerts?.forEach((alert) => {
+          alerts.push({
+            rule: {
+              ...rule,
+              id: group.name,
+            },
+            ...alert,
+          });
+        });
+      });
+    });
+    return alerts;
+  };
