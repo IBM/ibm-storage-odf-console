@@ -28,12 +28,77 @@ import {
   DashboardCardHeader,
   DashboardCardTitle,
   HealthItem,
+  AlertsBody,
+  AlertItem,
+  usePrometheusPoll,
 } from "@console/dynamic-plugin-sdk/internalAPI";
+import {
+  Alert,
+  PrometheusLabels,
+  PrometheusRule,
+} from "@console/dynamic-plugin-sdk/lib/api/common-types";
 import { 
   getFlashsystemHealthState, 
+  filterIBMFlashSystemAlerts,
+  alertURL,
  } from './utils';
 import { StorageInstanceKind } from '../../types';
 import {GetFlashSystemResource} from '../../constants/resources'
+
+type Group = {
+  rules: PrometheusRule[];
+  file: string;
+  name: string;
+};
+export type PrometheusRulesResponse = {
+  data: {
+    groups: Group[];
+  };
+  status: string;
+};
+
+export const labelsToParams = (labels: PrometheusLabels) =>
+  _.map(
+    labels,
+    (v, k) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`
+  ).join("&");
+
+const getAlertsFromPrometheusResponse = (response: PrometheusRulesResponse) => {
+  const alerts: Alert[] = [];
+  response?.data?.groups?.forEach((group) => {
+    group.rules.forEach((rule) => {
+      rule?.alerts?.forEach((alert) => {
+        alerts.push({
+          rule: {
+            ...rule,
+            id: group.name,
+          },
+          ...alert,
+        });
+      });
+    });
+  });
+  return alerts;
+};
+const IBMFlashSystemAlerts: React.FC = () => {
+  const [rules, alertsError, alertsLoaded] = usePrometheusPoll({
+    query: "",
+    endpoint: "api/v1/rules" as any,
+  });
+  const alerts = getAlertsFromPrometheusResponse(
+    rules as unknown as PrometheusRulesResponse
+  );
+  const filteredAlerts = filterIBMFlashSystemAlerts(alerts);
+  return (
+    <AlertsBody error={alertsError}>
+      {!alertsLoaded &&
+        filteredAlerts.length > 0 &&
+        filteredAlerts.map((alert) => (
+          <AlertItem key={alertURL(alert, alert.rule.id)} alert={alert} />
+        ))}
+    </AlertsBody>
+  );
+};
 
 export const StatusCard: React.FC<any> = (props) => {
   const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace));
@@ -54,6 +119,7 @@ export const StatusCard: React.FC<any> = (props) => {
             />
           </GalleryItem>
         </Gallery>
+          <IBMFlashSystemAlerts/>
       </DashboardCardBody>
     </DashboardCard>
   );
