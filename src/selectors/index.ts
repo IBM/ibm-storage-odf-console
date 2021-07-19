@@ -24,7 +24,7 @@ import {
 import { IBM_STORAGE_ODF_OPERATOR } from '../constants';
 
 export const getPodVolumes = (pod: PodKind): PodKind['spec']['volumes'] =>
-  pod && pod.spec && pod.spec.volumes ? pod.spec.volumes : [];
+  pod?.spec?.volumes ? pod.spec.volumes : [];
 
 export const referenceForModel = (storage: K8sKind) => {
   const kind=`${storage.apiGroup}~${storage.apiVersion}~${storage.kind}`;
@@ -116,7 +116,7 @@ export const getCustomizedPods = (podData: K8sResourceKind[] = [], provisionerNa
     const podPVCS = getPodPVCs(pod as PodKind);
     for(let pvc of podPVCS) {
       for(let pvc2 of pvcsData){
-        if(pvc == pvc2.metadata.name ){
+        if(pvc === pvc2.metadata.name ){
           filterPods.push(pod);
           flag = true;
           break;
