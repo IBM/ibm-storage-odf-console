@@ -28,7 +28,7 @@ import {
   DashboardCardHeader,
   DashboardCardTitle,
   HealthItem,
-} from "@console/dynamic-plugin-sdk/provisional";
+} from "@console/dynamic-plugin-sdk/internalAPI";
 import { 
   getFlashsystemHealthState, 
  } from './utils';

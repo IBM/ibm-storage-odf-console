@@ -17,7 +17,7 @@ import * as _ from 'lodash';
 import {
   Alert,
   PrometheusLabels,
-} from "@console/dynamic-plugin-sdk";
+} from "@console/dynamic-plugin-sdk/lib/api/common-types";
 import { StorageInstanceKind } from '../../types';
 import { IBM_FlASHSYSTEM } from '../../constants/index';
 
