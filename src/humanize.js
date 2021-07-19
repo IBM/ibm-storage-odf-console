@@ -38,11 +38,6 @@ const TYPES = {
     space: true,
     divisor: 1024,
   },
-  binaryBytesWithoutB: {
-    units: ["i", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei"],
-    space: true,
-    divisor: 1024,
-  },
   SI: {
     units: ["", "k", "M", "G", "T", "P", "E"],
     space: false,
@@ -183,8 +178,6 @@ return {
 };
 });
 
-export const humanizeBinaryBytesWithoutB = (v, initialUnit, preferredUnit) =>
-  humanize(v, "binaryBytesWithoutB", true, initialUnit, preferredUnit);
 export const humanizeBinaryBytes = (v, initialUnit, preferredUnit) =>
   humanize(v, "binaryBytes", true, initialUnit, preferredUnit);
 export const humanizeDecimalBytes = (v, initialUnit, preferredUnit) =>
