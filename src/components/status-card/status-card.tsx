@@ -28,38 +28,12 @@ import {
   DashboardCardHeader,
   DashboardCardTitle,
   HealthItem,
-  //AlertsBody,
-  //AlertItem,
 } from "@console/dynamic-plugin-sdk/provisional";
 import { 
   getFlashsystemHealthState, 
-  //filterIBMFlashSystemAlerts,
-  //alertURL,
  } from './utils';
 import { StorageInstanceKind } from '../../types';
 import {GetFlashSystemResource} from '../../constants/resources'
-
-/*
-export const IBMFlashSystemAlerts = withDashboardResources(
-  ({ watchAlerts, stopWatchAlerts, notificationAlerts }) => {
-    React.useEffect(() => {
-      watchAlerts();
-      return () => {
-        stopWatchAlerts();
-      };
-    }, [watchAlerts, stopWatchAlerts]);
-    const { data, loaded, loadError } = notificationAlerts || {};
-    const alerts = filterIBMFlashSystemAlerts(data);
-
-    return (
-      <AlertsBody error={!_.isEmpty(loadError)}>
-        {loaded &&
-          alerts.length > 0 &&
-          alerts.map((alert) => <AlertItem key={alertURL(alert, alert.rule.id)} alert={alert} />)}
-      </AlertsBody>
-    );
-  },
-);*/
 
 export const StatusCard: React.FC<any> = (props) => {
   const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace));
@@ -80,7 +54,6 @@ export const StatusCard: React.FC<any> = (props) => {
             />
           </GalleryItem>
         </Gallery>
-        {/*<IBMFlashSystemAlerts/>*/}
       </DashboardCardBody>
     </DashboardCard>
   );
