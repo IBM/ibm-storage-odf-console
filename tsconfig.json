@@ -13,8 +13,8 @@
       "@console/dynamic-plugin-sdk/api": [
         "node_modules/@console/dynamic-plugin-sdk/lib/api/api"
       ],
-      "@console/dynamic-plugin-sdk/provisional": [
-        "node_modules/@console/dynamic-plugin-sdk/lib/api/provisional"
+      "@console/dynamic-plugin-sdk/internalAPI": [
+        "node_modules/@console/dynamic-plugin-sdk/lib/api/internal"
       ],
       "@console/dynamic-plugin-sdk/webpack": [
         "node_modules/@console/dynamic-plugin-sdk/lib/webpack"

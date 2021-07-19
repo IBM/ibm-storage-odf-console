@@ -13,32 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- import * as React from 'react';
- import { useTranslation } from 'react-i18next';
- import { useDashboardPrometheusQuery as usePrometheusQuery } from "@console/dynamic-plugin-sdk/provisional";
- import {
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+import OutlinedQuestionCircleIcon from "@patternfly/react-icons/dist/js/icons/outlined-question-circle-icon";
+import {
   Tooltip,
-} from "@patternfly/react-core";
+  } from "@patternfly/react-core";
 import {
   DashboardCard,
   DashboardCardBody,
   DashboardCardHeader,
   DashboardCardTitle,
-} from '@console/dynamic-plugin-sdk/provisional';
-import OutlinedQuestionCircleIcon from "@patternfly/react-icons/dist/js/icons/outlined-question-circle-icon";
+  usePrometheusPoll,
+} from '@console/dynamic-plugin-sdk/internalAPI';
+import {parseMetricData} from '../../selectors/promethues-utils';
 import { humanizeBinaryBytes } from "../../humanize";
 import { EFFICIENCY_SAVING_QUERY } from "../../constants/queries";
 import './storage-efficiency-card.scss';
 
+
 const StorageEfficiencyCardBody: React.FC = () => {
   const { t } = useTranslation();
-  const [saving, ,] = usePrometheusQuery(
-    EFFICIENCY_SAVING_QUERY,
-    humanizeBinaryBytes,
-  );
+  const [metric, error, loaded] = usePrometheusPoll({
+    query: EFFICIENCY_SAVING_QUERY,
+    endpoint: "api/v1/query" as any,
+  });
+
+  const [saving] = !loaded && !error ? parseMetricData(metric, humanizeBinaryBytes): [];
   let status = t('Not available');
-  if (saving.value > 0) { 
-    status = saving.string
+  if (saving) { 
+    status = saving.string;
   }
   return (
     <div className="co-inventory-card__item">

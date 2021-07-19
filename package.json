@@ -32,7 +32,7 @@
     "@types/lodash-es": "^4.17.4",
     "@types/react": "16.8.13",
     "@types/react-router-dom": "5.1.8",
-    "@console/dynamic-plugin-sdk": "link:../console/frontend/packages/console-dynamic-plugin-sdk/dist",
+    "@console/dynamic-plugin-sdk": "link:../sdk-console/console/frontend/packages/console-dynamic-plugin-sdk/dist",
     "cache-loader": "1.x",
     "comment-json": "4.x",
     "css-loader": "0.28.x",

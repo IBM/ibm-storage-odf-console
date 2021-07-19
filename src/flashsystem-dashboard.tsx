@@ -15,9 +15,8 @@
  */
  import * as React from 'react';
  import * as _ from 'lodash';
- import { Helmet } from "react-helmet";
  import { RouteComponentProps } from "react-router";
- import { HorizontalNav, PageHeading } from "@console/dynamic-plugin-sdk/provisional";
+ import { HorizontalNav } from "@console/dynamic-plugin-sdk/internalAPI";
  import { Grid, GridItem } from "@patternfly/react-core";
  
  import StorageEfficiencyCard from './components/storage-efficiency-card/storage-efficiency-card';
@@ -51,7 +50,6 @@
  };
  
  const FlashsystemDashboardPage: React.FC<ODFDashboardProps> = ({ match }) => {
-   const title = "IBM FlashSystem";
    const allPages = [
      {
        href: "",
@@ -61,10 +59,6 @@
    ];
    return (
      <>
-       <Helmet>
-         <title>{title}</title>
-       </Helmet>
-       <PageHeading title={title} detail={true} />
        <HorizontalNav match={match} pages={allPages} noStatusBox />
      </>
    );
