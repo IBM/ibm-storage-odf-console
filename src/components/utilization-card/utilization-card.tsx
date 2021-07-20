@@ -14,88 +14,99 @@
  * limitations under the License.
  */
 import * as React from "react";
-import { useTranslation } from "react-i18next";
-import {
-  Grid,
-  GridItem,
-} from "@patternfly/react-core";
 import { 
   DashboardCard,
   DashboardCardHeader,
   DashboardCardTitle,
-  DashboardCardBody,
-  PrometheusUtilizationItem,
-  // UtilizationBody,
- } from "@console/dynamic-plugin-sdk/provisional";
+  usePrometheusPoll,
+  UtilizationBody,
+  UtilizationItem,
+  UtilizationDurationDropdown,
+  useUtilizationDuration,
+  //MultilineUtilizationItem // we need this to be exposed
+ } from "@console/dynamic-plugin-sdk/internalAPI";
  import {
-  StorageDashboardQuery,  
-  UTILIZATION_QUERY_ODF,
+  StorageDashboardQuery, 
+  FlASHSYSTEM_QUERIES,
 } from '../../constants/queries';
 import {
-  humanizeNumber,
-  humanizeSeconds,
-  secondsToNanoSeconds,
   humanizeBinaryBytes,
   humanizeDecimalBytesPerSec,
 } from "../../humanize";
-const humanizeIOPS = (value) => {
-  const humanizedNumber = humanizeNumber(value);
-  const unit = 'IOPS';
-  return {
-    ...humanizedNumber,
-    string: `${humanizedNumber.value} ${humanizedNumber.unit}`,
-    unit,
-  };
-};
-const humanizeLatency = (value) => {
-  const humanizedTime = humanizeSeconds(secondsToNanoSeconds(value), null, 'ms');
-  return humanizedTime;
-};
-const UtilizationCard: React.FC = () => {
-  const { t } = useTranslation();
+import { 
+  humanizeIOPS, 
+  humanizeLatency,
+  ByteDataTypes,
+ } from './utils';
+
+const UtilizationCard: React.FC<any> = (props) => {
+  const name = props?.match?.params?.systemName;
+  const { duration } = useUtilizationDuration();
+  
+  const [usedCapacitymetric] = usePrometheusPoll({
+    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalUsedCapacity),
+    endpoint: "api/v1/query_range" as any,
+    timespan: duration,
+  });
+  const [readIOPSmetric] = usePrometheusPoll({
+    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadIOPS),
+    endpoint: "api/v1/query_range" as any,
+    timespan: duration,
+  });
+  const [readRespTimemetric] = usePrometheusPoll({
+    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadRespTime),
+    endpoint: "api/v1/query_range" as any,
+    timespan: duration,
+  });
+  const [readBWmetric] = usePrometheusPoll({
+    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadBW),
+    endpoint: "api/v1/query_range" as any,
+    timespan: duration,
+  });
+
   return (
-    <DashboardCard gradient>
-    <DashboardCardHeader>
-      <DashboardCardTitle>{t('Utilization')}</DashboardCardTitle>
-      {/* <Dropdown items={Duration(t)} onChange={setDuratsion} selectedKey={duration} title={duration} /> */}
-    </DashboardCardHeader>
-    <DashboardCardBody>
-      <Grid>
-        <GridItem span={12}>
-          <PrometheusUtilizationItem
-            title={t("Capacity")}
-            utilizationQuery={UTILIZATION_QUERY_ODF[StorageDashboardQuery.UTILIZATION_CAPACITY_QUERY]}
-            duration="1 hour"
-            humanizeValue={humanizeBinaryBytes}
-          />
-        </GridItem>
-        <GridItem span={12}>
-          <PrometheusUtilizationItem
-            title={t("IOPS")}
-            utilizationQuery={UTILIZATION_QUERY_ODF[StorageDashboardQuery.UTILIZATION_IOPS_QUERY]}
-            duration="1 hour"
-            humanizeValue={humanizeIOPS}
-          />
-        </GridItem>
-        <GridItem span={12}>
-          <PrometheusUtilizationItem
-            title={t("Latency")}
-            utilizationQuery={UTILIZATION_QUERY_ODF[StorageDashboardQuery.UTILIZATION_LATENCY_QUERY]}
-            duration="1 hour"
-            humanizeValue={humanizeLatency}
-          />
-        </GridItem>
-        <GridItem span={12}>
-          <PrometheusUtilizationItem
-            title={t("Throughput")}
-            utilizationQuery={UTILIZATION_QUERY_ODF[StorageDashboardQuery.UTILIZATION_THROUGHPUT_QUERY]}
-            duration="1 hour"
-            humanizeValue={humanizeDecimalBytesPerSec}
-          />
-        </GridItem>    
-      </Grid>
-    </DashboardCardBody>
-  </DashboardCard>
-  )
+    <DashboardCard>
+      <DashboardCardHeader>
+        <DashboardCardTitle>Utilization</DashboardCardTitle>
+        <UtilizationDurationDropdown />
+      </DashboardCardHeader>
+      <UtilizationBody >
+        <UtilizationItem
+          title="Capacity"
+          isLoading={false}
+          error = {false}
+          utilization = {usedCapacitymetric}
+          humanizeValue={humanizeBinaryBytes}
+          byteDataType={ByteDataTypes.BinaryBytes}
+          query={FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalUsedCapacity)}
+        />
+        <UtilizationItem
+          title="IOPS"
+          isLoading={false}
+          error = {false}
+          utilization = {readIOPSmetric}
+          humanizeValue={humanizeIOPS}
+          query={FlASHSYSTEM_QUERIES(name,StorageDashboardQuery.TotalReadIOPS)}
+        />
+        <UtilizationItem
+          title="Latency"
+          isLoading={false}
+          error = {false}
+          utilization = {readRespTimemetric}
+          humanizeValue={humanizeLatency}
+          query={FlASHSYSTEM_QUERIES(name,StorageDashboardQuery.TotalReadRespTime)}
+        />
+        <UtilizationItem
+          title="Throughput"
+          isLoading={false}
+          error = {false}
+          utilization = {readBWmetric}
+          humanizeValue={humanizeDecimalBytesPerSec}
+          query={FlASHSYSTEM_QUERIES(name,StorageDashboardQuery.TotalReadBW)}
+        />
+      </UtilizationBody>
+    </DashboardCard>
+  );
 };
-export default UtilizationCard
+
+export default UtilizationCard;
