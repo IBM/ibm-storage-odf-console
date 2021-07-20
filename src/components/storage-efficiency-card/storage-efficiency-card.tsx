@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import OutlinedQuestionCircleIcon from "@patternfly/react-icons/dist/js/icons/outlined-question-circle-icon";
 import {
   Tooltip,
@@ -33,29 +32,28 @@ import './storage-efficiency-card.scss';
 
 
 const StorageEfficiencyCardBody: React.FC = () => {
-  const { t } = useTranslation();
   const [metric, error, loaded] = usePrometheusPoll({
     query: EFFICIENCY_SAVING_QUERY,
     endpoint: "api/v1/query" as any,
   });
 
   const [saving] = !loaded && !error ? parseMetricData(metric, humanizeBinaryBytes): [];
-  let status = t('Not available');
+  let status = 'Not available';
   if (saving) { 
     status = saving.string;
   }
   return (
     <div className="co-inventory-card__item">
       <div className="co-utilization-card__item-section-multiline">
-        <h4 className="pf-c-content pf-m-md">{t('Savings')}</h4>
+        <h4 className="pf-c-content pf-m-md">{'Savings'}</h4>
         <div className="text-secondary">
           {status}
           <span className="ibm-storage-efficiency-card-help">
             <Tooltip            
               position="top"
-              content={t('The amount of physical storage saved after applying compression.')}
+              content={'The amount of physical storage saved after applying compression.'}
             >
-              <OutlinedQuestionCircleIcon title={t('Status')}/>
+              <OutlinedQuestionCircleIcon title={'Status'}/>
             </Tooltip>
           </span>
         </div>
@@ -65,11 +63,10 @@ const StorageEfficiencyCardBody: React.FC = () => {
 };
 
 const StorageEfficiencyCard: React.FC = () => {
-  const { t } = useTranslation();
   return (
   <DashboardCard gradient>
     <DashboardCardHeader>
-      <DashboardCardTitle>{t('Storage Efficiency')}</DashboardCardTitle>
+      <DashboardCardTitle>{'Storage Efficiency'}</DashboardCardTitle>
     </DashboardCardHeader>
     <DashboardCardBody>
       <StorageEfficiencyCardBody/>
