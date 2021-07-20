@@ -15,15 +15,17 @@
  */
 import * as React from 'react';
 import * as _ from 'lodash';
-//import { useTranslation } from 'react-i18next';
 import { 
   DashboardCard,
   DashboardCardHeader,
   DashboardCardTitle,
   DashboardCardBody,
   ResourceInventoryItem,
- } from "@console/dynamic-plugin-sdk/provisional";
-import { FirehoseResource, K8sResourceCommon } from "@console/dynamic-plugin-sdk";
+ } from "@console/dynamic-plugin-sdk/internalAPI";
+import { 
+  FirehoseResource, 
+  K8sResourceCommon,
+ } from "@console/dynamic-plugin-sdk";
 import {
   useK8sWatchResource,
 } from "@console/dynamic-plugin-sdk/api";
