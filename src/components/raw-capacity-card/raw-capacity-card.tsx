@@ -18,19 +18,23 @@ import * as _ from 'lodash';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { ChartDonut, ChartLabel } from '@patternfly/react-charts';
-import { useDashboardPrometheusQuery as usePrometheusQuery } from "@console/dynamic-plugin-sdk/provisional";
 import {
   DashboardCard,
   DashboardCardBody,
   DashboardCardHeader,
   DashboardCardTitle,
-} from '@console/dynamic-plugin-sdk/provisional';
+  usePrometheusPoll,
+} from '@console/dynamic-plugin-sdk/internalAPI';
 import { humanizeBinaryBytes } from '../../humanize';
-import { CAPACITY_BREAKDOWN_QUERIES_ODF,StorageDashboardQuery } from '../../constants/queries';
+import { 
+  FlASHSYSTEM_QUERIES,
+  StorageDashboardQuery,
+ } from '../../constants/queries';
 import {
   useK8sWatchResource,
 } from "@console/dynamic-plugin-sdk/api";
 import {GetFlashSystemResource} from '../../constants/resources';
+import {parseMetricData} from '../../selectors/promethues-utils';
 import { StorageInstanceKind } from '../../types';
 import './raw-capacity-card.scss';
 
@@ -39,20 +43,23 @@ const colorScale = ['#0166cc', '#d6d6d6'];
 const RawCapacityCard: React.FC<any> = (props)  => {
   const { t } = useTranslation();
   const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace));
-  const name= loaded && !loadError? data?.[0]?.metadata.name: undefined;
-  
-  const [totalCapacity, ,] = usePrometheusQuery(
-    CAPACITY_BREAKDOWN_QUERIES_ODF(name, StorageDashboardQuery.TotalCapacity),
-    humanizeBinaryBytes
-  );
-  const [usedCapacity, ,] = usePrometheusQuery(
-    CAPACITY_BREAKDOWN_QUERIES_ODF(name, StorageDashboardQuery.TotalUsedCapacity),
-    humanizeBinaryBytes
-  );
-  const [availableCapacity, ,] = usePrometheusQuery(
-    CAPACITY_BREAKDOWN_QUERIES_ODF(name, StorageDashboardQuery.TotalFreeCapacity),
-    humanizeBinaryBytes
-  );
+  const name= loaded && !loadError? data?.[0]?.metadata.name: props?.match?.params?.name;
+
+  const [totalCapacitymetric] = usePrometheusPoll({
+    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalCapacity),
+    endpoint: "api/v1/query" as any,
+  });
+  const [totalCapacity] = parseMetricData(totalCapacitymetric, humanizeBinaryBytes);
+  const [usedCapacitymetric] = usePrometheusPoll({
+    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalCapacity),
+    endpoint: "api/v1/query" as any,
+  });
+  const [usedCapacity] = parseMetricData(usedCapacitymetric, humanizeBinaryBytes);
+  const [availableCapacitymetric] = usePrometheusPoll({
+    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalCapacity),
+    endpoint: "api/v1/query" as any,
+  });
+  const [availableCapacity] = parseMetricData(availableCapacitymetric, humanizeBinaryBytes);
 
   const donutData = [
     { x: 'Used', y: usedCapacity.value, string: usedCapacity.string },
