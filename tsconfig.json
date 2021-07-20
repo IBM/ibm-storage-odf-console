@@ -16,6 +16,9 @@
       "@console/dynamic-plugin-sdk/internalAPI": [
         "node_modules/@console/dynamic-plugin-sdk/lib/api/internal"
       ],
+      "@console/dynamic-plugin-sdk/common": [
+        "node_modules/@console/dynamic-plugin-sdk/lib/api/common-types"
+      ],
       "@console/dynamic-plugin-sdk/webpack": [
         "node_modules/@console/dynamic-plugin-sdk/lib/webpack"
       ]
