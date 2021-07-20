@@ -18,7 +18,7 @@ import {
   Alert,
   PrometheusLabels,
   PrometheusRule,
-} from "@console/dynamic-plugin-sdk/lib/api/common-types";
+} from "@console/dynamic-plugin-sdk/common";
 import { StorageInstanceKind } from '../../types';
 import { IBM_FlASHSYSTEM } from '../../constants/index';
 

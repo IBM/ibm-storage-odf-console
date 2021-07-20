@@ -42,7 +42,6 @@ import {
 import { StorageInstanceKind } from '../../types';
 import {GetFlashSystemResource} from '../../constants/resources'
 
-
 const IBMFlashSystemAlerts: React.FC = () => {
   const [rules, alertsError, alertsLoaded] = usePrometheusPoll({
     query: "",
