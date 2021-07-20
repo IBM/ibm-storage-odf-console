@@ -27,7 +27,7 @@ import {
   DashboardCardTitle,
   DetailItem,
   DetailsBody,
-} from '@console/dynamic-plugin-sdk/provisional';
+} from '@console/dynamic-plugin-sdk/internalAPI';
 import {ExternalLink} from './Link';
 import { 
   StorageInstanceKind, 
