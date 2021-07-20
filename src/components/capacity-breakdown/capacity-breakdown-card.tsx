@@ -21,56 +21,57 @@ import {
   DashboardCardBody,
   DashboardCardHeader,
   DashboardCardTitle,
-} from '@console/dynamic-plugin-sdk/provisional';
-import { useDashboardPrometheusQuery as usePrometheusQuery } from "@console/dynamic-plugin-sdk/provisional";
+  usePrometheusPoll,
+} from '@console/dynamic-plugin-sdk/internalAPI';
 import {
   useK8sWatchResource,
 } from "@console/dynamic-plugin-sdk/api";
-import { getInstantVectorStats } from '@console/internal/components/graphs/utils';
 import { BreakdownCardBody } from '../breakdown-card/breakdown-body';
 import { getStackChartStats, sortInstantVectorStats } from '../breakdown-card/utils';
 import { getSelectOptions } from '../breakdown-card/breakdown-dropdown';
 import './capacity-breakdown-card.scss';
 import { humanizeBinaryBytes } from '../../humanize';
-import './activity-card.scss';
 import {GetFlashSystemResource} from '../../constants/resources';
 import { BreakdownQueryMapODF } from '../../constants/queries';
-import { PROJECTS } from '../../constants/index';
+import { PROJECTS, STORAGE_CLASSES, PODS } from '../../constants/index';
 import { StorageInstanceKind } from '../../types';
+import { 
+  getInstantVectorStats,
+} from '../../selectors/promethues-utils';
 
-const keys = Object.keys(BreakdownQueryMapODF);
+const keys = [PROJECTS, STORAGE_CLASSES, PODS];
 const breakdownSelectItems = getSelectOptions(keys);
 
 const BreakdownCard: React.FC<any> = (props) => {
   const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace));
-  const name= loaded && !loadError? data?.[0]?.metadata.name: '';
+  const name= loaded && !loadError? data?.[0]?.metadata.name: props?.match?.params?.name;
   
   const [metricType, setMetricType] = React.useState(PROJECTS);
   const [isOpenBreakdownSelect, setBreakdownSelect] = React.useState(false);
   const { model, metric, queries } = BreakdownQueryMapODF(name, metricType);
-  //const queryKeys = Object.keys(queries);
-  
-  const [byUsed, ,] = usePrometheusQuery(
-    queries[0],
-    humanizeBinaryBytes
-  );
-  const [totalUsed, ,] = usePrometheusQuery(
-    queries[1],
-    humanizeBinaryBytes
-  );
-  const [used, ,] = usePrometheusQuery(
-    queries[2],
-    humanizeBinaryBytes
-  );
+  const queryKeys = Object.keys(queries);
 
-  //const results = queryKeys.map((key) => prometheusResults.getIn([queries[key], 'data']));
+  const [byUsedmetric] = usePrometheusPoll({
+    query: queries[queryKeys[0]],
+    endpoint: "api/v1/query" as any,
+  });
+  
+  const [totalUsedmetric] = usePrometheusPoll({
+    query: queries[queryKeys[1]],
+    endpoint: "api/v1/query" as any,
+  });
+  const metricTotal = _.get(totalUsedmetric, 'data.result[0].value[1]');
+
+  const [usedmetric] = usePrometheusPoll({
+    query: queries[queryKeys[2]],
+    endpoint: "api/v1/query" as any,
+  });
+  const flashsystemUsed =  _.get(usedmetric, 'data.result[0].value[1]');
 
   const humanize = humanizeBinaryBytes;
-  const top6MetricsData = getInstantVectorStats(byUsed, metric);
+  const top6MetricsData = getInstantVectorStats(byUsedmetric, metric);
   const top5SortedMetricsData = sortInstantVectorStats(top6MetricsData);
   const top5MetricsStats = getStackChartStats(top5SortedMetricsData, humanize);
-  const metricTotal = totalUsed.string;
-  const flashsystemUsed = used.string;
 
   const handleMetricsChange: SelectProps['onSelect'] = (_e, breakdown) => {
     setMetricType(breakdown as string);
@@ -99,8 +100,8 @@ const BreakdownCard: React.FC<any> = (props) => {
       </DashboardCardHeader>
       <DashboardCardBody className="flashsystem-capacity-breakdown-card__body">
         <BreakdownCardBody
-          isLoading={!loaded}
-          hasLoadError={loadError}
+          isLoading={false}
+          hasLoadError={false}
           metricTotal={metricTotal}
           top5MetricsStats={top5MetricsStats}
           //capacityAvailable={flashsystemAvailable}
