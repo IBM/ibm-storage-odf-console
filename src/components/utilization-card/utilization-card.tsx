@@ -40,7 +40,7 @@ import {
  } from './utils';
 
 const UtilizationCard: React.FC<any> = (props) => {
-  const name = props?.match?.params?.systemName;
+  const name = props?.match?.params?.systemName? props?.match?.params?.systemName : props?.match?.params?.name;
   const { duration } = useUtilizationDuration();
   
   const [usedCapacitymetric] = usePrometheusPoll({
