@@ -22,7 +22,7 @@ import {
   DashboardCardTitle,
   ActivityBody,
   RecentEventsBody,
-} from '@console/dynamic-plugin-sdk/provisional';
+} from '@console/dynamic-plugin-sdk/internalAPI';
 import {
   useK8sWatchResource,
 } from "@console/dynamic-plugin-sdk/api";
@@ -37,7 +37,7 @@ import { EventKind } from '../../types';
 
 const eventsResource: FirehoseResource = { isList: true, kind: EventModel.kind, prop: 'events' };
 
-const RecentEvent : React.FC= (props) =>{
+const RecentEvent : React.FC<any>= (props) =>{
   const name = props?.match?.params?.name;
   const odfEventNamespaceKindFilter = (event: EventKind): boolean => {
     const eventSource = event?.source?.component;
