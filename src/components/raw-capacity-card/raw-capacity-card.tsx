@@ -51,12 +51,12 @@ const RawCapacityCard: React.FC<any> = (props)  => {
   });
   const [totalCapacity] = parseMetricData(totalCapacitymetric, humanizeBinaryBytes);
   const [usedCapacitymetric] = usePrometheusPoll({
-    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalCapacity),
+    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalUsedCapacity),
     endpoint: "api/v1/query" as any,
   });
   const [usedCapacity] = parseMetricData(usedCapacitymetric, humanizeBinaryBytes);
   const [availableCapacitymetric] = usePrometheusPoll({
-    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalCapacity),
+    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalFreeCapacity),
     endpoint: "api/v1/query" as any,
   });
   const [availableCapacity] = parseMetricData(availableCapacitymetric, humanizeBinaryBytes);
