@@ -38,7 +38,7 @@ import { EventKind } from '../../types';
 const eventsResource: FirehoseResource = { isList: true, kind: EventModel.kind, prop: 'events' };
 
 const RecentEvent : React.FC<any>= (props) =>{
-  const name = props?.match?.params?.name;
+  const name = props?.match?.params?.systemName? props?.match?.params?.systemName: props?.match?.params?.name;
   const odfEventNamespaceKindFilter = (event: EventKind): boolean => {
     const eventSource = event?.source?.component;
     const isIBMStorageCSIprovisioner = eventSource.indexOf(IBM_STORAGE_CSI_PROVISIONER) != -1;
