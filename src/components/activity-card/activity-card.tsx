@@ -35,23 +35,28 @@ import {
 import './activity-card.scss';
 import { EventKind } from '../../types';
 
-const eventsResource: FirehoseResource = { isList: true, kind: EventModel.kind, prop: 'events' };
+const eventsResource: FirehoseResource = { 
+  isList: true, 
+  kind: EventModel.kind, 
+  prop: 'events',
+};
 
 const RecentEvent : React.FC<any>= (props) =>{
   const name = props?.match?.params?.systemName? props?.match?.params?.systemName: props?.match?.params?.name;
-  const odfEventNamespaceKindFilter = (event: EventKind): boolean => {
+  const [events, eventsLoaded] = useK8sWatchResource(eventsResource);
+  const FlashsystemEventFilter = (event: EventKind): boolean => {
     const eventSource = event?.source?.component;
-    const isIBMStorageCSIprovisioner = eventSource.indexOf(IBM_STORAGE_CSI_PROVISIONER) != -1;
-    const isFlashsystemClusterKind = eventSource.indexOf(StorageInstanceModel.kind) != -1;
+    const isIBMStorageCSIprovisioner = eventSource?.indexOf(IBM_STORAGE_CSI_PROVISIONER) != -1;
+    const isFlashsystemClusterKind = eventSource?.indexOf(StorageInstanceModel.kind) != -1;
     const eventName =  _.get(event, ['metadata', 'name']);
-    const isNameIncluded = eventName.indexOf(name) != -1;
+    const isNameIncluded = name? eventName?.indexOf(name) != -1 : false;
     return isFlashsystemClusterKind || isIBMStorageCSIprovisioner || isNameIncluded;
   };
-  const [events, eventsLoaded] = useK8sWatchResource(eventsResource);
+  
   return (
     <RecentEventsBody
       events={{ data: events, loaded: eventsLoaded } as any}
-      filter={odfEventNamespaceKindFilter}
+      filter={FlashsystemEventFilter}
     />
   );
 };
