@@ -37,7 +37,7 @@ import {
   filterIBMFlashSystemAlerts,
   alertURL,
   PrometheusRulesResponse,
-  getAlertsFromPrometheusResponse,
+  getAlertsAndRules,
  } from './utils';
 import { StorageInstanceKind } from '../../types';
 import {GetFlashSystemResource} from '../../constants/resources'
@@ -47,9 +47,9 @@ const IBMFlashSystemAlerts: React.FC = () => {
     query: "",
     endpoint: "api/v1/rules" as any,
   });
-  const alerts = getAlertsFromPrometheusResponse(
-    rules as unknown as PrometheusRulesResponse
-  );
+  
+  const myRules = rules as unknown as PrometheusRulesResponse;
+  const {alerts} = getAlertsAndRules(myRules?.['data']);
   const filteredAlerts = filterIBMFlashSystemAlerts(alerts);
   return (
     <AlertsBody error={alertsError}>
