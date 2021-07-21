@@ -51,7 +51,7 @@ const StorageEfficiencyCardBody: React.FC = () => {
           <span className="ibm-storage-efficiency-card-help">
             <Tooltip            
               position="top"
-              content={'The amount of physical storage saved after applying compression.'}
+              content={'The amount of storage saved after applying compression, deduplication and thin-provisioning.'}
             >
               <OutlinedQuestionCircleIcon title={'Status'}/>
             </Tooltip>
