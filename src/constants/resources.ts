@@ -16,8 +16,16 @@
 import {
   WatchK8sResource,
 } from "@console/dynamic-plugin-sdk";
-import { StorageInstanceModel, SubscriptionModel, ClusterServiceVersionModel, SecretModel } from '../models';
-import {referenceForModel} from "../selectors";
+import { 
+  StorageInstanceModel, 
+  SubscriptionModel, 
+  ClusterServiceVersionModel, 
+  SecretModel,
+} from '../models';
+import { 
+  referenceForModel,
+  parseProps,
+} from "../selectors";
 
 export const SubscriptionResource: WatchK8sResource = {
     isList: true,
@@ -35,7 +43,7 @@ export const FlashSystemResource: WatchK8sResource = {
   isList: true,
 };
 
-export const GetFlashSystemResource =(name: string, namespace?: string)=> {
+export const newFlashSystemResource = (name: string, namespace?: string) => {
   const resource: WatchK8sResource = {
     kind: referenceForModel(StorageInstanceModel),
     name: name,
@@ -43,9 +51,9 @@ export const GetFlashSystemResource =(name: string, namespace?: string)=> {
     isList: true,
   }
   return resource;
-}
+};
 
-export const GetSecretResource  =(name?: string, namespace?: string) => {
+export const GetSecretResource  = (name?: string, namespace?: string) => {
     const resource: WatchK8sResource = {
         isList: false,
         kind: SecretModel.kind,
@@ -53,4 +61,9 @@ export const GetSecretResource  =(name?: string, namespace?: string) => {
         name: name,
       }
     return resource;
+};
+
+export const GetFlashSystemResource = (props) => {
+  const {name, namespace} = parseProps(props);
+  return newFlashSystemResource(name, namespace);
 };
