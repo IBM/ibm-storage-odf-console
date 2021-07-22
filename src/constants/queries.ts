@@ -16,7 +16,7 @@
 import * as _ from 'lodash';
 import { ProjectModel, PodModel, StorageClassModel } from '../models';
 import { STORAGE_CLASSES, PROJECTS, PODS } from '.';
-import {IBM_STORAGE_CSI_PROVISIONER} from './index'
+import {IBM_STORAGE_CSI_PROVISIONER} from './index';
  
 export enum StorageDashboardQuery {
   PODS_TOTAL_USED = 'PODS_TOTAL_USED',
@@ -115,7 +115,7 @@ export const UTILIZATION_QUERY_ODF = (label: string, func: string) => {
          return [{query: FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.TotalReadBW), desc: 'Read'},
            {query: FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.TotalWriteBW), desc: 'Write'}];
      }
-   };
+};
 export const BreakdownQueryMapODF = (label: string, queryType: string) => {
   switch(queryType) { 
     case PROJECTS: return {
@@ -131,7 +131,6 @@ export const BreakdownQueryMapODF = (label: string, queryType: string) => {
           FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.USED_CAPACITY),
         },
       }; 
-
     case STORAGE_CLASSES: return {
       model: StorageClassModel,
       metric: 'storageclass',
@@ -157,6 +156,6 @@ export const BreakdownQueryMapODF = (label: string, queryType: string) => {
         [StorageDashboardQuery.USED_CAPACITY]:
           FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.USED_CAPACITY),
       }, 
-    }; 
-  };
+    };
+  }; 
 };
