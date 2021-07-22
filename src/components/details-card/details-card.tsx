@@ -56,7 +56,11 @@ const DetailsCard: React.FC<any> = (props) => {
   const stoData = data?.[0];
   const flashSecretResource = GetSecretResource(stoData?.metadata?.name, stoData?.metadata?.namespace);
   const [secret, secretloaded, secretloadError] = useK8sWatchResource<SecretKind>(flashSecretResource);
-  const endpointAddress = secretloaded && !secretloadError ? Base64.decode(getEndpoint(secret)) : '';
+  //const endpointAddress = secretloaded && !secretloadError ? Base64.decode(getEndpoint(secret)) : '';
+  const endpointAddress = React.useMemo(
+    () => ( secretloaded && !secretloadError ? Base64.decode(getEndpoint(secret)) : ''),
+    [data, secretloaded, secretloadError],
+  );
 
   const flashOperatorVersion = getIBMStorageODFVersion(subscriptions);
   const operatorPath = `${resourcePathFromModel(
