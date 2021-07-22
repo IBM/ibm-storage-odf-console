@@ -23,28 +23,23 @@ import {
   DashboardCardTitle,
   usePrometheusPoll,
 } from '@console/dynamic-plugin-sdk/internalAPI';
-import {
-  useK8sWatchResource,
-} from "@console/dynamic-plugin-sdk/api";
 import { BreakdownCardBody } from '../breakdown-card/breakdown-body';
 import { getStackChartStats, sortInstantVectorStats } from '../breakdown-card/utils';
 import { getSelectOptions } from '../breakdown-card/breakdown-dropdown';
 import './capacity-breakdown-card.scss';
 import { humanizeBinaryBytes } from '../../humanize';
-import {GetFlashSystemResource} from '../../constants/resources';
 import { BreakdownQueryMapODF } from '../../constants/queries';
 import { PROJECTS, STORAGE_CLASSES, PODS } from '../../constants/index';
-import { StorageInstanceKind } from '../../types';
 import { 
   getInstantVectorStats,
 } from '../../selectors/promethues-utils';
+import { parseProps } from '../../selectors/index';
 
 const keys = [PROJECTS, STORAGE_CLASSES, PODS];
 const breakdownSelectItems = getSelectOptions(keys);
 
 const BreakdownCard: React.FC<any> = (props) => {
-  const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace));
-  const name= loaded && !loadError? data?.[0]?.metadata.name: props?.match?.params?.name;
+  const {name} = parseProps(props);
   
   const [metricType, setMetricType] = React.useState(PROJECTS);
   const [isOpenBreakdownSelect, setBreakdownSelect] = React.useState(false);
