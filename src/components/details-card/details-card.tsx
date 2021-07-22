@@ -49,7 +49,7 @@ import {
 } from '../../constants/resources'
 
 const DetailsCard: React.FC<any> = (props) => {
-  const flashClusterResource = GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace);
+  const flashClusterResource = GetFlashSystemResource(props);
   const [data, flashsystemloaded, flashsystemloadError] = useK8sWatchResource<StorageInstanceKind>(flashClusterResource);
   const [subscriptions, subscriptionloaded, subscriptionloadError] = useK8sWatchResource<K8sKind[]>(SubscriptionResource);
 
