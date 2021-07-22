@@ -26,6 +26,34 @@ export const referenceForModel = (storage: K8sKind) => {
   return kind;
 }
 
+export const resourcePathFromModel = (model: K8sKind, name?: string, namespace?: string) => {
+  const { plural, namespaced, crd } = model;
+
+  let url = '/k8s/';
+
+  if (!namespaced) {
+    url += 'cluster/';
+  }
+
+  if (namespaced) {
+    url += namespace ? `ns/${namespace}/` : 'all-namespaces/';
+  }
+
+  if (crd) {
+    url += referenceForModel(model);
+  } else if (plural) {
+    url += plural;
+  }
+
+  if (name) {
+    // Some resources have a name that needs to be encoded. For instance,
+    // Users can have special characters in the name like `#`.
+    url += `/${encodeURIComponent(name)}`;
+  }
+
+  return url;
+};
+
 export const getIBMStorageODFVersion = (items: K8sKind[]): string => {
   const itemsData: K8sKind[] = items;
   const operator: K8sKind = _.find(
@@ -52,3 +80,16 @@ export const getNamespace = (resource) =>
 
 export const getEndpoint = (secret: SecretKind) =>
   _.get(secret, ['data', 'management_address']);
+
+export const getNameFromProps = (props) => {
+  const CRname = _.get(props, ['match', 'params', 'name']);
+  const systemName = _.get(props, ['match', 'params', 'systemName']);
+  return systemName? systemName: CRname;
+};
+
+export const getNamespaceFromProps = (props) =>
+  _.get(props, ['match', 'params', 'namespace']);
+
+export const parseProps = (props) => {
+  return {name: getNameFromProps(props), namespace: getNamespaceFromProps(props)};
+};
