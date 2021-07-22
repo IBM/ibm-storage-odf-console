@@ -30,22 +30,17 @@ import {
   FlASHSYSTEM_QUERIES,
   StorageDashboardQuery,
  } from '../../constants/queries';
-import {
-  useK8sWatchResource,
-} from "@console/dynamic-plugin-sdk/api";
-import {GetFlashSystemResource} from '../../constants/resources';
-import {parseMetricData} from '../../selectors/promethues-utils';
-import { StorageInstanceKind } from '../../types';
+import { parseMetricData } from '../../selectors/promethues-utils';
+import { parseProps } from '../../selectors/index';
 import './raw-capacity-card.scss';
 
 const colorScale = ['#0166cc', '#d6d6d6'];
 
 const RawCapacityCard: React.FC<any> = (props)  => {
   const { t } = useTranslation();
-  const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace));
-  const name= loaded && !loadError? data?.[0]?.metadata.name: props?.match?.params?.name;
+  const {name} = parseProps(props);
 
-  const [totalCapacitymetric] = usePrometheusPoll({
+  const [totalCapacitymetric, loadError, loading] = usePrometheusPoll({
     query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalCapacity),
     endpoint: "api/v1/query" as any,
   });
@@ -76,7 +71,7 @@ const RawCapacityCard: React.FC<any> = (props)  => {
         <DashboardCardTitle>{t('Physical Capacity Overview')}</DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody className="flashsystem-raw-usage__container">
-        {loaded && !loadError && (
+        {!loading && !loadError && (
           <>
             <div className="flashsystem-raw-usage__item flashsystem-raw-usage__legend">
               <ChartLegend
@@ -111,7 +106,7 @@ const RawCapacityCard: React.FC<any> = (props)  => {
             </div>
           </>
         )}
-        {!loaded && !loadError && <LoadingCardBody />}
+        {loading && !loadError && <LoadingCardBody />}
         {loadError && <ErrorCardBody />}
       </DashboardCardBody>
     </DashboardCard>
