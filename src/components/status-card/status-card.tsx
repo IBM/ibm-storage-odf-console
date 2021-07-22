@@ -40,7 +40,8 @@ import {
   getAlertsAndRules,
  } from './utils';
 import { StorageInstanceKind } from '../../types';
-import {GetFlashSystemResource} from '../../constants/resources'
+import {GetFlashSystemResource} from '../../constants/resources';
+import { parseProps } from '../../selectors/index';
 
 const IBMFlashSystemAlerts: React.FC = () => {
   const [rules, alertsError, alertsLoaded] = usePrometheusPoll({
@@ -63,6 +64,7 @@ const IBMFlashSystemAlerts: React.FC = () => {
 };
 
 export const StatusCard: React.FC<any> = (props) => {
+  const {name} = parseProps(props);
   const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props));
   const flashHealthState = getFlashsystemHealthState({ sto: { data: data, loaded: loaded, loadError: loadError } });
 
@@ -75,7 +77,7 @@ export const StatusCard: React.FC<any> = (props) => {
         <Gallery className="co-overview-status__health" hasGutter>
           <GalleryItem>
             <HealthItem
-              title={props?.match?.params?.name}
+              title={name}
               state={flashHealthState.state}
               details={flashHealthState.message}
             />
