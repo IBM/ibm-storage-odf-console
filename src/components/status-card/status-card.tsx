@@ -36,7 +36,7 @@ import { StorageInstanceKind } from '../../types';
 import {GetFlashSystemResource} from '../../constants/resources'
 
 export const StatusCard: React.FC<any> = (props) => {
-  const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props?.match?.params?.name, props?.match?.params?.namespace));
+  const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props));
   const flashHealthState = getFlashsystemHealthState({ sto: { data: data, loaded: loaded, loadError: loadError } });
 
   return (
