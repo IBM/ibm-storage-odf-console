@@ -38,9 +38,10 @@ import {
   humanizeLatency,
   ByteDataTypes,
  } from './utils';
+ import { parseProps } from '../../selectors/index';
 
 const UtilizationCard: React.FC<any> = (props) => {
-  const name = props?.match?.params?.systemName? props?.match?.params?.systemName : props?.match?.params?.name;
+  const {name} = parseProps(props);
   const { duration } = useUtilizationDuration();
   
   const [usedCapacitymetric] = usePrometheusPoll({
