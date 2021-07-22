@@ -155,3 +155,16 @@ export const getNamespace = (resource) =>
 
 export const getEndpoint = (secret: SecretKind) =>
   _.get(secret, ['data', 'management_address']);
+
+export const getNameFromProps = (props) => {
+  const CRname = _.get(props, ['match', 'params', 'name']);
+  const systemName = _.get(props, ['match', 'params', 'systemName']);
+  return systemName? systemName: CRname;
+};
+
+export const getNamespaceFromProps = (props) =>
+  _.get(props, ['match', 'params', 'namespace']);
+
+export const parseProps = (props) => {
+  return {name: getNameFromProps(props), namespace: getNamespaceFromProps(props)};
+};
