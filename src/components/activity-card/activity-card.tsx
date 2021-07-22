@@ -34,6 +34,7 @@ import {
   } from '../../models';
 import './activity-card.scss';
 import { EventKind } from '../../types';
+import { parseProps } from '../../selectors/index';
 
 const eventsResource: FirehoseResource = { 
   isList: true, 
@@ -42,7 +43,7 @@ const eventsResource: FirehoseResource = {
 };
 
 const RecentEvent : React.FC<any>= (props) =>{
-  const name = props?.match?.params?.systemName? props?.match?.params?.systemName: props?.match?.params?.name;
+  const {name} = parseProps(props);
   const [events, eventsLoaded] = useK8sWatchResource(eventsResource);
   const FlashsystemEventFilter = (event: EventKind): boolean => {
     const eventSource = event?.source?.component;
