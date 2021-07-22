@@ -139,3 +139,18 @@ export const StorageClassModel: K8sKind = {
   kind: 'StorageClass',
   id: 'storageclass',
 };
+
+export const PersistentVolumeModel: K8sKind = {
+  label: 'PersistentVolume',
+  // t('public~PersistentVolume')
+  labelKey: 'public~PersistentVolume',
+  apiVersion: 'v1',
+  plural: 'persistentvolumes',
+  abbr: 'PV',
+  kind: 'PersistentVolume',
+  id: 'persistentvolume',
+  labelPlural: 'PersistentVolumes',
+  // t('public~PersistentVolumes')
+  labelPluralKey: 'public~PersistentVolumes',
+};
+
