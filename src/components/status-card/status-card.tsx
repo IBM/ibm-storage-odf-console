@@ -28,13 +28,40 @@ import {
   DashboardCardHeader,
   DashboardCardTitle,
   HealthItem,
+  AlertsBody,
+  AlertItem,
+  usePrometheusPoll,
 } from "@console/dynamic-plugin-sdk/internalAPI";
 import { 
   getFlashsystemHealthState, 
+  filterIBMFlashSystemAlerts,
+  alertURL,
+  PrometheusRulesResponse,
+  getAlertsAndRules,
  } from './utils';
 import { StorageInstanceKind } from '../../types';
 import {GetFlashSystemResource} from '../../constants/resources';
 import { parseProps } from '../../selectors/index';
+
+const IBMFlashSystemAlerts: React.FC = () => {
+  const [rules, alertsError, alertsLoaded] = usePrometheusPoll({
+    query: "",
+    endpoint: "api/v1/rules" as any,
+  });
+  
+  const myRules = rules as unknown as PrometheusRulesResponse;
+  const {alerts} = getAlertsAndRules(myRules?.['data']);
+  const filteredAlerts = filterIBMFlashSystemAlerts(alerts);
+  return (
+    <AlertsBody error={alertsError}>
+      {!alertsLoaded &&
+        filteredAlerts.length > 0 &&
+        filteredAlerts.map((alert) => (
+          <AlertItem key={alertURL(alert, alert.rule.id)} alert={alert} />
+        ))}
+    </AlertsBody>
+  );
+};
 
 export const StatusCard: React.FC<any> = (props) => {
   const {name} = parseProps(props);
@@ -56,6 +83,7 @@ export const StatusCard: React.FC<any> = (props) => {
             />
           </GalleryItem>
         </Gallery>
+          <IBMFlashSystemAlerts/>
       </DashboardCardBody>
     </DashboardCard>
   );
