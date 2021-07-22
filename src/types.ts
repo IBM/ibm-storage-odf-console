@@ -150,7 +150,6 @@ export type EventKind = {
   };
 } & K8sResourceCommon;
 
-
 // below is for podkind
 export type TaintEffect = '' | 'NoSchedule' | 'PreferNoSchedule' | 'NoExecute';
 
@@ -408,5 +407,4 @@ export type PodKind = {
   status?: PodStatus;
 } & K8sResourceCommon &
   PodTemplate;
-
 

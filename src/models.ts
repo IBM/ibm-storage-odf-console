@@ -153,4 +153,3 @@ export const PersistentVolumeModel: K8sKind = {
   // t('public~PersistentVolumes')
   labelPluralKey: 'public~PersistentVolumes',
 };
-
