@@ -143,7 +143,7 @@ export const BreakdownQueryMapODF = (label: string, queryType: string) => {
         }, 
       }; 
     }
-}
+};
       
 export const UTILIZATION_QUERY_ODF = (label: string, func: string) => {
      switch(func){
@@ -160,47 +160,4 @@ export const UTILIZATION_QUERY_ODF = (label: string, func: string) => {
          return [{query: FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.TotalReadBW), desc: 'Read'},
            {query: FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.TotalWriteBW), desc: 'Write'}];
      }
-};
-export const BreakdownQueryMapODF = (label: string, queryType: string) => {
-  switch(queryType) { 
-    case PROJECTS: return {
-      model: ProjectModel,
-      metric: 'namespace',
-      queries: {
-        [StorageDashboardQuery.PROJECTS_BY_USED]: `(topk(6,(${
-          FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.PROJECTS_BY_USED)
-        })))`,
-        [StorageDashboardQuery.PROJECTS_TOTAL_USED]:
-          FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.PROJECTS_TOTAL_USED),
-        [StorageDashboardQuery.USED_CAPACITY]:
-          FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.USED_CAPACITY),
-        },
-      }; 
-    case STORAGE_CLASSES: return {
-      model: StorageClassModel,
-      metric: 'storageclass',
-      queries: {
-          [StorageDashboardQuery.STORAGE_CLASSES_BY_USED]: `(topk(6,(${
-            FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.STORAGE_CLASSES_BY_USED)
-          })))`,
-          [StorageDashboardQuery.STORAGE_CLASSES_TOTAL_USED]:
-            FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.STORAGE_CLASSES_TOTAL_USED),
-          [StorageDashboardQuery.USED_CAPACITY]:
-            FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.USED_CAPACITY),
-        },
-    };
-    case PODS: return {
-      model: PodModel,
-      metric: 'pod',
-      queries: {
-        [StorageDashboardQuery.PODS_BY_USED]: `(topk(6,(${
-          FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.PODS_BY_USED)
-        })))`,
-        [StorageDashboardQuery.PODS_TOTAL_USED]:
-          FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.PODS_TOTAL_USED),
-        [StorageDashboardQuery.USED_CAPACITY]:
-          FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.USED_CAPACITY),
-      }, 
-    };
-  }; 
 };

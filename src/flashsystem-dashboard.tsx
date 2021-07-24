@@ -20,23 +20,59 @@
  import { Grid, GridItem } from "@patternfly/react-core";
  
  import StorageEfficiencyCard from './components/storage-efficiency-card/storage-efficiency-card';
+ import StatusCard from './components/status-card/status-card';
+ import DetailsCard from './components/details-card/details-card';
+ import InventoryCard from './components/inventory-card/inventory-card';
+ import ActivityCard from './components/activity-card/activity-card';
+ import RawCapacityCard from './components/raw-capacity-card/raw-capacity-card';
+ import UtilizationCard from './components/utilization-card/utilization-card';
+ import BreakdownCard from './components/capacity-breakdown/capacity-breakdown-card';
 
  export type ODFDashboardProps = {
   match: RouteComponentProps["match"];
 };
 
  const UpperSection: React.FC = (props) => {
-   return (
-     <Grid hasGutter>
-       <GridItem span={3}>          
-          <StorageEfficiencyCard/>
-       </GridItem>
-       <GridItem span={6}>         
-       </GridItem>
-       <GridItem span={3} >
-       </GridItem>
-     </Grid>
-   );
+  return (
+    <Grid hasGutter>
+      <GridItem span={3}>
+        <Grid hasGutter>
+          <GridItem>
+            <DetailsCard/>
+          </GridItem>
+          <GridItem>
+            <StorageEfficiencyCard/>
+          </GridItem>          
+          <GridItem>
+            <InventoryCard/>
+          </GridItem>
+        </Grid>
+      </GridItem>
+      <GridItem span={6}>
+        <Grid hasGutter>
+          <GridItem>
+            <StatusCard {...props}/>
+          </GridItem>
+          <GridItem>
+            <RawCapacityCard {...props}/>
+          </GridItem>
+          <GridItem>
+            <BreakdownCard {...props}/>
+          </GridItem>
+          <GridItem>
+            <UtilizationCard {...props}/>
+          </GridItem>
+        </Grid>         
+      </GridItem>
+      <GridItem span={3} >
+        <Grid hasGutter>
+          <GridItem>
+            <ActivityCard/>
+          </GridItem>
+        </Grid>
+      </GridItem>
+    </Grid>
+  );
  };
  
  const FlashsystemDashboard: React.FC<ODFDashboardProps> = (props) => {

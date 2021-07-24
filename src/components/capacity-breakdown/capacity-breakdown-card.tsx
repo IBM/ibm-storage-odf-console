@@ -35,8 +35,8 @@ import {
 } from '../../selectors/promethues-utils';
 import { parseProps } from '../../selectors/index';
 
-const keys = [PROJECTS, STORAGE_CLASSES, PODS];
-const breakdownSelectItems = getSelectOptions(keys);
+const dropdownKeys = [PROJECTS, STORAGE_CLASSES, PODS];
+const breakdownSelectItems = getSelectOptions(dropdownKeys);
 
 const BreakdownCard: React.FC<any> = (props) => {
   const {name} = parseProps(props);
@@ -46,18 +46,18 @@ const BreakdownCard: React.FC<any> = (props) => {
   const { model, metric, queries } = BreakdownQueryMapODF(name, metricType);
   const queryKeys = Object.keys(queries);
 
-  const [byUsedmetric] = usePrometheusPoll({
+  const [byUsedmetric, byUsedLoadError, byUsedLoading] = usePrometheusPoll({
     query: queries[queryKeys[0]],
     endpoint: "api/v1/query" as any,
   });
   
-  const [totalUsedmetric] = usePrometheusPoll({
+  const [totalUsedmetric, totalUsedLoadError, totalUsedLoading] = usePrometheusPoll({
     query: queries[queryKeys[1]],
     endpoint: "api/v1/query" as any,
   });
   const metricTotal = _.get(totalUsedmetric, 'data.result[0].value[1]');
 
-  const [usedmetric] = usePrometheusPoll({
+  const [usedmetric, usedLoadError, usedLoading] = usePrometheusPoll({
     query: queries[queryKeys[2]],
     endpoint: "api/v1/query" as any,
   });
@@ -95,8 +95,8 @@ const BreakdownCard: React.FC<any> = (props) => {
       </DashboardCardHeader>
       <DashboardCardBody className="flashsystem-capacity-breakdown-card__body">
         <BreakdownCardBody
-          isLoading={false}
-          hasLoadError={false}
+          isLoading={byUsedLoading || totalUsedLoading || usedLoading}
+          hasLoadError={byUsedLoadError || totalUsedLoadError || usedLoadError}
           metricTotal={metricTotal}
           top5MetricsStats={top5MetricsStats}
           //capacityAvailable={flashsystemAvailable}
