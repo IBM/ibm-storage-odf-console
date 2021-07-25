@@ -13,25 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as _ from 'lodash';
-import * as React from 'react';
+import * as _ from "lodash";
+import * as React from "react";
 import {
   humanizeNumber,
   humanizeSeconds,
   secondsToNanoSeconds,
-} from '../../humanize';
+} from "../../humanize";
 
 type HumanizeResult = {
-    string: string;
-    value: number;
-    unit: string;
-  };
+  string: string;
+  value: number;
+  unit: string;
+};
 type Humanize = {
-    (v: React.ReactText, initialUnit?: string, preferredUnit?: string): HumanizeResult;
-  };
+  (
+    v: React.ReactText,
+    initialUnit?: string,
+    preferredUnit?: string
+  ): HumanizeResult;
+};
 export const humanizeIOPS: Humanize = (value) => {
   const humanizedNumber = humanizeNumber(value);
-  const unit = 'IOPS';
+  const unit = "IOPS";
   return {
     ...humanizedNumber,
     string: `${humanizedNumber.value} ${humanizedNumber.unit}`,
@@ -40,13 +44,17 @@ export const humanizeIOPS: Humanize = (value) => {
 };
 
 export const humanizeLatency: Humanize = (value) => {
-  const humanizedTime = humanizeSeconds(secondsToNanoSeconds(value), null, 'ms');
+  const humanizedTime = humanizeSeconds(
+    secondsToNanoSeconds(value),
+    null,
+    "ms"
+  );
   return humanizedTime;
 };
 
 export enum ByteDataTypes {
-    BinaryBytes = 'binaryBytes',
-    BinaryBytesWithoutB = 'binaryBytesWithoutB',
-    DecimalBytes = 'decimalBytes',
-    DecimalBytesWithoutB = 'decimalBytesWithoutB',
-  }
+  BinaryBytes = "binaryBytes",
+  BinaryBytesWithoutB = "binaryBytesWithoutB",
+  DecimalBytes = "decimalBytes",
+  DecimalBytesWithoutB = "decimalBytesWithoutB",
+}

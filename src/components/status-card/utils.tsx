@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as _ from 'lodash';
-import { murmur3 } from 'murmurhash-js';
+import * as _ from "lodash";
+import { murmur3 } from "murmurhash-js";
 import {
   Alert,
   PrometheusLabels,
   PrometheusRule,
   Rule,
 } from "@console/dynamic-plugin-sdk/common";
-import { StorageInstanceKind } from '../../types';
-import { IBM_FlASHSYSTEM } from '../../constants/index';
+import { StorageInstanceKind } from "../../types";
+import { IBM_FlASHSYSTEM } from "../../constants/index";
 
 enum HealthState {
   OK = "OK",
@@ -36,20 +36,20 @@ enum HealthState {
 }
 
 const FlashsystemHealthStatus = {
-  'Ready': {
+  Ready: {
     state: HealthState.OK,
   },
-  'Not Ready': {
+  "Not Ready": {
     state: HealthState.WARNING,
-    message: 'Warning',
+    message: "Warning",
   },
-  'Error': {
+  Error: {
     state: HealthState.ERROR,
-    message: 'Error',
+    message: "Error",
   },
-  'PROCESSING': {
+  PROCESSING: {
     state: HealthState.PROGRESS,
-    message: 'PROGRESS',
+    message: "PROGRESS",
   },
 };
 
@@ -68,13 +68,13 @@ export const getFlashsystemHealthState = ({ sto }) => {
   }
   return FlashsystemHealthStatus[status] || { state: HealthState.UNKNOWN };
 };
-export const StorageStatus = (data: StorageInstanceKind) => (data?.status?.phase);
+export const StorageStatus = (data: StorageInstanceKind) => data?.status?.phase;
 
 export const AlertResource = {
-  kind: 'Alert',
-  label: 'Alert',
-  plural: '/monitoring/alerts',
-  abbr: 'AL',
+  kind: "Alert",
+  label: "Alert",
+  plural: "/monitoring/alerts",
+  abbr: "AL",
 };
 
 type Group = {
@@ -99,30 +99,39 @@ export const alertURL = (alert: Alert, ruleID: string) =>
   `${AlertResource.plural}/${ruleID}?${labelsToParams(alert.labels)}`;
 
 export const filterIBMFlashSystemAlerts = (alerts: Alert[]): Alert[] =>
-  alerts.filter((alert) => (_.get(alert, 'annotations.storage_type'))?.toLowerCase() === IBM_FlASHSYSTEM.toLowerCase());
+  alerts.filter(
+    (alert) =>
+      _.get(alert, "annotations.storage_type")?.toLowerCase() ===
+      IBM_FlASHSYSTEM.toLowerCase()
+  );
 
-export const getAlertsFromPrometheusResponse = (response: PrometheusRulesResponse) => {
-    const alerts: Alert[] = [];
-    response?.data?.groups?.forEach((group) => {
-      group.rules.forEach((rule) => {
-        rule?.alerts?.forEach((alert) => {
-          alerts.push({
-            rule: {
-              ...rule,
-              id: group.name,
-            },
-            ...alert,
-          });
+export const getAlertsFromPrometheusResponse = (
+  response: PrometheusRulesResponse
+) => {
+  const alerts: Alert[] = [];
+  response?.data?.groups?.forEach((group) => {
+    group.rules.forEach((rule) => {
+      rule?.alerts?.forEach((alert) => {
+        alerts.push({
+          rule: {
+            ...rule,
+            id: group.name,
+          },
+          ...alert,
         });
       });
     });
-    return alerts;
-  };
+  });
+  return alerts;
+};
 
 export const getAlertsAndRules = (
-  data: PrometheusRulesResponse['data'],
+  data: PrometheusRulesResponse["data"]
 ): { alerts: Alert[]; rules: Rule[] } => {
-  const groups = _.get(data, 'groups') as PrometheusRulesResponse['data']['groups'];
+  const groups = _.get(
+    data,
+    "groups"
+  ) as PrometheusRulesResponse["data"]["groups"];
   const rules = _.flatMap(groups, (g) => {
     const addID = (r: PrometheusRule): Rule => {
       const key = [
@@ -132,15 +141,17 @@ export const getAlertsAndRules = (
         r.duration,
         r.query,
         ..._.map(r.labels, (k, v) => `${k}=${v}`),
-      ].join(',');
-      return { ...r, id: String(murmur3(key, 'monitoring-salt')) };
+      ].join(",");
+      return { ...r, id: String(murmur3(key, "monitoring-salt")) };
     };
 
-    return _.filter(g.rules, { type: 'alerting' }).map(addID);
+    return _.filter(g.rules, { type: "alerting" }).map(addID);
   });
 
   // Add `rule` object to each alert
-  const alerts = _.flatMap(rules, (rule) => rule.alerts.map((a) => ({ rule, ...a })));
+  const alerts = _.flatMap(rules, (rule) =>
+    rule.alerts.map((a) => ({ rule, ...a }))
+  );
 
   return { alerts, rules };
 };

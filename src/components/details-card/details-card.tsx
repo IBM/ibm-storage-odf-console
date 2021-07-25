@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as React from 'react';
-import * as _ from 'lodash';
-import { Link, BrowserRouter as Router, } from 'react-router-dom';
-import { Base64 } from 'js-base64';
-import {
-    useK8sWatchResource,
-} from "@console/dynamic-plugin-sdk/api";
+import * as React from "react";
+import * as _ from "lodash";
+import { Link, BrowserRouter as Router } from "react-router-dom";
+import { Base64 } from "js-base64";
+import { useK8sWatchResource } from "@console/dynamic-plugin-sdk/api";
 import {
   DashboardCard,
   DashboardCardBody,
@@ -27,46 +25,48 @@ import {
   DashboardCardTitle,
   DetailItem,
   DetailsBody,
-} from '@console/dynamic-plugin-sdk/internalAPI';
-import {ExternalLink} from './Link';
-import { 
-  StorageInstanceKind, 
-  K8sKind,
-  SecretKind,
- } from '../../types';
-import { 
-  getEndpoint,  
+} from "@console/dynamic-plugin-sdk/internalAPI";
+import { ExternalLink } from "./Link";
+import { StorageInstanceKind, K8sKind, SecretKind } from "../../types";
+import {
+  getEndpoint,
   getIBMStorageODFVersion,
   resourcePathFromModel,
-  } from '../../selectors';
+} from "../../selectors";
+import { ClusterServiceVersionModel } from "../../models";
 import {
-  ClusterServiceVersionModel,
-} from '../../models';
-import {
-  GetFlashSystemResource, 
+  GetFlashSystemResource,
   SubscriptionResource,
-  GetSecretResource 
-} from '../../constants/resources'
+  GetSecretResource,
+} from "../../constants/resources";
 
 const DetailsCard: React.FC<any> = (props) => {
   const flashClusterResource = GetFlashSystemResource(props);
-  const [data, flashsystemloaded, flashsystemloadError] = useK8sWatchResource<StorageInstanceKind>(flashClusterResource);
-  const [subscriptions, subscriptionloaded, subscriptionloadError] = useK8sWatchResource<K8sKind[]>(SubscriptionResource);
+  const [data, flashsystemloaded, flashsystemloadError] =
+    useK8sWatchResource<StorageInstanceKind>(flashClusterResource);
+  const [subscriptions, subscriptionloaded, subscriptionloadError] =
+    useK8sWatchResource<K8sKind[]>(SubscriptionResource);
 
   const stoData = data?.[0];
-  const flashSecretResource = GetSecretResource(stoData?.metadata?.name, stoData?.metadata?.namespace);
-  const [secret, secretloaded, secretloadError] = useK8sWatchResource<SecretKind>(flashSecretResource);
-  //const endpointAddress = secretloaded && !secretloadError ? Base64.decode(getEndpoint(secret)) : '';
+  const flashSecretResource = GetSecretResource(
+    stoData?.metadata?.name,
+    stoData?.metadata?.namespace
+  );
+  const [secret, secretloaded, secretloadError] =
+    useK8sWatchResource<SecretKind>(flashSecretResource);
   const endpointAddress = React.useMemo(
-    () => ( secretloaded && !secretloadError ? Base64.decode(getEndpoint(secret)) : ''),
-    [data, secretloaded, secretloadError],
+    () =>
+      secretloaded && !secretloadError
+        ? Base64.decode(getEndpoint(secret))
+        : "",
+    [data, secretloaded, secretloadError]
   );
 
   const flashOperatorVersion = getIBMStorageODFVersion(subscriptions);
   const operatorPath = `${resourcePathFromModel(
     ClusterServiceVersionModel,
     flashOperatorVersion,
-    stoData?.metadata.namespace,
+    stoData?.metadata.namespace
   )}`;
 
   return (
@@ -75,14 +75,22 @@ const DetailsCard: React.FC<any> = (props) => {
         <DashboardCardTitle>Details</DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody>
-       <DetailsBody>
+        <DetailsBody>
           <DetailItem
             key="operator-name"
             title="Operator Name"
-            error={!!subscriptionloadError }
-            isLoading={!subscriptionloaded }
+            error={!!subscriptionloadError}
+            isLoading={!subscriptionloaded}
           >
-            <Router> <Link to={operatorPath} onClick={() => window.location.href=operatorPath}>OpenShift Data Foundation - IBM</Link> </Router>
+            <Router>
+              {" "}
+              <Link
+                to={operatorPath}
+                onClick={() => (window.location.href = operatorPath)}
+              >
+                OpenShift Data Foundation - IBM
+              </Link>{" "}
+            </Router>
           </DetailItem>
           <DetailItem
             key="provider"
@@ -91,10 +99,10 @@ const DetailsCard: React.FC<any> = (props) => {
             isLoading={!flashsystemloaded}
           >
             <ExternalLink
-              href={"https://" + endpointAddress} 
+              href={"https://" + endpointAddress}
               text="IBM flashsystem"
             />
-            </DetailItem>
+          </DetailItem>
           <DetailItem
             key="mode"
             title="Mode"
@@ -120,7 +128,7 @@ const DetailsCard: React.FC<any> = (props) => {
             {flashOperatorVersion}
           </DetailItem>
         </DetailsBody>
-        </DashboardCardBody>
+      </DashboardCardBody>
     </DashboardCard>
   );
 };

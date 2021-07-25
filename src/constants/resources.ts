@@ -13,31 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { WatchK8sResource } from "@console/dynamic-plugin-sdk";
 import {
-  WatchK8sResource,
-} from "@console/dynamic-plugin-sdk";
-import { 
-  StorageInstanceModel, 
-  SubscriptionModel, 
-  ClusterServiceVersionModel, 
+  StorageInstanceModel,
+  SubscriptionModel,
+  ClusterServiceVersionModel,
   SecretModel,
-} from '../models';
-import { 
-  referenceForModel,
-  parseProps,
-} from "../selectors";
+} from "../models";
+import { referenceForModel, parseProps } from "../selectors";
 
 export const SubscriptionResource: WatchK8sResource = {
-    isList: true,
-    kind: referenceForModel(SubscriptionModel),
-    namespaced: false,
+  isList: true,
+  kind: referenceForModel(SubscriptionModel),
+  namespaced: false,
 };
 
 export const OperatorResource: WatchK8sResource = {
   kind: referenceForModel(ClusterServiceVersionModel),
   isList: true,
 };
-  
+
 export const FlashSystemResource: WatchK8sResource = {
   kind: referenceForModel(StorageInstanceModel),
   isList: true,
@@ -49,21 +44,21 @@ export const newFlashSystemResource = (name: string, namespace?: string) => {
     name: name,
     namespace: namespace,
     isList: true,
-  }
+  };
   return resource;
 };
 
-export const GetSecretResource  = (name?: string, namespace?: string) => {
-    const resource: WatchK8sResource = {
-        isList: false,
-        kind: SecretModel.kind,
-        namespace: namespace,
-        name: name,
-      }
-    return resource;
+export const GetSecretResource = (name?: string, namespace?: string) => {
+  const resource: WatchK8sResource = {
+    isList: false,
+    kind: SecretModel.kind,
+    namespace: namespace,
+    name: name,
+  };
+  return resource;
 };
 
 export const GetFlashSystemResource = (props) => {
-  const {name, namespace} = parseProps(props);
+  const { name, namespace } = parseProps(props);
   return newFlashSystemResource(name, namespace);
 };

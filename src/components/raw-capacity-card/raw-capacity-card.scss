@@ -1,4 +1,4 @@
-@import './skeleton-screen.scss';
+@import "./skeleton-screen.scss";
 
 .flashsystem-raw-usage {
   &__container {
@@ -65,7 +65,7 @@
   height: 30px;
   &::after {
     background-repeat: no-repeat;
-    content: '';
+    content: "";
     display: block;
     height: 100%;
     width: 100%;

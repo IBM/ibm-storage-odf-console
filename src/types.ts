@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- import {
-  K8sResourceCommon,
-  ObjectMetadata,
-} from "@console/dynamic-plugin-sdk";
+import { K8sResourceCommon, ObjectMetadata } from "@console/dynamic-plugin-sdk";
 
 export type WatchFlashSystemResource = {
   sto: K8sResourceCommon[];
@@ -24,7 +21,7 @@ export type WatchFlashSystemResource = {
 
 type MatchExpression = {
   key: string;
-  operator: 'Exists' | 'DoesNotExist' | 'In' | 'NotIn' | 'Equals' | 'NotEqual';
+  operator: "Exists" | "DoesNotExist" | "In" | "NotIn" | "Equals" | "NotEqual";
   values?: string[];
   value?: string;
 };
@@ -38,18 +35,18 @@ type Selector = {
 };
 
 type K8sVerb =
-  | 'create'
-  | 'get'
-  | 'list'
-  | 'update'
-  | 'patch'
-  | 'delete'
-  | 'deletecollection'
-  | 'watch';
+  | "create"
+  | "get"
+  | "list"
+  | "update"
+  | "patch"
+  | "delete"
+  | "deletecollection"
+  | "watch";
 
 enum BadgeType {
-  DEV = 'Dev Preview',
-  TECH = 'Tech Preview',
+  DEV = "Dev Preview",
+  TECH = "Tech Preview",
 }
 export type K8sKind = {
   abbr: string;
@@ -59,7 +56,7 @@ export type K8sKind = {
   labelPlural: string;
   labelPluralKey?: string;
   plural: string;
-  propagationPolicy?: 'Foreground' | 'Background';
+  propagationPolicy?: "Foreground" | "Background";
 
   id?: string;
   crd?: boolean;
@@ -105,7 +102,7 @@ export type StorageInstanceSpec = {
   vendor?: string;
   endpoint?: string;
   insecureSkipVerify: boolean;
-  secret?:{
+  secret?: {
     name?: string;
     namespace?: string;
   };
@@ -151,7 +148,7 @@ export type EventKind = {
 } & K8sResourceCommon;
 
 // below is for podkind
-export type TaintEffect = '' | 'NoSchedule' | 'PreferNoSchedule' | 'NoExecute';
+export type TaintEffect = "" | "NoSchedule" | "PreferNoSchedule" | "NoExecute";
 
 export type Taint = {
   key: string;
@@ -159,7 +156,7 @@ export type Taint = {
   effect: TaintEffect;
 };
 
-export type TolerationOperator = 'Exists' | 'Equal';
+export type TolerationOperator = "Exists" | "Equal";
 
 export type Toleration = {
   effect: TaintEffect;
@@ -170,9 +167,9 @@ export type Toleration = {
 };
 
 export enum K8sResourceConditionStatus {
-  True = 'True',
-  False = 'False',
-  Unknown = 'Unknown',
+  True = "True",
+  False = "False",
+  Unknown = "Unknown",
 }
 
 export type K8sResourceCondition = {
@@ -185,7 +182,7 @@ export type K8sResourceCondition = {
 
 export type VolumeMount = {
   mountPath: string;
-  mountPropagation?: 'None' | 'HostToContainer' | 'Bidirectional';
+  mountPropagation?: "None" | "HostToContainer" | "Bidirectional";
   name: string;
   readOnly?: boolean;
   subPath?: string;
@@ -207,7 +204,7 @@ export type HTTPGetProbe = {
   path?: string;
   port: ProbePort;
   host?: string;
-  scheme: 'HTTP' | 'HTTPS';
+  scheme: "HTTP" | "HTTPS";
   httpHeaders?: any[];
 };
 
@@ -230,7 +227,7 @@ export type ContainerProbe = {
   failureThreshold?: number;
 } & Handler;
 
-export type ContainerLifecycleStage = 'postStart' | 'preStop';
+export type ContainerLifecycleStage = "postStart" | "preStop";
 
 export type ContainerLifecycle = {
   postStart?: Handler;
@@ -290,9 +287,9 @@ export type ContainerPort = {
 };
 
 export enum ImagePullPolicy {
-  Always = 'Always',
-  Never = 'Never',
-  IfNotPresent = 'IfNotPresent',
+  Always = "Always",
+  Never = "Never",
+  IfNotPresent = "IfNotPresent",
 }
 
 export type NodeAffinity = {
@@ -345,7 +342,7 @@ export type PodSpec = {
   volumes?: Volume[];
   initContainers?: ContainerSpec[];
   containers: ContainerSpec[];
-  restartPolicy?: 'Always' | 'OnFailure' | 'Never';
+  restartPolicy?: "Always" | "OnFailure" | "Never";
   terminationGracePeriodSeconds?: number;
   activeDeadlineSeconds?: number;
   nodeSelector?: any;
@@ -407,4 +404,3 @@ export type PodKind = {
   status?: PodStatus;
 } & K8sResourceCommon &
   PodTemplate;
-
