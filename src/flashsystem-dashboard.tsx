@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import * as React from "react";
-import * as _ from "lodash";
 import { RouteComponentProps } from "react-router";
 import { HorizontalNav } from "@console/dynamic-plugin-sdk/internalAPI";
 import { Grid, GridItem } from "@patternfly/react-core";

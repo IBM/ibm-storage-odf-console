@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import * as React from "react";
-import * as _ from "lodash";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { ChartDonut, ChartLabel } from "@patternfly/react-charts";

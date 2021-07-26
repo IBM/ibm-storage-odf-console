@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import * as React from "react";
-import * as _ from "lodash";
 import { Gallery, GalleryItem } from "@patternfly/react-core";
 import { useK8sWatchResource } from "@console/dynamic-plugin-sdk/api";
 import {

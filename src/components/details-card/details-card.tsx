@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import * as React from "react";
-import * as _ from "lodash";
 import { Link, BrowserRouter as Router } from "react-router-dom";
 import { Base64 } from "js-base64";
 import { useK8sWatchResource } from "@console/dynamic-plugin-sdk/api";
