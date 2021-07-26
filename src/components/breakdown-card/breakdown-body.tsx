@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as React from 'react';
-import { Grid, GridItem } from '@patternfly/react-core';
-import { Humanize } from './utils';
-import { K8sKind } from '../../types';
-import { addAvailable, StackDataPoint, getLegends } from './utils';
-import { BreakdownChart, LabelPadding } from './breakdown-chart';
-import { BreakdownChartLoading } from './breakdown-loading';
-import { TotalCapacityBody } from './breakdown-capacity';
+import * as React from "react";
+import { Grid, GridItem } from "@patternfly/react-core";
+import { Humanize } from "./utils";
+import { K8sKind } from "../../types";
+import { addAvailable, StackDataPoint, getLegends } from "./utils";
+import { BreakdownChart, LabelPadding } from "./breakdown-chart";
+import { BreakdownChartLoading } from "./breakdown-loading";
+import { TotalCapacityBody } from "./breakdown-capacity";
 
 export const BreakdownCardBody: React.FC<BreakdownBodyProps> = ({
   top5MetricsStats,
@@ -31,7 +31,7 @@ export const BreakdownCardBody: React.FC<BreakdownBodyProps> = ({
   humanize,
   isLoading,
   hasLoadError,
-  ocsVersion = '',
+  ocsVersion = "",
   labelPadding,
 }) => {
   if (isLoading && !hasLoadError) {
@@ -40,14 +40,19 @@ export const BreakdownCardBody: React.FC<BreakdownBodyProps> = ({
   if (!capacityUsed || !top5MetricsStats.length || hasLoadError) {
     return <div className="text-secondary">Not available</div>;
   }
-  if (capacityUsed === '0') {
+  if (capacityUsed === "0") {
     return <div className="text-secondary">Not enough usage data</div>;
   }
 
   const usedCapacity = `${humanize(capacityUsed).string} used`;
   const availableCapacity = `${humanize(capacityAvailable).string} available`;
 
-  const chartData = addAvailable(top5MetricsStats, capacityAvailable, metricTotal, humanize);
+  const chartData = addAvailable(
+    top5MetricsStats,
+    capacityAvailable,
+    metricTotal,
+    humanize
+  );
 
   const legends = getLegends(chartData);
 

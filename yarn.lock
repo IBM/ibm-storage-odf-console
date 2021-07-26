@@ -30,10 +30,6 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@console/dynamic-plugin-sdk@link:../console/frontend/packages/console-dynamic-plugin-sdk/dist":
-  version "0.0.0"
-  uid ""
-
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.3.tgz#90420f9f9c6d3987f176a19a7d8e764271a2f55d"

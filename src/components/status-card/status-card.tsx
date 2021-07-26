@@ -13,15 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as React from 'react';
-import * as _ from 'lodash';
-import {
-  Gallery,
-  GalleryItem,
-} from "@patternfly/react-core";
-import {
-  useK8sWatchResource,
-} from "@console/dynamic-plugin-sdk/api";
+import * as React from "react";
+import { Gallery, GalleryItem } from "@patternfly/react-core";
+import { useK8sWatchResource } from "@console/dynamic-plugin-sdk/api";
 import {
   DashboardCard,
   DashboardCardBody,
@@ -32,25 +26,25 @@ import {
   AlertItem,
   usePrometheusPoll,
 } from "@console/dynamic-plugin-sdk/internalAPI";
-import { 
-  getFlashsystemHealthState, 
+import {
+  getFlashsystemHealthState,
   filterIBMFlashSystemAlerts,
   alertURL,
   PrometheusRulesResponse,
   getAlertsAndRules,
- } from './utils';
-import { StorageInstanceKind } from '../../types';
-import {GetFlashSystemResource} from '../../constants/resources';
-import { parseProps } from '../../selectors/index';
+} from "./utils";
+import { StorageInstanceKind } from "../../types";
+import { GetFlashSystemResource } from "../../constants/resources";
+import { parseProps } from "../../selectors/index";
 
 const IBMFlashSystemAlerts: React.FC = () => {
   const [rules, alertsError, alertsLoaded] = usePrometheusPoll({
     query: "",
     endpoint: "api/v1/rules" as any,
   });
-  
+
   const myRules = rules as unknown as PrometheusRulesResponse;
-  const {alerts} = getAlertsAndRules(myRules?.['data']);
+  const { alerts } = getAlertsAndRules(myRules?.["data"]);
   const filteredAlerts = filterIBMFlashSystemAlerts(alerts);
   return (
     <AlertsBody error={alertsError}>
@@ -64,9 +58,13 @@ const IBMFlashSystemAlerts: React.FC = () => {
 };
 
 export const StatusCard: React.FC<any> = (props) => {
-  const {name} = parseProps(props);
-  const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(GetFlashSystemResource(props));
-  const flashHealthState = getFlashsystemHealthState({ sto: { data: data, loaded: loaded, loadError: loadError } });
+  const { name } = parseProps(props);
+  const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(
+    GetFlashSystemResource(props)
+  );
+  const flashHealthState = getFlashsystemHealthState({
+    sto: { data: data, loaded: loaded, loadError: loadError },
+  });
 
   return (
     <DashboardCard gradient>
@@ -83,7 +81,7 @@ export const StatusCard: React.FC<any> = (props) => {
             />
           </GalleryItem>
         </Gallery>
-          <IBMFlashSystemAlerts/>
+        <IBMFlashSystemAlerts />
       </DashboardCardBody>
     </DashboardCard>
   );

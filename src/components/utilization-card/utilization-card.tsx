@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import * as React from "react";
-import { 
+import {
   DashboardCard,
   DashboardCardHeader,
   DashboardCardTitle,
@@ -24,26 +24,22 @@ import {
   UtilizationDurationDropdown,
   useUtilizationDuration,
   //MultilineUtilizationItem // we need this to be exposed
- } from "@console/dynamic-plugin-sdk/internalAPI";
- import {
-  StorageDashboardQuery, 
+} from "@console/dynamic-plugin-sdk/internalAPI";
+import {
+  StorageDashboardQuery,
   FlASHSYSTEM_QUERIES,
-} from '../../constants/queries';
+} from "../../constants/queries";
 import {
   humanizeBinaryBytes,
   humanizeDecimalBytesPerSec,
 } from "../../humanize";
-import { 
-  humanizeIOPS, 
-  humanizeLatency,
-  ByteDataTypes,
- } from './utils';
- import { parseProps } from '../../selectors/index';
+import { humanizeIOPS, humanizeLatency, ByteDataTypes } from "./utils";
+import { parseProps } from "../../selectors/index";
 
 const UtilizationCard: React.FC<any> = (props) => {
-  const {name} = parseProps(props);
+  const { name } = parseProps(props);
   const { duration } = useUtilizationDuration();
-  
+
   const [usedCapacitymetric] = usePrometheusPoll({
     query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalUsedCapacity),
     endpoint: "api/v1/query_range" as any,
@@ -71,39 +67,45 @@ const UtilizationCard: React.FC<any> = (props) => {
         <DashboardCardTitle>Utilization</DashboardCardTitle>
         <UtilizationDurationDropdown />
       </DashboardCardHeader>
-      <UtilizationBody >
+      <UtilizationBody>
         <UtilizationItem
           title="Capacity"
           isLoading={false}
-          error = {false}
-          utilization = {usedCapacitymetric}
+          error={false}
+          utilization={usedCapacitymetric}
           humanizeValue={humanizeBinaryBytes}
           byteDataType={ByteDataTypes.BinaryBytes}
-          query={FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalUsedCapacity)}
+          query={FlASHSYSTEM_QUERIES(
+            name,
+            StorageDashboardQuery.TotalUsedCapacity
+          )}
         />
         <UtilizationItem
           title="IOPS"
           isLoading={false}
-          error = {false}
-          utilization = {readIOPSmetric}
+          error={false}
+          utilization={readIOPSmetric}
           humanizeValue={humanizeIOPS}
-          query={FlASHSYSTEM_QUERIES(name,StorageDashboardQuery.TotalReadIOPS)}
+          query={FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadIOPS)}
         />
         <UtilizationItem
           title="Latency"
           isLoading={false}
-          error = {false}
-          utilization = {readRespTimemetric}
+          error={false}
+          utilization={readRespTimemetric}
           humanizeValue={humanizeLatency}
-          query={FlASHSYSTEM_QUERIES(name,StorageDashboardQuery.TotalReadRespTime)}
+          query={FlASHSYSTEM_QUERIES(
+            name,
+            StorageDashboardQuery.TotalReadRespTime
+          )}
         />
         <UtilizationItem
           title="Throughput"
           isLoading={false}
-          error = {false}
-          utilization = {readBWmetric}
+          error={false}
+          utilization={readBWmetric}
           humanizeValue={humanizeDecimalBytesPerSec}
-          query={FlASHSYSTEM_QUERIES(name,StorageDashboardQuery.TotalReadBW)}
+          query={FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadBW)}
         />
       </UtilizationBody>
     </DashboardCard>

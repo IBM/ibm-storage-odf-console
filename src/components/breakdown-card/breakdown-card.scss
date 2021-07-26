@@ -1,4 +1,4 @@
-@import '../raw-capacity-card/skeleton-screen.scss';
+@import "../raw-capacity-card/skeleton-screen.scss";
 
 .capacity-breakdown-card__available-body {
   float: right;
@@ -11,13 +11,13 @@
 }
 
 .capacity-breakdown-card__header-link {
-  padding: var(--pf-global--spacer--xs);;
-  margin-right:  var(--pf-global--spacer--md);;
+  padding: var(--pf-global--spacer--xs);
+  margin-right: var(--pf-global--spacer--md);
 }
 
 .capacity-breakdown-card__legend-link {
   &:link {
-    text-decoration: none; 
+    text-decoration: none;
   }
 }
 
@@ -38,11 +38,11 @@
 }
 
 .skeleton-stack-no-show {
-  background-color:  var(--pf-global--BackgroundColor--100);
-  animation: none; 
+  background-color: var(--pf-global--BackgroundColor--100);
+  animation: none;
 }
 
-.skeleton-stack-bar{
+.skeleton-stack-bar {
   margin: 0.2rem 0.7em 0.2rem 0.7em;
 }
 

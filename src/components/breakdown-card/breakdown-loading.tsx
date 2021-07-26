@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as React from 'react';
-import { Grid, GridItem } from '@patternfly/react-core';
-import './breakdown-card.scss';
+import * as React from "react";
+import { Grid, GridItem } from "@patternfly/react-core";
+import "./breakdown-card.scss";
 
 export const BreakdownChartLoading: React.FC = () => (
   <Grid className="skeleton-box">

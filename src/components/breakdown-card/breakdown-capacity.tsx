@@ -13,12 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as React from 'react';
-import './breakdown-card.scss';
-import classNames from 'classnames';
+import * as React from "react";
+import "./breakdown-card.scss";
+import classNames from "classnames";
 
-export const TotalCapacityBody: React.FC<TotalCapacityBodyProps> = ({ value, className }) => {
-  return <p className={classNames('capacity-breakdown-card__capacity-body', className)}>{value}</p>;
+export const TotalCapacityBody: React.FC<TotalCapacityBodyProps> = ({
+  value,
+  className,
+}) => {
+  return (
+    <p
+      className={classNames(
+        "capacity-breakdown-card__capacity-body",
+        className
+      )}
+    >
+      {value}
+    </p>
+  );
 };
 
 type TotalCapacityBodyProps = {

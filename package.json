@@ -9,6 +9,8 @@
     "clean": "rm -rf ./dist",
     "build": "yarn clean && NODE_ENV=production yarn ts-node ./node_modules/.bin/webpack",
     "build-dev": "yarn clean && yarn ts-node ./node_modules/.bin/webpack",
+    "eslint": "eslint --ext .js,.jsx,.ts,.tsx,.json,.gql,.graphql --color",
+    "lint": "NODE_OPTIONS=--max-old-space-size=4096 yarn eslint .",
     "http-server": "./http-server.sh ./dist",
     "ts-node": "ts-node -O '{\"module\":\"commonjs\"}' -I '/node_modules/(?!(@console)/)/'"
   },
@@ -18,8 +20,8 @@
     "@patternfly/react-core": "4.121.1",
     "@patternfly/react-table": "4.27.7",
     "classnames": "^2.3.1",
-    "murmurhash-js": "1.0.x",
     "lodash-es": "^4.17.21",
+    "murmurhash-js": "1.0.x",
     "react": "16.9.0",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
@@ -28,15 +30,19 @@
     "react-router-dom": "5.2.0"
   },
   "devDependencies": {
-    "@types/node": "^14.14.34",
-    "@types/react-helmet": "^6.1.1",
-    "@types/lodash-es": "^4.17.4",
-    "@types/react": "16.8.13",
-    "@types/react-router-dom": "5.1.8",
     "@console/dynamic-plugin-sdk": "link:../sdk-console/console/frontend/packages/console-dynamic-plugin-sdk/dist",
+    "@types/lodash-es": "^4.17.4",
+    "@types/node": "^14.14.34",
+    "@types/react": "16.8.13",
+    "@types/react-helmet": "^6.1.1",
+    "@types/react-router-dom": "5.1.8",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
     "cache-loader": "1.x",
     "comment-json": "4.x",
     "css-loader": "0.28.x",
+    "eslint": "^7.31.0",
+    "eslint-plugin-react": "^7.24.0",
     "file-loader": "1.x",
     "http-server": "0.12.x",
     "node-sass": "^5.0.0",
@@ -60,7 +66,7 @@
       "@console/pluginAPI": "*"
     },
     "exposedModules": {
-      "IBMStorageODFDetailPage" : "./flashsystem-dashboard"
+      "IBMStorageODFDetailPage": "./flashsystem-dashboard"
     }
   }
 }

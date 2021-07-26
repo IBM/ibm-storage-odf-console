@@ -13,34 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as React from 'react';
-import * as _ from 'lodash';
-import { Select, SelectProps } from '@patternfly/react-core';
+import * as React from "react";
+import * as _ from "lodash";
+import { Select, SelectProps } from "@patternfly/react-core";
 import {
   DashboardCard,
   DashboardCardBody,
   DashboardCardHeader,
   DashboardCardTitle,
   usePrometheusPoll,
-} from '@console/dynamic-plugin-sdk/internalAPI';
-import { BreakdownCardBody } from '../breakdown-card/breakdown-body';
-import { getStackChartStats, sortInstantVectorStats } from '../breakdown-card/utils';
-import { getSelectOptions } from '../breakdown-card/breakdown-dropdown';
-import './capacity-breakdown-card.scss';
-import { humanizeBinaryBytes } from '../../humanize';
-import { BreakdownQueryMapODF } from '../../constants/queries';
-import { PROJECTS, STORAGE_CLASSES, PODS } from '../../constants/index';
-import { 
-  getInstantVectorStats,
-} from '../../selectors/promethues-utils';
-import { parseProps } from '../../selectors/index';
+} from "@console/dynamic-plugin-sdk/internalAPI";
+import { BreakdownCardBody } from "../breakdown-card/breakdown-body";
+import {
+  getStackChartStats,
+  sortInstantVectorStats,
+} from "../breakdown-card/utils";
+import { getSelectOptions } from "../breakdown-card/breakdown-dropdown";
+import "./capacity-breakdown-card.scss";
+import { humanizeBinaryBytes } from "../../humanize";
+import { BreakdownQueryMapODF } from "../../constants/queries";
+import { PROJECTS, STORAGE_CLASSES, PODS } from "../../constants/index";
+import { getInstantVectorStats } from "../../selectors/promethues-utils";
+import { parseProps } from "../../selectors/index";
 
 const dropdownKeys = [PROJECTS, STORAGE_CLASSES, PODS];
 const breakdownSelectItems = getSelectOptions(dropdownKeys);
 
 const BreakdownCard: React.FC<any> = (props) => {
-  const {name} = parseProps(props);
-  
+  const { name } = parseProps(props);
+
   const [metricType, setMetricType] = React.useState(PROJECTS);
   const [isOpenBreakdownSelect, setBreakdownSelect] = React.useState(false);
   const { model, metric, queries } = BreakdownQueryMapODF(name, metricType);
@@ -50,25 +51,26 @@ const BreakdownCard: React.FC<any> = (props) => {
     query: queries[queryKeys[0]],
     endpoint: "api/v1/query" as any,
   });
-  
-  const [totalUsedmetric, totalUsedLoadError, totalUsedLoading] = usePrometheusPoll({
-    query: queries[queryKeys[1]],
-    endpoint: "api/v1/query" as any,
-  });
-  const metricTotal = _.get(totalUsedmetric, 'data.result[0].value[1]');
+
+  const [totalUsedmetric, totalUsedLoadError, totalUsedLoading] =
+    usePrometheusPoll({
+      query: queries[queryKeys[1]],
+      endpoint: "api/v1/query" as any,
+    });
+  const metricTotal = _.get(totalUsedmetric, "data.result[0].value[1]");
 
   const [usedmetric, usedLoadError, usedLoading] = usePrometheusPoll({
     query: queries[queryKeys[2]],
     endpoint: "api/v1/query" as any,
   });
-  const flashsystemUsed =  _.get(usedmetric, 'data.result[0].value[1]');
+  const flashsystemUsed = _.get(usedmetric, "data.result[0].value[1]");
 
   const humanize = humanizeBinaryBytes;
   const top6MetricsData = getInstantVectorStats(byUsedmetric, metric);
   const top5SortedMetricsData = sortInstantVectorStats(top6MetricsData);
   const top5MetricsStats = getStackChartStats(top5SortedMetricsData, humanize);
 
-  const handleMetricsChange: SelectProps['onSelect'] = (_e, breakdown) => {
+  const handleMetricsChange: SelectProps["onSelect"] = (_e, breakdown) => {
     setMetricType(breakdown as string);
     setBreakdownSelect(!isOpenBreakdownSelect);
   };

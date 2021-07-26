@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as React from 'react';
+import * as React from "react";
 import {
   SelectOption,
   SelectGroup,
   OptionsMenuItemGroup,
   OptionsMenuItem,
-} from '@patternfly/react-core';
+} from "@patternfly/react-core";
 
 type GroupedSelectItems = {
   group: string;
@@ -30,7 +30,7 @@ export const getSelectOptions = (selectItems: string[]): React.ReactElement[] =>
   selectItems.map((item) => <SelectOption key={item} value={item} />);
 
 export const getGroupedSelectOptions = (
-  groupedSelectItems: GroupedSelectItems,
+  groupedSelectItems: GroupedSelectItems
 ): React.ReactElement[] =>
   groupedSelectItems.map(({ group, items }) => (
     <SelectGroup key={group} label={group}>
@@ -41,7 +41,7 @@ export const getGroupedSelectOptions = (
 export const getOptionsMenuItems = (
   dropdownItems: GroupedSelectItems,
   selectedItems: string[],
-  onSelect: (e) => void,
+  onSelect: (e) => void
 ) => {
   return dropdownItems.map(({ group, items }) => (
     <OptionsMenuItemGroup

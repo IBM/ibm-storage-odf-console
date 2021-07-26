@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as _ from 'lodash';
-import * as React from 'react';
-import { Colors, COLORMAP, OTHER_TOOLTIP } from './consts';
+import * as _ from "lodash";
+import * as React from "react";
+import { Colors, COLORMAP, OTHER_TOOLTIP } from "./consts";
 
 export type DataPoint<X = Date | number | string> = {
   x?: X;
@@ -36,7 +36,11 @@ export type HumanizeResult = {
 };
 
 export type Humanize = {
-  (v: React.ReactText, initialUnit?: string, preferredUnit?: string): HumanizeResult;
+  (
+    v: React.ReactText,
+    initialUnit?: string,
+    preferredUnit?: string
+  ): HumanizeResult;
 };
 
 const getTotal = (stats: StackDataPoint[]) =>
@@ -45,20 +49,20 @@ const getTotal = (stats: StackDataPoint[]) =>
 const addOthers = (
   stats: StackDataPoint[],
   metricTotal: string,
-  humanize: Humanize,
+  humanize: Humanize
 ): StackDataPoint => {
   const top5Total = getTotal(stats);
   const others = Number(metricTotal) - top5Total;
   const othersData = {
-    x: '0',
+    x: "0",
     y: others,
-    name: 'Other',
+    name: "Other",
     color: Colors.OTHER,
     label: humanize(others).string,
-    fill: 'rgb(96, 98, 103)',
+    fill: "rgb(96, 98, 103)",
     link: OTHER_TOOLTIP,
     id: 6,
-    ns: '',
+    ns: "",
   };
   return othersData;
 };
@@ -67,7 +71,7 @@ export const addAvailable = (
   stats: StackDataPoint[],
   capacityAvailable: string,
   metricTotal: string,
-  humanize: Humanize,
+  humanize: Humanize
 ) => {
   let othersData: StackDataPoint;
   let availableData: StackDataPoint;
@@ -79,15 +83,15 @@ export const addAvailable = (
   if (capacityAvailable) {
     const availableInBytes = Number(capacityAvailable);
     availableData = {
-      x: '0',
+      x: "0",
       y: availableInBytes,
-      name: 'Available',
-      link: '',
-      color: '',
+      name: "Available",
+      link: "",
+      color: "",
       label: humanize(availableInBytes).string,
-      fill: '#b8bbbe',
+      fill: "#b8bbbe",
       id: 7,
-      ns: '',
+      ns: "",
     };
     newChartData = [...newChartData, availableData] as StackDataPoint[];
   }
@@ -131,12 +135,16 @@ export const sortInstantVectorStats = (stats: DataPoint[]): DataPoint[] => {
   return stats.length === 6 ? stats.splice(0, 5) : stats;
 };
 
-export const getStackChartStats: GetStackStats = (response, humanize, labelNames) =>
+export const getStackChartStats: GetStackStats = (
+  response,
+  humanize,
+  labelNames
+) =>
   response.map((r, i) => {
     const capacity = humanize(r.y).string;
     return {
       // x value needs to be same for single bar stack chart
-      x: '0',
+      x: "0",
       y: r.y,
       name: labelNames ? labelNames[i] : _.truncate(`${r.x}`, { length: 12 }),
       link: labelNames ? labelNames[i] : `${r.x}`,
@@ -151,7 +159,7 @@ export const getStackChartStats: GetStackStats = (response, humanize, labelNames
 type GetStackStats = (
   response: DataPoint[],
   humanize: Humanize,
-  labelNames?: string[],
+  labelNames?: string[]
 ) => StackDataPoint[];
 
 export type StackDataPoint = DataPoint<string> & {
@@ -163,13 +171,17 @@ export type StackDataPoint = DataPoint<string> & {
   ns: string;
 };
 
-export const getCapacityValue = (cephUsed: string, cephTotal: string, humanize: Humanize) => {
+export const getCapacityValue = (
+  cephUsed: string,
+  cephTotal: string,
+  humanize: Humanize
+) => {
   const totalFormatted = humanize(cephTotal || 0);
   const usedFormatted = humanize(cephUsed || 0, null, totalFormatted.unit);
   const available = humanize(
     totalFormatted.value - usedFormatted.value,
     totalFormatted.unit,
-    totalFormatted.unit,
+    totalFormatted.unit
   );
   return available;
 };

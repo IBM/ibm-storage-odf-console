@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as React from 'react';
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import { Link } from "react-router-dom";
 import {
   Chart,
   ChartAxis,
@@ -24,18 +24,24 @@ import {
   ChartStack,
   ChartThemeColor,
   ChartTooltip,
-} from '@patternfly/react-charts';
-import { Tooltip } from '@patternfly/react-core';
-import { K8sKind } from '../../types';
-import {referenceForModel, resourcePathFromModel} from '../../selectors/index';
-import { getBarRadius, StackDataPoint } from './utils';
-import { OTHER, CLUSTERWIDE, BUCKETCLASSKIND } from './consts';
-import './breakdown-card.scss';
+} from "@patternfly/react-charts";
+import { Tooltip } from "@patternfly/react-core";
+import { K8sKind } from "../../types";
+import {
+  referenceForModel,
+  resourcePathFromModel,
+} from "../../selectors/index";
+import { getBarRadius, StackDataPoint } from "./utils";
+import { OTHER, CLUSTERWIDE, BUCKETCLASSKIND } from "./consts";
+import "./breakdown-card.scss";
 
+// eslint-disable-next-line react/display-name
 export const LinkableLegend: React.FC<LinkableLegendProps> = React.memo(
   (props: LinkableLegendProps) => {
     const { metricModel, datum, ocsVersion } = props;
-    let href: string = metricModel ? resourcePathFromModel(metricModel, datum.link, datum.ns) : '';
+    let href: string = metricModel
+      ? resourcePathFromModel(metricModel, datum.link, datum.ns)
+      : "";
     const customLegend = (
       <Tooltip content={datum.link} enableFlip>
         <ChartLabel
@@ -43,18 +49,22 @@ export const LinkableLegend: React.FC<LinkableLegendProps> = React.memo(
           lineHeight={1.2}
           style={[
             { ...datum.labels, fontSize: 9 },
-            { fill: 'black', fontSize: 8 },
+            { fill: "black", fontSize: 8 },
           ]}
         />
       </Tooltip>
     );
-    if (datum.labelId === OTHER || datum.labelId === CLUSTERWIDE || !metricModel) {
+    if (
+      datum.labelId === OTHER ||
+      datum.labelId === CLUSTERWIDE ||
+      !metricModel
+    ) {
       return customLegend;
     }
     if (metricModel.kind === BUCKETCLASSKIND) {
       if (ocsVersion) {
         href = `/k8s/ns/test/clusterserviceversions/${ocsVersion}/${referenceForModel(
-          metricModel,
+          metricModel
         )}/${datum.link}`;
       } else {
         return customLegend;
@@ -65,7 +75,7 @@ export const LinkableLegend: React.FC<LinkableLegendProps> = React.memo(
         {customLegend}
       </Link>
     );
-  },
+  }
 );
 
 export const BreakdownChart: React.FC<BreakdownChartProps> = ({
@@ -83,7 +93,9 @@ export const BreakdownChart: React.FC<BreakdownChartProps> = ({
           themeColor={ChartThemeColor.multiOrdered}
           data={legends}
           y={40}
-          labelComponent={<LinkableLegend metricModel={metricModel} ocsVersion={ocsVersion} />}
+          labelComponent={
+            <LinkableLegend metricModel={metricModel} ocsVersion={ocsVersion} />
+          }
           orientation="horizontal"
           symbolSpacer={7}
           gutter={10}
@@ -98,7 +110,7 @@ export const BreakdownChart: React.FC<BreakdownChartProps> = ({
                     paddingBottom: labelPadding.bottom,
                     paddingLeft: labelPadding.left,
                   }
-                : {},
+                : {}
             ),
           }}
         />
@@ -112,19 +124,23 @@ export const BreakdownChart: React.FC<BreakdownChartProps> = ({
       }}
     >
       <ChartAxis
-        style={{ axis: { stroke: 'none' }, ticks: { stroke: 'none' } }}
-        tickFormat={() => ''}
+        style={{ axis: { stroke: "none" }, ticks: { stroke: "none" } }}
+        tickFormat={() => ""}
       />
       <ChartStack horizontal>
         {data.map((d: StackDataPoint, index) => (
           <ChartBar
             key={d.id}
-            style={{ data: { stroke: 'white', strokeWidth: 0.7, fill: d.fill } }}
+            style={{
+              data: { stroke: "white", strokeWidth: 0.7, fill: d.fill },
+            }}
             cornerRadius={getBarRadius(index, data.length)}
             barWidth={12}
             padding={0}
             data={[d]}
-            labelComponent={<ChartTooltip dx={0} style={{ fontSize: 8, padding: 5 }} />}
+            labelComponent={
+              <ChartTooltip dx={0} style={{ fontSize: 8, padding: 5 }} />
+            }
           />
         ))}
       </ChartStack>
