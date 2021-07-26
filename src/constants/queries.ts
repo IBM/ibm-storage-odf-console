@@ -44,8 +44,8 @@ export enum StorageDashboardQuery {
 export const EFFICIENCY_SAVING_QUERY = "sum(flashsystem_pool_savings_bytes)";
  
 export const FlASHSYSTEM_QUERIES = (label: string, queryItem: string):string => {
-  const currentProvisioner = IBM_STORAGE_CSI_PROVISIONER;
- 
+     const currentProvisioner = IBM_STORAGE_CSI_PROVISIONER;
+
      switch(queryItem){
      // change kube_persistentvolumeclaim_resource_requests_storage_bytes
      // to kubelet_volume_stats_used_bytes
@@ -99,7 +99,52 @@ export const FlASHSYSTEM_QUERIES = (label: string, queryItem: string):string => 
      }
    }
 };
- 
+
+export const BreakdownQueryMapODF = (label: string, queryType: string) => {
+    switch(queryType) { 
+      case PROJECTS: return {
+        model: ProjectModel,
+        metric: 'namespace',
+        queries: {
+          [StorageDashboardQuery.PROJECTS_BY_USED]: `(topk(6,(${
+            FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.PROJECTS_BY_USED)
+          })))`,
+          [StorageDashboardQuery.PROJECTS_TOTAL_USED]:
+            FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.PROJECTS_TOTAL_USED),
+          [StorageDashboardQuery.USED_CAPACITY]:
+            FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.USED_CAPACITY),
+          },
+        }; 
+       
+      case STORAGE_CLASSES: return {
+        model: StorageClassModel,
+        metric: 'storageclass',
+        queries: {
+            [StorageDashboardQuery.STORAGE_CLASSES_BY_USED]: `(topk(6,(${
+              FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.STORAGE_CLASSES_BY_USED)
+            })))`,
+            [StorageDashboardQuery.STORAGE_CLASSES_TOTAL_USED]:
+              FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.STORAGE_CLASSES_TOTAL_USED),
+            [StorageDashboardQuery.USED_CAPACITY]:
+              FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.USED_CAPACITY),
+          },
+      };
+      case PODS: return {
+        model: PodModel,
+        metric: 'pod',
+        queries: {
+          [StorageDashboardQuery.PODS_BY_USED]: `(topk(6,(${
+            FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.PODS_BY_USED)
+          })))`,
+          [StorageDashboardQuery.PODS_TOTAL_USED]:
+            FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.PODS_TOTAL_USED),
+          [StorageDashboardQuery.USED_CAPACITY]:
+            FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.USED_CAPACITY),
+        }, 
+      }; 
+    }
+};
+      
 export const UTILIZATION_QUERY_ODF = (label: string, func: string) => {
      switch(func){
        case StorageDashboardQuery.UTILIZATION_CAPACITY_QUERY: 
@@ -115,47 +160,4 @@ export const UTILIZATION_QUERY_ODF = (label: string, func: string) => {
          return [{query: FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.TotalReadBW), desc: 'Read'},
            {query: FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.TotalWriteBW), desc: 'Write'}];
      }
-};
-export const BreakdownQueryMapODF = (label: string, queryType: string) => {
-  switch(queryType) { 
-    case PROJECTS: return {
-      model: ProjectModel,
-      metric: 'namespace',
-      queries: {
-        [StorageDashboardQuery.PROJECTS_BY_USED]: `(topk(6,(${
-          FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.PROJECTS_BY_USED)
-        })))`,
-        [StorageDashboardQuery.PROJECTS_TOTAL_USED]:
-          FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.PROJECTS_TOTAL_USED),
-        [StorageDashboardQuery.USED_CAPACITY]:
-          FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.USED_CAPACITY),
-        },
-      }; 
-    case STORAGE_CLASSES: return {
-      model: StorageClassModel,
-      metric: 'storageclass',
-      queries: {
-          [StorageDashboardQuery.STORAGE_CLASSES_BY_USED]: `(topk(6,(${
-            FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.STORAGE_CLASSES_BY_USED)
-          })))`,
-          [StorageDashboardQuery.STORAGE_CLASSES_TOTAL_USED]:
-            FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.STORAGE_CLASSES_TOTAL_USED),
-          [StorageDashboardQuery.USED_CAPACITY]:
-            FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.USED_CAPACITY),
-        },
-    };
-    case PODS: return {
-      model: PodModel,
-      metric: 'pod',
-      queries: {
-        [StorageDashboardQuery.PODS_BY_USED]: `(topk(6,(${
-          FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.PODS_BY_USED)
-        })))`,
-        [StorageDashboardQuery.PODS_TOTAL_USED]:
-          FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.PODS_TOTAL_USED),
-        [StorageDashboardQuery.USED_CAPACITY]:
-          FlASHSYSTEM_QUERIES(label, StorageDashboardQuery.USED_CAPACITY),
-      }, 
-    };
-  }; 
 };
