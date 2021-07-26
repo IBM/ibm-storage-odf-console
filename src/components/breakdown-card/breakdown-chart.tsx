@@ -35,6 +35,7 @@ import { getBarRadius, StackDataPoint } from "./utils";
 import { OTHER, CLUSTERWIDE, BUCKETCLASSKIND } from "./consts";
 import "./breakdown-card.scss";
 
+// eslint-disable-next-line react/display-name
 export const LinkableLegend: React.FC<LinkableLegendProps> = React.memo(
   (props: LinkableLegendProps) => {
     const { metricModel, datum, ocsVersion } = props;

@@ -67,7 +67,7 @@ const podResource: FirehoseResource = {
   prop: "pods",
 };
 
-export const InventoryCard: React.FC<any> = (props) => {
+export const InventoryCard: React.FC<any> = () => {
   const currentProvisioner = IBM_STORAGE_CSI_PROVISIONER;
   const [pvcsData, pvcsLoaded, pvcsLoadError] =
     useK8sWatchResource<K8sResourceCommon[]>(pvcResource);

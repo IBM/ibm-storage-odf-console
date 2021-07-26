@@ -132,12 +132,12 @@ export const getCustomizedPods = (
   provisionerName: string,
   pvcsData: K8sResourceKind[]
 ): K8sResourceKind[] => {
-  var filterPods: K8sResourceKind[] = [];
-  var flag: boolean = false;
-  for (let pod of podData) {
+  const filterPods: K8sResourceKind[] = [];
+  let flag = false;
+  for (const pod of podData) {
     const podPVCS = getPodPVCs(pod as PodKind);
-    for (let pvc of podPVCS) {
-      for (let pvc2 of pvcsData) {
+    for (const pvc of podPVCS) {
+      for (const pvc2 of pvcsData) {
         if (pvc === pvc2.metadata.name) {
           filterPods.push(pod);
           flag = true;
