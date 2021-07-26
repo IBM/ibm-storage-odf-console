@@ -32,6 +32,7 @@ const config: webpack.Configuration = {
   },
   module: {
     rules: [
+      { test: /create-flashsystem-page.tsx/, loader: 'ignore-loader' },
       {
         test: /(\.jsx?)|(\.tsx?)$/,
         exclude: /node_modules/,
