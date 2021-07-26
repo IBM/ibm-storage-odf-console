@@ -45,6 +45,7 @@
     "eslint-plugin-react": "^7.24.0",
     "file-loader": "1.x",
     "http-server": "0.12.x",
+    "husky": "^4.2.5",
     "node-sass": "^5.0.0",
     "read-pkg": "5.x",
     "resolve-url-loader": "2.x",
@@ -56,6 +57,11 @@
     "typescript": "3.8.3",
     "webpack": "5.0.0-beta.16",
     "webpack-cli": "4.5.x"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
   },
   "consolePlugin": {
     "name": "ibm-storage-odf-plugin",
