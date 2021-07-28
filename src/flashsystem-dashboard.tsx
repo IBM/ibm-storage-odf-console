@@ -15,6 +15,7 @@
  */
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
+import { useTranslation } from "react-i18next";
 import { HorizontalNav } from "@console/dynamic-plugin-sdk/internalAPI";
 import { Grid, GridItem } from "@patternfly/react-core";
 
@@ -85,10 +86,11 @@ const FlashsystemDashboard: React.FC<ODFDashboardProps> = (props) => {
 };
 
 const FlashsystemDashboardPage: React.FC<ODFDashboardProps> = ({ match }) => {
+  const { t } = useTranslation();
   const allPages = [
     {
       href: "",
-      name: "Overview",
+      name: t("ibm-storage-odf-plugin~Overview"),
       component: FlashsystemDashboard,
     },
   ];

@@ -77,7 +77,7 @@ const RawCapacityCard: React.FC<any> = (props) => {
     <DashboardCard>
       <DashboardCardHeader>
         <DashboardCardTitle>
-          {t("Physical Capacity Overview")}
+          {t("ibm-storage-odf-plugin~Physical Capacity Overview")}
         </DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody className="flashsystem-raw-usage__container">
@@ -86,20 +86,24 @@ const RawCapacityCard: React.FC<any> = (props) => {
             <div className="flashsystem-raw-usage__item flashsystem-raw-usage__legend">
               <ChartLegend
                 fill={colorScale[0]}
-                title={t("Used")}
+                title={t("ibm-storage-odf-plugin~Used")}
                 text={usedCapacity.string}
                 titleClassName="flashsystem-raw-card-legend__title--pad"
               />
               <ChartLegend
                 fill={colorScale[1]}
-                title={t("Available")}
+                title={t("ibm-storage-odf-plugin~Available")}
                 text={availableCapacity.string}
               />
             </div>
             <div className="flashsystem-raw-usage__item flashsystem-raw-usage__chart">
               <ChartDonut
-                ariaDesc={t("Available versus Used Capacity")}
-                ariaTitle={t("Available versus Used Capacity")}
+                ariaDesc={t(
+                  "ibm-storage-odf-plugin~Available versus Used Capacity"
+                )}
+                ariaTitle={t(
+                  "ibm-storage-odf-plugin~Available versus Used Capacity"
+                )}
                 height={150}
                 width={150}
                 data={donutData}
@@ -141,7 +145,7 @@ const ErrorCardBody: React.FC = () => {
   return (
     <>
       <div className="flashsystem-raw-usage--error text-muted">
-        {t("storage-advance~Not Available")}
+        {t("ibm-storage-odf-plugin~Not Available")}
       </div>
     </>
   );
