@@ -7,11 +7,12 @@
   "repository": "git@github.com:IBM/ibm-storage-odf-console.git",
   "scripts": {
     "clean": "rm -rf ./dist",
-    "build": "yarn clean && NODE_ENV=production yarn ts-node ./node_modules/.bin/webpack",
+    "build": "yarn clean && NODE_ENV=production yarn ts-node ./node_modules/.bin/webpack && yarn locales",
     "build-dev": "yarn clean && yarn ts-node ./node_modules/.bin/webpack",
     "eslint": "eslint --ext .js,.jsx,.ts,.tsx,.json,.gql,.graphql --color",
     "lint": "./hack/check-copyright.sh && NODE_OPTIONS=--max-old-space-size=4096 yarn eslint .",
     "http-server": "./http-server.sh ./dist",
+    "locales": "yarn i18n && cp -r locales dist/",
     "i18n": "./i18n-scripts/build-i18n.sh && node ./i18n-scripts/consolidate-public-folders && node ./i18n-scripts/set-english-defaults.js",
     "ts-node": "ts-node -O '{\"module\":\"commonjs\"}' -I '/node_modules/(?!(@console)/)/'"
   },
