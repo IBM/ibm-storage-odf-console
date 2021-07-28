@@ -38,7 +38,7 @@ fi
 #ignore directory vendor, .git, node_modules
 #check file go, proto, sh, js, ts
 
-for file in $(find $PROTECT_ROOT -not -path "*/vendor/*" -not -path "*/.git/*" -not -path "*/node_modules/*" -type f \( -name '*.go' -o -name '*.proto' -o -name '*.sh' -o -name '*.js' -o -name '*.ts' -o -name '*.tsx' \)); do
+for file in $(find $PROTECT_ROOT -not -path "*/dist/*" -not -path "*i18next-parser.config.js*" -not -path "*/i18n-scripts/*" -not -path "*/vendor/*" -not -path "*/.git/*" -not -path "*/node_modules/*" -type f \( -name '*.go' -o -name '*.proto' -o -name '*.sh' -o -name '*.js' -o -name '*.ts' -o -name '*.tsx' \)); do
   if [ ! -s $file ]; then
     #echo "$file is empty, skip"
     let skip_n+=1
