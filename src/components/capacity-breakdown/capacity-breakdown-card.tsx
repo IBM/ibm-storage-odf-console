@@ -15,6 +15,7 @@
  */
 import * as React from "react";
 import * as _ from "lodash";
+import { useTranslation } from "react-i18next";
 import { Select, SelectProps } from "@patternfly/react-core";
 import {
   DashboardCard,
@@ -40,6 +41,7 @@ const dropdownKeys = [PROJECTS, STORAGE_CLASSES, PODS];
 const breakdownSelectItems = getSelectOptions(dropdownKeys);
 
 const BreakdownCard: React.FC<any> = (props) => {
+  const { t } = useTranslation();
   const { name } = parseProps(props);
 
   const [metricType, setMetricType] = React.useState(PROJECTS);
@@ -78,7 +80,9 @@ const BreakdownCard: React.FC<any> = (props) => {
   return (
     <DashboardCard>
       <DashboardCardHeader>
-        <DashboardCardTitle>Provisioned Capacity Breakdown</DashboardCardTitle>
+        <DashboardCardTitle>
+          {t("plugin__ibm-storage-odf-plugin~Provisioned Capacity Breakdown")}
+        </DashboardCardTitle>
         <div className="flashsystem-capacity-breakdown-card__header">
           <Select
             className="flashsystem-capacity-breakdown-card-header__dropdown"

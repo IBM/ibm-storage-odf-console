@@ -15,6 +15,7 @@
  */
 import * as React from "react";
 import * as _ from "lodash";
+import { useTranslation } from "react-i18next";
 import {
   DashboardCard,
   DashboardCardBody,
@@ -62,10 +63,13 @@ const RecentEvent: React.FC<any> = (props) => {
 };
 
 export const ActivityCard: React.FC<any> = (props) => {
+  const { t } = useTranslation();
   return (
     <DashboardCard gradient>
       <DashboardCardHeader>
-        <DashboardCardTitle>Activity</DashboardCardTitle>
+        <DashboardCardTitle>
+          {t("plugin__ibm-storage-odf-plugin~Activity")}
+        </DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody>
         <ActivityBody className="flashsystem-activity-card__body">

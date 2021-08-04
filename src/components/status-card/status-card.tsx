@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 import { Gallery, GalleryItem } from "@patternfly/react-core";
 import { useK8sWatchResource } from "@console/dynamic-plugin-sdk/api";
 import {
@@ -58,6 +59,7 @@ const IBMFlashSystemAlerts: React.FC = () => {
 };
 
 export const StatusCard: React.FC<any> = (props) => {
+  const { t } = useTranslation();
   const { name } = parseProps(props);
   const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(
     GetFlashSystemResource(props)
@@ -69,7 +71,9 @@ export const StatusCard: React.FC<any> = (props) => {
   return (
     <DashboardCard gradient>
       <DashboardCardHeader>
-        <DashboardCardTitle>Status</DashboardCardTitle>
+        <DashboardCardTitle>
+          {t("plugin__ibm-storage-odf-plugin~Status")}
+        </DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody>
         <Gallery className="co-overview-status__health" hasGutter>

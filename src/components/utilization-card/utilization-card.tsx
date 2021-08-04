@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 import {
   DashboardCard,
   DashboardCardHeader,
@@ -37,6 +38,7 @@ import { humanizeIOPS, humanizeLatency, ByteDataTypes } from "./utils";
 import { parseProps } from "../../selectors/index";
 
 const UtilizationCard: React.FC<any> = (props) => {
+  const { t } = useTranslation();
   const { name } = parseProps(props);
   const { duration } = useUtilizationDuration();
 
@@ -64,12 +66,14 @@ const UtilizationCard: React.FC<any> = (props) => {
   return (
     <DashboardCard>
       <DashboardCardHeader>
-        <DashboardCardTitle>Utilization</DashboardCardTitle>
+        <DashboardCardTitle>
+          {t("plugin__ibm-storage-odf-plugin~Utilization")}
+        </DashboardCardTitle>
         <UtilizationDurationDropdown />
       </DashboardCardHeader>
       <UtilizationBody>
         <UtilizationItem
-          title="Capacity"
+          title={t("plugin__ibm-storage-odf-plugin~Capacity")}
           isLoading={false}
           error={false}
           utilization={usedCapacitymetric}
@@ -81,7 +85,7 @@ const UtilizationCard: React.FC<any> = (props) => {
           )}
         />
         <UtilizationItem
-          title="IOPS"
+          title={t("plugin__ibm-storage-odf-plugin~IOPS")}
           isLoading={false}
           error={false}
           utilization={readIOPSmetric}
@@ -89,7 +93,7 @@ const UtilizationCard: React.FC<any> = (props) => {
           query={FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadIOPS)}
         />
         <UtilizationItem
-          title="Latency"
+          title={t("plugin__ibm-storage-odf-plugin~Latency")}
           isLoading={false}
           error={false}
           utilization={readRespTimemetric}
@@ -100,7 +104,7 @@ const UtilizationCard: React.FC<any> = (props) => {
           )}
         />
         <UtilizationItem
-          title="Throughput"
+          title={t("plugin__ibm-storage-odf-plugin~Throughput")}
           isLoading={false}
           error={false}
           utilization={readBWmetric}

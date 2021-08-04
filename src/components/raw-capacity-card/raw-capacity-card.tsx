@@ -77,7 +77,7 @@ const RawCapacityCard: React.FC<any> = (props) => {
     <DashboardCard>
       <DashboardCardHeader>
         <DashboardCardTitle>
-          {t("ibm-storage-odf-plugin~Physical Capacity Overview")}
+          {t("plugin__ibm-storage-odf-plugin~Physical Capacity Overview")}
         </DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody className="flashsystem-raw-usage__container">
@@ -86,23 +86,23 @@ const RawCapacityCard: React.FC<any> = (props) => {
             <div className="flashsystem-raw-usage__item flashsystem-raw-usage__legend">
               <ChartLegend
                 fill={colorScale[0]}
-                title={t("ibm-storage-odf-plugin~Used")}
+                title={t("plugin__ibm-storage-odf-plugin~Used")}
                 text={usedCapacity.string}
                 titleClassName="flashsystem-raw-card-legend__title--pad"
               />
               <ChartLegend
                 fill={colorScale[1]}
-                title={t("ibm-storage-odf-plugin~Available")}
+                title={t("plugin__ibm-storage-odf-plugin~Available")}
                 text={availableCapacity.string}
               />
             </div>
             <div className="flashsystem-raw-usage__item flashsystem-raw-usage__chart">
               <ChartDonut
                 ariaDesc={t(
-                  "ibm-storage-odf-plugin~Available versus Used Capacity"
+                  "plugin__ibm-storage-odf-plugin~Available versus Used Capacity"
                 )}
                 ariaTitle={t(
-                  "ibm-storage-odf-plugin~Available versus Used Capacity"
+                  "plugin__ibm-storage-odf-plugin~Available versus Used Capacity"
                 )}
                 height={150}
                 width={150}
@@ -145,7 +145,7 @@ const ErrorCardBody: React.FC = () => {
   return (
     <>
       <div className="flashsystem-raw-usage--error text-muted">
-        {t("ibm-storage-odf-plugin~Not Available")}
+        {t("plugin__ibm-storage-odf-plugin~Not Available")}
       </div>
     </>
   );

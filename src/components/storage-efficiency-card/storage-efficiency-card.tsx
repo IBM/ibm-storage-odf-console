@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 import OutlinedQuestionCircleIcon from "@patternfly/react-icons/dist/js/icons/outlined-question-circle-icon";
 import { Tooltip } from "@patternfly/react-core";
 import {
@@ -29,6 +30,7 @@ import { EFFICIENCY_SAVING_QUERY } from "../../constants/queries";
 import "./storage-efficiency-card.scss";
 
 const StorageEfficiencyCardBody: React.FC = () => {
+  const { t } = useTranslation();
   const [metric, error, loaded] = usePrometheusPoll({
     query: EFFICIENCY_SAVING_QUERY,
     endpoint: "api/v1/query" as any,
@@ -36,7 +38,7 @@ const StorageEfficiencyCardBody: React.FC = () => {
 
   const [saving] =
     !loaded && !error ? parseMetricData(metric, humanizeBinaryBytes) : [];
-  let status = "Not available";
+  let status = t("plugin__ibm-storage-odf-plugin~Not available");
   if (saving) {
     status = saving.string;
   }
@@ -49,11 +51,13 @@ const StorageEfficiencyCardBody: React.FC = () => {
           <span className="ibm-storage-efficiency-card-help">
             <Tooltip
               position="top"
-              content={
-                "The amount of storage saved after applying compression, deduplication and thin-provisioning."
-              }
+              content={t(
+                "plugin__ibm-storage-odf-plugin~The amount of storage saved after applying compression, deduplication and thin-provisioning."
+              )}
             >
-              <OutlinedQuestionCircleIcon title={"Status"} />
+              <OutlinedQuestionCircleIcon
+                title={t("plugin__ibm-storage-odf-plugin~Status")}
+              />
             </Tooltip>
           </span>
         </div>
@@ -63,10 +67,13 @@ const StorageEfficiencyCardBody: React.FC = () => {
 };
 
 const StorageEfficiencyCard: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <DashboardCard gradient>
       <DashboardCardHeader>
-        <DashboardCardTitle>{"Storage Efficiency"}</DashboardCardTitle>
+        <DashboardCardTitle>
+          {t("plugin__ibm-storage-odf-plugin~Storage Efficiency")}
+        </DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody>
         <StorageEfficiencyCardBody />

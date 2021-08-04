@@ -15,6 +15,7 @@
  */
 import * as React from "react";
 import { Link, BrowserRouter as Router } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Base64 } from "js-base64";
 import { useK8sWatchResource } from "@console/dynamic-plugin-sdk/api";
 import {
@@ -40,6 +41,7 @@ import {
 } from "../../constants/resources";
 
 const DetailsCard: React.FC<any> = (props) => {
+  const { t } = useTranslation();
   const flashClusterResource = GetFlashSystemResource(props);
   const [data, flashsystemloaded, flashsystemloadError] =
     useK8sWatchResource<StorageInstanceKind>(flashClusterResource);
@@ -71,13 +73,15 @@ const DetailsCard: React.FC<any> = (props) => {
   return (
     <DashboardCard>
       <DashboardCardHeader>
-        <DashboardCardTitle>Details</DashboardCardTitle>
+        <DashboardCardTitle>
+          {t("plugin__ibm-storage-odf-plugin~Details")}
+        </DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody>
         <DetailsBody>
           <DetailItem
             key="operator-name"
-            title="Operator Name"
+            title={t("plugin__ibm-storage-odf-plugin~Operator Name")}
             error={!!subscriptionloadError}
             isLoading={!subscriptionloaded}
           >
@@ -93,7 +97,7 @@ const DetailsCard: React.FC<any> = (props) => {
           </DetailItem>
           <DetailItem
             key="provider"
-            title="Provider"
+            title={t("plugin__ibm-storage-odf-plugin~Provider")}
             error={!!flashsystemloadError}
             isLoading={!flashsystemloaded}
           >
@@ -104,7 +108,7 @@ const DetailsCard: React.FC<any> = (props) => {
           </DetailItem>
           <DetailItem
             key="mode"
-            title="Mode"
+            title={t("plugin__ibm-storage-odf-plugin~Mode")}
             error={!!flashsystemloadError}
             isLoading={!flashsystemloaded}
           >
@@ -112,7 +116,7 @@ const DetailsCard: React.FC<any> = (props) => {
           </DetailItem>
           <DetailItem
             key="storage-type"
-            title="Storage Type"
+            title={t("plugin__ibm-storage-odf-plugin~Storage Type")}
             error={!!flashsystemloadError}
             isLoading={!flashsystemloaded}
           >
@@ -120,7 +124,7 @@ const DetailsCard: React.FC<any> = (props) => {
           </DetailItem>
           <DetailItem
             key="version"
-            title="Version"
+            title={t("plugin__ibm-storage-odf-plugin~Version")}
             error={!!flashsystemloadError}
             isLoading={!flashsystemloaded}
           >

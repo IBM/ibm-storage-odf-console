@@ -15,6 +15,7 @@
  */
 import * as React from "react";
 import * as _ from "lodash";
+import { useTranslation } from "react-i18next";
 import {
   DashboardCard,
   DashboardCardHeader,
@@ -68,6 +69,7 @@ const podResource: FirehoseResource = {
 };
 
 export const InventoryCard: React.FC<any> = () => {
+  const { t } = useTranslation();
   const currentProvisioner = IBM_STORAGE_CSI_PROVISIONER;
   const [pvcsData, pvcsLoaded, pvcsLoadError] =
     useK8sWatchResource<K8sResourceCommon[]>(pvcResource);
@@ -96,7 +98,9 @@ export const InventoryCard: React.FC<any> = () => {
   return (
     <DashboardCard>
       <DashboardCardHeader>
-        <DashboardCardTitle>Inventory</DashboardCardTitle>
+        <DashboardCardTitle>
+          {t("plugin__ibm-storage-odf-plugin~Inventory")}
+        </DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody>
         <ResourceInventoryItem

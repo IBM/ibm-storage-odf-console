@@ -90,7 +90,7 @@ const FlashsystemDashboardPage: React.FC<ODFDashboardProps> = ({ match }) => {
   const allPages = [
     {
       href: "",
-      name: t("ibm-storage-odf-plugin~Overview"),
+      name: t("plugin__ibm-storage-odf-plugin~Overview"),
       component: FlashsystemDashboard,
     },
   ];
