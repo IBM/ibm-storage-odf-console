@@ -31,21 +31,22 @@
         "version": "v1alpha1",
         "kind": "FlashSystemCluster"
       },
-      "component":{"$codeRef": "IBMStorageODFDetailPage"}
+      "component": { "$codeRef": "IBMStorageODFDetailPage" }
     },
     "flags": {
       "required": ["ODF_IBM_STORAGE"]
     }
   },
   {
-    "type": "odf.plugin/dashboard",
+    "type": "console.page/route",
     "properties": {
-      "model": {
-        "group": "odf.ibm.com",
-        "version": "v1alpha1",
-        "kind": "FlashSystemCluster"
-      },
-      "component": { "$codeRef": "IBMStorageODFDetailPage" }
+      "path": [
+        "/odf/system/odf.ibm.com~v1alpha1~FlashSystemCluster/:systemName"
+      ],
+      "exact": false,
+      "component": {
+        "$codeRef": "IBMStorageODFDetailPage"
+      }
     }
   }
 ]

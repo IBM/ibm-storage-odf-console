@@ -16,7 +16,7 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
 import { useTranslation } from "react-i18next";
-import { HorizontalNav } from "@console/dynamic-plugin-sdk/internalAPI";
+import { HorizontalNav } from "@console/dynamic-plugin-sdk/api";
 import { Grid, GridItem } from "@patternfly/react-core";
 
 import StorageEfficiencyCard from "./components/storage-efficiency-card/storage-efficiency-card";
@@ -96,7 +96,7 @@ const FlashsystemDashboardPage: React.FC<ODFDashboardProps> = ({ match }) => {
   ];
   return (
     <>
-      <HorizontalNav match={match} pages={allPages} noStatusBox />
+      <HorizontalNav match={match} pages={allPages} />
     </>
   );
 };

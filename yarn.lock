@@ -44,9 +44,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@console/dynamic-plugin-sdk@link:../sdk-console/console/frontend/packages/console-dynamic-plugin-sdk/dist":
-  version "0.0.0"
-  uid ""
+"@console/dynamic-plugin-sdk@npm:badhikar-dynamic-plugin-sdk@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/badhikar-dynamic-plugin-sdk/-/badhikar-dynamic-plugin-sdk-0.0.5.tgz#9baa0821614b10c0c15340bffc334fd17d93afdc"
+  integrity sha512-f0mzXHK0ImTxhf8KAbSO1+Xsk2hyXawGewByTbWrWdqkDhEzLRBP4MIInOPiun3meX3/LpOcgqUKf95zes+4XQ==
 
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.3"

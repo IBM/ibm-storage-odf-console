@@ -175,7 +175,7 @@ export const getNamespace = (resource) =>
   _.get(resource, ["metadata", "namespace"]);
 
 export const getEndpoint = (secret: SecretKind) =>
-  _.get(secret, ["data", "managementAddress"]);
+  _.get(secret, ["data", "management_address"]);
 
 export const getNameFromProps = (props) => {
   const CRname = _.get(props, ["match", "params", "name"]);
