@@ -13,7 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { K8sResourceCommon, ObjectMetadata } from "@console/dynamic-plugin-sdk";
+import {
+  K8sResourceCommon,
+  ObjectMetadata,
+} from "@openshift-console/dynamic-plugin-sdk";
 
 export type WatchFlashSystemResource = {
   sto: K8sResourceCommon[];

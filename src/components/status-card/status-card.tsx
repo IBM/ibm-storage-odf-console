@@ -16,7 +16,7 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { Gallery, GalleryItem } from "@patternfly/react-core";
-import { useK8sWatchResource } from "@console/dynamic-plugin-sdk/api";
+import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk/api";
 import {
   DashboardCard,
   DashboardCardBody,
@@ -26,7 +26,7 @@ import {
   AlertsBody,
   AlertItem,
   usePrometheusPoll,
-} from "@console/dynamic-plugin-sdk/internalAPI";
+} from "@openshift-console/dynamic-plugin-sdk/internalAPI";
 import {
   getFlashsystemHealthState,
   filterIBMFlashSystemAlerts,

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import * as _ from "lodash";
-import { K8sResourceCommon } from "@console/dynamic-plugin-sdk";
+import { K8sResourceCommon } from "@openshift-console/dynamic-plugin-sdk";
 import { PodKind, PodPhase, ContainerStatus } from "../../types";
 
 type StatusGroup = {

@@ -23,9 +23,9 @@ import {
   DashboardCardTitle,
   ActivityBody,
   RecentEventsBody,
-} from "@console/dynamic-plugin-sdk/internalAPI";
-import { useK8sWatchResource } from "@console/dynamic-plugin-sdk/api";
-import { FirehoseResource } from "@console/dynamic-plugin-sdk";
+} from "@openshift-console/dynamic-plugin-sdk/internalAPI";
+import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk/api";
+import { FirehoseResource } from "@openshift-console/dynamic-plugin-sdk";
 import { IBM_STORAGE_CSI_PROVISIONER } from "../../constants/index";
 import { EventModel, StorageInstanceModel } from "../../models";
 import "./activity-card.scss";

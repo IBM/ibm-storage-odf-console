@@ -23,7 +23,7 @@ import {
   DashboardCardHeader,
   DashboardCardTitle,
   usePrometheusPoll,
-} from "@console/dynamic-plugin-sdk/internalAPI";
+} from "@openshift-console/dynamic-plugin-sdk/internalAPI";
 import { humanizeBinaryBytes } from "../../humanize";
 import {
   FlASHSYSTEM_QUERIES,

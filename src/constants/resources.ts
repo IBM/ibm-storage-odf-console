@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { WatchK8sResource } from "@console/dynamic-plugin-sdk";
+import { WatchK8sResource } from "@openshift-console/dynamic-plugin-sdk";
 import {
   StorageInstanceModel,
   SubscriptionModel,

@@ -17,7 +17,7 @@
 
 import * as webpack from "webpack";
 import * as path from "path";
-import { ConsoleRemotePlugin } from "@console/dynamic-plugin-sdk/webpack";
+import { ConsoleRemotePlugin } from "@openshift-console/dynamic-plugin-sdk/webpack";
 
 const config: webpack.Configuration = {
   mode: "development",
@@ -32,7 +32,7 @@ const config: webpack.Configuration = {
   },
   module: {
     rules: [
-      { test: /create-flashsystem-page.tsx/, loader: 'ignore-loader' },
+      { test: /create-flashsystem-page.tsx/, loader: "ignore-loader" },
       {
         test: /(\.jsx?)|(\.tsx?)$/,
         exclude: /node_modules/,
@@ -93,8 +93,8 @@ const config: webpack.Configuration = {
     minimize: false,
   },
   externals: {
-    "@console/dynamic-plugin-sdk/api": "api",
-    "@console/dynamic-plugin-sdk/internalAPI": "internalAPI",
+    "@openshift-console/dynamic-plugin-sdk/api": "api",
+    "@openshift-console/dynamic-plugin-sdk/internalAPI": "internalAPI",
   },
 };
 

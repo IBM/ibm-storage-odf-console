@@ -17,7 +17,7 @@ import * as React from "react";
 import { Link, BrowserRouter as Router } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Base64 } from "js-base64";
-import { useK8sWatchResource } from "@console/dynamic-plugin-sdk/api";
+import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk/api";
 import {
   DashboardCard,
   DashboardCardBody,
@@ -25,7 +25,7 @@ import {
   DashboardCardTitle,
   DetailItem,
   DetailsBody,
-} from "@console/dynamic-plugin-sdk/internalAPI";
+} from "@openshift-console/dynamic-plugin-sdk/internalAPI";
 import { ExternalLink } from "./Link";
 import { StorageInstanceKind, K8sKind, SecretKind } from "../../types";
 import {

@@ -16,7 +16,7 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
 import { useTranslation } from "react-i18next";
-import { HorizontalNav } from "@console/dynamic-plugin-sdk/api";
+import { HorizontalNav } from "@openshift-console/dynamic-plugin-sdk/api";
 import { Grid, GridItem } from "@patternfly/react-core";
 
 import StorageEfficiencyCard from "./components/storage-efficiency-card/storage-efficiency-card";

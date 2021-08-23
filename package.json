@@ -14,7 +14,7 @@
     "http-server": "./http-server.sh ./dist",
     "locales": "yarn i18n && cp -r locales dist/",
     "i18n": "./i18n-scripts/build-i18n.sh && node ./i18n-scripts/consolidate-public-folders && node ./i18n-scripts/set-english-defaults.js",
-    "ts-node": "ts-node -O '{\"module\":\"commonjs\"}' -I '/node_modules/(?!(@console)/)/'"
+    "ts-node": "ts-node -O '{\"module\":\"commonjs\"}' -I '/node_modules/(?!(@openshift-console)/)/'"
   },
   "dependencies": {
     "@patternfly/patternfly": "4.103.6",
@@ -34,7 +34,7 @@
     "react-router-dom": "5.2.0"
   },
   "devDependencies": {
-    "@console/dynamic-plugin-sdk": "npm:badhikar-dynamic-plugin-sdk@^0.0.5",
+    "@openshift-console/dynamic-plugin-sdk": "0.0.0-alpha15",
     "@types/lodash-es": "^4.17.4",
     "@types/node": "^14.14.34",
     "@types/react": "16.8.13",
@@ -75,7 +75,7 @@
     "displayName": "IBM Storage Plugin",
     "description": "IBM Storage Plugin for Openshift ODF",
     "dependencies": {
-      "@console/pluginAPI": "*"
+      "@openshift-console/pluginAPI": "*"
     },
     "exposedModules": {
       "IBMStorageODFDetailPage": "./flashsystem-dashboard"
