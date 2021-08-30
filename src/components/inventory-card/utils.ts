@@ -14,23 +14,8 @@
  * limitations under the License.
  */
 import * as _ from "lodash";
-import { K8sResourceCommon } from "@openshift-console/dynamic-plugin-sdk";
+import { StatusGroupMapper } from "@openshift-console/dynamic-plugin-sdk";
 import { PodKind, PodPhase, ContainerStatus } from "../../types";
-
-type StatusGroup = {
-  [key in InventoryStatusGroup | string]: {
-    filterType?: string;
-    statusIDs: string[];
-    count: number;
-  };
-};
-
-export type StatusGroupMapper<
-  T extends K8sResourceCommon = K8sResourceCommon,
-  R extends { [key: string]: K8sResourceCommon[] } = {
-    [key: string]: K8sResourceCommon[];
-  }
-> = (resources: T[], additionalResources?: R) => StatusGroup;
 
 export const podPhase = (pod: PodKind): PodPhase => {
   if (!pod || !pod.status) {

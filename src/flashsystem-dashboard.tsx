@@ -32,7 +32,7 @@ export type ODFDashboardProps = {
   match: RouteComponentProps["match"];
 };
 
-const UpperSection: React.FC = (props) => {
+const UpperSection: React.FC = () => {
   return (
     <Grid hasGutter>
       <GridItem span={3}>
@@ -51,16 +51,16 @@ const UpperSection: React.FC = (props) => {
       <GridItem span={6}>
         <Grid hasGutter>
           <GridItem>
-            <StatusCard {...props} />
+            <StatusCard />
           </GridItem>
           <GridItem>
-            <RawCapacityCard {...props} />
+            <RawCapacityCard />
           </GridItem>
           <GridItem>
-            <BreakdownCard {...props} />
+            <BreakdownCard />
           </GridItem>
           <GridItem>
-            <UtilizationCard {...props} />
+            <UtilizationCard />
           </GridItem>
         </Grid>
       </GridItem>
@@ -75,28 +75,28 @@ const UpperSection: React.FC = (props) => {
   );
 };
 
-const FlashsystemDashboard: React.FC<ODFDashboardProps> = (props) => {
+const FlashsystemDashboard: React.FC<ODFDashboardProps> = () => {
   return (
     <>
       <div className="co-dashboard-body">
-        <UpperSection {...props} />
+        <UpperSection />
       </div>
     </>
   );
 };
 
-const FlashsystemDashboardPage: React.FC<ODFDashboardProps> = ({ match }) => {
-  const { t } = useTranslation();
+const FlashsystemDashboardPage: React.FC<any> = () => {
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const allPages = [
     {
       href: "",
-      name: t("plugin__ibm-storage-odf-plugin~Overview"),
+      name: t("Overview"),
       component: FlashsystemDashboard,
     },
   ];
   return (
     <>
-      <HorizontalNav match={match} pages={allPages} />
+      <HorizontalNav pages={allPages} />
     </>
   );
 };

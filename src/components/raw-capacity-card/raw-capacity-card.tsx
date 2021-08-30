@@ -36,7 +36,7 @@ import "./raw-capacity-card.scss";
 const colorScale = ["#0166cc", "#d6d6d6"];
 
 const RawCapacityCard: React.FC<any> = (props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const { name } = parseProps(props);
 
   const [totalCapacitymetric, loadError, loading] = usePrometheusPoll({
@@ -77,7 +77,7 @@ const RawCapacityCard: React.FC<any> = (props) => {
     <DashboardCard>
       <DashboardCardHeader>
         <DashboardCardTitle>
-          {t("plugin__ibm-storage-odf-plugin~Physical Capacity Overview")}
+          {t("Physical Capacity Overview")}
         </DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody className="flashsystem-raw-usage__container">
@@ -86,13 +86,13 @@ const RawCapacityCard: React.FC<any> = (props) => {
             <div className="flashsystem-raw-usage__item flashsystem-raw-usage__legend">
               <ChartLegend
                 fill={colorScale[0]}
-                title={t("plugin__ibm-storage-odf-plugin~Used")}
+                title={t("Used")}
                 text={usedCapacity.string}
                 titleClassName="flashsystem-raw-card-legend__title--pad"
               />
               <ChartLegend
                 fill={colorScale[1]}
-                title={t("plugin__ibm-storage-odf-plugin~Available")}
+                title={t("Available")}
                 text={availableCapacity.string}
               />
             </div>
@@ -141,11 +141,12 @@ const LoadingCardBody: React.FC = () => (
 );
 
 const ErrorCardBody: React.FC = () => {
-  const { t } = useTranslation();
+  //const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
+  const t = (s: string) => s;
   return (
     <>
       <div className="flashsystem-raw-usage--error text-muted">
-        {t("plugin__ibm-storage-odf-plugin~Not Available")}
+        {t("Not Available")}
       </div>
     </>
   );

@@ -41,7 +41,7 @@ const dropdownKeys = [PROJECTS, STORAGE_CLASSES, PODS];
 const breakdownSelectItems = getSelectOptions(dropdownKeys);
 
 const BreakdownCard: React.FC<any> = (props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const { name } = parseProps(props);
 
   const [metricType, setMetricType] = React.useState(PROJECTS);
@@ -81,7 +81,7 @@ const BreakdownCard: React.FC<any> = (props) => {
     <DashboardCard>
       <DashboardCardHeader>
         <DashboardCardTitle>
-          {t("plugin__ibm-storage-odf-plugin~Provisioned Capacity Breakdown")}
+          {t("Provisioned Capacity Breakdown")}
         </DashboardCardTitle>
         <div className="flashsystem-capacity-breakdown-card__header">
           <Select

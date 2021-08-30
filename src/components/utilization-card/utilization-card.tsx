@@ -38,7 +38,7 @@ import { humanizeIOPS, humanizeLatency, ByteDataTypes } from "./utils";
 import { parseProps } from "../../selectors/index";
 
 const UtilizationCard: React.FC<any> = (props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const { name } = parseProps(props);
   const { duration } = useUtilizationDuration();
 
@@ -66,14 +66,12 @@ const UtilizationCard: React.FC<any> = (props) => {
   return (
     <DashboardCard>
       <DashboardCardHeader>
-        <DashboardCardTitle>
-          {t("plugin__ibm-storage-odf-plugin~Utilization")}
-        </DashboardCardTitle>
+        <DashboardCardTitle>{t("Utilization")}</DashboardCardTitle>
         <UtilizationDurationDropdown />
       </DashboardCardHeader>
       <UtilizationBody>
         <UtilizationItem
-          title={t("plugin__ibm-storage-odf-plugin~Capacity")}
+          title={t("Capacity")}
           isLoading={false}
           error={false}
           utilization={usedCapacitymetric}
@@ -85,7 +83,7 @@ const UtilizationCard: React.FC<any> = (props) => {
           )}
         />
         <UtilizationItem
-          title={t("plugin__ibm-storage-odf-plugin~IOPS")}
+          title={t("IOPS")}
           isLoading={false}
           error={false}
           utilization={readIOPSmetric}
@@ -93,7 +91,7 @@ const UtilizationCard: React.FC<any> = (props) => {
           query={FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadIOPS)}
         />
         <UtilizationItem
-          title={t("plugin__ibm-storage-odf-plugin~Latency")}
+          title={t("Latency")}
           isLoading={false}
           error={false}
           utilization={readRespTimemetric}
@@ -104,7 +102,7 @@ const UtilizationCard: React.FC<any> = (props) => {
           )}
         />
         <UtilizationItem
-          title={t("plugin__ibm-storage-odf-plugin~Throughput")}
+          title={t("Throughput")}
           isLoading={false}
           error={false}
           utilization={readBWmetric}

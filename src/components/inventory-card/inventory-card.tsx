@@ -69,7 +69,7 @@ const podResource: FirehoseResource = {
 };
 
 export const InventoryCard: React.FC<any> = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const currentProvisioner = IBM_STORAGE_CSI_PROVISIONER;
   const [pvcsData, pvcsLoaded, pvcsLoadError] =
     useK8sWatchResource<K8sResourceCommon[]>(pvcResource);
@@ -88,19 +88,27 @@ export const InventoryCard: React.FC<any> = () => {
   const pvHref = `/k8s/cluster/persistentvolumes?rowFilter-pv-provisioner=${currentProvisioner}`;
   const podHref = `/k8s/cluster/pods?rowFilter-pod-provisioner=${currentProvisioner}`;
 
-  const filteredPVCs = getCustomizedPVCs(
-    filteredSCNames,
-    pvcsData,
-    pvsData,
-    currentProvisioner
+  const filteredPVCs =
+    !_.isEmpty(pvcsData) && !_.isEmpty(pvsData)
+      ? getCustomizedPVCs(
+          filteredSCNames,
+          pvcsData,
+          pvsData,
+          currentProvisioner
+        )
+      : [];
+
+  const filteredPVs = getCustomizedPVs(pvsData, currentProvisioner);
+  const filterdPod = getCustomizedPods(
+    podsData,
+    currentProvisioner,
+    filteredPVCs
   );
 
   return (
     <DashboardCard>
       <DashboardCardHeader>
-        <DashboardCardTitle>
-          {t("plugin__ibm-storage-odf-plugin~Inventory")}
-        </DashboardCardTitle>
+        <DashboardCardTitle>{t("Inventory")}</DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody>
         <ResourceInventoryItem
@@ -112,19 +120,21 @@ export const InventoryCard: React.FC<any> = () => {
           basePath={scHref}
         />
         <ResourceInventoryItem
-          isLoading={!pvcsLoaded}
-          error={!!pvcsLoadError}
+          dataTest="inventory-pvc"
+          isLoading={!pvcsLoaded || !pvsLoaded}
+          error={!!pvcsLoadError || !!pvsLoadError}
           kind={PersistentVolumeClaimModel}
           resources={filteredPVCs}
           mapper={getPVCStatusGroups}
           showLink={true}
           basePath={pvcHref}
         />
+
         <ResourceInventoryItem
           isLoading={!pvsLoaded}
           error={!!pvsLoadError}
           kind={PersistentVolumeModel}
-          resources={getCustomizedPVs(pvsData, currentProvisioner)}
+          resources={filteredPVs}
           mapper={getPVStatusGroups}
           showLink={true}
           basePath={pvHref}
@@ -133,11 +143,7 @@ export const InventoryCard: React.FC<any> = () => {
           isLoading={!podsLoaded}
           error={!!podsLoadError}
           kind={PodModel}
-          resources={getCustomizedPods(
-            podsData,
-            currentProvisioner,
-            filteredPVCs
-          )}
+          resources={filterdPod}
           mapper={getPodStatusGroups}
           showLink={true}
           basePath={podHref}

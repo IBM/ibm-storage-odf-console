@@ -19,6 +19,9 @@ import * as webpack from "webpack";
 import * as path from "path";
 import { ConsoleRemotePlugin } from "@openshift-console/dynamic-plugin-sdk/webpack";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
 const config: webpack.Configuration = {
   mode: "development",
   context: path.resolve(__dirname, "src"),
@@ -86,7 +89,12 @@ const config: webpack.Configuration = {
       },
     ],
   },
-  plugins: [new ConsoleRemotePlugin()],
+  plugins: [
+    new ConsoleRemotePlugin(),
+    new CopyWebpackPlugin({
+      patterns: [{ from: path.resolve(__dirname, "locales"), to: "locales" }],
+    }),
+  ],
   devtool: "source-map",
   optimization: {
     chunkIds: "named",
@@ -97,13 +105,5 @@ const config: webpack.Configuration = {
     "@openshift-console/dynamic-plugin-sdk/internalAPI": "internalAPI",
   },
 };
-
-if (process.env.NODE_ENV === "production") {
-  config.mode = "production";
-  config.output.filename = "[name]-bundle-[hash].min.js";
-  config.output.chunkFilename = "[name]-chunk-[chunkhash].min.js";
-  config.optimization.chunkIds = "deterministic";
-  config.optimization.minimize = true;
-}
 
 export default config;

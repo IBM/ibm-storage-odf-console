@@ -63,13 +63,11 @@ const RecentEvent: React.FC<any> = (props) => {
 };
 
 export const ActivityCard: React.FC<any> = (props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   return (
     <DashboardCard gradient>
       <DashboardCardHeader>
-        <DashboardCardTitle>
-          {t("plugin__ibm-storage-odf-plugin~Activity")}
-        </DashboardCardTitle>
+        <DashboardCardTitle>{t("Activity")}</DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody>
         <ActivityBody className="flashsystem-activity-card__body">

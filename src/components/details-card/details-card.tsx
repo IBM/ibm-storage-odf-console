@@ -41,8 +41,9 @@ import {
 } from "../../constants/resources";
 
 const DetailsCard: React.FC<any> = (props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const flashClusterResource = GetFlashSystemResource(props);
+
   const [data, flashsystemloaded, flashsystemloadError] =
     useK8sWatchResource<StorageInstanceKind>(flashClusterResource);
   const [subscriptions, subscriptionloaded, subscriptionloadError] =
@@ -55,35 +56,40 @@ const DetailsCard: React.FC<any> = (props) => {
   );
   const [secret, secretloaded, secretloadError] =
     useK8sWatchResource<SecretKind>(flashSecretResource);
+  const secretData = getEndpoint(secret);
   const endpointAddress = React.useMemo(
     () =>
-      secretloaded && !secretloadError
-        ? Base64.decode(getEndpoint(secret))
-        : "",
+      secretloaded && !secretloadError && secretData
+        ? Base64.decode(secretData)
+        : "unknown",
     [data, secretloaded, secretloadError]
   );
 
-  const flashOperatorVersion = getIBMStorageODFVersion(subscriptions);
-  const operatorPath = `${resourcePathFromModel(
-    ClusterServiceVersionModel,
-    flashOperatorVersion,
-    stoData?.metadata.namespace
-  )}`;
+  const flashOperatorVersion =
+    flashsystemloaded && !flashsystemloadError
+      ? getIBMStorageODFVersion(subscriptions)
+      : "unknown";
+  const operatorPath =
+    subscriptionloaded && !subscriptionloadError
+      ? `${resourcePathFromModel(
+          ClusterServiceVersionModel,
+          flashOperatorVersion,
+          stoData?.metadata.namespace
+        )}`
+      : "unknown";
 
   return (
     <DashboardCard>
       <DashboardCardHeader>
-        <DashboardCardTitle>
-          {t("plugin__ibm-storage-odf-plugin~Details")}
-        </DashboardCardTitle>
+        <DashboardCardTitle>{t("Details")}</DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody>
         <DetailsBody>
           <DetailItem
             key="operator-name"
-            title={t("plugin__ibm-storage-odf-plugin~Operator Name")}
-            error={!!subscriptionloadError}
-            isLoading={!subscriptionloaded}
+            title={t("Operator Name")}
+            error={false}
+            isLoading={false}
           >
             <Router>
               {" "}
@@ -97,36 +103,38 @@ const DetailsCard: React.FC<any> = (props) => {
           </DetailItem>
           <DetailItem
             key="provider"
-            title={t("plugin__ibm-storage-odf-plugin~Provider")}
-            error={!!flashsystemloadError}
-            isLoading={!flashsystemloaded}
+            title={t("Provider")}
+            error={false}
+            isLoading={false}
           >
-            <ExternalLink
-              href={"https://" + endpointAddress}
-              text="IBM flashsystem"
-            />
+            {
+              <ExternalLink
+                href={"https://" + endpointAddress}
+                text="IBM flashsystem"
+              />
+            }
           </DetailItem>
           <DetailItem
             key="mode"
-            title={t("plugin__ibm-storage-odf-plugin~Mode")}
-            error={!!flashsystemloadError}
-            isLoading={!flashsystemloaded}
+            title={t("Mode")}
+            error={false}
+            isLoading={false}
           >
             External
           </DetailItem>
           <DetailItem
             key="storage-type"
-            title={t("plugin__ibm-storage-odf-plugin~Storage Type")}
-            error={!!flashsystemloadError}
-            isLoading={!flashsystemloaded}
+            title={t("Storage Type")}
+            error={false}
+            isLoading={false}
           >
             Block
           </DetailItem>
           <DetailItem
             key="version"
-            title={t("plugin__ibm-storage-odf-plugin~Version")}
-            error={!!flashsystemloadError}
-            isLoading={!flashsystemloaded}
+            title={t("Version")}
+            error={false}
+            isLoading={false}
           >
             {flashOperatorVersion}
           </DetailItem>

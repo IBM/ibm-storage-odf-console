@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "build",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "npm: build",
+      "detail": "yarn clean && NODE_ENV=production yarn ts-node ./node_modules/.bin/webpack && yarn locales"
+    },
+    {
+      "type": "npm",
+      "script": "http-server",
+      "problemMatcher": [],
+      "label": "npm: http-server",
+      "detail": "./http-server.sh ./dist"
+    }
+  ]
+}

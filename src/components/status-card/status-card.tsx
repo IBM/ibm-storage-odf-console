@@ -59,7 +59,7 @@ const IBMFlashSystemAlerts: React.FC = () => {
 };
 
 export const StatusCard: React.FC<any> = (props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const { name } = parseProps(props);
   const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(
     GetFlashSystemResource(props)
@@ -71,9 +71,7 @@ export const StatusCard: React.FC<any> = (props) => {
   return (
     <DashboardCard gradient>
       <DashboardCardHeader>
-        <DashboardCardTitle>
-          {t("plugin__ibm-storage-odf-plugin~Status")}
-        </DashboardCardTitle>
+        <DashboardCardTitle>{t("Status")}</DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody>
         <Gallery className="co-overview-status__health" hasGutter>

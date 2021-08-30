@@ -9,6 +9,8 @@
     "experimentalDecorators": true,
     "noUnusedLocals": true,
     "skipLibCheck": true,
+    "sourceMap": true,
+    "noEmitOnError": false,
     "paths": {
       "@openshift-console/dynamic-plugin-sdk/api": [
         "node_modules/@openshift-console/dynamic-plugin-sdk/lib/api/api"

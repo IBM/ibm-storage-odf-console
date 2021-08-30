@@ -15,6 +15,7 @@
   "Not Available": "Not Available",
   "Status": "Status",
   "Not available": "Not available",
+  "Savings": "Savings",
   "The amount of storage saved after applying compression, deduplication and thin-provisioning.": "The amount of storage saved after applying compression, deduplication and thin-provisioning.",
   "Storage Efficiency": "Storage Efficiency",
   "Utilization": "Utilization",
