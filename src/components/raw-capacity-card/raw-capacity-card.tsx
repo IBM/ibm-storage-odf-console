@@ -23,7 +23,7 @@ import {
   DashboardCardHeader,
   DashboardCardTitle,
   usePrometheusPoll,
-} from "@openshift-console/dynamic-plugin-sdk/internalAPI";
+} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
 import { humanizeBinaryBytes } from "../../humanize";
 import {
   FlASHSYSTEM_QUERIES,
@@ -141,8 +141,7 @@ const LoadingCardBody: React.FC = () => (
 );
 
 const ErrorCardBody: React.FC = () => {
-  //const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
-  const t = (s: string) => s;
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   return (
     <>
       <div className="flashsystem-raw-usage--error text-muted">

@@ -22,12 +22,12 @@ import {
   DashboardCardTitle,
   DashboardCardBody,
   ResourceInventoryItem,
-} from "@openshift-console/dynamic-plugin-sdk/internalAPI";
+} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
 import {
   FirehoseResource,
   K8sResourceCommon,
 } from "@openshift-console/dynamic-plugin-sdk";
-import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk/api";
+import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
 import {
   PersistentVolumeModel,
   PersistentVolumeClaimModel,

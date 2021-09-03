@@ -13,7 +13,7 @@
     "lint": "./hack/check-copyright.sh && NODE_OPTIONS=--max-old-space-size=4096 yarn eslint .",
     "http-server": "./http-server.sh ./dist",
     "locales": "yarn i18n && cp -r locales dist/",
-    "i18n": "./i18n-scripts/build-i18n.sh && node ./i18n-scripts/consolidate-public-folders && node ./i18n-scripts/set-english-defaults.js",
+    "i18n": "i18next \"src/**/*.{js,ts,tsx}\" [-oc] -c i18next-parser.config.js",
     "ts-node": "ts-node -O '{\"module\":\"commonjs\"}' -I '/node_modules/(?!(@openshift-console)/)/'"
   },
   "dependencies": {
@@ -34,12 +34,13 @@
     "react-router-dom": "5.2.0"
   },
   "devDependencies": {
-    "@openshift-console/dynamic-plugin-sdk": "^0.0.0-alpha17",
+    "@openshift-console/dynamic-plugin-sdk": "^0.0.0-beta1",
     "@types/lodash-es": "^4.17.4",
     "@types/node": "^14.14.34",
     "@types/react": "16.8.13",
     "@types/react-helmet": "^6.1.1",
     "@types/react-router-dom": "5.1.2",
+    "@types/webpack-dev-server": "^3.11.5",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
     "cache-loader": "1.x",
