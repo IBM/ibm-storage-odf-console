@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 import OutlinedQuestionCircleIcon from "@patternfly/react-icons/dist/js/icons/outlined-question-circle-icon";
 import { Tooltip } from "@patternfly/react-core";
 import {
@@ -22,38 +23,40 @@ import {
   DashboardCardHeader,
   DashboardCardTitle,
   usePrometheusPoll,
-} from "@console/dynamic-plugin-sdk/internalAPI";
+} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
 import { parseMetricData } from "../../selectors/promethues-utils";
 import { humanizeBinaryBytes } from "../../humanize";
 import { EFFICIENCY_SAVING_QUERY } from "../../constants/queries";
 import "./storage-efficiency-card.scss";
 
-const StorageEfficiencyCardBody: React.FC = () => {
-  const [metric, error, loaded] = usePrometheusPoll({
+const StorageEfficiencyCardBody: React.FC<any> = () => {
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
+
+  const [metric, error, loading] = usePrometheusPoll({
     query: EFFICIENCY_SAVING_QUERY,
     endpoint: "api/v1/query" as any,
   });
 
   const [saving] =
-    !loaded && !error ? parseMetricData(metric, humanizeBinaryBytes) : [];
-  let status = "Not available";
+    !loading && !error ? parseMetricData(metric, humanizeBinaryBytes) : [];
+  let status = t("Not available");
   if (saving) {
     status = saving.string;
   }
   return (
     <div className="co-inventory-card__item">
       <div className="co-utilization-card__item-section-multiline">
-        <h4 className="pf-c-content pf-m-md">{"Savings"}</h4>
+        <h4 className="pf-c-content pf-m-md">{t("Savings")}</h4>
         <div className="text-secondary">
           {status}
           <span className="ibm-storage-efficiency-card-help">
             <Tooltip
               position="top"
-              content={
+              content={t(
                 "The amount of storage saved after applying compression, deduplication and thin-provisioning."
-              }
+              )}
             >
-              <OutlinedQuestionCircleIcon title={"Status"} />
+              <OutlinedQuestionCircleIcon title={t("Status")} />
             </Tooltip>
           </span>
         </div>
@@ -63,10 +66,11 @@ const StorageEfficiencyCardBody: React.FC = () => {
 };
 
 const StorageEfficiencyCard: React.FC = () => {
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   return (
     <DashboardCard gradient>
       <DashboardCardHeader>
-        <DashboardCardTitle>{"Storage Efficiency"}</DashboardCardTitle>
+        <DashboardCardTitle>{t("Storage Efficiency")}</DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody>
         <StorageEfficiencyCardBody />

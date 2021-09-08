@@ -98,39 +98,33 @@ export const ProjectModel: K8sKind = {
   apiVersion: "v1",
   apiGroup: "project.openshift.io",
   label: "Project",
-  // t('public~Project')
-  labelKey: "public~Project",
+  labelKey: "Project",
   plural: "projects",
   abbr: "PR",
   kind: "Project",
   id: "project",
   labelPlural: "Projects",
-  // t('public~Projects')
-  labelPluralKey: "public~Projects",
+  labelPluralKey: "Projects",
 };
 
 export const PodModel: K8sKind = {
   apiVersion: "v1",
   label: "Pod",
-  // t('public~Pod')
-  labelKey: "public~Pod",
+  labelKey: "Pod",
   plural: "pods",
   abbr: "P",
   namespaced: true,
   kind: "Pod",
   id: "pod",
   labelPlural: "Pods",
-  // t('public~Pods')
-  labelPluralKey: "public~Pods",
+  labelPluralKey: "Pods",
 };
 
 export const StorageClassModel: K8sKind = {
   label: "StorageClass",
-  // t('public~StorageClass')
-  labelKey: "public~StorageClass",
+  labelKey: "StorageClass",
   labelPlural: "StorageClasses",
-  // t('public~StorageClasses')
-  labelPluralKey: "public~StorageClasses",
+  labelPluralKey: "StorageClasses",
   apiVersion: "v1",
   apiGroup: "storage.k8s.io",
   plural: "storageclasses",
@@ -142,14 +136,12 @@ export const StorageClassModel: K8sKind = {
 
 export const PersistentVolumeModel: K8sKind = {
   label: "PersistentVolume",
-  // t('public~PersistentVolume')
-  labelKey: "public~PersistentVolume",
+  labelKey: "PersistentVolume",
   apiVersion: "v1",
   plural: "persistentvolumes",
   abbr: "PV",
   kind: "PersistentVolume",
   id: "persistentvolume",
   labelPlural: "PersistentVolumes",
-  // t('public~PersistentVolumes')
-  labelPluralKey: "public~PersistentVolumes",
+  labelPluralKey: "PersistentVolumes",
 };

@@ -15,6 +15,7 @@
  */
 import * as React from "react";
 import * as _ from "lodash";
+import { useTranslation } from "react-i18next";
 import { Select, SelectProps } from "@patternfly/react-core";
 import {
   DashboardCard,
@@ -22,7 +23,7 @@ import {
   DashboardCardHeader,
   DashboardCardTitle,
   usePrometheusPoll,
-} from "@console/dynamic-plugin-sdk/internalAPI";
+} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
 import { BreakdownCardBody } from "../breakdown-card/breakdown-body";
 import {
   getStackChartStats,
@@ -40,6 +41,7 @@ const dropdownKeys = [PROJECTS, STORAGE_CLASSES, PODS];
 const breakdownSelectItems = getSelectOptions(dropdownKeys);
 
 const BreakdownCard: React.FC<any> = (props) => {
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const { name } = parseProps(props);
 
   const [metricType, setMetricType] = React.useState(PROJECTS);
@@ -78,7 +80,9 @@ const BreakdownCard: React.FC<any> = (props) => {
   return (
     <DashboardCard>
       <DashboardCardHeader>
-        <DashboardCardTitle>Provisioned Capacity Breakdown</DashboardCardTitle>
+        <DashboardCardTitle>
+          {t("Provisioned Capacity Breakdown")}
+        </DashboardCardTitle>
         <div className="flashsystem-capacity-breakdown-card__header">
           <Select
             className="flashsystem-capacity-breakdown-card-header__dropdown"

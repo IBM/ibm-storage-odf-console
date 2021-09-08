@@ -23,7 +23,7 @@ import {
   DashboardCardHeader,
   DashboardCardTitle,
   usePrometheusPoll,
-} from "@console/dynamic-plugin-sdk/internalAPI";
+} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
 import { humanizeBinaryBytes } from "../../humanize";
 import {
   FlASHSYSTEM_QUERIES,
@@ -36,7 +36,7 @@ import "./raw-capacity-card.scss";
 const colorScale = ["#0166cc", "#d6d6d6"];
 
 const RawCapacityCard: React.FC<any> = (props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const { name } = parseProps(props);
 
   const [totalCapacitymetric, loadError, loading] = usePrometheusPoll({
@@ -98,8 +98,12 @@ const RawCapacityCard: React.FC<any> = (props) => {
             </div>
             <div className="flashsystem-raw-usage__item flashsystem-raw-usage__chart">
               <ChartDonut
-                ariaDesc={t("Available versus Used Capacity")}
-                ariaTitle={t("Available versus Used Capacity")}
+                ariaDesc={t(
+                  "plugin__ibm-storage-odf-plugin~Available versus Used Capacity"
+                )}
+                ariaTitle={t(
+                  "plugin__ibm-storage-odf-plugin~Available versus Used Capacity"
+                )}
                 height={150}
                 width={150}
                 data={donutData}
@@ -137,11 +141,11 @@ const LoadingCardBody: React.FC = () => (
 );
 
 const ErrorCardBody: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   return (
     <>
       <div className="flashsystem-raw-usage--error text-muted">
-        {t("storage-advance~Not Available")}
+        {t("Not Available")}
       </div>
     </>
   );

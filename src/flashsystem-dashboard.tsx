@@ -15,7 +15,8 @@
  */
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
-import { HorizontalNav } from "@console/dynamic-plugin-sdk/internalAPI";
+import { useTranslation } from "react-i18next";
+import { HorizontalNav } from "@openshift-console/dynamic-plugin-sdk";
 import { Grid, GridItem } from "@patternfly/react-core";
 
 import StorageEfficiencyCard from "./components/storage-efficiency-card/storage-efficiency-card";
@@ -31,13 +32,13 @@ export type ODFDashboardProps = {
   match: RouteComponentProps["match"];
 };
 
-const UpperSection: React.FC = (props) => {
+const UpperSection: React.FC<any> = (props) => {
   return (
     <Grid hasGutter>
       <GridItem span={3}>
         <Grid hasGutter>
           <GridItem>
-            <DetailsCard />
+            <DetailsCard {...props} />
           </GridItem>
           <GridItem>
             <StorageEfficiencyCard />
@@ -66,7 +67,7 @@ const UpperSection: React.FC = (props) => {
       <GridItem span={3}>
         <Grid hasGutter>
           <GridItem>
-            <ActivityCard />
+            <ActivityCard {...props} />
           </GridItem>
         </Grid>
       </GridItem>
@@ -84,19 +85,20 @@ const FlashsystemDashboard: React.FC<ODFDashboardProps> = (props) => {
   );
 };
 
-const FlashsystemDashboardPage: React.FC<ODFDashboardProps> = ({ match }) => {
+export const FlashsystemDashboardPage: React.FC<any> = (props) => {
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const allPages = [
     {
       href: "",
-      name: "Overview",
+      name: t("Overview"),
       component: FlashsystemDashboard,
     },
   ];
   return (
     <>
-      <HorizontalNav match={match} pages={allPages} noStatusBox />
+      <HorizontalNav pages={allPages} {...props} />
     </>
   );
 };
 
-export default FlashsystemDashboardPage;
+export default FlashsystemDashboard;

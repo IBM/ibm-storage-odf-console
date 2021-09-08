@@ -17,7 +17,8 @@
 
 import * as webpack from "webpack";
 import * as path from "path";
-import { ConsoleRemotePlugin } from "@console/dynamic-plugin-sdk/webpack";
+import { ConsoleRemotePlugin } from "@openshift-console/dynamic-plugin-sdk/lib/index-webpack";
+import * as CopyWebpackPlugin from "copy-webpack-plugin";
 
 const config: webpack.Configuration = {
   mode: "development",
@@ -27,12 +28,20 @@ const config: webpack.Configuration = {
     filename: "[name]-bundle.js",
     chunkFilename: "[name]-chunk.js",
   },
+  watchOptions: {
+    ignored: ["node_modules", "dist"],
+  },
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    port: 9003,
+    writeToDisk: true,
+  },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
   module: {
     rules: [
-      { test: /create-flashsystem-page.tsx/, loader: 'ignore-loader' },
+      { test: /create-flashsystem-page.tsx/, loader: "ignore-loader" },
       {
         test: /(\.jsx?)|(\.tsx?)$/,
         exclude: /node_modules/,
@@ -86,24 +95,17 @@ const config: webpack.Configuration = {
       },
     ],
   },
-  plugins: [new ConsoleRemotePlugin()],
-  devtool: "source-map",
+  plugins: [
+    new ConsoleRemotePlugin(),
+    new CopyWebpackPlugin({
+      patterns: [{ from: path.resolve(__dirname, "locales"), to: "locales" }],
+    }),
+  ],
+  devtool: "cheap-module-source-map",
   optimization: {
     chunkIds: "named",
     minimize: false,
   },
-  externals: {
-    "@console/dynamic-plugin-sdk/api": "api",
-    "@console/dynamic-plugin-sdk/internalAPI": "internalAPI",
-  },
 };
-
-if (process.env.NODE_ENV === "production") {
-  config.mode = "production";
-  config.output.filename = "[name]-bundle-[hash].min.js";
-  config.output.chunkFilename = "[name]-chunk-[chunkhash].min.js";
-  config.optimization.chunkIds = "deterministic";
-  config.optimization.minimize = true;
-}
 
 export default config;

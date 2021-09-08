@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 import { Gallery, GalleryItem } from "@patternfly/react-core";
-import { useK8sWatchResource } from "@console/dynamic-plugin-sdk/api";
+import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
 import {
   DashboardCard,
   DashboardCardBody,
@@ -25,7 +26,7 @@ import {
   AlertsBody,
   AlertItem,
   usePrometheusPoll,
-} from "@console/dynamic-plugin-sdk/internalAPI";
+} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
 import {
   getFlashsystemHealthState,
   filterIBMFlashSystemAlerts,
@@ -58,6 +59,7 @@ const IBMFlashSystemAlerts: React.FC = () => {
 };
 
 export const StatusCard: React.FC<any> = (props) => {
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const { name } = parseProps(props);
   const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(
     GetFlashSystemResource(props)
@@ -69,7 +71,7 @@ export const StatusCard: React.FC<any> = (props) => {
   return (
     <DashboardCard gradient>
       <DashboardCardHeader>
-        <DashboardCardTitle>Status</DashboardCardTitle>
+        <DashboardCardTitle>{t("Status")}</DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody>
         <Gallery className="co-overview-status__health" hasGutter>

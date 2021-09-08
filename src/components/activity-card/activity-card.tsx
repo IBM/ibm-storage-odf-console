@@ -15,6 +15,7 @@
  */
 import * as React from "react";
 import * as _ from "lodash";
+import { useTranslation } from "react-i18next";
 import {
   DashboardCard,
   DashboardCardBody,
@@ -22,9 +23,9 @@ import {
   DashboardCardTitle,
   ActivityBody,
   RecentEventsBody,
-} from "@console/dynamic-plugin-sdk/internalAPI";
-import { useK8sWatchResource } from "@console/dynamic-plugin-sdk/api";
-import { FirehoseResource } from "@console/dynamic-plugin-sdk";
+} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
+import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
+import { FirehoseResource } from "@openshift-console/dynamic-plugin-sdk";
 import { IBM_STORAGE_CSI_PROVISIONER } from "../../constants/index";
 import { EventModel, StorageInstanceModel } from "../../models";
 import "./activity-card.scss";
@@ -62,10 +63,11 @@ const RecentEvent: React.FC<any> = (props) => {
 };
 
 export const ActivityCard: React.FC<any> = (props) => {
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   return (
     <DashboardCard gradient>
       <DashboardCardHeader>
-        <DashboardCardTitle>Activity</DashboardCardTitle>
+        <DashboardCardTitle>{t("Activity")}</DashboardCardTitle>
       </DashboardCardHeader>
       <DashboardCardBody>
         <ActivityBody className="flashsystem-activity-card__body">

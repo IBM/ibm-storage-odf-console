@@ -20,7 +20,7 @@ import {
   PrometheusLabels,
   PrometheusRule,
   Rule,
-} from "@console/dynamic-plugin-sdk/common";
+} from "@openshift-console/dynamic-plugin-sdk/lib/api/common-types";
 import { StorageInstanceKind } from "../../types";
 import { IBM_FlASHSYSTEM } from "../../constants/index";
 
