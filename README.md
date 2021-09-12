@@ -1,21 +1,25 @@
 # ibm-storage-odf-console
+
 ibm-storage-odf-console provides IBM storage specific console page, which will be loaded by ODF console when end users access IBM storage. It's specially designed for displaying IBM specific storage attributes to customer. Current scope includes IBM flashsystem only.
 
 ## Dependency
-Refer the Readme in below repo to install the necessary packages. IBM storage plugin works with OCP console dynamic plugin and ODF console. It is enabled after ibm-storage-odf-operator installed successfully. 
+
+Refer the Readme in below repo to install the necessary packages. IBM storage plugin works with OCP console dynamic plugin and ODF console. It is enabled after ibm-storage-odf-operator installed successfully.
+
 ```
-https://github.com/bipuladh/odf-console
+https://github.com/red-hat-storage/odf-console
 https://github.com/openshift/console
 https://github.com/IBM/ibm-storage-odf-operator
 ```
+
 ## Local development
 
 1. `git clone https://github.com/IBM/ibm-storage-odf-console.git` to clone this repo.
 2. `yarn install;yarn build` to build plugin page.
 3. `yarn http-server` to serve http. This plugin uses port `9003` by default.
 
-
 ## Deployment in a cluster
+
 IBM storage plugins are supposed to be deployed via [OLM operators](https://github.com/operator-framework).
 In case of testing this plugin, we just apply a minimal OpenShift manifest which adds the necessary resources.
 
@@ -50,7 +54,17 @@ spec:
 ## Docker image
 
 Following commands should be executed in Console repository root.
+
 1. Build the image
+
 ```
-docker build -f Dockerfile -t quay.io/shdn/ibm-storage-odf-plugin:latest .
+docker build -t quay.io/<username>/ibm-storage-odf-plugin:latest -f Dockerfile .
+```
+
+2. Build multiple archtechture images
+
+```
+docker run --privileged --rm tonistiigi/binfmt --install all
+docker buildx create --use
+docker buildx build --platform linux/amd64,linux/ppc64le,linux/s390x -f Dockerfile -t quay.io/<username>/ibm-storage-odf-plugin:latest .
 ```
