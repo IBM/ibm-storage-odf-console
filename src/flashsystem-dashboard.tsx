@@ -18,6 +18,7 @@ import { RouteComponentProps } from "react-router";
 import { useTranslation } from "react-i18next";
 import { HorizontalNav } from "@openshift-console/dynamic-plugin-sdk";
 import { Grid, GridItem } from "@patternfly/react-core";
+import { useLocation, match as Match } from "react-router-dom";
 
 import StorageEfficiencyCard from "./components/storage-efficiency-card/storage-efficiency-card";
 import StatusCard from "./components/status-card/status-card";
@@ -27,6 +28,7 @@ import ActivityCard from "./components/activity-card/activity-card";
 import RawCapacityCard from "./components/raw-capacity-card/raw-capacity-card";
 import UtilizationCard from "./components/utilization-card/utilization-card";
 import BreakdownCard from "./components/capacity-breakdown/capacity-breakdown-card";
+import PageHeading from "./components/heading/page-heading";
 
 export type ODFDashboardProps = {
   match: RouteComponentProps["match"];
@@ -85,20 +87,47 @@ const FlashsystemDashboard: React.FC<ODFDashboardProps> = (props) => {
   );
 };
 
-export const FlashsystemDashboardPage: React.FC<any> = (props) => {
-  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
-  const allPages = [
-    {
-      href: "",
-      name: t("Overview"),
-      component: FlashsystemDashboard,
-    },
-  ];
-  return (
-    <>
-      <HorizontalNav pages={allPages} {...props} />
-    </>
-  );
+export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
+  (props) => {
+    const location = useLocation();
+
+    React.useEffect(() => {
+      if (!location.pathname.endsWith("overview")) {
+        props.history.push(`${location.pathname}/overview`);
+      }
+    }, [props.history, location.pathname]);
+
+    const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
+    const allPages = [
+      {
+        href: "overview",
+        name: t("Overview"),
+        component: FlashsystemDashboard,
+      },
+    ];
+
+    const systemName = props.match.params.systemName;
+    const breadcrumbs = [
+      {
+        name: t("StorageSystems"),
+        path: "/odf/systems",
+      },
+      {
+        name: t("StorageSystem details"),
+        path: "",
+      },
+    ];
+
+    return (
+      <>
+        <PageHeading title={systemName} breadcrumbs={breadcrumbs} />
+        <HorizontalNav pages={allPages} {...props} />
+      </>
+    );
+  };
+
+type FlashsystemDashboardPageProps = RouteComponentProps & {
+  match: Match<{ systemName: string }>;
 };
 
-export default FlashsystemDashboard;
+export default FlashsystemDashboardPage;

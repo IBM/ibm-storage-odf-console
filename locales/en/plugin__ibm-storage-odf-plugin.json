@@ -23,5 +23,7 @@
   "IOPS": "IOPS",
   "Latency": "Latency",
   "Throughput": "Throughput",
-  "Overview": "Overview"
+  "Overview": "Overview",
+  "StorageSystems": "StorageSystems",
+  "StorageSystem details": "StorageSystem details"
 }

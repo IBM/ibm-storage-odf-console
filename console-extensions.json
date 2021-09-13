@@ -11,36 +11,6 @@
     }
   },
   {
-    "type": "console.navigation/resource-ns",
-    "properties": {
-      "id": "ibmstoragesystem",
-      "section": "storage",
-      "name": "IBM Flash Systems",
-      "model": {
-        "group": "odf.ibm.com",
-        "version": "v1alpha1",
-        "kind": "FlashSystemCluster"
-      }
-    },
-    "flags": {
-      "required": ["ODF_IBM_STORAGE"]
-    }
-  },
-  {
-    "type": "console.page/resource/details",
-    "properties": {
-      "model": {
-        "group": "odf.ibm.com",
-        "version": "v1alpha1",
-        "kind": "FlashSystemCluster"
-      },
-      "component": { "$codeRef": "IBMStorageODFDetailPage" }
-    },
-    "flags": {
-      "required": ["ODF_IBM_STORAGE"]
-    }
-  },
-  {
     "type": "console.page/route",
     "properties": {
       "path": [
