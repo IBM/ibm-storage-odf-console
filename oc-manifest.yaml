@@ -25,25 +25,25 @@ spec:
         app: ibm-storage-odf-plugin
     spec:
       containers:
-        - name: ibm-storage-odf-plugin
-          image: quay.io/shdn/ibm-storage-odf-plugin:latest
-          ports:
-            - containerPort: 9003
-              protocol: TCP
-          imagePullPolicy: Always
-          args:
-            - '--ssl'
-            - '--cert=/var/serving-cert/tls.crt'
-            - '--key=/var/serving-cert/tls.key'
-          volumeMounts:
-            - name: console-serving-cert
-              readOnly: true
-              mountPath: /var/serving-cert
+      - name: ibm-storage-odf-plugin
+        image: quay.io/shdn/ibm-storage-odf-plugin:latest
+        ports:
+          - containerPort: 9003
+            protocol: TCP
+        imagePullPolicy: Always
+        args:
+          - "--ssl"
+          - "--cert=/var/serving-cert/tls.crt"
+          - "--key=/var/serving-cert/tls.key"
+        volumeMounts:
+          - name: console-serving-cert
+            readOnly: true
+            mountPath: /var/serving-cert
       volumes:
-        - name: console-serving-cert
-          secret:
-            secretName: console-serving-cert
-            defaultMode: 420
+      - name: console-serving-cert
+        secret:
+          secretName: console-serving-cert
+          defaultMode: 420
       restartPolicy: Always
       dnsPolicy: ClusterFirst
   strategy:
@@ -80,9 +80,9 @@ kind: ConsolePlugin
 metadata:
   name: ibm-storage-odf-plugin
 spec:
-  displayName: 'IBM Storage Plugin for Openshift ODF'
+  displayName: "IBM Storage Plugin for Openshift ODF"
   service:
     name: ibm-storage-odf-plugin
     namespace: ibm-storage-odf-plugin
     port: 9003
-    basePath: '/'
+    basePath: "/"

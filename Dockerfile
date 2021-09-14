@@ -10,4 +10,4 @@ WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/dist ./dist
 RUN npm install http-server -g
 EXPOSE 9003
-ENTRYPOINT [ "http-server", "./dist", "-p", "9003", "-c-1", "--cors", "./dist" ]
+ENTRYPOINT [ "http-server", "./dist", "-p", "9003", "-c-1", "--cors", "./dist", "$@" ]
