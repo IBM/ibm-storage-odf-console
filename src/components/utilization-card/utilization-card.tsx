@@ -47,8 +47,11 @@ const UtilizationCard: React.FC<any> = (props) => {
     endpoint: "api/v1/query_range" as any,
     timespan: duration,
   });
-  const [readIOPSmetric] = usePrometheusPoll({
-    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadIOPS),
+  const [IOPSmetric] = usePrometheusPoll({
+    query:
+      FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadIOPS) +
+      "+" +
+      FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalWriteIOPS),
     endpoint: "api/v1/query_range" as any,
     timespan: duration,
   });
@@ -57,8 +60,11 @@ const UtilizationCard: React.FC<any> = (props) => {
     endpoint: "api/v1/query_range" as any,
     timespan: duration,
   });
-  const [readBWmetric] = usePrometheusPoll({
-    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadBW),
+  const [BWmetric] = usePrometheusPoll({
+    query:
+      FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadBW) +
+      "+" +
+      FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalWriteBW),
     endpoint: "api/v1/query_range" as any,
     timespan: duration,
   });
@@ -71,7 +77,7 @@ const UtilizationCard: React.FC<any> = (props) => {
       </DashboardCardHeader>
       <UtilizationBody>
         <UtilizationItem
-          title={t("Capacity")}
+          title={t("Used Capacity")}
           isLoading={false}
           error={false}
           utilization={usedCapacitymetric}
@@ -83,15 +89,19 @@ const UtilizationCard: React.FC<any> = (props) => {
           )}
         />
         <UtilizationItem
-          title={t("IOPS")}
+          title={t("Total IOPS")}
           isLoading={false}
           error={false}
-          utilization={readIOPSmetric}
+          utilization={IOPSmetric}
           humanizeValue={humanizeIOPS}
-          query={FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadIOPS)}
+          query={
+            FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadIOPS) +
+            "+" +
+            FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalWriteIOPS)
+          }
         />
         <UtilizationItem
-          title={t("Latency")}
+          title={t("Read Latency")}
           isLoading={false}
           error={false}
           utilization={readRespTimemetric}
@@ -102,12 +112,16 @@ const UtilizationCard: React.FC<any> = (props) => {
           )}
         />
         <UtilizationItem
-          title={t("Throughput")}
+          title={t("Total Throughput")}
           isLoading={false}
           error={false}
-          utilization={readBWmetric}
+          utilization={BWmetric}
           humanizeValue={humanizeDecimalBytesPerSec}
-          query={FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadBW)}
+          query={
+            FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadBW) +
+            "+" +
+            FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalWriteBW)
+          }
         />
       </UtilizationBody>
     </DashboardCard>
