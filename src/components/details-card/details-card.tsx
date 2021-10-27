@@ -25,7 +25,7 @@ import {
   DashboardCardTitle,
   DetailItem,
   DetailsBody,
-} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
+} from "@openshift-console/dynamic-plugin-sdk-internal";
 import { ExternalLink } from "./Link";
 import { StorageInstanceKind, K8sKind, SecretKind } from "../../types";
 import {

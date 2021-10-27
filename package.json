@@ -34,7 +34,9 @@
     "react-router-dom": "5.2.0"
   },
   "devDependencies": {
-    "@openshift-console/dynamic-plugin-sdk": "^0.0.0-beta1",
+    "@openshift-console/dynamic-plugin-sdk": "0.0.2",
+    "@openshift-console/dynamic-plugin-sdk-webpack": "0.0.2",
+    "@openshift-console/dynamic-plugin-sdk-internal": "0.0.2",
     "@types/lodash-es": "^4.17.4",
     "@types/node": "^16.7.13",
     "@types/react": "16.8.13",
