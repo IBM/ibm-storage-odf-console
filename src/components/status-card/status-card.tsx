@@ -26,7 +26,7 @@ import {
   AlertsBody,
   AlertItem,
   usePrometheusPoll,
-} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
+} from "@openshift-console/dynamic-plugin-sdk-internal";
 import {
   getFlashsystemHealthState,
   filterIBMFlashSystemAlerts,

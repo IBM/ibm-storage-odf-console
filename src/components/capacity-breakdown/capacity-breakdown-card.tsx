@@ -23,7 +23,7 @@ import {
   DashboardCardHeader,
   DashboardCardTitle,
   usePrometheusPoll,
-} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
+} from "@openshift-console/dynamic-plugin-sdk-internal";
 import { BreakdownCardBody } from "../breakdown-card/breakdown-body";
 import {
   getStackChartStats,

@@ -23,7 +23,7 @@ import {
   DashboardCardTitle,
   ActivityBody,
   RecentEventsBody,
-} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
+} from "@openshift-console/dynamic-plugin-sdk-internal";
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
 import { FirehoseResource } from "@openshift-console/dynamic-plugin-sdk";
 import { IBM_STORAGE_CSI_PROVISIONER } from "../../constants/index";

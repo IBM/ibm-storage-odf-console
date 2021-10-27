@@ -22,7 +22,7 @@ import {
   DashboardCardTitle,
   DashboardCardBody,
   ResourceInventoryItem,
-} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
+} from "@openshift-console/dynamic-plugin-sdk-internal";
 import {
   FirehoseResource,
   K8sResourceCommon,

@@ -25,7 +25,7 @@ import {
   UtilizationDurationDropdown,
   useUtilizationDuration,
   //MultilineUtilizationItem // we need this to be exposed
-} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
+} from "@openshift-console/dynamic-plugin-sdk-internal";
 import {
   StorageDashboardQuery,
   FlASHSYSTEM_QUERIES,
