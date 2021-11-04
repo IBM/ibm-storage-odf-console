@@ -180,7 +180,7 @@ export const getEndpoint = (secret: SecretKind) =>
 export const getNameFromProps = (props) => {
   const CRname = _.get(props, ["match", "params", "name"]);
   const systemName = _.get(props, ["match", "params", "systemName"]);
-  return systemName ? systemName : CRname;
+  return systemName ? systemName.replace("-storagesystem", "") : CRname;
 };
 
 export const getNamespaceFromProps = (props) =>
