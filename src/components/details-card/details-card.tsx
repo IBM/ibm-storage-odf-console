@@ -110,7 +110,7 @@ const DetailsCard: React.FC<any> = (props) => {
             {
               <ExternalLink
                 href={"https://" + endpointAddress}
-                text="IBM flashsystem"
+                text="IBM FlashSystem"
               />
             }
           </DetailItem>
