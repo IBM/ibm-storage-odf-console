@@ -18,6 +18,11 @@ https://github.com/IBM/ibm-storage-odf-operator
 2. `yarn install;yarn build` to build plugin page.
 3. `yarn http-server` to serve http. This plugin uses port `9003` by default.
 
+Then OCP console and odf-console can be started following their guide.
+[odf-console](https://github.com/red-hat-storage/odf-console)
+
+[ocp-console](https://github.com/openshift/console)
+
 ## Deployment in a cluster
 
 IBM storage plugins are supposed to be deployed via [OLM operators](https://github.com/operator-framework).
