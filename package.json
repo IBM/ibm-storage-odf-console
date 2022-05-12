@@ -35,7 +35,6 @@
   },
   "devDependencies": {
     "@openshift-console/dynamic-plugin-sdk": "0.0.3",
-    "@openshift-console/dynamic-plugin-sdk-internal-kubevirt": "^0.0.10",
     "@openshift-console/dynamic-plugin-sdk-webpack": "0.0.4",
     "@openshift-console/dynamic-plugin-sdk-internal": "0.0.2",
     "@types/lodash-es": "^4.17.4",
