@@ -16,9 +16,6 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import {
-  DashboardCard,
-  DashboardCardHeader,
-  DashboardCardTitle,
   usePrometheusPoll,
   UtilizationBody,
   UtilizationItem,
@@ -26,6 +23,9 @@ import {
   useUtilizationDuration,
   //MultilineUtilizationItem // we need this to be exposed
 } from "@openshift-console/dynamic-plugin-sdk-internal";
+
+import { Card, CardHeader, CardTitle } from '@patternfly/react-core';
+
 import {
   StorageDashboardQuery,
   FlASHSYSTEM_QUERIES,
@@ -70,11 +70,11 @@ const UtilizationCard: React.FC<any> = (props) => {
   });
 
   return (
-    <DashboardCard>
-      <DashboardCardHeader>
-        <DashboardCardTitle>{t("Utilization")}</DashboardCardTitle>
+    <Card>
+      <CardHeader>
+        <CardTitle>{t("Utilization")}</CardTitle>
         <UtilizationDurationDropdown />
-      </DashboardCardHeader>
+      </CardHeader>
       <UtilizationBody>
         <UtilizationItem
           title={t("Used Capacity")}
@@ -124,7 +124,7 @@ const UtilizationCard: React.FC<any> = (props) => {
           }
         />
       </UtilizationBody>
-    </DashboardCard>
+    </Card>
   );
 };
 

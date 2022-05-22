@@ -18,15 +18,13 @@ import { useTranslation } from "react-i18next";
 import { Gallery, GalleryItem } from "@patternfly/react-core";
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
 import {
-  DashboardCard,
-  DashboardCardBody,
-  DashboardCardHeader,
-  DashboardCardTitle,
   HealthItem,
   AlertsBody,
   AlertItem,
   usePrometheusPoll,
 } from "@openshift-console/dynamic-plugin-sdk-internal";
+
+import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import {
   getFlashsystemHealthState,
   filterIBMFlashSystemAlerts,
@@ -69,11 +67,11 @@ export const StatusCard: React.FC<any> = (props) => {
   });
 
   return (
-    <DashboardCard gradient>
-      <DashboardCardHeader>
-        <DashboardCardTitle>{t("Status")}</DashboardCardTitle>
-      </DashboardCardHeader>
-      <DashboardCardBody>
+    <Card>
+      <CardHeader>
+        <CardTitle>{t("Status")}</CardTitle>
+      </CardHeader>
+      <CardBody>
         <Gallery className="co-overview-status__health" hasGutter>
           <GalleryItem>
             <HealthItem
@@ -84,8 +82,8 @@ export const StatusCard: React.FC<any> = (props) => {
           </GalleryItem>
         </Gallery>
         <IBMFlashSystemAlerts />
-      </DashboardCardBody>
-    </DashboardCard>
+      </CardBody>
+    </Card>
   );
 };
 
