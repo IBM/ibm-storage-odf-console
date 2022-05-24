@@ -17,12 +17,12 @@
 
 import * as webpack from "webpack";
 import * as path from "path";
-import { ConsoleRemotePlugin } from "@openshift-console/dynamic-plugin-sdk/lib/index-webpack";
+import { ConsoleRemotePlugin } from "@openshift-console/dynamic-plugin-sdk-webpack";
 import * as CopyWebpackPlugin from "copy-webpack-plugin";
 
 const config: webpack.Configuration = {
   mode: "development",
-  context: path.resolve(__dirname, "src"),
+  entry: {},
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name]-bundle.js",

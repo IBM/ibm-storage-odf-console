@@ -34,7 +34,9 @@
     "react-router-dom": "5.2.0"
   },
   "devDependencies": {
-    "@openshift-console/dynamic-plugin-sdk": "^0.0.0-beta1",
+    "@openshift-console/dynamic-plugin-sdk": "0.0.3",
+    "@openshift-console/dynamic-plugin-sdk-webpack": "0.0.4",
+    "@openshift-console/dynamic-plugin-sdk-internal": "0.0.2",
     "@types/lodash-es": "^4.17.4",
     "@types/node": "^16.7.13",
     "@types/react": "16.8.13",
@@ -61,9 +63,9 @@
     "style-loader": "^0.23.1",
     "thread-loader": "1.x",
     "ts-loader": "6.2.2",
-    "ts-node": "10.2.1",
+    "ts-node": "5.0.1",
     "typescript": "3.8.3",
-    "webpack": "5.0.0-beta.16",
+    "webpack": "5.64.4",
     "webpack-cli": "4.5.x"
   },
   "husky": {
@@ -80,7 +82,7 @@
       "@console/pluginAPI": "*"
     },
     "exposedModules": {
-      "IBMStorageODFDetailPage": "./flashsystem-dashboard"
+      "IBMStorageODFDetailPage": "./src/flashsystem-dashboard"
     }
   }
 }

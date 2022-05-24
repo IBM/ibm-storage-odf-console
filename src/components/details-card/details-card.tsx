@@ -19,13 +19,11 @@ import { useTranslation } from "react-i18next";
 import { Base64 } from "js-base64";
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
 import {
-  DashboardCard,
-  DashboardCardBody,
-  DashboardCardHeader,
-  DashboardCardTitle,
   DetailItem,
   DetailsBody,
-} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
+} from "@openshift-console/dynamic-plugin-sdk-internal";
+
+import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import { ExternalLink } from "./Link";
 import { StorageInstanceKind, K8sKind, SecretKind } from "../../types";
 import {
@@ -79,11 +77,11 @@ const DetailsCard: React.FC<any> = (props) => {
       : "unknown";
 
   return (
-    <DashboardCard>
-      <DashboardCardHeader>
-        <DashboardCardTitle>{t("Details")}</DashboardCardTitle>
-      </DashboardCardHeader>
-      <DashboardCardBody>
+    <Card>
+      <CardHeader>
+        <CardTitle>{t("Details")}</CardTitle>
+      </CardHeader>
+      <CardBody>
         <DetailsBody>
           <DetailItem
             key="operator-name"
@@ -139,8 +137,8 @@ const DetailsCard: React.FC<any> = (props) => {
             {flashOperatorVersion}
           </DetailItem>
         </DetailsBody>
-      </DashboardCardBody>
-    </DashboardCard>
+      </CardBody>
+    </Card>
   );
 };
 

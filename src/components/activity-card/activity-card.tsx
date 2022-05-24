@@ -17,13 +17,12 @@ import * as React from "react";
 import * as _ from "lodash";
 import { useTranslation } from "react-i18next";
 import {
-  DashboardCard,
-  DashboardCardBody,
-  DashboardCardHeader,
-  DashboardCardTitle,
   ActivityBody,
   RecentEventsBody,
-} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
+} from "@openshift-console/dynamic-plugin-sdk-internal";
+
+
+import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
 import { FirehoseResource } from "@openshift-console/dynamic-plugin-sdk";
 import { IBM_STORAGE_CSI_PROVISIONER } from "../../constants/index";
@@ -65,16 +64,16 @@ const RecentEvent: React.FC<any> = (props) => {
 export const ActivityCard: React.FC<any> = (props) => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   return (
-    <DashboardCard gradient>
-      <DashboardCardHeader>
-        <DashboardCardTitle>{t("Activity")}</DashboardCardTitle>
-      </DashboardCardHeader>
-      <DashboardCardBody>
+    <Card>
+      <CardHeader>
+        <CardTitle>{t("Activity")}</CardTitle>
+      </CardHeader>
+      <CardBody>
         <ActivityBody className="flashsystem-activity-card__body">
           <RecentEvent {...props} />
         </ActivityBody>
-      </DashboardCardBody>
-    </DashboardCard>
+      </CardBody>
+    </Card>
   );
 };
 

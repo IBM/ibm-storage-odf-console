@@ -17,12 +17,10 @@ import * as React from "react";
 import * as _ from "lodash";
 import { useTranslation } from "react-i18next";
 import {
-  DashboardCard,
-  DashboardCardHeader,
-  DashboardCardTitle,
-  DashboardCardBody,
   ResourceInventoryItem,
-} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
+} from "@openshift-console/dynamic-plugin-sdk-internal";
+
+import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import {
   FirehoseResource,
   K8sResourceCommon,
@@ -106,11 +104,11 @@ export const InventoryCard: React.FC<any> = () => {
   );
 
   return (
-    <DashboardCard>
-      <DashboardCardHeader>
-        <DashboardCardTitle>{t("Inventory")}</DashboardCardTitle>
-      </DashboardCardHeader>
-      <DashboardCardBody>
+    <Card>
+      <CardHeader>
+        <CardTitle>{t("Inventory")}</CardTitle>
+      </CardHeader>
+      <CardBody>
         <ResourceInventoryItem
           isLoading={!scLoaded}
           error={!!scLoadError}
@@ -148,8 +146,8 @@ export const InventoryCard: React.FC<any> = () => {
           showLink={true}
           basePath={podHref}
         />
-      </DashboardCardBody>
-    </DashboardCard>
+      </CardBody>
+    </Card>
   );
 };
 

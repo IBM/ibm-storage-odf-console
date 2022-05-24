@@ -18,12 +18,11 @@ import * as _ from "lodash";
 import { useTranslation } from "react-i18next";
 import { Select, SelectProps } from "@patternfly/react-core";
 import {
-  DashboardCard,
-  DashboardCardBody,
-  DashboardCardHeader,
-  DashboardCardTitle,
   usePrometheusPoll,
-} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
+} from "@openshift-console/dynamic-plugin-sdk-internal";
+
+import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
+
 import { BreakdownCardBody } from "../breakdown-card/breakdown-body";
 import {
   getStackChartStats,
@@ -78,11 +77,11 @@ const BreakdownCard: React.FC<any> = (props) => {
   };
 
   return (
-    <DashboardCard>
-      <DashboardCardHeader>
-        <DashboardCardTitle>
+    <Card>
+      <CardHeader>
+        <CardTitle>
           {t("Provisioned Capacity Breakdown")}
-        </DashboardCardTitle>
+        </CardTitle>
         <div className="flashsystem-capacity-breakdown-card__header">
           <Select
             className="flashsystem-capacity-breakdown-card-header__dropdown"
@@ -98,8 +97,8 @@ const BreakdownCard: React.FC<any> = (props) => {
             {breakdownSelectItems}
           </Select>
         </div>
-      </DashboardCardHeader>
-      <DashboardCardBody className="flashsystem-capacity-breakdown-card__body">
+      </CardHeader>
+      <CardBody className="flashsystem-capacity-breakdown-card__body">
         <BreakdownCardBody
           isLoading={byUsedLoading || totalUsedLoading || usedLoading}
           hasLoadError={byUsedLoadError || totalUsedLoadError || usedLoadError}
@@ -110,8 +109,8 @@ const BreakdownCard: React.FC<any> = (props) => {
           metricModel={model}
           humanize={humanize}
         />
-      </DashboardCardBody>
-    </DashboardCard>
+      </CardBody>
+    </Card>
   );
 };
 

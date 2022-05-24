@@ -18,12 +18,10 @@ import { useTranslation } from "react-i18next";
 import OutlinedQuestionCircleIcon from "@patternfly/react-icons/dist/js/icons/outlined-question-circle-icon";
 import { Tooltip } from "@patternfly/react-core";
 import {
-  DashboardCard,
-  DashboardCardBody,
-  DashboardCardHeader,
-  DashboardCardTitle,
   usePrometheusPoll,
-} from "@openshift-console/dynamic-plugin-sdk/lib/api/internal-api";
+} from "@openshift-console/dynamic-plugin-sdk-internal";
+
+import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import { parseMetricData } from "../../selectors/promethues-utils";
 import { humanizeBinaryBytes } from "../../humanize";
 import { EFFICIENCY_SAVING_QUERY } from "../../constants/queries";
@@ -68,14 +66,14 @@ const StorageEfficiencyCardBody: React.FC<any> = () => {
 const StorageEfficiencyCard: React.FC = () => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   return (
-    <DashboardCard gradient>
-      <DashboardCardHeader>
-        <DashboardCardTitle>{t("Storage Efficiency")}</DashboardCardTitle>
-      </DashboardCardHeader>
-      <DashboardCardBody>
+    <Card>
+      <CardHeader>
+        <CardTitle>{t("Storage Efficiency")}</CardTitle>
+      </CardHeader>
+      <CardBody>
         <StorageEfficiencyCardBody />
-      </DashboardCardBody>
-    </DashboardCard>
+      </CardBody>
+    </Card>
   );
 };
 
