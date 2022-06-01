@@ -21,7 +21,7 @@ COPY --from=builder /app .
 COPY --from=builder /compatibility ./compatibility
 CMD /usr/libexec/s2i/run
 
-LABEL maintainer="Ning Ding <shdn@cn.ibm.com>"
+LABEL maintainer="IBM Support <support@ibm.com>"
 LABEL name="ibm-storage-odf-console"
 LABEL version="1.0.1"
 LABEL description="IBM Flashsystem Console Plugin"
