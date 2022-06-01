@@ -2,7 +2,7 @@
   "name": "ibm-storage-odf-plugin",
   "version": "1.0.1",
   "description": "IBM Storage Plugin Openshift ODF",
-  "author": "shdn-ibm <shdn@cn.ibm.com>",
+  "author": "IBM Support <support@ibm.com>",
   "private": true,
   "repository": "git@github.com:IBM/ibm-storage-odf-console.git",
   "scripts": {
