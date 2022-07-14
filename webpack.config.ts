@@ -56,7 +56,10 @@ const config: webpack.Configuration = {
       },
       {
         test: /\.scss$/,
-        exclude: /node_modules/,
+        include: [
+          /node_modules\/@openshift-console\/plugin-shared/,
+          /src/,
+        ],
         use: [
           { loader: "cache-loader" },
           { loader: "thread-loader" },

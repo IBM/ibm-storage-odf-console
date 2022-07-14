@@ -16,13 +16,14 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import {
-  usePrometheusPoll,
   UtilizationBody,
   UtilizationItem,
   UtilizationDurationDropdown,
   useUtilizationDuration,
   //MultilineUtilizationItem // we need this to be exposed
 } from "@openshift-console/dynamic-plugin-sdk-internal";
+
+import {useCustomPrometheusPoll} from "../custom-prometheus-poll/custom-prometheus-poll"
 
 import { Card, CardHeader, CardTitle } from '@patternfly/react-core';
 
@@ -42,12 +43,12 @@ const UtilizationCard: React.FC<any> = (props) => {
   const { name } = parseProps(props);
   const { duration } = useUtilizationDuration();
 
-  const [usedCapacitymetric] = usePrometheusPoll({
+  const [usedCapacitymetric] = useCustomPrometheusPoll({
     query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalUsedCapacity),
     endpoint: "api/v1/query_range" as any,
     timespan: duration,
   });
-  const [IOPSmetric] = usePrometheusPoll({
+  const [IOPSmetric] = useCustomPrometheusPoll({
     query:
       FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadIOPS) +
       "+" +
@@ -55,12 +56,12 @@ const UtilizationCard: React.FC<any> = (props) => {
     endpoint: "api/v1/query_range" as any,
     timespan: duration,
   });
-  const [readRespTimemetric] = usePrometheusPoll({
+  const [readRespTimemetric] = useCustomPrometheusPoll({
     query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadRespTime),
     endpoint: "api/v1/query_range" as any,
     timespan: duration,
   });
-  const [BWmetric] = usePrometheusPoll({
+  const [BWmetric] = useCustomPrometheusPoll({
     query:
       FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalReadBW) +
       "+" +

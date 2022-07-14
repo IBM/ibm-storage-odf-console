@@ -17,9 +17,7 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 import OutlinedQuestionCircleIcon from "@patternfly/react-icons/dist/js/icons/outlined-question-circle-icon";
 import { Tooltip } from "@patternfly/react-core";
-import {
-  usePrometheusPoll,
-} from "@openshift-console/dynamic-plugin-sdk-internal";
+import {useCustomPrometheusPoll} from "../custom-prometheus-poll/custom-prometheus-poll"
 
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import { parseMetricData } from "../../selectors/promethues-utils";
@@ -30,9 +28,10 @@ import "./storage-efficiency-card.scss";
 const StorageEfficiencyCardBody: React.FC<any> = () => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
 
-  const [metric, error, loading] = usePrometheusPoll({
+  const [metric, error, loading] = useCustomPrometheusPoll({
     query: EFFICIENCY_SAVING_QUERY,
     endpoint: "api/v1/query" as any,
+    samples: 60
   });
 
   const [saving] =
