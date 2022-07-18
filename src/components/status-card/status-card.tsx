@@ -17,11 +17,11 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { Gallery, GalleryItem } from "@patternfly/react-core";
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
+import {useCustomPrometheusPoll} from "../custom-prometheus-poll/custom-prometheus-poll"
 import {
   HealthItem,
   AlertsBody,
-  AlertItem,
-  usePrometheusPoll,
+  AlertItem
 } from "@openshift-console/dynamic-plugin-sdk-internal";
 
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
@@ -37,7 +37,7 @@ import { GetFlashSystemResource } from "../../constants/resources";
 import { parseProps } from "../../selectors/index";
 
 const IBMFlashSystemAlerts: React.FC = () => {
-  const [rules, alertsError, alertsLoaded] = usePrometheusPoll({
+  const [rules, alertsError, alertsLoaded] = useCustomPrometheusPoll({
     query: "",
     endpoint: "api/v1/rules" as any,
   });

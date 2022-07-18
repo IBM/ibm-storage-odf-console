@@ -17,10 +17,7 @@ import * as React from "react";
 import * as _ from "lodash";
 import { useTranslation } from "react-i18next";
 import { Select, SelectProps } from "@patternfly/react-core";
-import {
-  usePrometheusPoll,
-} from "@openshift-console/dynamic-plugin-sdk-internal";
-
+import {useCustomPrometheusPoll} from "../custom-prometheus-poll/custom-prometheus-poll"
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 
 import { BreakdownCardBody } from "../breakdown-card/breakdown-body";
@@ -48,21 +45,24 @@ const BreakdownCard: React.FC<any> = (props) => {
   const { model, metric, queries } = BreakdownQueryMapODF(name, metricType);
   const queryKeys = Object.keys(queries);
 
-  const [byUsedmetric, byUsedLoadError, byUsedLoading] = usePrometheusPoll({
+  const [byUsedmetric, byUsedLoadError, byUsedLoading] = useCustomPrometheusPoll({
     query: queries[queryKeys[0]],
     endpoint: "api/v1/query" as any,
+    samples: 60,
   });
 
   const [totalUsedmetric, totalUsedLoadError, totalUsedLoading] =
-    usePrometheusPoll({
+      useCustomPrometheusPoll({
       query: queries[queryKeys[1]],
       endpoint: "api/v1/query" as any,
+      samples: 60
     });
   const metricTotal = _.get(totalUsedmetric, "data.result[0].value[1]");
 
-  const [usedmetric, usedLoadError, usedLoading] = usePrometheusPoll({
+  const [usedmetric, usedLoadError, usedLoading] = useCustomPrometheusPoll({
     query: queries[queryKeys[2]],
     endpoint: "api/v1/query" as any,
+    samples: 60
   });
   const flashsystemUsed = _.get(usedmetric, "data.result[0].value[1]");
 

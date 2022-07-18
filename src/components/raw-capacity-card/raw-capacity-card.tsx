@@ -17,9 +17,7 @@ import * as React from "react";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { ChartDonut, ChartLabel } from "@patternfly/react-charts";
-import {
-  usePrometheusPoll,
-} from "@openshift-console/dynamic-plugin-sdk-internal";
+import { useCustomPrometheusPoll } from "../custom-prometheus-poll/custom-prometheus-poll"
 
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import { humanizeBinaryBytes } from "../../humanize";
@@ -37,25 +35,28 @@ const RawCapacityCard: React.FC<any> = (props) => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const { name } = parseProps(props);
 
-  const [totalCapacitymetric, loadError, loading] = usePrometheusPoll({
+  const [totalCapacitymetric, loadError, loading] = useCustomPrometheusPoll({
     query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalCapacity),
     endpoint: "api/v1/query" as any,
+    samples: 60,
   });
   const [totalCapacity] = parseMetricData(
     totalCapacitymetric,
     humanizeBinaryBytes
   );
-  const [usedCapacitymetric] = usePrometheusPoll({
+  const [usedCapacitymetric] = useCustomPrometheusPoll({
     query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalUsedCapacity),
     endpoint: "api/v1/query" as any,
+    samples: 60,
   });
   const [usedCapacity] = parseMetricData(
     usedCapacitymetric,
     humanizeBinaryBytes
   );
-  const [availableCapacitymetric] = usePrometheusPoll({
+  const [availableCapacitymetric] = useCustomPrometheusPoll({
     query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalFreeCapacity),
     endpoint: "api/v1/query" as any,
+    samples: 60,
   });
   const [availableCapacity] = parseMetricData(
     availableCapacitymetric,

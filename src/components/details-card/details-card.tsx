@@ -19,9 +19,10 @@ import { useTranslation } from "react-i18next";
 import { Base64 } from "js-base64";
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
 import {
-  DetailItem,
   DetailsBody,
 } from "@openshift-console/dynamic-plugin-sdk-internal";
+
+import { OverviewDetailItem as DetailItem} from "@openshift-console/plugin-shared";
 
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import { ExternalLink } from "./Link";
@@ -86,7 +87,6 @@ const DetailsCard: React.FC<any> = (props) => {
           <DetailItem
             key="operator-name"
             title={t("Operator Name")}
-            error={false}
             isLoading={false}
           >
             <Router>
@@ -102,7 +102,6 @@ const DetailsCard: React.FC<any> = (props) => {
           <DetailItem
             key="provider"
             title={t("Provider")}
-            error={false}
             isLoading={false}
           >
             {
@@ -115,7 +114,6 @@ const DetailsCard: React.FC<any> = (props) => {
           <DetailItem
             key="mode"
             title={t("Mode")}
-            error={false}
             isLoading={false}
           >
             External
@@ -123,7 +121,6 @@ const DetailsCard: React.FC<any> = (props) => {
           <DetailItem
             key="storage-type"
             title={t("Storage Type")}
-            error={false}
             isLoading={false}
           >
             Block
@@ -131,7 +128,6 @@ const DetailsCard: React.FC<any> = (props) => {
           <DetailItem
             key="version"
             title={t("Version")}
-            error={false}
             isLoading={false}
           >
             {flashOperatorVersion}
