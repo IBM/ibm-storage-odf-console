@@ -18,12 +18,10 @@ import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { ChartDonut, ChartLabel } from "@patternfly/react-charts";
 import {
-  DashboardCard,
-  DashboardCardBody,
-  DashboardCardHeader,
-  DashboardCardTitle,
   usePrometheusPoll,
 } from "@openshift-console/dynamic-plugin-sdk-internal";
+
+import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import { humanizeBinaryBytes } from "../../humanize";
 import {
   FlASHSYSTEM_QUERIES,
@@ -74,13 +72,13 @@ const RawCapacityCard: React.FC<any> = (props) => {
   ];
 
   return (
-    <DashboardCard>
-      <DashboardCardHeader>
-        <DashboardCardTitle>
+    <Card>
+      <CardHeader>
+        <CardTitle>
           {t("Physical Capacity Overview")}
-        </DashboardCardTitle>
-      </DashboardCardHeader>
-      <DashboardCardBody className="flashsystem-raw-usage__container">
+        </CardTitle>
+      </CardHeader>
+      <CardBody className="flashsystem-raw-usage__container">
         {!loading && !loadError && (
           <>
             <div className="flashsystem-raw-usage__item flashsystem-raw-usage__legend">
@@ -125,8 +123,8 @@ const RawCapacityCard: React.FC<any> = (props) => {
         )}
         {loading && !loadError && <LoadingCardBody />}
         {loadError && <ErrorCardBody />}
-      </DashboardCardBody>
-    </DashboardCard>
+      </CardBody>
+    </Card>
   );
 };
 

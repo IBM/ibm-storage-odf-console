@@ -22,7 +22,7 @@ import * as CopyWebpackPlugin from "copy-webpack-plugin";
 
 const config: webpack.Configuration = {
   mode: "development",
-  context: path.resolve(__dirname, "src"),
+  entry: {},
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name]-bundle.js",
