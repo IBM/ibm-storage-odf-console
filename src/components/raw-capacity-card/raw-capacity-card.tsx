@@ -65,7 +65,7 @@ const RawCapacityCard: React.FC<any> = (props) => {
 
     const donutData = [
         { x: "Used", y: physicalUsedCapacity.value, string: physicalUsedCapacity.string },
-        { x: "Available", y: physicalFreeCapacity.value, string: physicalFreeCapacity.string,},
+        { x: "Available", y: physicalFreeCapacity.value, string: physicalFreeCapacity.string},
     ];
 
     return (
