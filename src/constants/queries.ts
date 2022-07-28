@@ -88,13 +88,13 @@ export const FlASHSYSTEM_QUERIES = (
     // }
 
     case StorageDashboardQuery.SystemPhysicalUsedCapacity: {
-      return `sum(flashsystem_subsystem_physical_used_capacity_bytes{container='${label}'})`;
+      return `flashsystem_subsystem_physical_used_capacity_bytes{container='${label}'}`;
     }
     case StorageDashboardQuery.SystemPhysicalFreeCapacity: {
-      return `sum(flashsystem_subsystem_physical_free_capacity_bytes{container='${label}'})`;
+      return `flashsystem_subsystem_physical_free_capacity_bytes{container='${label}'}`;
     }
     case StorageDashboardQuery.SystemPhysicalTotalCapacity: {
-      return `sum(flashsystem_subsystem_physical_total_capacity_bytes{container='${label}'})`;
+      return `flashsystem_subsystem_physical_total_capacity_bytes{container='${label}'}`;
     }
 
     case StorageDashboardQuery.TotalReadIOPS: {

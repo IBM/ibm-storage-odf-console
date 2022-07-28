@@ -44,22 +44,22 @@ const RawCapacityCard: React.FC<any> = (props) => {
         totalCapacitymetric,
         humanizeBinaryBytes
     );
-    const [SystemPhysicalUsedCapacityMetric] = useCustomPrometheusPoll({
+    const [usedCapacityMetric] = useCustomPrometheusPoll({
         query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemPhysicalUsedCapacity),
         endpoint: "api/v1/query" as any,
         samples: 60,
     });
     const [physicalUsedCapacity] = parseMetricData(
-        SystemPhysicalUsedCapacityMetric,
+        usedCapacityMetric,
         humanizeBinaryBytes
     );
-    const [SystemPhysicalFreeCapacityMetric] = useCustomPrometheusPoll({
+    const [freeCapacityMetric] = useCustomPrometheusPoll({
         query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemPhysicalFreeCapacity),
         endpoint: "api/v1/query" as any,
         samples: 60,
     });
     const [physicalFreeCapacity] = parseMetricData(
-        SystemPhysicalFreeCapacityMetric,
+        freeCapacityMetric,
         humanizeBinaryBytes
     );
 
