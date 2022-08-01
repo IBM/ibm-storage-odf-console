@@ -22,6 +22,7 @@ import {
   ConfigMapModel,
 } from "../models";
 import { referenceForModel, parseProps } from "../selectors";
+import {IBM_POOLS_CONFIGMAP_NAME} from "./constants"
 
 export const SubscriptionResource: WatchK8sResource = {
   isList: true,
@@ -64,12 +65,12 @@ export const GetFlashSystemResource = (props) => {
   return newFlashSystemResource(name, namespace);
 };
 
-export const GetIBMPoolsConfigMap = (namespace?: string) => {
+export const getIBMPoolsConfigMap = (namespace?: string) => {
   const resource: WatchK8sResource = {
     isList: false,
     kind: ConfigMapModel.kind,
     namespace: namespace,
-    name: 'ibm-flashsystem-pools',
+    name: IBM_POOLS_CONFIGMAP_NAME,
   };
   return resource;
 };

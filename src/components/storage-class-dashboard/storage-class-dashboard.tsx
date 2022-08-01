@@ -31,8 +31,8 @@ import {getSelectOptions} from "../breakdown-card/breakdown-dropdown";
 import PoolRawCapacityCard from "../pool-raw-capacity-card/pool-raw-capacity-card";
 import {useK8sWatchResource} from "@openshift-console/dynamic-plugin-sdk";
 import {ConfigMapKind} from "../../types";
-import {GetIBMPoolsConfigMap} from "../../constants/resources";
-
+import {getIBMPoolsConfigMap} from "../../constants/resources";
+import {getPoolNames} from "./utils";
 
 let dropdownKeys = []
 let breakdownSelectItems = []
@@ -40,31 +40,23 @@ let breakdownSelectItems = []
 
 const StorageClassOverviewBody : React.FC<ODFDashboardProps> = (props) => {
     const { namespace } = parseProps(props)
-    const cmResource = GetIBMPoolsConfigMap(namespace)
+    const cmResource = getIBMPoolsConfigMap(namespace)
     const [configMap, cmLoaded, cmLoadError] = useK8sWatchResource<ConfigMapKind>(cmResource);
-
     const cmResourceData = configMap?.data?.pools
-    let pool_names = []
+
     if (cmResourceData) {
-        const configMapData = new Map(Object.entries(JSON.parse(cmResourceData)));
-        const scPoolsData = configMapData.get('storageclass_pool')
-        const scPoolsMap = new Map(Object.entries(scPoolsData as string));
-        pool_names = Array.from(scPoolsMap.values())
-        dropdownKeys = pool_names
+        dropdownKeys = getPoolNames(cmResourceData)
         breakdownSelectItems = getSelectOptions(dropdownKeys);
     }
 
     return (
             <>
              { cmLoaded &&
-                 <PoolsListBody {...props} />
-             }
+                 <PoolsListBody {...props} /> }
              { !cmLoaded && !cmLoadError &&
-                 <LoadingCardBody />
-             }
+                 <LoadingCardBody /> }
              { cmLoadError &&
-                 <ErrorCardBody />
-             }
+                 <ErrorCardBody /> }
             </>
     );
 };

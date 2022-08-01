@@ -15,7 +15,7 @@
  */
 import * as _ from "lodash";
 
-import {K8sKind, SecretKind, K8sResourceKind, PodKind, ConfigMapKind} from "../types";
+import {K8sKind, SecretKind, K8sResourceKind, PodKind} from "../types";
 import { IBM_STORAGE_ODF_OPERATOR } from "../constants";
 
 export const getPodVolumes = (pod: PodKind): PodKind["spec"]["volumes"] =>
@@ -193,5 +193,3 @@ export const parseProps = (props) => {
   };
 };
 
-export const getData = (configMap: ConfigMapKind) =>
-    _.get(configMap, ["data", "pools"]);
