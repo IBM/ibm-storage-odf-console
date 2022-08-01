@@ -32,6 +32,9 @@ export enum StorageDashboardQuery {
   TotalCapacity = "TotalCapacity",
   TotalFreeCapacity = "TotalFreeCapacity",
   TotalUsedCapacity = "TotalUsedCapacity",
+  TotalPoolCapacity = "TotalPoolCapacity",
+  TotalPoolFreeCapacity = "TotalPoolFreeCapacity",
+  TotalPoolUsedCapacity = "TotalPoolUsedCapacity",
   TotalReadIOPS = "TotalReadIOPS",
   TotalWriteIOPS = "TotalWriteIOPS",
   TotalReadBW = "TotalReadBW",
@@ -41,6 +44,27 @@ export enum StorageDashboardQuery {
 }
 
 export const EFFICIENCY_SAVING_QUERY = "sum(flashsystem_pool_savings_bytes)";
+export const FlASHSYSTEM_POOL_QUERIES = (
+    label: string,
+    pool_name: string,
+    queryItem: string
+): string => {
+
+  switch (queryItem) {
+
+    case StorageDashboardQuery.TotalPoolUsedCapacity: {
+      return `flashsystem_pool_logical_capacity_used_bytes{container='${label}', pool_name='${pool_name}'}`;
+    }
+    case StorageDashboardQuery.TotalPoolFreeCapacity: {
+      return `flashsystem_pool_logical_capacity_usable_bytes{container='${label}', pool_name='${pool_name}'}`;
+    }
+    case StorageDashboardQuery.TotalPoolCapacity: {
+      return `flashsystem_pool_logical_capacity_usable_bytes{container='${label}', pool_name='${pool_name}'} + 
+      flashsystem_pool_logical_capacity_used_bytes{container='${label}', pool_name='${pool_name}'}`;
+    }
+  }
+};
+
 
 export const FlASHSYSTEM_QUERIES = (
   label: string,

@@ -407,3 +407,8 @@ export type PodKind = {
   status?: PodStatus;
 } & K8sResourceCommon &
   PodTemplate;
+
+export type ConfigMapKind = {
+  data?: { [key: string]: string };
+  binaryData?: { [key: string]: string };
+} & K8sResourceCommon;
