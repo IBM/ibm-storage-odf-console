@@ -33,7 +33,6 @@ import {useK8sWatchResource} from "@openshift-console/dynamic-plugin-sdk";
 import {ConfigMapKind} from "../../types";
 import {GetIBMPoolsConfigMap} from "../../constants/resources";
 
-// todo - get pool names from cluster objects/prometheus
 
 let dropdownKeys = []
 let breakdownSelectItems = []
@@ -49,7 +48,6 @@ const StorageClassOverviewBody : React.FC<ODFDashboardProps> = (props) => {
     if (cmResourceData) {
         const configMapData = new Map(Object.entries(JSON.parse(cmResourceData)));
         const scPoolsData = configMapData.get('storageclass_pool')
-        //
         const scPoolsMap = new Map(Object.entries(scPoolsData as string));
         pool_names = Array.from(scPoolsMap.values())
         dropdownKeys = pool_names
@@ -58,17 +56,15 @@ const StorageClassOverviewBody : React.FC<ODFDashboardProps> = (props) => {
 
     return (
             <>
-            {!cmLoadError && cmLoaded &&
-                <Grid hasGutter={false}>
-                    <PoolsListBody {...props} />
-                </Grid>
-            }
-            {!cmLoaded && !cmLoadError &&
-                <LoadingCardBody />
-            }
-            {cmLoadError &&
-                <ErrorCardBody />
-            }
+             { cmLoaded &&
+                 <PoolsListBody {...props} />
+             }
+             { !cmLoaded && !cmLoadError &&
+                 <LoadingCardBody />
+             }
+             { cmLoadError &&
+                 <ErrorCardBody />
+             }
             </>
     );
 };
@@ -82,6 +78,7 @@ const LoadingCardBody: React.FC = () => (
         <div className="flashsystem-storageclass-overview-loading__chart skeleton-activity" />
     </div>
 );
+
 const ErrorCardBody: React.FC = () => {
     const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
     return (
