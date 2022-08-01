@@ -25,7 +25,7 @@ import {
     StorageDashboardQuery,
 } from "../../constants/queries";
 import { parseMetricData } from "../../selectors/promethues-utils";
-import "./pool-raw-capacity-card.scss";
+import "../raw-capacity-card/raw-capacity-card.scss";
 
 const colorScale = ["#0166cc", "#d6d6d6"];
 
