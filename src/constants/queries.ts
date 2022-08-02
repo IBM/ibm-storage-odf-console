@@ -53,14 +53,14 @@ export const FlASHSYSTEM_POOL_QUERIES = (
   switch (queryItem) {
 
     case StorageDashboardQuery.TotalPoolUsedCapacity: {
-      return `flashsystem_pool_logical_capacity_used_bytes{container='${label}', pool_name='${pool_name}'}`;
+      return `flashsystem_pool_capacity_used_bytes{container='${label}', pool_name='${pool_name}'}`;
     }
     case StorageDashboardQuery.TotalPoolFreeCapacity: {
-      return `flashsystem_pool_logical_capacity_usable_bytes{container='${label}', pool_name='${pool_name}'}`;
+      return `flashsystem_pool_capacity_usable_bytes{container='${label}', pool_name='${pool_name}'}`;
     }
     case StorageDashboardQuery.TotalPoolCapacity: {
-      return `flashsystem_pool_logical_capacity_usable_bytes{container='${label}', pool_name='${pool_name}'} + 
-      flashsystem_pool_logical_capacity_used_bytes{container='${label}', pool_name='${pool_name}'}`;
+      return `flashsystem_pool_capacity_usable_bytes{container='${label}', pool_name='${pool_name}'} + 
+      flashsystem_pool_capacity_used_bytes{container='${label}', pool_name='${pool_name}'}`;
     }
   }
 };
