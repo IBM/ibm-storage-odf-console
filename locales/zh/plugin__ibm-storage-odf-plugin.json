@@ -23,7 +23,7 @@
   "Total IOPS": "总 IOPS",
   "Read Latency": "读等待时间",
   "Total Throughput": "总吞吐量",
-  "StorageSystem Overview": "StorageSystems 概述",
+  "StorageSystem Overview": "StorageSystem 概述",
   "StorageSystems": "StorageSystems",
   "StorageSystem details": "StorageSystem 详细信息"
 }
