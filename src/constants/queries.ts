@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 import { ProjectModel, PodModel, StorageClassModel } from "../models";
-import { STORAGE_CLASSES, PROJECTS, PODS } from "./constants";
-import { IBM_STORAGE_CSI_PROVISIONER } from "./constants";
+import { STORAGE_CLASSES, PROJECTS, PODS, IBM_STORAGE_CSI_PROVISIONER } from "./constants";
 
 export enum StorageDashboardQuery {
   PODS_TOTAL_USED = "PODS_TOTAL_USED",
