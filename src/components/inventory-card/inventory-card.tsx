@@ -38,7 +38,7 @@ import {
   getCustomizedPVs,
   getCustomizedPods,
 } from "../../selectors/index";
-import { IBM_STORAGE_CSI_PROVISIONER } from "../../constants/index";
+import { IBM_STORAGE_CSI_PROVISIONER } from "../../constants/constants";
 import {
   getPVCStatusGroups,
   getPodStatusGroups,

@@ -55,7 +55,7 @@ const StorageClassOverviewBody : React.FC<ODFDashboardProps> = (props) => {
                  <PoolsListBody {...props} /> }
              { !cmLoaded && !cmLoadError &&
                  <LoadingCardBody /> }
-             { cmLoadError &&
+             { !cmLoaded && cmLoadError &&
                  <ErrorCardBody /> }
             </>
     );
@@ -86,7 +86,8 @@ const PoolsListBody = (props) => {
     const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
     const { name } = parseProps(props);
 
-    const [poolName, setPool] = React.useState('');
+    const initialPoolName = dropdownKeys? dropdownKeys.at(0): ''
+    const [poolName, setPool] = React.useState(initialPoolName);
     const [isPoolSelectOpen, setPoolSelect] = React.useState(false);
 
     const handlePoolChange: SelectProps["onSelect"] = (_e, pool) => {
@@ -116,7 +117,7 @@ const PoolsListBody = (props) => {
                 </div>
             </CardHeader>
             {poolName &&
-                <CardBody className="flashsystem-pool-statistics__body">
+                <CardBody className="flashsystem-physical-pool-statistics__body">
                     <Grid>
                         <GridItem span={6}>
                             <PoolRawCapacityCard name={name} pool_name={poolName}  />

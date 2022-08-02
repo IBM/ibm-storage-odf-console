@@ -25,7 +25,7 @@ import {
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
 import { FirehoseResource } from "@openshift-console/dynamic-plugin-sdk";
-import { IBM_STORAGE_CSI_PROVISIONER } from "../../constants/index";
+import { IBM_STORAGE_CSI_PROVISIONER } from "../../constants/constants";
 import { EventModel, StorageInstanceModel } from "../../models";
 import "./activity-card.scss";
 import { EventKind } from "../../types";

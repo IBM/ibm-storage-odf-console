@@ -29,7 +29,7 @@ import { getSelectOptions } from "../breakdown-card/breakdown-dropdown";
 import "./capacity-breakdown-card.scss";
 import { humanizeBinaryBytes } from "../../humanize";
 import { BreakdownQueryMapODF } from "../../constants/queries";
-import { PROJECTS, STORAGE_CLASSES, PODS } from "../../constants/index";
+import { PROJECTS, STORAGE_CLASSES, PODS } from "../../constants/constants";
 import { getInstantVectorStats } from "../../selectors/promethues-utils";
 import { parseProps } from "../../selectors/index";
 
