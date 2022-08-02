@@ -23,7 +23,7 @@
   "Total IOPS": "총 IOPS",
   "Read Latency": "읽기 대기 시간",
   "Total Throughput": "총 처리량",
-  "Overview": "개요",
+  "StorageSystem Overview": "스토리지 시스템 개요",
   "StorageSystems": "스토리지 시스템",
   "StorageSystem details": "스토리지 시스템 세부사항"
 }

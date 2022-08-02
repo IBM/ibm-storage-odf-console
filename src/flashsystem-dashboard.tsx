@@ -101,7 +101,7 @@ export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
     const allPages = [
       {
         href: "overview",
-        name: t("Overview"),
+        name: t("StorageSystem Overview"),
         component: FlashsystemDashboard,
       },
     ];

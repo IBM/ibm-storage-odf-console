@@ -23,7 +23,7 @@
   "Total IOPS": "Total IOPS",
   "Read Latency": "Read Latency",
   "Total Throughput": "Total Throughput",
-  "Overview": "Overview",
+  "StorageSystem Overview": "StorageSystem Overview",
   "StorageSystems": "StorageSystems",
   "StorageSystem details": "StorageSystem details"
 }
