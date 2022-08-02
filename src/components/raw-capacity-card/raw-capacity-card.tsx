@@ -35,7 +35,7 @@ const RawCapacityCard: React.FC<any> = (props) => {
     const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
     const { name } = parseProps(props);
 
-    const [totalCapacitymetric, loadError, loading] = useCustomPrometheusPoll({
+    const [totalCapacitymetric, totalCapacityLoadError, totalCapacityLoading] = useCustomPrometheusPoll({
         query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemPhysicalTotalCapacity),
         endpoint: "api/v1/query" as any,
         samples: 60,
@@ -44,7 +44,7 @@ const RawCapacityCard: React.FC<any> = (props) => {
         totalCapacitymetric,
         humanizeBinaryBytes
     );
-    const [usedCapacityMetric] = useCustomPrometheusPoll({
+    const [usedCapacityMetric, usedCapacityLoadError, usedCapacityLoading] = useCustomPrometheusPoll({
         query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemPhysicalUsedCapacity),
         endpoint: "api/v1/query" as any,
         samples: 60,
@@ -53,7 +53,7 @@ const RawCapacityCard: React.FC<any> = (props) => {
         usedCapacityMetric,
         humanizeBinaryBytes
     );
-    const [freeCapacityMetric] = useCustomPrometheusPoll({
+    const [freeCapacityMetric, freeCapacityLoadError, freeCapacityLoading] = useCustomPrometheusPoll({
         query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemPhysicalFreeCapacity),
         endpoint: "api/v1/query" as any,
         samples: 60,
@@ -67,6 +67,10 @@ const RawCapacityCard: React.FC<any> = (props) => {
         { x: "Used", y: physicalUsedCapacity.value, string: physicalUsedCapacity.string },
         { x: "Available", y: physicalFreeCapacity.value, string: physicalFreeCapacity.string},
     ];
+
+    const loadError = totalCapacityLoadError || usedCapacityLoadError || freeCapacityLoadError
+    const loading = totalCapacityLoading || usedCapacityLoading || freeCapacityLoading
+
 
     return (
         <Card>
