@@ -35,7 +35,7 @@ import {getIBMPoolsConfigMap} from "../../constants/resources";
 import {getPoolNames} from "./utils";
 
 let dropdownKeys = []
-let breakdownSelectItems = []
+let poolsSelectItems = []
 
 
 const StorageClassOverviewBody : React.FC<ODFDashboardProps> = (props) => {
@@ -46,7 +46,7 @@ const StorageClassOverviewBody : React.FC<ODFDashboardProps> = (props) => {
 
     if (cmResourceData) {
         dropdownKeys = getPoolNames(cmResourceData)
-        breakdownSelectItems = getSelectOptions(dropdownKeys);
+        poolsSelectItems = getSelectOptions(dropdownKeys);
     }
 
     return (
@@ -87,11 +87,11 @@ const PoolsListBody = (props) => {
     const { name } = parseProps(props);
 
     const [poolName, setPool] = React.useState('');
-    const [isOpenBreakdownSelect, setBreakdownSelect] = React.useState(false);
+    const [isPoolSelectOpen, setPoolSelect] = React.useState(false);
 
-    const handlePoolChange: SelectProps["onSelect"] = (_e, breakdown) => {
-        setPool(breakdown as string);
-        setBreakdownSelect(!isOpenBreakdownSelect);
+    const handlePoolChange: SelectProps["onSelect"] = (_e, pool) => {
+        setPool(pool as string);
+        setPoolSelect(!isPoolSelectOpen);
     };
 
     return (
@@ -105,13 +105,13 @@ const PoolsListBody = (props) => {
                         className="flashsystem-pool-statistics__dropdown"
                         autoFocus={false}
                         onSelect={handlePoolChange}
-                        onToggle={() => setBreakdownSelect(!isOpenBreakdownSelect)}
-                        isOpen={isOpenBreakdownSelect}
+                        onToggle={() => setPoolSelect(!isPoolSelectOpen)}
+                        isOpen={isPoolSelectOpen}
                         selections={[poolName]}
                         placeholderText="Choose pool"
                         aria-label="Choose By Dropdown"
                         isCheckboxSelectionBadgeHidden>
-                        {breakdownSelectItems}
+                        {poolsSelectItems}
                     </Select>
                 </div>
             </CardHeader>
