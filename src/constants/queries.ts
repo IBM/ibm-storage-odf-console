@@ -29,9 +29,6 @@ export enum StorageDashboardQuery {
   UTILIZATION_IOPS_QUERY = "UTILIZATION_IOPS_QUERY",
   UTILIZATION_LATENCY_QUERY = "UTILIZATION_LATENCY_QUERY",
   UTILIZATION_THROUGHPUT_QUERY = "UTILIZATION_THROUGHPUT_QUERY",
-  // TotalCapacity = "TotalCapacity",
-  // TotalFreeCapacity = "TotalFreeCapacity",
-  // TotalUsedCapacity = "TotalUsedCapacity",
 
   SystemPhysicalTotalCapacity = "SystemPhysicalTotalCapacity",
   SystemPhysicalFreeCapacity = "SystemPhysicalFreeCapacity",
@@ -77,16 +74,6 @@ export const FlASHSYSTEM_QUERIES = (
     case StorageDashboardQuery.USED_CAPACITY: {
       return `sum(kube_persistentvolumeclaim_resource_requests_storage_bytes * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass)  group_left(provisioner) kube_storageclass_info {provisioner=~'${currentProvisioner}'}))`;
     }
-    // case StorageDashboardQuery.TotalUsedCapacity: {
-    //   return `sum(flashsystem_pool_capacity_used_bytes{container='${label}'})`;
-    // }
-    // case StorageDashboardQuery.TotalFreeCapacity: {
-    //   return `sum(flashsystem_pool_capacity_usable_bytes{container='${label}'})`;
-    // }
-    // case StorageDashboardQuery.TotalCapacity: {
-    //   return `sum(flashsystem_pool_capacity_usable_bytes{container='${label}'}) + sum(flashsystem_pool_capacity_used_bytes{container='${label}'})`;
-    // }
-
     case StorageDashboardQuery.SystemPhysicalUsedCapacity: {
       return `flashsystem_subsystem_physical_used_capacity_bytes{container='${label}'}`;
     }
@@ -185,22 +172,6 @@ export const BreakdownQueryMapODF = (label: string, queryType: string) => {
 export const UTILIZATION_QUERY_ODF = (label: string, func: string) => {
   switch (func) {
     case StorageDashboardQuery.UTILIZATION_CAPACITY_QUERY:
-      // return [
-      //   {
-      //     query: FlASHSYSTEM_QUERIES(
-      //       label,
-      //       StorageDashboardQuery.TotalUsedCapacity
-      //     ),
-      //     desc: "Used",
-      //   },
-      //   {
-      //     query: FlASHSYSTEM_QUERIES(
-      //       label,
-      //       StorageDashboardQuery.TotalFreeCapacity
-      //     ),
-      //     desc: "Available",
-      //   },
-      // ];
       return [
         {
           query: FlASHSYSTEM_QUERIES(
