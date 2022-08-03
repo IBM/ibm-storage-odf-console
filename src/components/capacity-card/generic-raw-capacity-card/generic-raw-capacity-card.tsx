@@ -22,6 +22,7 @@ import { PrometheusResponse } from '@openshift-console/dynamic-plugin-sdk';
 import { ChartDonut, ChartLabel } from "@patternfly/react-charts";
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import "./generic-raw-capacity-card.scss";
+import { INVALID_PROMETHEUS_STATS } from "../../../constants/constants";
 
 const colorScale = ["#0166cc", "#d6d6d6"];
 
@@ -39,8 +40,8 @@ export type RawCapacityCardProps = {
 export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
     const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
 
-    const {totalCapacityMetric, availableCapacityMetric, usedCapacityMetric,
-        loadError, loading, title } = props;
+    const { totalCapacityMetric, availableCapacityMetric, usedCapacityMetric, loading, title } = props
+    let { loadError } =  props;
 
     const [totalCapacity] = parseMetricData(
         totalCapacityMetric,
@@ -62,6 +63,9 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
         { x: "Available", y: availableCapacity.value, string: availableCapacity.string},
     ];
 
+    const invalidStats = totalCapacity.value == INVALID_PROMETHEUS_STATS ||
+        usedCapacity.value == INVALID_PROMETHEUS_STATS || availableCapacity.value == INVALID_PROMETHEUS_STATS
+    loadError = loadError || invalidStats
 
     return (
         <Card>
