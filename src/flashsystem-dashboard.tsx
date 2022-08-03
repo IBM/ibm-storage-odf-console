@@ -25,7 +25,7 @@ import StatusCard from "./components/status-card/status-card";
 import DetailsCard from "./components/details-card/details-card";
 import InventoryCard from "./components/inventory-card/inventory-card";
 import ActivityCard from "./components/activity-card/activity-card";
-import RawCapacityCard from "./components/raw-capacity-card/raw-capacity-card";
+import RawCapacityCard from "./components/capacity-card/system-physical-raw-capacity-card/system-physical-raw-capacity-card";
 import UtilizationCard from "./components/utilization-card/utilization-card";
 import BreakdownCard from "./components/capacity-breakdown/capacity-breakdown-card";
 import PageHeading from "./components/heading/page-heading";

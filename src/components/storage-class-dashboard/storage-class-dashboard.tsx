@@ -28,11 +28,12 @@ import {
     SelectProps
 } from "@patternfly/react-core";
 import {getSelectOptions} from "../breakdown-card/breakdown-dropdown";
-import PoolRawCapacityCard from "../pool-raw-capacity-card/pool-raw-capacity-card";
+import { PoolPhysicalRawCapacityCard } from "../capacity-card/pool-physical-raw-capacity-card/pool-physical-raw-capacity-card";
 import {useK8sWatchResource} from "@openshift-console/dynamic-plugin-sdk";
 import {ConfigMapKind} from "../../types";
 import {getIBMPoolsConfigMap} from "../../constants/resources";
 import {getPoolNames} from "./utils";
+import { PoolLogicalRawCapacityCard } from "../capacity-card/pool-logical-raw-capacity-card/pool-logical-raw-capacity-card";
 
 let dropdownKeys = []
 let poolsSelectItems = []
@@ -120,7 +121,7 @@ const PoolsListBody = (props) => {
                 <CardBody className="flashsystem-physical-pool-statistics__body">
                     <Grid>
                         <GridItem span={6}>
-                            <PoolRawCapacityCard name={name} pool_name={poolName}  />
+                            <PoolPhysicalRawCapacityCard name={name} pool_name={poolName}  />
                         </GridItem>
                     </Grid>
                 </CardBody>
@@ -129,8 +130,7 @@ const PoolsListBody = (props) => {
                 <CardBody className="flashsystem-logical-pool-statistics__body">
                     <Grid>
                         <GridItem span={6}>
-                            {/* todo - change to PoolRawLogicalCapacityCard */}
-                            <PoolRawCapacityCard name={name} pool_name={poolName} />
+                            <PoolLogicalRawCapacityCard name={name} pool_name={poolName} />
                         </GridItem>
                     </Grid>
                 </CardBody>

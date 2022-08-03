@@ -16,67 +16,58 @@
 import * as React from "react";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
+import { humanizeBinaryBytes } from "../../../humanize";
+import { parseMetricData } from "../../../selectors/promethues-utils";
+import { PrometheusResponse } from '@openshift-console/dynamic-plugin-sdk';
 import { ChartDonut, ChartLabel } from "@patternfly/react-charts";
-import { useCustomPrometheusPoll } from "../custom-prometheus-poll/custom-prometheus-poll"
-
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
-import { humanizeBinaryBytes } from "../../humanize";
-import {
-    FlASHSYSTEM_QUERIES,
-    StorageDashboardQuery,
-} from "../../constants/queries";
-import { parseMetricData } from "../../selectors/promethues-utils";
-import { parseProps } from "../../selectors/index";
-import "./raw-capacity-card.scss";
+import "./generic-raw-capacity-card.scss";
 
 const colorScale = ["#0166cc", "#d6d6d6"];
 
-const RawCapacityCard: React.FC<any> = (props) => {
-    const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
-    const { name } = parseProps(props);
 
-    const [totalCapacitymetric, totalCapacityLoadError, totalCapacityLoading] = useCustomPrometheusPoll({
-        query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemPhysicalTotalCapacity),
-        endpoint: "api/v1/query" as any,
-        samples: 60,
-    });
-    const [physicalTotalCapacity] = parseMetricData(
-        totalCapacitymetric,
+export type RawCapacityCardProps = {
+    totalCapacityMetric: PrometheusResponse;
+    usedCapacityMetric: PrometheusResponse;
+    availableCapacityMetric: PrometheusResponse;
+    loading: boolean;
+    loadError: boolean;
+    title: string;
+};
+
+
+export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
+    const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
+
+    const {totalCapacityMetric, availableCapacityMetric, usedCapacityMetric,
+        loadError, loading, title } = props;
+
+    const [totalCapacity] = parseMetricData(
+        totalCapacityMetric,
         humanizeBinaryBytes
     );
-    const [usedCapacityMetric, usedCapacityLoadError, usedCapacityLoading] = useCustomPrometheusPoll({
-        query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemPhysicalUsedCapacity),
-        endpoint: "api/v1/query" as any,
-        samples: 60,
-    });
-    const [physicalUsedCapacity] = parseMetricData(
+
+    const [availableCapacity] = parseMetricData(
+        availableCapacityMetric,
+        humanizeBinaryBytes
+    );
+
+    const [usedCapacity] = parseMetricData(
         usedCapacityMetric,
-        humanizeBinaryBytes
-    );
-    const [freeCapacityMetric, freeCapacityLoadError, freeCapacityLoading] = useCustomPrometheusPoll({
-        query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemPhysicalFreeCapacity),
-        endpoint: "api/v1/query" as any,
-        samples: 60,
-    });
-    const [physicalFreeCapacity] = parseMetricData(
-        freeCapacityMetric,
         humanizeBinaryBytes
     );
 
     const donutData = [
-        { x: "Used", y: physicalUsedCapacity.value, string: physicalUsedCapacity.string },
-        { x: "Available", y: physicalFreeCapacity.value, string: physicalFreeCapacity.string},
+        { x: "Used", y: usedCapacity.value, string: usedCapacity.string },
+        { x: "Available", y: availableCapacity.value, string: availableCapacity.string},
     ];
-
-    const loadError = totalCapacityLoadError || usedCapacityLoadError || freeCapacityLoadError
-    const loading = totalCapacityLoading || usedCapacityLoading || freeCapacityLoading
 
 
     return (
         <Card>
             <CardHeader>
                 <CardTitle>
-                    {t("Physical Capacity Overview")}
+                    {t(title)}
                 </CardTitle>
             </CardHeader>
             <CardBody className="flashsystem-raw-usage__container">
@@ -86,13 +77,13 @@ const RawCapacityCard: React.FC<any> = (props) => {
                             <ChartLegend
                                 fill={colorScale[0]}
                                 title={t("Used")}
-                                text={physicalUsedCapacity.string}
+                                text={usedCapacity.string}
                                 titleClassName="flashsystem-raw-card-legend__title--pad"
                             />
                             <ChartLegend
                                 fill={colorScale[1]}
                                 title={t("Available")}
-                                text={physicalFreeCapacity.string}
+                                text={availableCapacity.string}
                             />
                         </div>
                         <div className="flashsystem-raw-usage__item flashsystem-raw-usage__chart">
@@ -107,8 +98,8 @@ const RawCapacityCard: React.FC<any> = (props) => {
                                 width={150}
                                 data={donutData}
                                 labels={({ datum }) => `${datum.string}`}
-                                title={physicalUsedCapacity.string}
-                                subTitle={"Total of " + physicalTotalCapacity.string}
+                                title={usedCapacity.string}
+                                subTitle={"Total of " + totalCapacity.string}
                                 colorScale={colorScale}
                                 padding={{ top: 0, bottom: 0, left: 0, right: 0 }}
                                 constrainToVisibleArea
@@ -184,4 +175,3 @@ type ChartLegendProps = {
     titleClassName?: string;
 };
 
-export default RawCapacityCard;
