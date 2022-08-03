@@ -44,7 +44,7 @@ const UtilizationCard: React.FC<any> = (props) => {
   const { duration } = useUtilizationDuration();
 
   const [usedCapacitymetric] = useCustomPrometheusPoll({
-    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.TotalUsedCapacity),
+    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemPhysicalUsedCapacity),
     endpoint: "api/v1/query_range" as any,
     timespan: duration,
   });
@@ -86,7 +86,7 @@ const UtilizationCard: React.FC<any> = (props) => {
           byteDataType={ByteDataTypes.BinaryBytes}
           query={FlASHSYSTEM_QUERIES(
             name,
-            StorageDashboardQuery.TotalUsedCapacity
+            StorageDashboardQuery.SystemPhysicalUsedCapacity
           )}
         />
         <UtilizationItem
