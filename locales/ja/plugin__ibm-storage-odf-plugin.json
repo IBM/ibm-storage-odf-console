@@ -23,7 +23,7 @@
   "Total IOPS": "合計 IOps",
   "Read Latency": "読み取り待ち時間",
   "Total Throughput": "合計スループット",
-  "Overview": "概要",
+  "StorageSystem Overview": "存储系统概述",
   "StorageSystems": "ストレージ・システム",
   "StorageSystem details": "ストレージ・システム詳細"
 }

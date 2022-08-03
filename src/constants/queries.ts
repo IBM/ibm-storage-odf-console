@@ -29,9 +29,11 @@ export enum StorageDashboardQuery {
   UTILIZATION_IOPS_QUERY = "UTILIZATION_IOPS_QUERY",
   UTILIZATION_LATENCY_QUERY = "UTILIZATION_LATENCY_QUERY",
   UTILIZATION_THROUGHPUT_QUERY = "UTILIZATION_THROUGHPUT_QUERY",
-  TotalCapacity = "TotalCapacity",
-  TotalFreeCapacity = "TotalFreeCapacity",
-  TotalUsedCapacity = "TotalUsedCapacity",
+
+  SystemPhysicalTotalCapacity = "SystemPhysicalTotalCapacity",
+  SystemPhysicalFreeCapacity = "SystemPhysicalFreeCapacity",
+  SystemPhysicalUsedCapacity = "SystemPhysicalUsedCapacity",
+
   TotalReadIOPS = "TotalReadIOPS",
   TotalWriteIOPS = "TotalWriteIOPS",
   TotalReadBW = "TotalReadBW",
@@ -72,15 +74,16 @@ export const FlASHSYSTEM_QUERIES = (
     case StorageDashboardQuery.USED_CAPACITY: {
       return `sum(kube_persistentvolumeclaim_resource_requests_storage_bytes * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass)  group_left(provisioner) kube_storageclass_info {provisioner=~'${currentProvisioner}'}))`;
     }
-    case StorageDashboardQuery.TotalUsedCapacity: {
-      return `sum(flashsystem_pool_capacity_used_bytes{container='${label}'})`;
+    case StorageDashboardQuery.SystemPhysicalUsedCapacity: {
+      return `flashsystem_subsystem_physical_used_capacity_bytes{container='${label}'}`;
     }
-    case StorageDashboardQuery.TotalFreeCapacity: {
-      return `sum(flashsystem_pool_capacity_usable_bytes{container='${label}'})`;
+    case StorageDashboardQuery.SystemPhysicalFreeCapacity: {
+      return `flashsystem_subsystem_physical_free_capacity_bytes{container='${label}'}`;
     }
-    case StorageDashboardQuery.TotalCapacity: {
-      return `sum(flashsystem_pool_capacity_usable_bytes{container='${label}'}) + sum(flashsystem_pool_capacity_used_bytes{container='${label}'})`;
+    case StorageDashboardQuery.SystemPhysicalTotalCapacity: {
+      return `flashsystem_subsystem_physical_total_capacity_bytes{container='${label}'}`;
     }
+
     case StorageDashboardQuery.TotalReadIOPS: {
       return `flashsystem_subsystem_rd_iops{container='${label}'}`;
     }
@@ -172,17 +175,24 @@ export const UTILIZATION_QUERY_ODF = (label: string, func: string) => {
       return [
         {
           query: FlASHSYSTEM_QUERIES(
-            label,
-            StorageDashboardQuery.TotalUsedCapacity
+              label,
+              StorageDashboardQuery.SystemPhysicalUsedCapacity
           ),
           desc: "Used",
         },
         {
           query: FlASHSYSTEM_QUERIES(
-            label,
-            StorageDashboardQuery.TotalFreeCapacity
+              label,
+              StorageDashboardQuery.SystemPhysicalFreeCapacity
           ),
           desc: "Available",
+        },
+        {
+          query: FlASHSYSTEM_QUERIES(
+              label,
+              StorageDashboardQuery.SystemPhysicalTotalCapacity
+          ),
+          desc: "Total",
         },
       ];
     case StorageDashboardQuery.UTILIZATION_IOPS_QUERY:
