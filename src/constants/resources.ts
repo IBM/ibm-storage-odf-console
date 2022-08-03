@@ -19,8 +19,10 @@ import {
   SubscriptionModel,
   ClusterServiceVersionModel,
   SecretModel,
+  ConfigMapModel,
 } from "../models";
 import { referenceForModel, parseProps } from "../selectors";
+import {IBM_POOLS_CONFIGMAP_NAME} from "./constants"
 
 export const SubscriptionResource: WatchK8sResource = {
   isList: true,
@@ -61,4 +63,14 @@ export const GetSecretResource = (name?: string, namespace?: string) => {
 export const GetFlashSystemResource = (props) => {
   const { name, namespace } = parseProps(props);
   return newFlashSystemResource(name, namespace);
+};
+
+export const getIBMPoolsConfigMap = (namespace?: string) => {
+  const resource: WatchK8sResource = {
+    isList: false,
+    kind: ConfigMapModel.kind,
+    namespace: namespace,
+    name: IBM_POOLS_CONFIGMAP_NAME,
+  };
+  return resource;
 };

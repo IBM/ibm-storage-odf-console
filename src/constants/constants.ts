@@ -19,3 +19,5 @@ export const IBM_FlASHSYSTEM = "IBM_FlASHSYSTEM";
 export const PROJECTS = "Projects";
 export const STORAGE_CLASSES = "Storage Classes";
 export const PODS = "Pods";
+export const IBM_POOLS_CONFIGMAP_NAME = 'ibm-flashsystem-pools';
+export const STORAGE_CLASS_POOLS_KEY = 'storageclass_pool';

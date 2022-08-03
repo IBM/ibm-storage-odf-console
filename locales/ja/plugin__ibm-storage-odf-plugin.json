@@ -14,6 +14,7 @@
   "Available versus Used Capacity": "利用可能容量対使用済み容量",
   "Not Available": "使用不可",
   "Status": "状況",
+  "Pool name:": "プール名:",
   "Not available": "使用不可",
   "Savings": "節約量",
   "The amount of storage saved after applying compression, deduplication and thin-provisioning.": "圧縮、重複排除、およびシン・プロビジョニング適用後のストレージ節約量。",
@@ -24,6 +25,7 @@
   "Read Latency": "読み取り待ち時間",
   "Total Throughput": "合計スループット",
   "StorageSystem Overview": "存储系统概述",
+  "StorageClasses Overview": "ストレージクラスの概要",
   "StorageSystems": "ストレージ・システム",
   "StorageSystem details": "ストレージ・システム詳細"
 }

@@ -14,6 +14,7 @@
   "Available versus Used Capacity": "可用容量与已用容量",
   "Not Available": "不可用",
   "Status": "状态",
+  "Pool name:": "池名称:",
   "Not available": "不可用",
   "Savings": "节省量",
   "The amount of storage saved after applying compression, deduplication and thin-provisioning.": "应用压缩、删除重复项和自动精简配置后保存的存储量。",
@@ -24,6 +25,7 @@
   "Read Latency": "读等待时间",
   "Total Throughput": "总吞吐量",
   "StorageSystem Overview": "StorageSystem 概述",
+  "StorageClasses Overview": "存储类概述",
   "StorageSystems": "StorageSystems",
   "StorageSystem details": "StorageSystem 详细信息"
 }

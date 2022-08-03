@@ -29,6 +29,7 @@ import RawCapacityCard from "./components/raw-capacity-card/raw-capacity-card";
 import UtilizationCard from "./components/utilization-card/utilization-card";
 import BreakdownCard from "./components/capacity-breakdown/capacity-breakdown-card";
 import PageHeading from "./components/heading/page-heading";
+import StorageClassOverviewDashboard from "./components/storage-class-dashboard/storage-class-dashboard";
 
 export type ODFDashboardProps = {
   match: RouteComponentProps["match"];
@@ -103,6 +104,11 @@ export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
         href: "overview",
         name: t("StorageSystem Overview"),
         component: FlashsystemDashboard,
+      },
+      {
+        href: "storageclass-overview",
+        name: t("StorageClasses Overview"),
+        component: StorageClassOverviewDashboard,
       },
     ];
 

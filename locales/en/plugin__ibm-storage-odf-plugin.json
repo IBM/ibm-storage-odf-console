@@ -14,6 +14,7 @@
   "Available versus Used Capacity": "Available versus Used Capacity",
   "Not Available": "Not Available",
   "Status": "Status",
+  "Pool name:": "Pool name:",
   "Not available": "Not available",
   "Savings": "Savings",
   "The amount of storage saved after applying compression, deduplication and thin-provisioning.": "The amount of storage saved after applying compression, deduplication and thin-provisioning.",
@@ -24,6 +25,7 @@
   "Read Latency": "Read Latency",
   "Total Throughput": "Total Throughput",
   "StorageSystem Overview": "StorageSystem Overview",
+  "StorageClasses Overview": "StorageClasses Overview",
   "StorageSystems": "StorageSystems",
   "StorageSystem details": "StorageSystem details"
 }

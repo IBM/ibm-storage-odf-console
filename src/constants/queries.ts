@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 import { ProjectModel, PodModel, StorageClassModel } from "../models";
-import { STORAGE_CLASSES, PROJECTS, PODS } from ".";
-import { IBM_STORAGE_CSI_PROVISIONER } from "./index";
+import { STORAGE_CLASSES, PROJECTS, PODS, IBM_STORAGE_CSI_PROVISIONER } from "./constants";
 
 export enum StorageDashboardQuery {
   PODS_TOTAL_USED = "PODS_TOTAL_USED",
@@ -30,6 +29,10 @@ export enum StorageDashboardQuery {
   UTILIZATION_LATENCY_QUERY = "UTILIZATION_LATENCY_QUERY",
   UTILIZATION_THROUGHPUT_QUERY = "UTILIZATION_THROUGHPUT_QUERY",
 
+  TotalPoolCapacity = "TotalPoolCapacity",
+  TotalPoolFreeCapacity = "TotalPoolFreeCapacity",
+  TotalPoolUsedCapacity = "TotalPoolUsedCapacity",
+
   SystemPhysicalTotalCapacity = "SystemPhysicalTotalCapacity",
   SystemPhysicalFreeCapacity = "SystemPhysicalFreeCapacity",
   SystemPhysicalUsedCapacity = "SystemPhysicalUsedCapacity",
@@ -43,6 +46,28 @@ export enum StorageDashboardQuery {
 }
 
 export const EFFICIENCY_SAVING_QUERY = "sum(flashsystem_pool_savings_bytes)";
+
+export const FlASHSYSTEM_POOL_QUERIES = (
+    label: string,
+    pool_name: string,
+    queryItem: string
+): string => {
+
+  switch (queryItem) {
+
+    case StorageDashboardQuery.TotalPoolUsedCapacity: {
+      return `flashsystem_pool_capacity_used_bytes{container='${label}', pool_name='${pool_name}'}`;
+    }
+    case StorageDashboardQuery.TotalPoolFreeCapacity: {
+      return `flashsystem_pool_capacity_usable_bytes{container='${label}', pool_name='${pool_name}'}`;
+    }
+    case StorageDashboardQuery.TotalPoolCapacity: {
+      return `flashsystem_pool_capacity_usable_bytes{container='${label}', pool_name='${pool_name}'} + 
+      flashsystem_pool_capacity_used_bytes{container='${label}', pool_name='${pool_name}'}`;
+    }
+  }
+};
+
 
 export const FlASHSYSTEM_QUERIES = (
   label: string,
@@ -83,7 +108,6 @@ export const FlASHSYSTEM_QUERIES = (
     case StorageDashboardQuery.SystemPhysicalTotalCapacity: {
       return `flashsystem_subsystem_physical_total_capacity_bytes{container='${label}'}`;
     }
-
     case StorageDashboardQuery.TotalReadIOPS: {
       return `flashsystem_subsystem_rd_iops{container='${label}'}`;
     }

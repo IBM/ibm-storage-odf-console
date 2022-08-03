@@ -15,8 +15,8 @@
  */
 import * as _ from "lodash";
 
-import { K8sKind, SecretKind, K8sResourceKind, PodKind } from "../types";
-import { IBM_STORAGE_ODF_OPERATOR } from "../constants";
+import {K8sKind, SecretKind, K8sResourceKind, PodKind} from "../types";
+import { IBM_STORAGE_ODF_OPERATOR } from "../constants/constants";
 
 export const getPodVolumes = (pod: PodKind): PodKind["spec"]["volumes"] =>
   pod?.spec?.volumes ? pod.spec.volumes : [];
@@ -192,3 +192,4 @@ export const parseProps = (props) => {
     namespace: getNamespaceFromProps(props),
   };
 };
+
