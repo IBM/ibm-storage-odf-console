@@ -48,24 +48,27 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
         humanizeBinaryBytes
     );
 
-    const [availableCapacity] = parseMetricData(
+    const [availableCapacity, , availableCapacityOriginal] = parseMetricData(
         availableCapacityMetric,
-        humanizeBinaryBytes
+        humanizeBinaryBytes,
+        totalCapacity?.unit
     );
 
-    const [usedCapacity] = parseMetricData(
+    const [usedCapacity, , usedCapacityOriginal] = parseMetricData(
         usedCapacityMetric,
-        humanizeBinaryBytes
+        humanizeBinaryBytes,
+        totalCapacity?.unit
     );
 
     const donutData = [
-        { x: "Used", y: usedCapacity.value, string: usedCapacity.string },
-        { x: "Available", y: availableCapacity.value, string: availableCapacity.string},
+        { x: "Used", y: usedCapacity.value, string: usedCapacityOriginal.string },
+        { x: "Available", y: availableCapacity.value, string: availableCapacityOriginal.string},
     ];
 
     const invalidStats = totalCapacity.value == INVALID_PROMETHEUS_STATS ||
         usedCapacity.value == INVALID_PROMETHEUS_STATS || availableCapacity.value == INVALID_PROMETHEUS_STATS
     loadError = loadError || invalidStats
+    const errorMessage:string = invalidStats? 'Unsupported by child pools': 'Not Available'
 
     return (
         <Card>
@@ -81,13 +84,13 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
                             <ChartLegend
                                 fill={colorScale[0]}
                                 title={t("Used")}
-                                text={usedCapacity.string}
+                                text={usedCapacityOriginal.string}
                                 titleClassName="flashsystem-raw-card-legend__title--pad"
                             />
                             <ChartLegend
                                 fill={colorScale[1]}
                                 title={t("Available")}
-                                text={availableCapacity.string}
+                                text={availableCapacityOriginal.string}
                             />
                         </div>
                         <div className="flashsystem-raw-usage__item flashsystem-raw-usage__chart">
@@ -102,7 +105,7 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
                                 width={150}
                                 data={donutData}
                                 labels={({ datum }) => `${datum.string}`}
-                                title={usedCapacity.string}
+                                title={usedCapacityOriginal.string}
                                 subTitle={"Total of " + totalCapacity.string}
                                 colorScale={colorScale}
                                 padding={{ top: 0, bottom: 0, left: 0, right: 0 }}
@@ -118,7 +121,7 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
                     </>
                 )}
                 {loading && !loadError && <LoadingCardBody />}
-                {loadError && <ErrorCardBody />}
+                {loadError && <ErrorCardBody errorMessage={errorMessage}/>}
             </CardBody>
         </Card>
     );
@@ -134,23 +137,25 @@ const LoadingCardBody: React.FC = () => (
     </div>
 );
 
-const ErrorCardBody: React.FC = () => {
+
+export type CapacityErrorCardBodyProps = {
+    errorMessage: string;
+};
+
+
+const ErrorCardBody: React.FC<CapacityErrorCardBodyProps> = (props) => {
+    const { errorMessage } = props
     const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
     return (
         <>
             <div className="flashsystem-raw-usage--error text-muted">
-                {t("Not Available")}
+                {t(errorMessage)}
             </div>
         </>
     );
 };
 
-const ChartLegend: React.FC<ChartLegendProps> = ({
-                                                     fill,
-                                                     title,
-                                                     text,
-                                                     titleClassName,
-                                                 }) => (
+const ChartLegend: React.FC<ChartLegendProps> = ({fill, title, text, titleClassName,}) => (
     <div className="flashsystem-raw-card-legend__container">
         <div className="flashsystem-raw-card-legend__index-block">
             <div

@@ -9,6 +9,7 @@
   "Version": "버전",
   "Inventory": "자원 명세",
   "Physical Capacity Overview": "물리적 용량 개요",
+  "Logical Capacity Overview": "논리적 용량 개요",
   "Used": "사용됨",
   "Available": "사용 가능",
   "Available versus Used Capacity": "사용 가능한 용량 대 사용한 용량",
@@ -27,5 +28,6 @@
   "StorageSystem Overview": "스토리지 시스템 개요",
   "StorageClasses Overview": "스토리지 클래스 개요",
   "StorageSystems": "스토리지 시스템",
-  "StorageSystem details": "스토리지 시스템 세부사항"
+  "StorageSystem details": "스토리지 시스템 세부사항",
+  "Unsupported by child pools": "하위 풀에서 지원하지 않음"
 }

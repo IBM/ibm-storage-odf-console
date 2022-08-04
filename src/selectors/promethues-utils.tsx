@@ -131,15 +131,30 @@ export type Humanize = {
 };
 export const parseMetricData: parsePrometheusQuery = (
   queryResult: PrometheusResponse,
-  humanize
+  humanize,
+  unit?: string
 ) => {
-  if (!queryResult || !_.get(queryResult, "data")) {
-    return [{}, null, null] as [HumanizeResult, any, number];
+  const value = getPrometheusQueryValue(queryResult)
+  if (value) {
+    return [humanize(value, null, unit), _.get(queryResult, "loadError"), humanize(value)];
   }
-  const value = getInstantVectorStats(queryResult)[0]?.y;
-  return [humanize(value), _.get(queryResult, "loadError"), value];
+  return [{}, null, {}] as [HumanizeResult, any, HumanizeResult];
 };
+
 type parsePrometheusQuery = (
   queryResult: PrometheusResponse,
-  humanize: Humanize
-) => [HumanizeResult, any, number];
+  humanize: Humanize,
+  unit?: string
+
+) => [HumanizeResult, any, HumanizeResult];
+
+
+export const getPrometheusQueryValue: (PrometheusResponse) => number = (
+    queryResult: PrometheusResponse,
+) =>  {
+  if (!queryResult || !_.get(queryResult, "data")) {
+    return null as number;
+  }
+  return getInstantVectorStats(queryResult)[0]?.y;
+
+}

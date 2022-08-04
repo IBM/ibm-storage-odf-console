@@ -9,6 +9,7 @@
   "Version": "バージョン",
   "Inventory": "インベントリー",
   "Physical Capacity Overview": "物理容量の概要",
+  "Logical Capacity Overview": "論理容量の概要",
   "Used": "使用済み",
   "Available": "使用可能",
   "Available versus Used Capacity": "利用可能容量対使用済み容量",
@@ -27,5 +28,6 @@
   "StorageSystem Overview": "存储系统概述",
   "StorageClasses Overview": "ストレージクラスの概要",
   "StorageSystems": "ストレージ・システム",
-  "StorageSystem details": "ストレージ・システム詳細"
+  "StorageSystem details": "ストレージ・システム詳細",
+  "Unsupported by child pools": "子プールではサポートされていません"
 }

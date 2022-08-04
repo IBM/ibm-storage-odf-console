@@ -9,6 +9,7 @@
   "Version": "版本",
   "Inventory": "清单",
   "Physical Capacity Overview": "物理容量概述",
+  "Logical Capacity Overview": "逻辑容量概述",
   "Used": "已使用",
   "Available": "可用",
   "Available versus Used Capacity": "可用容量与已用容量",
@@ -27,5 +28,6 @@
   "StorageSystem Overview": "StorageSystem 概述",
   "StorageClasses Overview": "存储类概述",
   "StorageSystems": "StorageSystems",
-  "StorageSystem details": "StorageSystem 详细信息"
+  "StorageSystem details": "StorageSystem 详细信息",
+  "Unsupported by child pools": "子池不支持"
 }

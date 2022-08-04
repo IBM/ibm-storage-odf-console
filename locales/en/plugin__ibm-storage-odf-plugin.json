@@ -1,6 +1,8 @@
 {
   "Activity": "Activity",
   "Provisioned Capacity Breakdown": "Provisioned Capacity Breakdown",
+  "Physical Capacity Overview": "Physical Capacity Overview",
+  "Logical Capacity Overview": "Logical Capacity Overview",
   "Used": "Used",
   "Available": "Available",
   "Available versus Used Capacity": "Available versus Used Capacity",
@@ -26,5 +28,6 @@
   "StorageSystem Overview": "StorageSystem Overview",
   "StorageClasses Overview": "StorageClasses Overview",
   "StorageSystems": "StorageSystems",
-  "StorageSystem details": "StorageSystem details"
+  "StorageSystem details": "StorageSystem details",
+  "Unsupported by child pools": "Unsupported by child pools"
 }
