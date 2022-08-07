@@ -10,7 +10,7 @@ RUN yarn install --prod=false
 RUN yarn build
 RUN mv ./dist ../app
 
-RUN git fetch origin main && git checkout origin/main
+RUN git fetch origin ${TARGET_BRANCH} && git checkout origin/${TARGET_BRANCH}
 RUN yarn install
 RUN yarn build
 RUN mv ./dist ../compatibility
