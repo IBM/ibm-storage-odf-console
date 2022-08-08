@@ -13,7 +13,6 @@
   "Used": "已使用",
   "Available": "可用",
   "Available versus Used Capacity": "可用容量与已用容量",
-  "Not Available": "不可用",
   "Status": "状态",
   "Pool name:": "池名称:",
   "Not available": "不可用",
@@ -29,5 +28,5 @@
   "StorageClasses Overview": "存储类概述",
   "StorageSystems": "StorageSystems",
   "StorageSystem details": "StorageSystem 详细信息",
-  "Unsupported by child pools": "子池不支持"
+  "Physical capacity overview is unsupported for child pools.": "子池不支持物理容量概览。"
 }

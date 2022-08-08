@@ -77,7 +77,7 @@ const ErrorCardBody: React.FC = () => {
     return (
         <>
             <div className="flashsystem-storageclass-overview--error text-muted">
-                {t("Not Available")}
+                {t("Not available")}
             </div>
         </>
     );

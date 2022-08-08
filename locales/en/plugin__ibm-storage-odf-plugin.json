@@ -6,7 +6,6 @@
   "Used": "Used",
   "Available": "Available",
   "Available versus Used Capacity": "Available versus Used Capacity",
-  "Not Available": "Not Available",
   "Details": "Details",
   "Operator Name": "Operator Name",
   "Provider": "Provider",
@@ -15,8 +14,8 @@
   "Version": "Version",
   "Inventory": "Inventory",
   "Status": "Status",
-  "Pool name:": "Pool name:",
   "Not available": "Not available",
+  "Pool name:": "Pool name:",
   "Savings": "Savings",
   "The amount of storage saved after applying compression, deduplication and thin-provisioning.": "The amount of storage saved after applying compression, deduplication and thin-provisioning.",
   "Storage Efficiency": "Storage Efficiency",
@@ -29,5 +28,5 @@
   "StorageClasses Overview": "StorageClasses Overview",
   "StorageSystems": "StorageSystems",
   "StorageSystem details": "StorageSystem details",
-  "Unsupported by child pools": "Unsupported by child pools"
+  "Physical capacity overview is unsupported for child pools.": "Physical capacity overview is unsupported for child pools."
 }

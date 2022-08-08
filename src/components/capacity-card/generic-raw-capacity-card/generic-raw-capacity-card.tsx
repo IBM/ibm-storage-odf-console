@@ -22,7 +22,7 @@ import { PrometheusResponse } from '@openshift-console/dynamic-plugin-sdk';
 import { ChartDonut, ChartLabel } from "@patternfly/react-charts";
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import "./generic-raw-capacity-card.scss";
-import { INVALID_PROMETHEUS_STATS } from "../../../constants/constants";
+import { INVALID_PROMETHEUS_CHILD_STATS } from "../../../constants/constants";
 
 const colorScale = ["#0166cc", "#d6d6d6"];
 
@@ -65,10 +65,10 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
         { x: "Available", y: availableCapacity.value, string: availableCapacityOriginal.string},
     ];
 
-    const invalidStats = totalCapacity.value == INVALID_PROMETHEUS_STATS ||
-        usedCapacity.value == INVALID_PROMETHEUS_STATS || availableCapacity.value == INVALID_PROMETHEUS_STATS
+    const invalidStats = totalCapacity.value == INVALID_PROMETHEUS_CHILD_STATS ||
+        usedCapacity.value == INVALID_PROMETHEUS_CHILD_STATS || availableCapacity.value == INVALID_PROMETHEUS_CHILD_STATS
     loadError = loadError || invalidStats
-    const errorMessage:string = invalidStats? 'Unsupported by child pools': 'Not Available'
+    const errorMessage:string = invalidStats? 'Physical capacity overview is unsupported for child pools.': 'Not available'
 
     return (
         <Card>

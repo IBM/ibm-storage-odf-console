@@ -13,7 +13,6 @@
   "Used": "使用済み",
   "Available": "使用可能",
   "Available versus Used Capacity": "利用可能容量対使用済み容量",
-  "Not Available": "使用不可",
   "Status": "状況",
   "Pool name:": "プール名:",
   "Not available": "使用不可",
@@ -29,5 +28,5 @@
   "StorageClasses Overview": "ストレージクラスの概要",
   "StorageSystems": "ストレージ・システム",
   "StorageSystem details": "ストレージ・システム詳細",
-  "Unsupported by child pools": "子プールではサポートされていません"
+  "Physical capacity overview is unsupported for child pools.": "子プールの物理容量の概要はサポートされていません."
 }
