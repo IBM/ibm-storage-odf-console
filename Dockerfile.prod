@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM node:16.8.0 AS builder
+FROM --platform=linux/amd64 node:16.8.0 AS builder
 ARG TARGET_BRANCH=task/update_sdk_versions
 
 RUN apt-get install -y git
@@ -15,7 +15,7 @@ RUN yarn install
 RUN yarn build
 RUN mv ./dist ../compatibility
 
-FROM --platform=$BUILDPLATFORM registry.access.redhat.com/ubi8/nginx-118
+FROM --platform=linux/amd64 registry.access.redhat.com/ubi8/nginx-118
 ADD default.conf "${NGINX_CONFIGURATION_PATH}"
 COPY --from=builder /app .
 COPY --from=builder /compatibility ./compatibility
