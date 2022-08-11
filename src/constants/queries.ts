@@ -29,9 +29,13 @@ export enum StorageDashboardQuery {
   UTILIZATION_LATENCY_QUERY = "UTILIZATION_LATENCY_QUERY",
   UTILIZATION_THROUGHPUT_QUERY = "UTILIZATION_THROUGHPUT_QUERY",
 
-  TotalPoolCapacity = "TotalPoolCapacity",
-  TotalPoolFreeCapacity = "TotalPoolFreeCapacity",
-  TotalPoolUsedCapacity = "TotalPoolUsedCapacity",
+  PoolPhysicalTotalCapacity = "PoolPhysicalTotalCapacity",
+  PoolPhysicalFreeCapacity = "PoolPhysicalFreeCapacity",
+  PoolPhysicalUsedCapacity = "PoolPhysicalUsedCapacity",
+
+  PoolLogicalTotalCapacity = "PoolLogicalTotalCapacity",
+  PoolLogicalFreeCapacity = "PoolLogicalFreeCapacity",
+  PoolLogicalUsedCapacity = "PoolLogicalUsedCapacity",
 
   SystemPhysicalTotalCapacity = "SystemPhysicalTotalCapacity",
   SystemPhysicalFreeCapacity = "SystemPhysicalFreeCapacity",
@@ -55,16 +59,28 @@ export const FlASHSYSTEM_POOL_QUERIES = (
 
   switch (queryItem) {
 
-    case StorageDashboardQuery.TotalPoolUsedCapacity: {
+    case StorageDashboardQuery.PoolPhysicalUsedCapacity: {
       return `flashsystem_pool_capacity_used_bytes{container='${label}', pool_name='${pool_name}'}`;
     }
-    case StorageDashboardQuery.TotalPoolFreeCapacity: {
+    case StorageDashboardQuery.PoolPhysicalFreeCapacity: {
       return `flashsystem_pool_capacity_usable_bytes{container='${label}', pool_name='${pool_name}'}`;
     }
-    case StorageDashboardQuery.TotalPoolCapacity: {
+    case StorageDashboardQuery.PoolPhysicalTotalCapacity: {
       return `flashsystem_pool_capacity_usable_bytes{container='${label}', pool_name='${pool_name}'} + 
       flashsystem_pool_capacity_used_bytes{container='${label}', pool_name='${pool_name}'}`;
     }
+
+    case StorageDashboardQuery.PoolLogicalUsedCapacity: {
+      return `flashsystem_pool_logical_capacity_used_bytes{container='${label}', pool_name='${pool_name}'}`;
+    }
+    case StorageDashboardQuery.PoolLogicalFreeCapacity: {
+      return `flashsystem_pool_logical_capacity_usable_bytes{container='${label}', pool_name='${pool_name}'}`;
+    }
+    case StorageDashboardQuery.PoolLogicalTotalCapacity: {
+      return `flashsystem_pool_logical_capacity_usable_bytes{container='${label}', pool_name='${pool_name}'} + 
+      flashsystem_pool_logical_capacity_used_bytes{container='${label}', pool_name='${pool_name}'}`;
+    }
+
   }
 };
 

@@ -1,6 +1,11 @@
 {
   "Activity": "Activity",
   "Provisioned Capacity Breakdown": "Provisioned Capacity Breakdown",
+  "Physical Capacity Overview": "Physical Capacity Overview",
+  "Logical Capacity Overview": "Logical Capacity Overview",
+  "Used": "Used",
+  "Available": "Available",
+  "Available versus Used Capacity": "Available versus Used Capacity",
   "Details": "Details",
   "Operator Name": "Operator Name",
   "Provider": "Provider",
@@ -8,14 +13,9 @@
   "Storage Type": "Storage Type",
   "Version": "Version",
   "Inventory": "Inventory",
-  "Physical Capacity Overview": "Physical Capacity Overview",
-  "Used": "Used",
-  "Available": "Available",
-  "Available versus Used Capacity": "Available versus Used Capacity",
-  "Not Available": "Not Available",
   "Status": "Status",
-  "Pool name:": "Pool name:",
   "Not available": "Not available",
+  "Pool name:": "Pool name:",
   "Savings": "Savings",
   "The amount of storage saved after applying compression, deduplication and thin-provisioning.": "The amount of storage saved after applying compression, deduplication and thin-provisioning.",
   "Storage Efficiency": "Storage Efficiency",
@@ -27,5 +27,6 @@
   "StorageSystem Overview": "StorageSystem Overview",
   "StorageClasses Overview": "StorageClasses Overview",
   "StorageSystems": "StorageSystems",
-  "StorageSystem details": "StorageSystem details"
+  "StorageSystem details": "StorageSystem details",
+  "Physical capacity overview is unsupported for child pools.": "Physical capacity overview is unsupported for child pools."
 }
