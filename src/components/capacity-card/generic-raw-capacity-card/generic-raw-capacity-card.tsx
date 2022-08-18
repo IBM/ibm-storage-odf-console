@@ -68,13 +68,13 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
     const invalidStats = totalCapacity.value == INVALID_PROMETHEUS_CHILD_STATS ||
         usedCapacity.value == INVALID_PROMETHEUS_CHILD_STATS || availableCapacity.value == INVALID_PROMETHEUS_CHILD_STATS
     loadError = loadError || invalidStats
-    const errorMessage:string = invalidStats? 'Physical capacity overview is unsupported for child pools.': 'Not available'
+    const errorMessage:string = invalidStats? t('Physical capacity overview is unsupported for child pools.'): t('Not available')
 
     return (
         <Card>
             <CardHeader>
                 <CardTitle>
-                    {t(title)}
+                    {title}
                 </CardTitle>
             </CardHeader>
             <CardBody className="flashsystem-raw-usage__container">
@@ -145,11 +145,10 @@ export type CapacityErrorCardBodyProps = {
 
 const ErrorCardBody: React.FC<CapacityErrorCardBodyProps> = (props) => {
     const { errorMessage } = props
-    const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
     return (
         <>
             <div className="flashsystem-raw-usage--error text-muted">
-                {t(errorMessage)}
+                {errorMessage}
             </div>
         </>
     );

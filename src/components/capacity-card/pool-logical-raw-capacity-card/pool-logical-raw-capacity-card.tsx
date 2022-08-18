@@ -15,6 +15,7 @@
  */
 import * as React from "react";
 import { useCustomPrometheusPoll } from "../../custom-prometheus-poll/custom-prometheus-poll"
+import { useTranslation } from "react-i18next";
 import { FlASHSYSTEM_POOL_QUERIES, StorageDashboardQuery } from "../../../constants/queries";
 import { RawCapacityCard, RawCapacityCardProps } from "../generic-raw-capacity-card/generic-raw-capacity-card";
 import "../generic-raw-capacity-card/generic-raw-capacity-card.scss";
@@ -28,6 +29,7 @@ export declare type PoolRawCapacityCardProps = {
 
 export const PoolLogicalRawCapacityCard: React.FC<PoolRawCapacityCardProps> = (props) => {
     const {name, pool_name} = props
+    const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
 
     const [totalCapacityMetric, totalCapacityLoadError, totalCapacityLoading] = useCustomPrometheusPoll({
         query: FlASHSYSTEM_POOL_QUERIES(name, pool_name, StorageDashboardQuery.PoolLogicalTotalCapacity),
@@ -50,7 +52,7 @@ export const PoolLogicalRawCapacityCard: React.FC<PoolRawCapacityCardProps> = (p
     const loadError = totalCapacityLoadError || usedCapacityLoadError || availableCapacityLoadError
     const loading = totalCapacityLoading || usedCapacityLoading || availableCapacityLoading
 
-    const title = 'Logical Capacity Overview'
+    const title = t('Logical Capacity Overview')
     const capacityProps: RawCapacityCardProps = {
         totalCapacityMetric,
         usedCapacityMetric,
