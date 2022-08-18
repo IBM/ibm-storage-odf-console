@@ -15,6 +15,7 @@
  */
 import * as React from "react";
 import { useCustomPrometheusPoll } from "../../custom-prometheus-poll/custom-prometheus-poll"
+import { useTranslation } from "react-i18next";
 import { parseProps } from "../../../selectors";
 import { RawCapacityCard, RawCapacityCardProps } from "../generic-raw-capacity-card/generic-raw-capacity-card";
 import { FlASHSYSTEM_QUERIES, StorageDashboardQuery } from "../../../constants/queries";
@@ -23,8 +24,9 @@ import "../generic-raw-capacity-card/generic-raw-capacity-card.scss";
 
 const SystemPhysicalRawCapacityCard: React.FC<any> = (props) => {
     const {name} = parseProps(props);
+    const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
 
-    const title = 'Physical Capacity Overview'
+    const title = t('Physical Capacity Overview')
 
     const [totalCapacityMetric, totalCapacityLoadError, totalCapacityLoading] = useCustomPrometheusPoll({
         query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemPhysicalTotalCapacity),

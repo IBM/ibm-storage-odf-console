@@ -135,7 +135,7 @@ export const parseMetricData: parsePrometheusQuery = (
   unit?: string
 ) => {
   const value = getPrometheusQueryValue(queryResult)
-  if (value) {
+  if (value != null) {
     return [humanize(value, null, unit), _.get(queryResult, "loadError"), humanize(value)];
   }
   return [{}, null, {}] as [HumanizeResult, any, HumanizeResult];
@@ -149,11 +149,11 @@ type parsePrometheusQuery = (
 ) => [HumanizeResult, any, HumanizeResult];
 
 
-export const getPrometheusQueryValue: (PrometheusResponse) => number = (
+export const getPrometheusQueryValue: (PrometheusResponse) => number | null = (
     queryResult: PrometheusResponse,
 ) =>  {
   if (!queryResult || !_.get(queryResult, "data")) {
-    return null as number;
+    return null;
   }
   return getInstantVectorStats(queryResult)[0]?.y;
 
