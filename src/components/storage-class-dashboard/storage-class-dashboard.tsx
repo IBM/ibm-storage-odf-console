@@ -32,7 +32,7 @@ import { PoolPhysicalRawCapacityCard } from "../capacity-card/pool-physical-raw-
 import {useK8sWatchResource} from "@openshift-console/dynamic-plugin-sdk";
 import {ConfigMapKind} from "../../types";
 import {getIBMPoolsConfigMap} from "../../constants/resources";
-import {getPoolNames} from "./utils";
+import {getPoolNames} from "../utils";
 import { PoolLogicalRawCapacityCard } from "../capacity-card/pool-logical-raw-capacity-card/pool-logical-raw-capacity-card";
 
 let dropdownKeys = []
@@ -40,13 +40,13 @@ let poolsSelectItems = []
 
 
 const StorageClassOverviewBody : React.FC<ODFDashboardProps> = (props) => {
-    const { namespace } = parseProps(props)
+    const { name, namespace } = parseProps(props)
     const cmResource = getIBMPoolsConfigMap(namespace)
     const [configMap, cmLoaded, cmLoadError] = useK8sWatchResource<ConfigMapKind>(cmResource);
-    const cmResourceData = configMap?.data?.pools
 
+    const cmResourceData = configMap?.data
     if (cmResourceData) {
-        dropdownKeys = getPoolNames(cmResourceData)
+        dropdownKeys = getPoolNames(cmResourceData[name])
         poolsSelectItems = getSelectOptions(dropdownKeys);
     }
 
