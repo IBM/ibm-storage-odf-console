@@ -21,6 +21,7 @@ import { addAvailable, StackDataPoint, getLegends } from "./utils";
 import { BreakdownChart, LabelPadding } from "./breakdown-chart";
 import { BreakdownChartLoading } from "./breakdown-loading";
 import { TotalCapacityBody } from "./breakdown-capacity";
+import { useTranslation } from "react-i18next";
 
 export const BreakdownCardBody: React.FC<BreakdownBodyProps> = ({
   top5MetricsStats,
@@ -35,22 +36,19 @@ export const BreakdownCardBody: React.FC<BreakdownBodyProps> = ({
   labelPadding,
   isStorageclassAvailable,
 }) => {
+  const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
 
-  console.log(isLoading, isStorageclassAvailable, capacityUsed, top5MetricsStats.length, hasLoadError)
   if (isLoading && !hasLoadError) {
     return <BreakdownChartLoading />;
   }
-  if (!isStorageclassAvailable){
-    return <div className="text-secondary">No StorageClass available</div>;
-  }
-  if (!capacityUsed || !top5MetricsStats.length){
-    return <div className="text-secondary">No data use</div>;
-  }
   if (hasLoadError) {
-    return <div className="text-secondary">Not available</div>;
+    return <div className="text-secondary">{t('Not available')}</div>;
   }
-  if (capacityUsed === "0") {
-    return <div className="text-secondary">Not enough usage data</div>;
+  if (!isStorageclassAvailable){
+    return <div className="text-secondary">{t('No StorageClass available')}</div>;
+  }
+  if (!capacityUsed || !top5MetricsStats.length || capacityUsed === "0"){
+    return <div className="text-secondary">{t('No provisioned data available')}</div>;
   }
 
   const usedCapacity = `${humanize(capacityUsed).string} used`;

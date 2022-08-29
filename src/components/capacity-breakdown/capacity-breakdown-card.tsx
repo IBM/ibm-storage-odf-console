@@ -39,7 +39,6 @@ import {getStorageClassNames} from "../utils";
 
 const dropdownKeys = [PROJECTS, STORAGE_CLASSES, PODS];
 const breakdownSelectItems = getSelectOptions(dropdownKeys);
-
 let storageclassNames = []
 
 
@@ -58,7 +57,6 @@ const BreakdownCard: React.FC<any> = (props) => {
     setBreakdownSelect(!isOpenBreakdownSelect);
   };
 
-  // get storageclass used for this storagesystem
   const cmResource = getIBMPoolsConfigMap(namespace)
   const [configMap, cmLoaded, cmLoadError] = useK8sWatchResource<ConfigMapKind>(cmResource);
 
@@ -91,11 +89,6 @@ const BreakdownCard: React.FC<any> = (props) => {
   const top6MetricsData = getInstantVectorStats(byUsedmetric, metric);
   const top5SortedMetricsData = sortInstantVectorStats(top6MetricsData);
   const top5MetricsStats = getStackChartStats(top5SortedMetricsData, humanize);
-
-  // const handleMetricsChange: SelectProps["onSelect"] = (_e, breakdown) => {
-  //   setMetricType(breakdown as string);
-  //   setBreakdownSelect(!isOpenBreakdownSelect);
-  // };
 
   return (
     <Card>
