@@ -33,11 +33,20 @@ export const BreakdownCardBody: React.FC<BreakdownBodyProps> = ({
   hasLoadError,
   ocsVersion = "",
   labelPadding,
+  isStorageclassAvailable,
 }) => {
+
+  console.log(isLoading, isStorageclassAvailable, capacityUsed, top5MetricsStats.length, hasLoadError)
   if (isLoading && !hasLoadError) {
     return <BreakdownChartLoading />;
   }
-  if (!capacityUsed || !top5MetricsStats.length || hasLoadError) {
+  if (!isStorageclassAvailable){
+    return <div className="text-secondary">No StorageClass available</div>;
+  }
+  if (!capacityUsed || !top5MetricsStats.length){
+    return <div className="text-secondary">No data use</div>;
+  }
+  if (hasLoadError) {
     return <div className="text-secondary">Not available</div>;
   }
   if (capacityUsed === "0") {
@@ -99,4 +108,5 @@ export type BreakdownBodyProps = {
   humanize: Humanize;
   ocsVersion?: string;
   labelPadding?: LabelPadding;
+  isStorageclassAvailable: boolean
 };
