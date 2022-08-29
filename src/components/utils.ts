@@ -14,11 +14,22 @@
  * limitations under the License.
  */
 
-import {STORAGE_CLASS_POOLS_KEY} from "../../constants/constants";
+import {STORAGE_CLASS_POOLS_KEY} from "../constants/constants";
+
+
 
 export function getPoolNames(cmResourceData) {
+    const scPoolsMap = getScPoolsMap(cmResourceData)
+    return Array.from(scPoolsMap.values())
+}
+
+export function getStorageClassNames(cmResourceData) {
+    const scPoolsMap = getScPoolsMap(cmResourceData)
+    return Array.from(scPoolsMap.keys())
+}
+
+function getScPoolsMap(cmResourceData){
     const configMapData = new Map(Object.entries(JSON.parse(cmResourceData)));
     const scPoolsData = configMapData.get(STORAGE_CLASS_POOLS_KEY)
-    const scPoolsMap = new Map(Object.entries(scPoolsData as string));
-    return Array.from(scPoolsMap.values())
+    return new Map(Object.entries(scPoolsData as string));
 }

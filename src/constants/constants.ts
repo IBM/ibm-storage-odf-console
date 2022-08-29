@@ -20,5 +20,5 @@ export const PROJECTS = "Projects";
 export const STORAGE_CLASSES = "Storage Classes";
 export const PODS = "Pods";
 export const IBM_POOLS_CONFIGMAP_NAME = 'ibm-flashsystem-pools';
-export const STORAGE_CLASS_POOLS_KEY = 'storageclass_pool';
+export const STORAGE_CLASS_POOLS_KEY = 'storageclass';
 export const INVALID_PROMETHEUS_CHILD_STATS = -1;
