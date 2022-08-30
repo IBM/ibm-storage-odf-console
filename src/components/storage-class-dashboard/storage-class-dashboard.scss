@@ -1,7 +1,8 @@
 .flashsystem-storageclass-overview {
    &--error {
-     margin-top: 15px;
-     margin-start: 15px;
+     margin-top: var(--pf-global--spacer--xs);
+     margin-bottom: var(--pf-global--spacer--xs);
+     width: 100%;
      text-align: start;
      font-weight: bold;
    }
