@@ -40,6 +40,7 @@ let poolsSelectItems = []
 
 
 const StorageClassOverviewBody : React.FC<ODFDashboardProps> = (props) => {
+    const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
     const { name, namespace } = parseProps(props)
     const cmResource = getIBMPoolsConfigMap(namespace)
     const [configMap, cmLoaded, cmLoadError] = useK8sWatchResource<ConfigMapKind>(cmResource);
@@ -49,16 +50,19 @@ const StorageClassOverviewBody : React.FC<ODFDashboardProps> = (props) => {
         dropdownKeys = getPoolNames(cmResourceData[name])
         poolsSelectItems = getSelectOptions(dropdownKeys);
     }
+    const isPoolsAvailable = dropdownKeys.length != 0
 
     return (
-            <>
-             { cmLoaded &&
+        <>
+             { cmLoaded && isPoolsAvailable &&
                  <PoolsListBody {...props} /> }
              { !cmLoaded && !cmLoadError &&
                  <LoadingCardBody /> }
              { !cmLoaded && cmLoadError &&
-                 <ErrorCardBody /> }
-            </>
+                 <ErrorCardBody errorMessage={t("Not available")}/> }
+             { cmLoaded && !isPoolsAvailable &&
+                 <ErrorCardBody errorMessage={t("No pools available")}/> }
+        </>
     );
 };
 
@@ -72,14 +76,19 @@ const LoadingCardBody: React.FC = () => (
     </div>
 );
 
-const ErrorCardBody: React.FC = () => {
-    const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
+
+export type ErrorCardBodyProps = {
+    errorMessage: string;
+};
+
+const ErrorCardBody: React.FC<ErrorCardBodyProps> = (props) => {
+    const { errorMessage } = props
     return (
-        <>
-            <div className="flashsystem-storageclass-overview--error text-muted">
-                {t("Not available")}
-            </div>
-        </>
+            <Card>
+                <CardTitle>
+                    <div className="flashsystem-storageclass-overview--error text-muted"> {errorMessage} </div>
+                </CardTitle>
+            </Card>
     );
 };
 
@@ -143,7 +152,7 @@ const PoolsListBody = (props) => {
 const StorageClassOverviewDashboard: React.FC<ODFDashboardProps> = (props) => {
     return (
         <>
-            <div className="co-sc-dashboard-body">
+            <div className="co-dashboard-body">
                 <StorageClassOverviewBody {...props} />
             </div>
         </>
