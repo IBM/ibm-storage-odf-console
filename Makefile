@@ -7,6 +7,7 @@ CONSOLE_NAME=ibm-storage-odf-plugin
 CONSOLE_IMAGE=$(IMAGE_REPO)/${NAME_SPACE}/$(CONSOLE_NAME)
 
 
+
 prod-build-image:
 	docker build -t $(CONSOLE_IMAGE):$(CONSOLE_IMAGE_VERSION) -f ./Dockerfile.prod .
 
