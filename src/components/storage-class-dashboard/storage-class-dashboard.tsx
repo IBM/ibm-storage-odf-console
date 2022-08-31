@@ -86,7 +86,7 @@ const ErrorCardBody: React.FC<ErrorCardBodyProps> = (props) => {
     return (
             <Card>
                 <CardTitle>
-                    <div className="flashsystem-storageclass-overview--error text-muted"> {errorMessage} </div>
+                    <div> {errorMessage} </div>
                 </CardTitle>
             </Card>
     );
