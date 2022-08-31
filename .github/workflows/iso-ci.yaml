@@ -53,7 +53,7 @@ jobs:
         file: ./Dockerfile.prod
         platforms: linux/amd64,linux/ppc64le,linux/s390x
         build-args: |
-          TARGET_BRANCH=${{ github.ref_name || github.head_ref }}
+          TARGET_BRANCH=${{ github.head_ref }}
         # Only push if we are publishing a release
         push: ${{ github.event_name == 'release' && github.event.action == 'published' }}
         # Use a 'dev' tag, that won't be pushed, for non-release builds
