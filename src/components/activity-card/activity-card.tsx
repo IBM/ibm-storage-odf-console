@@ -42,14 +42,18 @@ const RecentEvent: React.FC<any> = (props) => {
   const [events, eventsLoaded] = useK8sWatchResource(eventsResource);
   const FlashsystemEventFilter = (event: EventKind): boolean => {
     const eventSource = event?.source?.component;
+
     const isIBMStorageCSIprovisioner =
       eventSource?.indexOf(IBM_STORAGE_CSI_PROVISIONER) != -1;
+
     const isFlashsystemClusterKind =
       eventSource?.indexOf(StorageInstanceModel.kind) != -1;
-    const eventName = _.get(event, ["metadata", "name"]);
-    const isNameIncluded = name ? eventName?.indexOf(name) != -1 : false;
+
+    const eventInvolveObjectName = event?.involvedObject?.name
+    const isNameIncluded = name ? eventInvolveObjectName == name : false;
+
     return (
-      isFlashsystemClusterKind || isIBMStorageCSIprovisioner || isNameIncluded
+      isFlashsystemClusterKind && isIBMStorageCSIprovisioner && isNameIncluded
     );
   };
 
