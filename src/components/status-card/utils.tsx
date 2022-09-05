@@ -55,7 +55,7 @@ const FlashsystemHealthStatus = {
 
 export const getFlashsystemHealthState = ({ sto }) => {
   const { data, loaded, loadError } = sto;
-  const status = data?.[0]?.status?.phase;
+  const status = data?.status?.phase;
 
   if (loadError) {
     return { state: HealthState.NOT_AVAILABLE };
@@ -63,7 +63,7 @@ export const getFlashsystemHealthState = ({ sto }) => {
   if (!loaded) {
     return { state: HealthState.LOADING };
   }
-  if (data.length === 0) {
+  if (!data) {
     return { state: HealthState.NOT_AVAILABLE };
   }
   return FlashsystemHealthStatus[status] || { state: HealthState.UNKNOWN };
