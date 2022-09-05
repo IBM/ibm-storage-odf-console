@@ -8,7 +8,7 @@ CONSOLE_IMAGE=$(REGISTRY)/${NAMESPACE}/$(CONSOLE_NAME):$(CONSOLE_IMAGE_VERSION)
 
 
 prod-build-image:
-	docker build -t $(CONSOLE_IMAGE)-f ./Dockerfile.prod .
+	docker build -t $(CONSOLE_IMAGE) -f ./Dockerfile.prod .
 
 prod-push-image: prod-build-image
 	docker push $(CONSOLE_IMAGE)
