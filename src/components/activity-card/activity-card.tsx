@@ -53,10 +53,10 @@ const RecentEvent: React.FC<any> = (props) => {
     const isIBMStorageCSIProvisioner = eventSource ? eventSource.indexOf(IBM_STORAGE_CSI_PROVISIONER) != -1 : false
     const isObjectInvolved = eventInvolvedObjectName ? eventInvolvedObjectName == name : false;
     const isNameIncluded = eventName ?
-        eventName.includes(IBM_STORAGE_ODF_PREFIX) ||
-        eventName.includes(IBM_STORAGE_ODF_CONSOLE_NAME) ||
-        eventName.includes(IBM_STORAGE_ODF_OPERATOR) ||
-        eventName.includes(name) : false;
+        eventName.indexOf(IBM_STORAGE_ODF_PREFIX) != -1 ||
+        eventName.indexOf(IBM_STORAGE_ODF_CONSOLE_NAME) != -1 ||
+        eventName.indexOf(IBM_STORAGE_ODF_OPERATOR) != -1 ||
+        eventName.indexOf(name) != -1 : false;
 
     return (isObjectInvolved || isNameIncluded || isIBMStorageCSIProvisioner);
   };
