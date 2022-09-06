@@ -37,7 +37,6 @@ type UseCustomPrometheusPoll = (
 
 export const useCustomPrometheusPoll: UseCustomPrometheusPoll = (props) => {
     const result = usePrometheusPoll(props);
-    console.log("veredresult " + result);
     // reorder return value
     return [result[0], result[2], !result[1]];
 };
