@@ -59,11 +59,14 @@ const IBMFlashSystemAlerts: React.FC = () => {
 export const StatusCard: React.FC<any> = (props) => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const { name } = parseProps(props);
-  const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(
-    GetFlashSystemResource(props)
+  const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind[]>(
+      GetFlashSystemResource(props)
   );
+
+  const fscData =  data?.find(fsc => fsc.metadata.name == name);
+
   const flashHealthState = getFlashsystemHealthState({
-    sto: { data: data, loaded: loaded, loadError: loadError },
+    sto: { data: fscData, loaded: loaded, loadError: loadError },
   });
 
   return (

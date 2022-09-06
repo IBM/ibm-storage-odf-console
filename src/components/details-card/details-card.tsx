@@ -30,6 +30,7 @@ import { StorageInstanceKind, K8sKind, SecretKind } from "../../types";
 import {
   getEndpoint,
   getIBMStorageODFVersion,
+  parseProps,
   resourcePathFromModel,
 } from "../../selectors";
 import { ClusterServiceVersionModel } from "../../models";
@@ -41,17 +42,19 @@ import {
 
 const DetailsCard: React.FC<any> = (props) => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
-  const flashClusterResource = GetFlashSystemResource(props);
+  const { name } = parseProps(props);
+  const [data, , ] = useK8sWatchResource<StorageInstanceKind[]>(
+      GetFlashSystemResource(props)
+    );
 
-  const [data, flashsystemloaded, flashsystemloadError] =
-    useK8sWatchResource<StorageInstanceKind>(flashClusterResource);
+  const fscData =  data?.find(fsc => fsc.metadata.name == name);
+
   const [subscriptions, subscriptionloaded, subscriptionloadError] =
     useK8sWatchResource<K8sKind[]>(SubscriptionResource);
 
-  const stoData = data?.[0];
   const flashSecretResource = GetSecretResource(
-    stoData?.metadata?.name,
-    stoData?.metadata?.namespace
+      fscData?.metadata?.name,
+      fscData?.metadata?.namespace
   );
   const [secret, secretloaded, secretloadError] =
     useK8sWatchResource<SecretKind>(flashSecretResource);
@@ -61,21 +64,25 @@ const DetailsCard: React.FC<any> = (props) => {
       secretloaded && !secretloadError && secretData
         ? Base64.decode(secretData)
         : "unknown",
-    [data, secretloaded, secretloadError]
+    [fscData, secretloaded, secretloadError]
   );
 
-  const flashOperatorVersion =
-    flashsystemloaded && !flashsystemloadError
-      ? getIBMStorageODFVersion(subscriptions)
-      : "unknown";
+  const flashOperatorVersion = React.useMemo(
+      () =>
+          subscriptionloaded && !subscriptionloadError
+              ? getIBMStorageODFVersion(subscriptions)
+              : "unknown",
+      [fscData, subscriptionloaded, subscriptionloadError]
+  );
+
   const operatorPath =
-    subscriptionloaded && !subscriptionloadError
-      ? `${resourcePathFromModel(
-          ClusterServiceVersionModel,
-          flashOperatorVersion,
-          stoData?.metadata.namespace
-        )}`
-      : "unknown";
+      subscriptionloaded && !subscriptionloadError
+          ? `${resourcePathFromModel(
+              ClusterServiceVersionModel,
+              flashOperatorVersion,
+              fscData?.metadata.namespace
+          )}`
+          : "unknown";
 
   return (
     <Card>
