@@ -42,7 +42,7 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
 
     const { totalCapacityMetric, availableCapacityMetric, usedCapacityMetric, loading, title } = props
     let { loadError } =  props;
-    console.log("vered total capacity %v, loading is %v, loadError is %v", totalCapacityMetric, loading, loadError)
+    let invalidValue = false;
 
     const [totalCapacity] = parseMetricData(
         totalCapacityMetric,
@@ -67,14 +67,12 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
     ];
 
     if (!totalCapacity.value || !availableCapacity.value || !usedCapacity.value ){
-        loadError = true
+        invalidValue = true
     }
-    console.log("vered loadError2" + loadError, totalCapacity.value , availableCapacity.value, usedCapacity.value )
 
     const invalidStats = totalCapacity.value == INVALID_PROMETHEUS_CHILD_STATS ||
         usedCapacity.value == INVALID_PROMETHEUS_CHILD_STATS || availableCapacity.value == INVALID_PROMETHEUS_CHILD_STATS
-    console.log("vered invalid state is:" + invalidStats)
-    loadError = loadError || invalidStats
+    loadError = loadError || invalidStats || invalidValue
 
     const errorMessage:string = invalidStats? t('Physical capacity overview is unsupported for child pools.'): t('Not available')
 

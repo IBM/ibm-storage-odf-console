@@ -46,7 +46,7 @@ const SystemPhysicalRawCapacityCard: React.FC<any> = (props) => {
         samples: 60,
     });
 
-    const loadError = totalCapacityLoadError || usedCapacityLoadError || availableCapacityLoadError || data
+    const loadError = totalCapacityLoadError || usedCapacityLoadError || availableCapacityLoadError
     const loading = totalCapacityLoading || usedCapacityLoading || availableCapacityLoading
 
     const capacityProps: RawCapacityCardProps = {
