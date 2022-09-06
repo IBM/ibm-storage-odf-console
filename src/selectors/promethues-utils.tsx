@@ -155,6 +155,7 @@ export const getPrometheusQueryValue: (PrometheusResponse) => number | null = (
   if (!queryResult || !_.get(queryResult, "data")) {
     return null;
   }
+  console.log("current quary result %v", getInstantVectorStats(queryResult)[0]?.y)
   return getInstantVectorStats(queryResult)[0]?.y;
 
 }
