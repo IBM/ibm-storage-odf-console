@@ -22,3 +22,8 @@ export const PODS = "Pods";
 export const IBM_POOLS_CONFIGMAP_NAME = 'ibm-flashsystem-pools';
 export const STORAGE_CLASS_POOLS_KEY = 'storageclass';
 export const INVALID_PROMETHEUS_CHILD_STATS = -1;
+export const IBM_STORAGE_ODF_PREFIX = "ibm-flashsystem-storage";
+export const IBM_STORAGE_ODF_CONSOLE_NAME = "ibm-odf-console";
+
+
+

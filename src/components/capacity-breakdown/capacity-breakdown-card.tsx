@@ -60,9 +60,9 @@ const BreakdownCard: React.FC<any> = (props) => {
   const cmResource = getIBMPoolsConfigMap(namespace)
   const [configMap, cmLoaded, cmLoadError] = useK8sWatchResource<ConfigMapKind>(cmResource);
 
-  const cmResourceData = configMap?.data
+  const cmResourceData = configMap?.data?.[name]
   if (cmResourceData) {
-    storageclassNames = getStorageClassNames(cmResourceData[name])
+    storageclassNames = getStorageClassNames(cmResourceData)
   }
 
   const [byUsedmetric, byUsedLoadError, byUsedLoading] = useCustomPrometheusPoll({

@@ -20,12 +20,12 @@ import {STORAGE_CLASS_POOLS_KEY} from "../constants/constants";
 
 export function getPoolNames(cmResourceData) {
     const scPoolsMap = getScPoolsMap(cmResourceData)
-    return Array.from(scPoolsMap.values())
+    return Array.from(new Set<string>(scPoolsMap.values()))
 }
 
 export function getStorageClassNames(cmResourceData) {
     const scPoolsMap = getScPoolsMap(cmResourceData)
-    return Array.from(scPoolsMap.keys())
+    return Array.from(new Set<string>(scPoolsMap.keys()))
 }
 
 function getScPoolsMap(cmResourceData){

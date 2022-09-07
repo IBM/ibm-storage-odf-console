@@ -45,9 +45,9 @@ const StorageClassOverviewBody : React.FC<ODFDashboardProps> = (props) => {
     const cmResource = getIBMPoolsConfigMap(namespace)
     const [configMap, cmLoaded, cmLoadError] = useK8sWatchResource<ConfigMapKind>(cmResource);
 
-    const cmResourceData = configMap?.data
+    const cmResourceData = configMap?.data?.[name]
     if (cmResourceData) {
-        dropdownKeys = getPoolNames(cmResourceData[name])
+        dropdownKeys = getPoolNames(cmResourceData)
         poolsSelectItems = getSelectOptions(dropdownKeys);
     }
     const isPoolsAvailable = dropdownKeys.length != 0
