@@ -22,14 +22,14 @@ import {useCustomPrometheusPoll} from "../custom-prometheus-poll/custom-promethe
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import { parseMetricData } from "../../selectors/promethues-utils";
 import { humanizeBinaryBytes } from "../../humanize";
-import { EFFICIENCY_SAVING_QUERY } from "../../constants/queries";
+import { StorageDashboardQuery } from "../../constants/queries";
 import "./storage-efficiency-card.scss";
 
 const StorageEfficiencyCardBody: React.FC<any> = () => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
 
   const [metric, error, loading] = useCustomPrometheusPoll({
-    query: EFFICIENCY_SAVING_QUERY,
+    query: StorageDashboardQuery.SystemTotalEfficiencySaving,
     endpoint: "api/v1/query" as any,
     samples: 60
   });
