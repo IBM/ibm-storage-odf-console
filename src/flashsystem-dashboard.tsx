@@ -44,7 +44,7 @@ const UpperSection: React.FC<any> = (props) => {
             <DetailsCard {...props} />
           </GridItem>
           <GridItem>
-            <StorageEfficiencyCard />
+            <StorageEfficiencyCard {...props} />
           </GridItem>
           <GridItem>
             <InventoryCard />
