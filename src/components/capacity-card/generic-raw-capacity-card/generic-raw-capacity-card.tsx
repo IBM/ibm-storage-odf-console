@@ -66,7 +66,7 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
         { x: "Available", y: availableCapacity.value, string: availableCapacityOriginal.string},
     ];
 
-    if (!totalCapacity.value || !availableCapacity.value || !usedCapacity.value ){
+    if ( totalCapacity.value == null || availableCapacity.value == null || usedCapacity.value == null ){
         invalidValue = true
     }
 
