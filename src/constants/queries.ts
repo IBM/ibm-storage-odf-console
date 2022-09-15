@@ -41,6 +41,8 @@ export enum StorageDashboardQuery {
   SystemPhysicalFreeCapacity = "SystemPhysicalFreeCapacity",
   SystemPhysicalUsedCapacity = "SystemPhysicalUsedCapacity",
 
+  SystemTotalEfficiencySaving = "SystemTotalEfficiencySaving",
+
   TotalReadIOPS = "TotalReadIOPS",
   TotalWriteIOPS = "TotalWriteIOPS",
   TotalReadBW = "TotalReadBW",
@@ -48,8 +50,6 @@ export enum StorageDashboardQuery {
   TotalReadRespTime = "TotalReadRespTime",
   TotalWriteRespTime = "TotalWriteRespTime",
 }
-
-export const EFFICIENCY_SAVING_QUERY = "sum(flashsystem_pool_savings_bytes)";
 
 export const FlASHSYSTEM_POOL_QUERIES = (
     label: string,
@@ -156,6 +156,9 @@ export const FlASHSYSTEM_QUERIES = (
     }
     case StorageDashboardQuery.TotalWriteBW: {
       return `flashsystem_subsystem_wr_bytes{subsystem_name='${label}'}`;
+    }
+    case StorageDashboardQuery.SystemTotalEfficiencySaving: {
+      return `sum(flashsystem_pool_savings_bytes{subsystem_name='${label}'})`;
     }
   }
 };
