@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { ProjectModel, PodModel, StorageClassModel } from "../models";
-import { STORAGE_CLASSES, PROJECTS, PODS, IBM_STORAGE_CSI_PROVISIONER } from "./constants";
+import { STORAGE_CLASSES, PROJECTS, PODS } from "./constants";
 
 export enum StorageDashboardQuery {
   PODS_TOTAL_USED = "PODS_TOTAL_USED",
@@ -87,35 +87,33 @@ export const FlASHSYSTEM_POOL_QUERIES = (
 
 export const FlASHSYSTEM_STORAGECLASS_QUERIES = (
     label: string,
-    storageclasses: string[],
     queryItem: string
 ): string => {
 
-  const currentProvisioner = IBM_STORAGE_CSI_PROVISIONER;
-  const storageclassNames = storageclasses.join('|');
+  const filteredPVByLabel = `label_replace((kube_persistentvolume_claim_ref * on(persistentvolume) group_right(name) kube_persistentvolume_labels{label_odf_fs_storagesystem='${label}'}), "persistentvolumeclaim", "$1", "name", "(.+)")`
+  const pvcWithPVResourceRequestsStorage = `(${filteredPVByLabel}) * on (persistentvolumeclaim) group_right(persistentvolume) kube_persistentvolumeclaim_resource_requests_storage_bytes`
 
   switch (queryItem) {
-
     case StorageDashboardQuery.STORAGE_CLASSES_TOTAL_USED: {
-      return `sum(sum(kube_persistentvolumeclaim_resource_requests_storage_bytes * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass) group_left(provisioner) kube_storageclass_info {provisioner=~'${currentProvisioner}',storageclass=~'${storageclassNames}'})) by (storageclass, provisioner))`;
+      return `sum(sum((${pvcWithPVResourceRequestsStorage}) * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass) group_left(provisioner) kube_storageclass_info )) by (storageclass, provisioner))`;
     }
     case StorageDashboardQuery.STORAGE_CLASSES_BY_USED: {
-      return `sum(kube_persistentvolumeclaim_resource_requests_storage_bytes * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass) group_left(provisioner) kube_storageclass_info {provisioner=~'${currentProvisioner}',storageclass=~'${storageclassNames}'})) by (storageclass, provisioner)`;
+      return `sum((${pvcWithPVResourceRequestsStorage})* on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass) group_left(provisioner) kube_storageclass_info )) by (storageclass, provisioner)`;
     }
     case StorageDashboardQuery.USED_CAPACITY: {
-      return `sum(kube_persistentvolumeclaim_resource_requests_storage_bytes * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass)  group_left(provisioner) kube_storageclass_info {provisioner=~'${currentProvisioner}',storageclass=~'${storageclassNames}'}))`;
+      return `sum((${pvcWithPVResourceRequestsStorage}) * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass)  group_left(provisioner) kube_storageclass_info ))`;
     }
     case StorageDashboardQuery.PROJECTS_TOTAL_USED: {
-      return `sum(sum(kube_persistentvolumeclaim_resource_requests_storage_bytes * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass)  group_left(provisioner) kube_storageclass_info {provisioner=~'${currentProvisioner}',storageclass=~'${storageclassNames}'})) by (namespace))`;
+      return `sum(sum((${pvcWithPVResourceRequestsStorage}) * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass)  group_left(provisioner) kube_storageclass_info )) by (namespace))`;
     }
     case StorageDashboardQuery.PROJECTS_BY_USED: {
-      return `sum(kube_persistentvolumeclaim_resource_requests_storage_bytes * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass)  group_left(provisioner) kube_storageclass_info {provisioner=~'${currentProvisioner}',storageclass=~'${storageclassNames}'})) by (namespace)`;
+      return `sum((${pvcWithPVResourceRequestsStorage}) * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass)  group_left(provisioner) kube_storageclass_info )) by (namespace)`;
     }
     case StorageDashboardQuery.PODS_TOTAL_USED: {
-      return `sum((kube_persistentvolumeclaim_resource_requests_storage_bytes * on (namespace,persistentvolumeclaim) group_right() (kube_pod_info * on(namespace, pod)  group_right(node) kube_pod_spec_volumes_persistentvolumeclaims_info)) * on(namespace,persistentvolumeclaim) group_left(provisioner) (kube_persistentvolumeclaim_info * on (storageclass)  group_left(provisioner) kube_storageclass_info {provisioner=~'${currentProvisioner}',storageclass=~'${storageclassNames}'}))`;
+      return `sum(((${pvcWithPVResourceRequestsStorage}) * on (namespace,persistentvolumeclaim) group_right() (kube_pod_info * on(namespace, pod)  group_right(node) kube_pod_spec_volumes_persistentvolumeclaims_info)) * on(namespace,persistentvolumeclaim) group_left(provisioner) (kube_persistentvolumeclaim_info * on (storageclass)  group_left(provisioner) kube_storageclass_info ))`;
     }
     case StorageDashboardQuery.PODS_BY_USED: {
-      return `sum((kube_persistentvolumeclaim_resource_requests_storage_bytes * on (namespace,persistentvolumeclaim) group_right() (kube_pod_info * on(namespace, pod)  group_right(node) kube_pod_spec_volumes_persistentvolumeclaims_info)) * on(namespace,persistentvolumeclaim) group_left(provisioner) (kube_persistentvolumeclaim_info * on (storageclass)  group_left(provisioner) kube_storageclass_info {provisioner=~'${currentProvisioner}',storageclass=~'${storageclassNames}'})) by (pod)`;
+      return `sum(((${pvcWithPVResourceRequestsStorage}) * on (namespace,persistentvolumeclaim) group_right() (kube_pod_info * on(namespace, pod)  group_right(node) kube_pod_spec_volumes_persistentvolumeclaims_info)) * on(namespace,persistentvolumeclaim) group_left(provisioner) (kube_persistentvolumeclaim_info * on (storageclass)  group_left(provisioner) kube_storageclass_info )) by (pod)`;
     }
 
   }
@@ -163,7 +161,7 @@ export const FlASHSYSTEM_QUERIES = (
   }
 };
 
-export const BreakdownQueryMapODF = (label: string, queryType: string, storageclassNames: string[]) => {
+export const BreakdownQueryMapODF = (label: string, queryType: string) => {
   switch (queryType) {
     case PROJECTS:
       return {
@@ -172,17 +170,14 @@ export const BreakdownQueryMapODF = (label: string, queryType: string, storagecl
         queries: {
           [StorageDashboardQuery.PROJECTS_BY_USED]: `(topk(6,(${FlASHSYSTEM_STORAGECLASS_QUERIES(
               label, 
-              storageclassNames, 
               StorageDashboardQuery.PROJECTS_BY_USED
           )})))`,
           [StorageDashboardQuery.PROJECTS_TOTAL_USED]: FlASHSYSTEM_STORAGECLASS_QUERIES(
               label,
-              storageclassNames,
               StorageDashboardQuery.PROJECTS_TOTAL_USED
           ),
           [StorageDashboardQuery.USED_CAPACITY]: FlASHSYSTEM_STORAGECLASS_QUERIES(
               label,
-              storageclassNames,
               StorageDashboardQuery.USED_CAPACITY
           ),
         },
@@ -195,18 +190,15 @@ export const BreakdownQueryMapODF = (label: string, queryType: string, storagecl
         queries: {
           [StorageDashboardQuery.STORAGE_CLASSES_BY_USED]: `(topk(6,(${FlASHSYSTEM_STORAGECLASS_QUERIES(
               label, 
-              storageclassNames, 
               StorageDashboardQuery.STORAGE_CLASSES_BY_USED
           )})))`,
           [StorageDashboardQuery.STORAGE_CLASSES_TOTAL_USED]:
               FlASHSYSTEM_STORAGECLASS_QUERIES(
                   label,
-                  storageclassNames,
                   StorageDashboardQuery.STORAGE_CLASSES_TOTAL_USED
             ),
           [StorageDashboardQuery.USED_CAPACITY]: FlASHSYSTEM_STORAGECLASS_QUERIES(
               label,
-              storageclassNames,
               StorageDashboardQuery.USED_CAPACITY
           ),
         },
@@ -218,17 +210,14 @@ export const BreakdownQueryMapODF = (label: string, queryType: string, storagecl
         queries: {
           [StorageDashboardQuery.PODS_BY_USED]: `(topk(6,(${FlASHSYSTEM_STORAGECLASS_QUERIES(
               label, 
-              storageclassNames, 
               StorageDashboardQuery.PODS_BY_USED
           )})))`,
           [StorageDashboardQuery.PODS_TOTAL_USED]: FlASHSYSTEM_STORAGECLASS_QUERIES(
               label,
-              storageclassNames,
               StorageDashboardQuery.PODS_TOTAL_USED
           ),
           [StorageDashboardQuery.USED_CAPACITY]: FlASHSYSTEM_STORAGECLASS_QUERIES(
               label,
-              storageclassNames,
               StorageDashboardQuery.USED_CAPACITY
           ),
         },

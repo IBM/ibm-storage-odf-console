@@ -48,7 +48,7 @@ const BreakdownCard: React.FC<any> = (props) => {
 
   const [metricType, setMetricType] = React.useState(PROJECTS);
   const [isOpenBreakdownSelect, setBreakdownSelect] = React.useState(false);
-  const { model, metric, queries } = BreakdownQueryMapODF(name, metricType, storageclassNames);
+  const { model, metric, queries } = BreakdownQueryMapODF(name, metricType);
   const queryKeys = Object.keys(queries);
   const humanize = humanizeBinaryBytes;
 
