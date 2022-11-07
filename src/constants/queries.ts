@@ -90,7 +90,7 @@ export const FlASHSYSTEM_STORAGECLASS_QUERIES = (
     queryItem: string
 ): string => {
 
-  const filteredPVByLabel = `label_replace((kube_persistentvolume_claim_ref * on(persistentvolume) group_right(name) kube_persistentvolume_labels{label_odf_fs_storagesystem='${label}'}), "persistentvolumeclaim", "$1", "name", "(.+)")`
+  const filteredPVByLabel = `label_replace((kube_persistentvolume_claim_ref * on(persistentvolume) group_right(name) kube_persistentvolume_labels{label_odf_fs_storage_system='${label}'}), "persistentvolumeclaim", "$1", "name", "(.+)")`
   const pvcWithPVResourceRequestsStorage = `(${filteredPVByLabel}) * on (persistentvolumeclaim) group_right(persistentvolume) kube_persistentvolumeclaim_resource_requests_storage_bytes`
 
   switch (queryItem) {
