@@ -23,6 +23,7 @@ export enum StorageDashboardQuery {
   PROJECTS_BY_USED = "PROJECTS_BY_USED",
   STORAGE_CLASSES_TOTAL_USED = "STORAGE_CLASSES_TOTAL_USED",
   STORAGE_CLASSES_BY_USED = "STORAGE_CLASSES_BY_USED",
+  STORAGE_PVCS_WITHOUT_STORAGE_MATCH = "STORAGE_PVCS_WITHOUT_STORAGE_MATCH",
   USED_CAPACITY = "USED_CAPACITY",
   UTILIZATION_CAPACITY_QUERY = "UTILIZATION_CAPACITY_QUERY",
   UTILIZATION_IOPS_QUERY = "UTILIZATION_IOPS_QUERY",
@@ -90,10 +91,14 @@ export const FlASHSYSTEM_STORAGECLASS_QUERIES = (
     queryItem: string
 ): string => {
 
+  const filterPVWithoutLabel =`kube_persistentvolume_claim_ref * on(persistentvolume) group_right(name) kube_persistentvolume_labels{label_odf_fs_storage_system=''}`
   const filteredPVByLabel = `label_replace((kube_persistentvolume_claim_ref * on(persistentvolume) group_right(name) kube_persistentvolume_labels{label_odf_fs_storage_system='${label}'}), "persistentvolumeclaim", "$1", "name", "(.+)")`
   const pvcWithPVResourceRequestsStorage = `(${filteredPVByLabel}) * on (persistentvolumeclaim) group_right(persistentvolume) kube_persistentvolumeclaim_resource_requests_storage_bytes`
 
   switch (queryItem) {
+    case StorageDashboardQuery.STORAGE_PVCS_WITHOUT_STORAGE_MATCH: {
+      return `count((${filterPVWithoutLabel}) * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass) group_left(provisioner) kube_storageclass_info )) by (storageclass, provisioner))`;
+    }
     case StorageDashboardQuery.STORAGE_CLASSES_TOTAL_USED: {
       return `sum(sum((${pvcWithPVResourceRequestsStorage}) * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass) group_left(provisioner) kube_storageclass_info )) by (storageclass, provisioner))`;
     }
@@ -179,6 +184,10 @@ export const BreakdownQueryMapODF = (label: string, queryType: string) => {
           [StorageDashboardQuery.USED_CAPACITY]: FlASHSYSTEM_STORAGECLASS_QUERIES(
               label,
               StorageDashboardQuery.USED_CAPACITY
+          ),
+          [StorageDashboardQuery.STORAGE_PVCS_WITHOUT_STORAGE_MATCH]: FlASHSYSTEM_STORAGECLASS_QUERIES(
+              label,
+              StorageDashboardQuery.STORAGE_PVCS_WITHOUT_STORAGE_MATCH
           ),
         },
       };

@@ -31,11 +31,12 @@ import { humanizeBinaryBytes } from "../../humanize";
 import { BreakdownQueryMapODF } from "../../constants/queries";
 import { PROJECTS, STORAGE_CLASSES, PODS } from "../../constants/constants";
 import { getInstantVectorStats } from "../../selectors/promethues-utils";
-import { parseProps } from "../../selectors/index";
+import { parseProps } from "../../selectors";
 import {getIBMPoolsConfigMap} from "../../constants/resources";
 import {useK8sWatchResource} from "@openshift-console/dynamic-plugin-sdk";
 import {ConfigMapKind} from "../../types";
 import {getStorageClassNames} from "../utils";
+import {CapacityErrorCardBodyProps} from "../capacity-card/generic-raw-capacity-card/generic-raw-capacity-card";
 
 const dropdownKeys = [PROJECTS, STORAGE_CLASSES, PODS];
 const breakdownSelectItems = getSelectOptions(dropdownKeys);
@@ -51,6 +52,8 @@ const BreakdownCard: React.FC<any> = (props) => {
   const { model, metric, queries } = BreakdownQueryMapODF(name, metricType);
   const queryKeys = Object.keys(queries);
   const humanize = humanizeBinaryBytes;
+  let WarningMessage = '';
+  let PVCWarning = false;
 
   const handleMetricsChange: SelectProps["onSelect"] = (_e, breakdown) => {
     setMetricType(breakdown as string);
@@ -71,6 +74,17 @@ const BreakdownCard: React.FC<any> = (props) => {
     samples: 60,
   });
 
+  const [countPVCsWithoutStorage] = useCustomPrometheusPoll({
+    query: queries[queryKeys[3]],
+    endpoint: "api/v1/query" as any,
+    samples: 60,
+  });
+  const PVCsWithoutStorage = _.get(countPVCsWithoutStorage, "data.result[0].value[1]");
+  if (PVCsWithoutStorage > 0 ){
+    WarningMessage = t('Provisioned capacity can be inaccurate due to PVCs without link to storage')
+    PVCWarning = true
+  }
+
   const [totalUsedmetric, totalUsedLoadError, totalUsedLoading] =
       useCustomPrometheusPoll({
       query: queries[queryKeys[1]],
@@ -89,6 +103,7 @@ const BreakdownCard: React.FC<any> = (props) => {
   const top6MetricsData = getInstantVectorStats(byUsedmetric, metric);
   const top5SortedMetricsData = sortInstantVectorStats(top6MetricsData);
   const top5MetricsStats = getStackChartStats(top5SortedMetricsData, humanize);
+
 
   return (
     <Card>
@@ -124,9 +139,21 @@ const BreakdownCard: React.FC<any> = (props) => {
             metricModel={model}
             humanize={humanize}
         />
+        {PVCWarning && <ErrorCardBody errorMessage={WarningMessage}/>}
       </CardBody>
     </Card>
   );
 };
 
 export default BreakdownCard;
+
+const ErrorCardBody: React.FC<CapacityErrorCardBodyProps> = (props) => {
+  const { errorMessage } = props
+  return (
+      <>
+        <div className="flashsystem-capacity-breakdown-card--error text-muted">
+          {errorMessage}
+        </div>
+      </>
+  );
+};
