@@ -97,7 +97,7 @@ export const FlASHSYSTEM_STORAGECLASS_QUERIES = (
 
   switch (queryItem) {
     case StorageDashboardQuery.STORAGE_PVCS_WITHOUT_STORAGE_MATCH: {
-      return `count((${filterPVWithoutLabel}) * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass) group_left(provisioner) kube_storageclass_info )) by (storageclass, provisioner))`;
+      return `count(${filterPVWithoutLabel})`;
     }
     case StorageDashboardQuery.STORAGE_CLASSES_TOTAL_USED: {
       return `sum(sum((${pvcWithPVResourceRequestsStorage}) * on (namespace,persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass) group_left(provisioner) kube_storageclass_info )) by (storageclass, provisioner))`;

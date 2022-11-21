@@ -36,7 +36,6 @@ import {getIBMPoolsConfigMap} from "../../constants/resources";
 import {useK8sWatchResource} from "@openshift-console/dynamic-plugin-sdk";
 import {ConfigMapKind} from "../../types";
 import {getStorageClassNames} from "../utils";
-import {CapacityErrorCardBodyProps} from "../capacity-card/generic-raw-capacity-card/generic-raw-capacity-card";
 
 const dropdownKeys = [PROJECTS, STORAGE_CLASSES, PODS];
 const breakdownSelectItems = getSelectOptions(dropdownKeys);
@@ -74,17 +73,6 @@ const BreakdownCard: React.FC<any> = (props) => {
     samples: 60,
   });
 
-  const [countPVCsWithoutStorage] = useCustomPrometheusPoll({
-    query: queries[queryKeys[3]],
-    endpoint: "api/v1/query" as any,
-    samples: 60,
-  });
-  const PVCsWithoutStorage = _.get(countPVCsWithoutStorage, "data.result[0].value[1]");
-  if (PVCsWithoutStorage > 0 ){
-    WarningMessage = t('Provisioned capacity can be inaccurate due to PVCs without link to storage')
-    PVCWarning = true
-  }
-
   const [totalUsedmetric, totalUsedLoadError, totalUsedLoading] =
       useCustomPrometheusPoll({
       query: queries[queryKeys[1]],
@@ -104,6 +92,18 @@ const BreakdownCard: React.FC<any> = (props) => {
   const top5SortedMetricsData = sortInstantVectorStats(top6MetricsData);
   const top5MetricsStats = getStackChartStats(top5SortedMetricsData, humanize);
 
+  const [countPVCsWithoutStorage,  , ] = useCustomPrometheusPoll({
+    query: queries[queryKeys[3]],
+    endpoint: "api/v1/query" as any,
+    samples: 60,
+  });
+  const PVCsWithoutStorage = _.get(countPVCsWithoutStorage, "data.result[0].value[1]");
+  console.log("my pvc without storage count it %v", PVCsWithoutStorage)
+  if (PVCsWithoutStorage > 0 ){
+    console.log("add warning msg")
+    WarningMessage = t('Provisioned capacity can be inaccurate due to PVCs without link to storage')
+    PVCWarning = true
+  }
 
   return (
     <Card>
@@ -147,11 +147,15 @@ const BreakdownCard: React.FC<any> = (props) => {
 
 export default BreakdownCard;
 
-const ErrorCardBody: React.FC<CapacityErrorCardBodyProps> = (props) => {
+export type ErrorCardBodyProps = {
+  errorMessage: string;
+};
+
+const ErrorCardBody: React.FC<ErrorCardBodyProps> = (props) => {
   const { errorMessage } = props
   return (
       <>
-        <div className="flashsystem-capacity-breakdown-card--error text-muted">
+        <div className="flashsystem-capacity-breakdown-card__error text-muted">
           {errorMessage}
         </div>
       </>
