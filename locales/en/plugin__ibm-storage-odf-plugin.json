@@ -4,7 +4,7 @@
   "No StorageClass available": "No StorageClass available",
   "No provisioned data available": "No provisioned data available",
   "Provisioned Capacity Breakdown": "Provisioned Capacity Breakdown",
-  "Provisioned capacity can be inaccurate due to PVCs without link to storage": "Provisioned capacity can be inaccurate due to PVCs without link to storage",
+  "Provisioned capacity might be inaccurate as some PVCs are not properly associated with a specific storage system": "Provisioned capacity might be inaccurate as some PVCs are not properly associated with a specific storage system.",
   "Physical capacity overview is unsupported for child pools.": "Physical capacity overview is unsupported for child pools.",
   "Used": "Used",
   "Available": "Available",

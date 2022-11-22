@@ -100,7 +100,7 @@ const BreakdownCard: React.FC<any> = (props) => {
   const PVCsWithoutStorage = _.get(countPVCsWithoutStorage, "data.result[0].value[1]");
   console.log("my pvc without storage count it %v", PVCsWithoutStorage)
   if (PVCsWithoutStorage > 0 ){
-    WarningMessage = t('* Provisioned capacity can be inaccurate due to PVCs without link to storage')
+    WarningMessage = "* " +  t('Provisioned capacity might be inaccurate as some PVCs are not properly associated with a specific storage system.')
     PVCWarning = true
   }
 
