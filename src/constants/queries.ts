@@ -23,7 +23,7 @@ export enum StorageDashboardQuery {
   PROJECTS_BY_USED = "PROJECTS_BY_USED",
   STORAGE_CLASSES_TOTAL_USED = "STORAGE_CLASSES_TOTAL_USED",
   STORAGE_CLASSES_BY_USED = "STORAGE_CLASSES_BY_USED",
-  STORAGE_PVCS_WITHOUT_STORAGE_MATCH = "STORAGE_PVCS_WITHOUT_STORAGE_MATCH",
+  PVCS_WITHOUT_STORAGE_MATCH = "PVCS_WITHOUT_STORAGE_MATCH",
   USED_CAPACITY = "USED_CAPACITY",
   UTILIZATION_CAPACITY_QUERY = "UTILIZATION_CAPACITY_QUERY",
   UTILIZATION_IOPS_QUERY = "UTILIZATION_IOPS_QUERY",
@@ -91,13 +91,13 @@ export const FlASHSYSTEM_STORAGECLASS_QUERIES = (
     queryItem: string
 ): string => {
 
-  const filterPVCWithoutLabel =`label_replace((kube_persistentvolume_claim_ref * on(persistentvolume) group_right(name) kube_persistentvolume_labels{label_odf_fs_storage_system=''}), "persistentvolumeclaim", "$1", "name", "(.+)")`
-  const CSIPVCWithoutLabel = `(${filterPVCWithoutLabel} * on (persistentvolumeclaim) group_right(persistentvolume) kube_persistentvolumeclaim_info)  * on (persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass) group_left(provisioner) kube_storageclass_info{provisioner=~"${IBM_STORAGE_CSI_PROVISIONER}"})`
+  const filterPVWithoutLabel =`label_replace((kube_persistentvolume_claim_ref * on(persistentvolume) group_right(name) kube_persistentvolume_labels{label_odf_fs_storage_system=''}), "persistentvolumeclaim", "$1", "name", "(.+)")`
+  const CSIPVCWithoutLabel = `(${filterPVWithoutLabel} * on (persistentvolumeclaim) group_right(persistentvolume) kube_persistentvolumeclaim_info)  * on (persistentvolumeclaim) group_left(storageclass, provisioner) (kube_persistentvolumeclaim_info * on (storageclass) group_left(provisioner) kube_storageclass_info{provisioner=~"${IBM_STORAGE_CSI_PROVISIONER}"})`
   const filteredPVByLabel = `label_replace((kube_persistentvolume_claim_ref * on(persistentvolume) group_right(name) kube_persistentvolume_labels{label_odf_fs_storage_system='${label}'}), "persistentvolumeclaim", "$1", "name", "(.+)")`
   const pvcWithPVResourceRequestsStorage = `(${filteredPVByLabel}) * on (persistentvolumeclaim) group_right(persistentvolume) kube_persistentvolumeclaim_resource_requests_storage_bytes`
 
   switch (queryItem) {
-    case StorageDashboardQuery.STORAGE_PVCS_WITHOUT_STORAGE_MATCH: {
+    case StorageDashboardQuery.PVCS_WITHOUT_STORAGE_MATCH: {
       return `count(${CSIPVCWithoutLabel})`;
     }
     case StorageDashboardQuery.STORAGE_CLASSES_TOTAL_USED: {
@@ -186,9 +186,9 @@ export const BreakdownQueryMapODF = (label: string, queryType: string) => {
               label,
               StorageDashboardQuery.USED_CAPACITY
           ),
-          [StorageDashboardQuery.STORAGE_PVCS_WITHOUT_STORAGE_MATCH]: FlASHSYSTEM_STORAGECLASS_QUERIES(
+          [StorageDashboardQuery.PVCS_WITHOUT_STORAGE_MATCH]: FlASHSYSTEM_STORAGECLASS_QUERIES(
               label,
-              StorageDashboardQuery.STORAGE_PVCS_WITHOUT_STORAGE_MATCH
+              StorageDashboardQuery.PVCS_WITHOUT_STORAGE_MATCH
           ),
         },
       };
