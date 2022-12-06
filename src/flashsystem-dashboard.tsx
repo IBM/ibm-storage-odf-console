@@ -20,7 +20,7 @@ import { HorizontalNav } from "@openshift-console/dynamic-plugin-sdk";
 import { Grid, GridItem } from "@patternfly/react-core";
 import { useLocation, match as Match } from "react-router-dom";
 
-import StorageEfficiencyCard from "./components/storage-efficiency-card/storage-efficiency-card";
+// import StorageEfficiencyCard from "./components/storage-efficiency-card/storage-efficiency-card";
 import StatusCard from "./components/status-card/status-card";
 import DetailsCard from "./components/details-card/details-card";
 import InventoryCard from "./components/inventory-card/inventory-card";
@@ -43,9 +43,9 @@ const UpperSection: React.FC<any> = (props) => {
           <GridItem>
             <DetailsCard {...props} />
           </GridItem>
-          <GridItem>
-            <StorageEfficiencyCard {...props} />
-          </GridItem>
+          {/*<GridItem>*/}
+          {/*  <StorageEfficiencyCard {...props} />*/}
+          {/*</GridItem>*/}
           <GridItem>
             <InventoryCard />
           </GridItem>
