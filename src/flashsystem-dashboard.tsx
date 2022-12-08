@@ -98,12 +98,12 @@ export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
     const allPages = [
       {
         href: "overview",
-        name: t("StorageSystem Overview"),
+        name: t("Storage System Overview"),
         component: FlashsystemDashboard,
       },
       {
         href: "storageclass-overview",
-        name: t("StorageClasses Overview"),
+        name: t("Storage Classes Overview"),
         component: StorageClassOverviewDashboard,
       },
     ];
