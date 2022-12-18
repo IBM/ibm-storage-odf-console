@@ -78,10 +78,8 @@ export const FlASHSYSTEM_POOL_QUERIES = (
       return `flashsystem_pool_logical_capacity_usable_bytes{subsystem_name='${label}', pool_name='${pool_name}'}`;
     }
     case StorageDashboardQuery.PoolLogicalTotalCapacity: {
-      return `flashsystem_pool_logical_capacity_usable_bytes{subsystem_name='${label}', pool_name='${pool_name}'} + 
-      flashsystem_pool_logical_capacity_used_bytes{subsystem_name='${label}', pool_name='${pool_name}'}`;
+      return `flashsystem_pool_logical_capacity_bytes{subsystem_name='${label}', pool_name='${pool_name}'}`;
     }
-
   }
 };
 
