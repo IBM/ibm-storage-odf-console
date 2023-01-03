@@ -29,6 +29,7 @@ import {
   getFlashsystemHealthState,
   filterIBMFlashSystemAlerts,
   filterIBMFlashSystemAlerts2,
+  filterIBMFlashSystemAlerts3,
   alertURL,
   PrometheusRulesResponse,
   getAlertsAndRules,
@@ -47,10 +48,12 @@ const IBMFlashSystemAlerts: React.FC = () => {
   console.log("Alon - IBMFlashSystemAlerts", alerts);
   const filteredAlerts = filterIBMFlashSystemAlerts(alerts);
   const filteredAlerts2 = filterIBMFlashSystemAlerts2(alerts);
+  const filteredAlerts3 = filterIBMFlashSystemAlerts3(alerts);
   console.log("Alon HERE: StatusCard.name.toLowerCase().trim():  " + StatusCard.name.toLowerCase().trim());
   console.log("Alon HERE: StatusCard.name:  " + StatusCard.name);
   console.log("Alon - filteredAlerts: ", filteredAlerts);
   console.log("Alon - filteredAlerts2: ", filteredAlerts2);
+  console.log("Alon - filteredAlerts3: ", filteredAlerts3);
   const firstAlert = filteredAlerts2[0];
   console.log("Alon - firstAlert: ", firstAlert);
   console.log("Alon - firstAlert labels: ", firstAlert.labels);
