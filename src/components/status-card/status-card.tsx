@@ -30,6 +30,7 @@ import {
   filterIBMFlashSystemAlerts,
   filterIBMFlashSystemAlerts2,
   filterIBMFlashSystemAlerts3,
+  filterIBMFlashSystemAlerts4,
   alertURL,
   PrometheusRulesResponse,
   getAlertsAndRules,
@@ -49,15 +50,13 @@ const IBMFlashSystemAlerts: React.FC = () => {
   const filteredAlerts = filterIBMFlashSystemAlerts(alerts);
   const filteredAlerts2 = filterIBMFlashSystemAlerts2(alerts);
   const filteredAlerts3 = filterIBMFlashSystemAlerts3(alerts);
+  const filteredAlerts4 = filterIBMFlashSystemAlerts4(alerts);
   console.log("Alon HERE: StatusCard.name.toLowerCase().trim():  " + StatusCard.name.toLowerCase().trim());
   console.log("Alon HERE: StatusCard.name:  " + StatusCard.name);
   console.log("Alon - filteredAlerts: ", filteredAlerts);
   console.log("Alon - filteredAlerts2: ", filteredAlerts2);
   console.log("Alon - filteredAlerts3: ", filteredAlerts3);
-  const firstAlert = filteredAlerts2[0];
-  console.log("Alon - firstAlert: ", firstAlert);
-  console.log("Alon - firstAlert labels: ", firstAlert.labels);
-  console.log("Alon - firstAlert labels.managedBy: ", firstAlert.labels.managedBy);
+  console.log("Alon - filteredAlerts4: ", filteredAlerts4);
   return (
     <AlertsBody error={alertsError}>
       {!alertsLoaded &&
@@ -77,7 +76,9 @@ export const StatusCard: React.FC<any> = (props) => {
   );
 
   const fscData =  data?.find(fsc => fsc.metadata.name == name);
-
+  console.log("Alon2 HERE: name in statuscard func:  " + name);
+  console.log("Alon2 HERE: fscData.metadata.name:  " + fscData.metadata.name);
+  console.log("Alon2 HERE: fscData.metadata.clusterName:  " + fscData.metadata.clusterName);
   const flashHealthState = getFlashsystemHealthState({
     sto: { data: fscData, loaded: loaded, loadError: loadError },
   });

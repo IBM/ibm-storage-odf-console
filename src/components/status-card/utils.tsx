@@ -119,6 +119,13 @@ export const filterIBMFlashSystemAlerts3 = (alerts: Alert[]): Alert[] =>
         }
     );
 
+export const filterIBMFlashSystemAlerts4 = (alerts: Alert[]): Alert[] =>
+    alerts.filter( alert =>  {
+      return _.get(alert, "annotations.storage_type")?.toLowerCase().trim() === IBM_FLASHSYSTEM.toLowerCase().trim() &&
+              _.get(alert, "labels.managedBy")?.toLowerCase().trim() === StatusCard.displayName.toLowerCase().trim()
+        }
+    );
+
 export const getAlertsFromPrometheusResponse = (
   response: PrometheusRulesResponse
 ) => {
