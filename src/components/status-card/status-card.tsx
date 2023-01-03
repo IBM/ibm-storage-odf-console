@@ -48,8 +48,9 @@ const IBMFlashSystemAlerts: React.FC = () => {
   const filteredAlerts = filterIBMFlashSystemAlerts(alerts);
   const filteredAlerts2 = filterIBMFlashSystemAlerts2(alerts);
   console.log("Alon - filteredAlerts: ", filteredAlerts);
-  console.log("Alon - filteredAlerts from second updated filter func 2: ", filteredAlerts2);
+  console.log("Alon - filteredAlerts2: ", filteredAlerts2);
   const firstAlert = filteredAlerts2[0];
+  console.log("Alon - firstAlert: ", firstAlert);
   console.log("Alon - firstAlert labels: ", firstAlert.labels);
   console.log("Alon - firstAlert labels.managedBy: ", firstAlert.labels.managedBy);
   return (

@@ -113,9 +113,6 @@ export const filterIBMFlashSystemAlerts2 = (alerts: Alert[]): Alert[] =>
     );
 console.log("ALON HERE: StatusCard.name.toLowerCase().trim():  " + StatusCard.name.toLowerCase().trim());
 console.log("ALON HERE: StatusCard.name:  " + StatusCard.name);
-console.log("ALON HERE: first get:  = " + _.get(alert, "labels.managedBy")?.toLowerCase().trim());
-console.log("ALON HERE: alert.labels.managedBy:  " + _.get(alert, "labels.managedBy"));
-console.log("ALON HERE: alert labels:  " + _.get(alert, "labels"));
 
 export const getAlertsFromPrometheusResponse = (
   response: PrometheusRulesResponse
