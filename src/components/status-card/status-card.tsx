@@ -49,7 +49,7 @@ const IBMFlashSystemAlerts: React.FC = () => {
   // const filteredAlerts = filterIBMFlashSystemAlerts(alertArray);
   const filteredAlerts = alerts.filter((alert) => {
     return _.get(alert, "annotations.storage_type")?.toLowerCase() === IBM_FLASHSYSTEM &&
-           _.get(alert, "labels.managedBy")?.toLowerCase() === String.name.toLowerCase()
+           _.get(alert, "labels.managedBy")?.toLowerCase() === StatusCard.name.toLowerCase();
   })
   return (
     <AlertsBody error={alertsError}>
