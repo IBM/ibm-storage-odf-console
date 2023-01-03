@@ -36,6 +36,7 @@ import { StorageInstanceKind } from "../../types";
 import { GetFlashSystemResource } from "../../constants/resources";
 import { parseProps } from "../../selectors/index";
 import {IBM_FLASHSYSTEM} from "../../constants/constants";
+import * as _ from "lodash";
 
 const IBMFlashSystemAlerts: React.FC = () => {
   const [rules, alertsError, alertsLoaded] = useCustomPrometheusPoll({
@@ -45,11 +46,10 @@ const IBMFlashSystemAlerts: React.FC = () => {
 
   const myRules = rules as unknown as PrometheusRulesResponse;
   const { alerts } = getAlertsAndRules(myRules?.["data"]);
-  const alertArray = JSON.parse(JSON.stringify(alerts));
   // const filteredAlerts = filterIBMFlashSystemAlerts(alertArray);
-  const filteredAlerts = alertArray.filter((alert) => {
-    return alert.annotations?.storage_type.toLowerCase() === IBM_FLASHSYSTEM.toLowerCase() &&
-        alert.labels?.managedBy.toLowerCase() === String.name.toLowerCase();
+  const filteredAlerts = alerts.filter((alert) => {
+    return _.get(alert, "annotations.storage_type")?.toLowerCase() === IBM_FLASHSYSTEM &&
+           _.get(alert, "labels.managedBy")?.toLowerCase() === String.name.toLowerCase()
   })
   return (
     <AlertsBody error={alertsError}>
