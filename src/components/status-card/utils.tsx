@@ -22,6 +22,7 @@ import {
   Rule,
 } from "@openshift-console/dynamic-plugin-sdk-internal/lib/api/common-types";
 import { StorageInstanceKind } from "../../types";
+import StatusCard from "./status-card";
 import { IBM_FLASHSYSTEM } from "../../constants/constants";
 
 enum HealthState {
@@ -101,7 +102,15 @@ export const alertURL = (alert: Alert, ruleID: string) =>
 export const filterIBMFlashSystemAlerts = (alerts: Alert[]): Alert[] =>
   alerts.filter(
     (alert) =>
-        _.get(alert, "annotations.storage_type")?.toLowerCase() === IBM_FLASHSYSTEM.toLowerCase());
+        _.get(alert, "annotations.storage_type")?.toLowerCase().trim() === IBM_FLASHSYSTEM.toLowerCase().trim() &&
+        _.get(alert, "labels.managedBy")?.toLowerCase().trim() === StatusCard.name.toLowerCase().trim()
+  );
+
+export const filterIBMFlashSystemAlerts2 = (alerts: Alert[]): Alert[] =>
+    alerts.filter(
+        (alert) =>
+            _.get(alert, "annotations.storage_type")?.toLowerCase().trim() === IBM_FLASHSYSTEM.toLowerCase().trim()
+    );
 
 export const getAlertsFromPrometheusResponse = (
   response: PrometheusRulesResponse

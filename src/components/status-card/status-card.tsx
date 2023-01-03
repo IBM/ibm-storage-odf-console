@@ -28,6 +28,7 @@ import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import {
   getFlashsystemHealthState,
   filterIBMFlashSystemAlerts,
+  filterIBMFlashSystemAlerts2,
   alertURL,
   PrometheusRulesResponse,
   getAlertsAndRules,
@@ -41,10 +42,13 @@ const IBMFlashSystemAlerts: React.FC = () => {
     query: "",
     endpoint: "api/v1/rules" as any,
   });
-
   const myRules = rules as unknown as PrometheusRulesResponse;
   const { alerts } = getAlertsAndRules(myRules?.["data"]);
+  console.log("Alon - IBMFlashSystemAlerts", alerts);
   const filteredAlerts = filterIBMFlashSystemAlerts(alerts);
+  const filteredAlerts2 = filterIBMFlashSystemAlerts2(alerts);
+  console.log("Alon - filteredAlerts: ", filteredAlerts);
+  console.log("Alon - filteredAlerts from second filter func 2: ", filteredAlerts2);
   return (
     <AlertsBody error={alertsError}>
       {!alertsLoaded &&
@@ -72,7 +76,7 @@ export const StatusCard: React.FC<any> = (props) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t(name.toLowerCase())}</CardTitle>
+        <CardTitle>{t("Status")}</CardTitle>
       </CardHeader>
       <CardBody>
         <Gallery className="co-overview-status__health" hasGutter>
