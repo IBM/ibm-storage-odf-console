@@ -109,8 +109,13 @@ export const filterIBMFlashSystemAlerts = (alerts: Alert[]): Alert[] =>
 export const filterIBMFlashSystemAlerts2 = (alerts: Alert[]): Alert[] =>
     alerts.filter(
         (alert) =>
-            _.get(alert, "labels.managedBy")?.toLowerCase().trim() === StatusCard.name.toLowerCase().trim()
+            _.get(alert, "annotations.storage_type")?.toLowerCase().trim() === IBM_FLASHSYSTEM.toLowerCase().trim()
     );
+console.log("ALON HERE: StatusCard.name.toLowerCase().trim():  " + StatusCard.name.toLowerCase().trim());
+console.log("ALON HERE: StatusCard.name:  " + StatusCard.name);
+console.log("ALON HERE: first get:  = " + _.get(alert, "labels.managedBy")?.toLowerCase().trim());
+console.log("ALON HERE: alert.labels.managedBy:  " + _.get(alert, "labels.managedBy"));
+console.log("ALON HERE: alert labels:  " + _.get(alert, "labels"));
 
 export const getAlertsFromPrometheusResponse = (
   response: PrometheusRulesResponse
