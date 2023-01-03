@@ -47,10 +47,10 @@ const IBMFlashSystemAlerts: React.FC = () => {
   const { alerts } = getAlertsAndRules(myRules?.["data"]);
   const alertArray = JSON.parse(JSON.stringify(alerts));
   // const filteredAlerts = filterIBMFlashSystemAlerts(alertArray);
-    const filteredAlerts = alertArray.filter((alert) => {
-      return alert.annotations?.storage_type.toLowerCase() === IBM_FLASHSYSTEM.toLowerCase() &&
-          alert.labels?.managedBy.toLowerCase() === String.name.toLowerCase();
-    })
+  const filteredAlerts = alertArray.filter((alert) => {
+    return alert.annotations?.storage_type.toLowerCase() === IBM_FLASHSYSTEM.toLowerCase() &&
+        alert.labels?.managedBy.toLowerCase() === String.name.toLowerCase();
+  })
   return (
     <AlertsBody error={alertsError}>
       {!alertsLoaded &&
