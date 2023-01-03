@@ -38,7 +38,7 @@ import { StorageInstanceKind } from "../../types";
 import { GetFlashSystemResource } from "../../constants/resources";
 import { parseProps } from "../../selectors/index";
 
-const IBMFlashSystemAlerts: React.FC = () => {
+const IBMFlashSystemAlerts: React.FC<{fscName: string}> = ({fscName}) => {
   const [rules, alertsError, alertsLoaded] = useCustomPrometheusPoll({
     query: "",
     endpoint: "api/v1/rules" as any,
@@ -46,11 +46,11 @@ const IBMFlashSystemAlerts: React.FC = () => {
   const myRules = rules as unknown as PrometheusRulesResponse;
   const { alerts } = getAlertsAndRules(myRules?.["data"]);
   console.log("Alon - IBMFlashSystemAlerts", alerts);
+  console.log("Alon HERE: StatusCard.name:  " + StatusCard.name);
+  console.log("Alon HERE: fscName after input parameter:  " + fscName);
   const filteredAlerts = filterIBMFlashSystemAlerts(alerts);
   const filteredAlerts2 = filterIBMFlashSystemAlerts2(alerts);
-  const filteredAlerts3 = filterIBMFlashSystemAlerts3(alerts);
-  console.log("Alon HERE: StatusCard.name.toLowerCase().trim():  " + StatusCard.name.toLowerCase().trim());
-  console.log("Alon HERE: StatusCard.name:  " + StatusCard.name);
+  const filteredAlerts3 = filterIBMFlashSystemAlerts3(alerts, fscName);
   console.log("Alon - filteredAlerts: ", filteredAlerts);
   console.log("Alon - filteredAlerts2: ", filteredAlerts2);
   console.log("Alon - filteredAlerts3: ", filteredAlerts3);
@@ -93,7 +93,7 @@ export const StatusCard: React.FC<any> = (props) => {
             />
           </GalleryItem>
         </Gallery>
-        <IBMFlashSystemAlerts />
+        <IBMFlashSystemAlerts fscName={name}/>
       </CardBody>
     </Card>
   );
