@@ -77,8 +77,6 @@ export const StatusCard: React.FC<any> = (props) => {
 
   const fscData =  data?.find(fsc => fsc.metadata.name == name);
   console.log("Alon2 HERE: name in statuscard func:  " + name);
-  console.log("Alon2 HERE: fscData.metadata.name:  " + fscData.metadata.name);
-  console.log("Alon2 HERE: fscData.metadata.clusterName:  " + fscData.metadata.clusterName);
   const flashHealthState = getFlashsystemHealthState({
     sto: { data: fscData, loaded: loaded, loadError: loadError },
   });
