@@ -48,7 +48,7 @@ const IBMFlashSystemAlerts: React.FC = () => {
   const filteredAlerts = filterIBMFlashSystemAlerts(alerts);
   const filteredAlerts2 = filterIBMFlashSystemAlerts2(alerts);
   console.log("Alon - filteredAlerts: ", filteredAlerts);
-  console.log("Alon - filteredAlerts from second filter func 2: ", filteredAlerts2);
+  console.log("Alon - filteredAlerts from second updated filter func 2: ", filteredAlerts2);
   return (
     <AlertsBody error={alertsError}>
       {!alertsLoaded &&
