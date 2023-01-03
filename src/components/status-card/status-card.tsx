@@ -72,7 +72,7 @@ export const StatusCard: React.FC<any> = (props) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t("Status")}</CardTitle>
+        <CardTitle>{t("Latest: Status")}</CardTitle>
       </CardHeader>
       <CardBody>
         <Gallery className="co-overview-status__health" hasGutter>
