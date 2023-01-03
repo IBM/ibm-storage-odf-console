@@ -111,8 +111,6 @@ export const filterIBMFlashSystemAlerts2 = (alerts: Alert[]): Alert[] =>
         (alert) =>
             _.get(alert, "annotations.storage_type")?.toLowerCase().trim() === IBM_FLASHSYSTEM.toLowerCase().trim()
     );
-console.log("ALON HERE: StatusCard.name.toLowerCase().trim():  " + StatusCard.name.toLowerCase().trim());
-console.log("ALON HERE: StatusCard.name:  " + StatusCard.name);
 
 export const getAlertsFromPrometheusResponse = (
   response: PrometheusRulesResponse
