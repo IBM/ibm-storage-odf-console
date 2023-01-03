@@ -102,8 +102,8 @@ export const alertURL = (alert: Alert, ruleID: string) =>
 export const filterIBMFlashSystemAlerts = (alerts: Alert[]): Alert[] =>
   alerts.filter(
     (alert) =>
-        _.get(alert, "annotations.storage_type")?.toLowerCase() === IBM_FLASHSYSTEM.toLowerCase() &&
-        _.get(alert, "labels.managedBy")?.toLowerCase() === StatusCard.name.toLowerCase()
+        alert.annotations?.storage_type.toLowerCase() === IBM_FLASHSYSTEM.toLowerCase() &&
+        alert.labels?.managedBy.toLowerCase() === StatusCard.name.toLowerCase()
   );
 
 export const getAlertsFromPrometheusResponse = (
