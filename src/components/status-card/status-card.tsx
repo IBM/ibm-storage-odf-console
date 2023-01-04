@@ -27,7 +27,6 @@ import {
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import {
   getFlashsystemHealthState,
-  filterIBMFlashSystemAlerts,
   alertURL,
   PrometheusRulesResponse,
   getAlertsAndRules,
@@ -35,8 +34,10 @@ import {
 import { StorageInstanceKind } from "../../types";
 import { GetFlashSystemResource } from "../../constants/resources";
 import { parseProps } from "../../selectors/index";
+import * as _ from "lodash";
+import {IBM_FLASHSYSTEM} from "../../constants/constants";
 
-const IBMFlashSystemAlerts: React.FC = () => {
+const IBMFlashSystemAlerts: React.FC<{fscName: string}> = ({fscName}) => {
   const [rules, alertsError, alertsLoaded] = useCustomPrometheusPoll({
     query: "",
     endpoint: "api/v1/rules" as any,
@@ -44,7 +45,10 @@ const IBMFlashSystemAlerts: React.FC = () => {
 
   const myRules = rules as unknown as PrometheusRulesResponse;
   const { alerts } = getAlertsAndRules(myRules?.["data"]);
-  const filteredAlerts = filterIBMFlashSystemAlerts(alerts);
+  const filteredAlerts = _.filter(alerts, (alert) => {
+    return _.get(alert, "labels.managedBy")?.toLowerCase() === fscName.toLowerCase() &&
+        _.get(alert, "annotations.storage_type")?.toLowerCase() === IBM_FLASHSYSTEM.toLowerCase();
+  });
   return (
     <AlertsBody error={alertsError}>
       {!alertsLoaded &&
@@ -84,7 +88,7 @@ export const StatusCard: React.FC<any> = (props) => {
             />
           </GalleryItem>
         </Gallery>
-        <IBMFlashSystemAlerts />
+        <IBMFlashSystemAlerts fscName={name}/>
       </CardBody>
     </Card>
   );
