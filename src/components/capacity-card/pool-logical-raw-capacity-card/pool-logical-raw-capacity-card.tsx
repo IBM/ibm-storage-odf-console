@@ -51,6 +51,8 @@ export const PoolLogicalRawCapacityCard: React.FC<PoolRawCapacityCardProps> = (p
 
     const loadError = totalCapacityLoadError || usedCapacityLoadError || availableCapacityLoadError
     const loading = totalCapacityLoading || usedCapacityLoading || availableCapacityLoading
+    const internalStorageCount = 1
+
 
     const title = t('Logical Capacity Overview')
     const capacityProps: RawCapacityCardProps = {
@@ -60,6 +62,7 @@ export const PoolLogicalRawCapacityCard: React.FC<PoolRawCapacityCardProps> = (p
         loading,
         loadError,
         title,
+        internalStorageCount,
     };
 
     return <RawCapacityCard {...capacityProps}/>

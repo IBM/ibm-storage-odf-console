@@ -162,7 +162,7 @@ export const FlASHSYSTEM_QUERIES = (
       return `sum(flashsystem_pool_savings_bytes{subsystem_name='${label}'})`;
     }
     case StorageDashboardQuery.SystemIsInternalStorage: {
-      return `flashsystem_subsystem_metadata{subsystem_name='${label}', is_internal_storage='1'}`;
+      return `count(flashsystem_subsystem_metadata{subsystem_name='${label}', is_internal_storage='1'})`;
     }
   }
 };
