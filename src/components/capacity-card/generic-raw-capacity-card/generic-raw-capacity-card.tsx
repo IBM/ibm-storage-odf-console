@@ -67,12 +67,6 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
         { x: "Available", y: availableCapacity.value, string: availableCapacityOriginal.string},
     ];
 
-
-    if ( internalStorageCount > 0 ) {
-        showExternalStorageWarning = false
-    }
-    const warningMessage:string = showExternalStorageWarning? t("* " + 'Statistics might have discrepancy with FS UI'): t('Not available')
-
     if ( totalCapacity.value == null || availableCapacity.value == null || usedCapacity.value == null ){
         invalidValue = true
     }
@@ -80,8 +74,12 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
     const invalidStats = totalCapacity.value == INVALID_PROMETHEUS_CHILD_STATS ||
         usedCapacity.value == INVALID_PROMETHEUS_CHILD_STATS || availableCapacity.value == INVALID_PROMETHEUS_CHILD_STATS
     loadError = loadError || invalidStats || invalidValue
-
     const errorMessage:string = invalidStats? t('Physical capacity overview is unsupported for child pools.'): t('Not available')
+
+    if ( internalStorageCount > 0  || invalidStats) {
+        showExternalStorageWarning = false
+    }
+    const warningMessage:string = showExternalStorageWarning? t("* " + 'Statistics might have discrepancy with FS UI'): t('Not available')
 
     return (
         <Card>
