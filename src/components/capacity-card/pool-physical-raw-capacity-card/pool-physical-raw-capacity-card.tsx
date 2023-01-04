@@ -16,7 +16,7 @@
 import * as React from "react";
 import { useCustomPrometheusPoll } from "../../custom-prometheus-poll/custom-prometheus-poll"
 import { useTranslation } from "react-i18next";
-import {FlASHSYSTEM_POOL_QUERIES, FlASHSYSTEM_QUERIES, StorageDashboardQuery} from "../../../constants/queries";
+import {FlASHSYSTEM_POOL_QUERIES, StorageDashboardQuery} from "../../../constants/queries";
 import { RawCapacityCard, RawCapacityCardProps } from "../generic-raw-capacity-card/generic-raw-capacity-card";
 import "../generic-raw-capacity-card/generic-raw-capacity-card.scss";
 import * as _ from "lodash";
