@@ -51,7 +51,7 @@ export const PoolLogicalRawCapacityCard: React.FC<PoolRawCapacityCardProps> = (p
 
     const loadError = totalCapacityLoadError || usedCapacityLoadError || availableCapacityLoadError
     const loading = totalCapacityLoading || usedCapacityLoading || availableCapacityLoading
-    const internalStorageCount = 1 //logical pool capacity doesn't take into account internal storage, therefore it's true by default
+    const internalStorageCount = 1 //logical pool capacity doesn't consider reclaimable capacity, therefore internal storage is irrelevant
 
 
     const title = t('Logical Capacity Overview')
