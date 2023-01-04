@@ -23,6 +23,8 @@ import { ChartDonut, ChartLabel } from "@patternfly/react-charts";
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import "./generic-raw-capacity-card.scss";
 import { INVALID_PROMETHEUS_CHILD_STATS } from "../../../constants/constants";
+import {FlASHSYSTEM_QUERIES, StorageDashboardQuery} from "../../../constants/queries";
+import {useCustomPrometheusPoll} from "../../custom-prometheus-poll/custom-prometheus-poll";
 
 const colorScale = ["#0166cc", "#d6d6d6"];
 
@@ -43,6 +45,7 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
     const { totalCapacityMetric, availableCapacityMetric, usedCapacityMetric, loading, title } = props
     let { loadError } =  props;
     let invalidValue = false;
+    let showExternalStorageWarning = true;
 
     const [totalCapacity] = parseMetricData(
         totalCapacityMetric,
@@ -65,6 +68,23 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
         { x: "Used", y: usedCapacity.value, string: usedCapacityOriginal.string },
         { x: "Available", y: availableCapacity.value, string: availableCapacityOriginal.string},
     ];
+
+
+    const [internalStorage, internalStorageLoadError, internalStorageLoading ] = useCustomPrometheusPoll({
+        query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemIsInternalStorage),
+        endpoint: "api/v1/query" as any,
+        samples: 60,
+    });
+    console.log("vered internalStorage is "+ internalStorage + ", internalStorageLoadError is " + internalStorageLoadError + ", internalStorageLoading is " + internalStorageLoading)
+
+
+    // const internalStorage = _.get(internalStorageCount, "data.result[0].value[1]");
+    if ( internalStorage.data[0].value == 0 ) {
+        console.log("vered turning value to true")
+        showExternalStorageWarning = false
+    }
+    const warningMessage:string = showExternalStorageWarning? t("*" + 'Statistics might have discrepancy with FS UI'): t('Not available')
+    //console.log("vered internalStorage is %v, showExternalStorageWarning is %v",  internalStorage, showExternalStorageWarning)
 
     if ( totalCapacity.value == null || availableCapacity.value == null || usedCapacity.value == null ){
         invalidValue = true
@@ -129,6 +149,7 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
                 {loading && !loadError && <LoadingCardBody />}
                 {loadError && <ErrorCardBody errorMessage={errorMessage}/>}
             </CardBody>
+            {showExternalStorageWarning && <ErrorCardBody errorMessage={warningMessage}/>}
         </Card>
     );
 };
