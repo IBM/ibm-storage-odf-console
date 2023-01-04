@@ -82,7 +82,7 @@ export const FlASHSYSTEM_POOL_QUERIES = (
       return `flashsystem_pool_logical_capacity_bytes{subsystem_name='${label}', pool_name='${pool_name}'}`;
     }
     case StorageDashboardQuery.PoolIsInternalStorage: {
-      return `flashsystem_pool_metadata{subsystem_name='${label}', pool_name='${pool_name}', is_internal_storage='1'}`;
+      return `count(flashsystem_pool_metadata{subsystem_name='${label}', pool_name='${pool_name}', is_internal_storage='1'})`;
     }
   }
 };
