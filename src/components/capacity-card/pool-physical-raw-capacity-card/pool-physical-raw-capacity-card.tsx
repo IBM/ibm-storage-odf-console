@@ -16,9 +16,10 @@
 import * as React from "react";
 import { useCustomPrometheusPoll } from "../../custom-prometheus-poll/custom-prometheus-poll"
 import { useTranslation } from "react-i18next";
-import {FlASHSYSTEM_POOL_QUERIES, StorageDashboardQuery} from "../../../constants/queries";
+import {FlASHSYSTEM_POOL_QUERIES, FlASHSYSTEM_QUERIES, StorageDashboardQuery} from "../../../constants/queries";
 import { RawCapacityCard, RawCapacityCardProps } from "../generic-raw-capacity-card/generic-raw-capacity-card";
 import "../generic-raw-capacity-card/generic-raw-capacity-card.scss";
+import * as _ from "lodash";
 
 
 
@@ -53,14 +54,12 @@ export const PoolPhysicalRawCapacityCard: React.FC<PoolRawCapacityCardProps> = (
     const loadError = totalCapacityLoadError || usedCapacityLoadError || availableCapacityLoadError
     const loading = totalCapacityLoading || usedCapacityLoading || availableCapacityLoading
 
-    // const [internalStorage, internalStorageLoadError, internalStorageLoading ] = useCustomPrometheusPoll({
-    //     query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemIsInternalStorage),
-    //     endpoint: "api/v1/query" as any,
-    //     samples: 60,
-    // });
-    // const internalStorageCount = _.get(internalStorage, "data.result[0].value[1]");
-    // console.log("vered internalStorage is "+ internalStorage + " internalStorageCount is " + internalStorageCount + " , internalStorageLoadError is " + internalStorageLoadError + ", internalStorageLoading is " + internalStorageLoading)
-    const internalStorageCount = 0
+    const [internalStorage, , ] = useCustomPrometheusPoll({
+        query: FlASHSYSTEM_POOL_QUERIES(name, pool_name, StorageDashboardQuery.PoolIsInternalStorage),
+        endpoint: "api/v1/query" as any,
+        samples: 60,
+    });
+    const internalStorageCount = _.get(internalStorage, "data.result[0].value[1]");
 
     const title = t('Physical Capacity Overview')
     const capacityProps: RawCapacityCardProps = {

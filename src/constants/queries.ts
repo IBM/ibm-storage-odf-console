@@ -33,6 +33,8 @@ export enum StorageDashboardQuery {
   PoolPhysicalTotalCapacity = "PoolPhysicalTotalCapacity",
   PoolPhysicalFreeCapacity = "PoolPhysicalFreeCapacity",
   PoolPhysicalUsedCapacity = "PoolPhysicalUsedCapacity",
+  PoolIsInternalStorage = "PoolIsInternalStorage",
+
 
   PoolLogicalTotalCapacity = "PoolLogicalTotalCapacity",
   PoolLogicalFreeCapacity = "PoolLogicalFreeCapacity",
@@ -78,6 +80,9 @@ export const FlASHSYSTEM_POOL_QUERIES = (
     }
     case StorageDashboardQuery.PoolLogicalTotalCapacity: {
       return `flashsystem_pool_logical_capacity_bytes{subsystem_name='${label}', pool_name='${pool_name}'}`;
+    }
+    case StorageDashboardQuery.PoolIsInternalStorage: {
+      return `flashsystem_pool_metadata{subsystem_name='${label}', pool_name='${pool_name}', is_internal_storage='1'}`;
     }
   }
 };

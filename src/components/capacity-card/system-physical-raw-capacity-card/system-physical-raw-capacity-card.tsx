@@ -50,13 +50,12 @@ const SystemPhysicalRawCapacityCard: React.FC<any> = (props) => {
     const loadError = totalCapacityLoadError || usedCapacityLoadError || availableCapacityLoadError
     const loading = totalCapacityLoading || usedCapacityLoading || availableCapacityLoading
 
-    const [internalStorage, internalStorageLoadError, internalStorageLoading ] = useCustomPrometheusPoll({
+    const [internalStorage, , ] = useCustomPrometheusPoll({
         query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemIsInternalStorage),
         endpoint: "api/v1/query" as any,
         samples: 60,
     });
     const internalStorageCount = _.get(internalStorage, "data.result[0].value[1]");
-    console.log("vered internalStorage is "+ internalStorage + " internalStorageCount is " + internalStorageCount + " , internalStorageLoadError is " + internalStorageLoadError + ", internalStorageLoading is " + internalStorageLoading)
 
     const capacityProps: RawCapacityCardProps = {
         totalCapacityMetric,

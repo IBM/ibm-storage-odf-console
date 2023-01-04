@@ -69,7 +69,6 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
 
 
     if ( internalStorageCount > 0 ) {
-        console.log("vered turning value to true")
         showExternalStorageWarning = false
     }
     const warningMessage:string = showExternalStorageWarning? t("* " + 'Statistics might have discrepancy with FS UI'): t('Not available')
