@@ -79,7 +79,7 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
     if ( internalStorageCount > 0  || invalidStats) {
         showExternalStorageWarning = false
     }
-    const warningMessage:string = showExternalStorageWarning? t("* " + 'Statistics might have discrepancy with FS UI'): t('Not available')
+    const warningMessage:string = showExternalStorageWarning? t("* " + 'Statistics might have discrepancy with FS UI'): ('')
 
     return (
         <Card>
