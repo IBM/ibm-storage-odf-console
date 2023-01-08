@@ -33,6 +33,8 @@ export enum StorageDashboardQuery {
   PoolPhysicalTotalCapacity = "PoolPhysicalTotalCapacity",
   PoolPhysicalFreeCapacity = "PoolPhysicalFreeCapacity",
   PoolPhysicalUsedCapacity = "PoolPhysicalUsedCapacity",
+  PoolIsInternalStorage = "PoolIsInternalStorage",
+
 
   PoolLogicalTotalCapacity = "PoolLogicalTotalCapacity",
   PoolLogicalFreeCapacity = "PoolLogicalFreeCapacity",
@@ -43,6 +45,7 @@ export enum StorageDashboardQuery {
   SystemPhysicalUsedCapacity = "SystemPhysicalUsedCapacity",
 
   SystemTotalEfficiencySaving = "SystemTotalEfficiencySaving",
+  SystemIsInternalStorage = "SystemIsInternalStorage",
 
   TotalReadIOPS = "TotalReadIOPS",
   TotalWriteIOPS = "TotalWriteIOPS",
@@ -77,6 +80,9 @@ export const FlASHSYSTEM_POOL_QUERIES = (
     }
     case StorageDashboardQuery.PoolLogicalTotalCapacity: {
       return `flashsystem_pool_logical_capacity_bytes{subsystem_name='${label}', pool_name='${pool_name}'}`;
+    }
+    case StorageDashboardQuery.PoolIsInternalStorage: {
+      return `count(flashsystem_pool_metadata{subsystem_name='${label}', pool_name='${pool_name}', is_internal_storage='1'})`;
     }
   }
 };
@@ -159,6 +165,9 @@ export const FlASHSYSTEM_QUERIES = (
     }
     case StorageDashboardQuery.SystemTotalEfficiencySaving: {
       return `sum(flashsystem_pool_savings_bytes{subsystem_name='${label}'})`;
+    }
+    case StorageDashboardQuery.SystemIsInternalStorage: {
+      return `count(flashsystem_subsystem_metadata{subsystem_name='${label}', is_internal_storage='1'})`;
     }
   }
 };
