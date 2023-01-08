@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 import { FlASHSYSTEM_POOL_QUERIES, StorageDashboardQuery } from "../../../constants/queries";
 import { RawCapacityCard, RawCapacityCardProps } from "../generic-raw-capacity-card/generic-raw-capacity-card";
 import "../generic-raw-capacity-card/generic-raw-capacity-card.scss";
+import * as _ from "lodash";
 
 
 export declare type PoolRawCapacityCardProps = {
@@ -51,8 +52,13 @@ export const PoolLogicalRawCapacityCard: React.FC<PoolRawCapacityCardProps> = (p
 
     const loadError = totalCapacityLoadError || usedCapacityLoadError || availableCapacityLoadError
     const loading = totalCapacityLoading || usedCapacityLoading || availableCapacityLoading
-    const internalStorageCount = 1 //logical pool capacity doesn't consider reclaimable capacity, therefore internal storage is irrelevant
 
+    const [internalStorage, , ] = useCustomPrometheusPoll({
+        query: FlASHSYSTEM_POOL_QUERIES(name, pool_name, StorageDashboardQuery.PoolIsInternalStorage),
+        endpoint: "api/v1/query" as any,
+        samples: 60,
+    });
+    const internalStorageCount = _.get(internalStorage, "data.result[0].value[1]");
 
     const title = t('Logical Capacity Overview')
     const capacityProps: RawCapacityCardProps = {
