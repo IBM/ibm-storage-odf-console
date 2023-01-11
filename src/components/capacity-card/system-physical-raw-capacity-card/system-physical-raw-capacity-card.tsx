@@ -20,7 +20,6 @@ import { parseProps } from "../../../selectors";
 import { RawCapacityCard, RawCapacityCardProps } from "../generic-raw-capacity-card/generic-raw-capacity-card";
 import { FlASHSYSTEM_QUERIES, StorageDashboardQuery } from "../../../constants/queries";
 import "../generic-raw-capacity-card/generic-raw-capacity-card.scss";
-import * as _ from "lodash";
 
 
 const SystemPhysicalRawCapacityCard: React.FC<any> = (props) => {
@@ -50,13 +49,6 @@ const SystemPhysicalRawCapacityCard: React.FC<any> = (props) => {
     const loadError = totalCapacityLoadError || usedCapacityLoadError || availableCapacityLoadError
     const loading = totalCapacityLoading || usedCapacityLoading || availableCapacityLoading
 
-    const [internalStorage, , ] = useCustomPrometheusPoll({
-        query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemIsInternalStorage),
-        endpoint: "api/v1/query" as any,
-        samples: 60,
-    });
-    const internalStorageCount = _.get(internalStorage, "data.result[0].value[1]");
-
     const capacityProps: RawCapacityCardProps = {
         totalCapacityMetric,
         usedCapacityMetric,
@@ -64,7 +56,6 @@ const SystemPhysicalRawCapacityCard: React.FC<any> = (props) => {
         loading,
         loadError,
         title,
-        internalStorageCount,
     };
 
     return <RawCapacityCard {...capacityProps}/>
