@@ -23,6 +23,7 @@ import { ChartDonut, ChartLabel } from "@patternfly/react-charts";
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import "./generic-raw-capacity-card.scss";
 import { INVALID_PROMETHEUS_CHILD_STATS } from "../../../constants/constants";
+
 const colorScale = ["#0166cc", "#d6d6d6"];
 
 
@@ -33,17 +34,15 @@ export type RawCapacityCardProps = {
     loading: boolean;
     loadError: boolean;
     title: string;
-    internalStorageCount: number;
 };
 
 
 export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
     const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
 
-    const { totalCapacityMetric, availableCapacityMetric, usedCapacityMetric, loading, title, internalStorageCount } = props
+    const { totalCapacityMetric, availableCapacityMetric, usedCapacityMetric, loading, title } = props
     let { loadError } =  props;
     let invalidValue = false;
-    let showExternalStorageWarning = true;
 
     const [totalCapacity] = parseMetricData(
         totalCapacityMetric,
@@ -74,12 +73,8 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
     const invalidStats = totalCapacity.value == INVALID_PROMETHEUS_CHILD_STATS ||
         usedCapacity.value == INVALID_PROMETHEUS_CHILD_STATS || availableCapacity.value == INVALID_PROMETHEUS_CHILD_STATS
     loadError = loadError || invalidStats || invalidValue
-    const errorMessage:string = invalidStats? t('Physical capacity overview is unsupported for child pools.'): t('Not available')
 
-    if ( internalStorageCount > 0  || invalidStats) {
-        showExternalStorageWarning = false
-    }
-    const warningMessage:string = showExternalStorageWarning? t("* " + 'Statistics might have discrepancy with FS UI'): ('')
+    const errorMessage:string = invalidStats? t('Physical capacity overview is unsupported for child pools.'): t('Not available')
 
     return (
         <Card>
@@ -134,7 +129,6 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
                 {loading && !loadError && <LoadingCardBody />}
                 {loadError && <ErrorCardBody errorMessage={errorMessage}/>}
             </CardBody>
-            {showExternalStorageWarning && <ErrorCardBody errorMessage={warningMessage}/>}
         </Card>
     );
 };
