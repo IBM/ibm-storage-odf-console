@@ -20,13 +20,14 @@ jobs:
       run: |
         ./hack/check-copyright.sh
 
-    - name: login to Docker Hub
+    - name: login to Quay.io
       # Only if we need to push an image
       if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
       uses: docker/login-action@v1
       with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        registry: quay.io
+        username: ${{ secrets.QUAYIO_USERNAME }}
+        password: ${{ secrets.QUAYIO_TOKEN }}
 
     # Setup for buildx
     - name: set up QEMU
@@ -57,4 +58,4 @@ jobs:
         # Only push if we are publishing a release
         push: ${{ github.event_name == 'release' && github.event.action == 'published' }}
         # Use a 'dev' tag, that won't be pushed, for non-release builds
-        tags: docker.io/ibmcom/ibm-storage-odf-plugin:${{ steps.tag.outputs.version-without-v || 'dev' }}
+        tags: quay.io/ibmodffs/ibm-storage-odf-plugin:${{ steps.tag.outputs.version-without-v || 'dev' }}

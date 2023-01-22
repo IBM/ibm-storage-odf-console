@@ -1,5 +1,5 @@
-REGISTRY="docker.io"
-NAMESPACE="ibmcom"
+REGISTRY="quay.io"
+NAMESPACE="ibmodffs"
 CONSOLE_IMAGE_VERSION=1.3.0
 
 CONSOLE_NAME=ibm-storage-odf-plugin
