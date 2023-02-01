@@ -19,9 +19,10 @@ import { useTranslation } from "react-i18next";
 import { Base64 } from "js-base64";
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
 import {
-  DetailItem,
   DetailsBody,
 } from "@openshift-console/dynamic-plugin-sdk-internal";
+
+import { OverviewDetailItem as DetailItem} from "@openshift-console/plugin-shared";
 
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import { ExternalLink } from "./Link";
@@ -29,6 +30,7 @@ import { StorageInstanceKind, K8sKind, SecretKind } from "../../types";
 import {
   getEndpoint,
   getIBMStorageODFVersion,
+  parseProps,
   resourcePathFromModel,
 } from "../../selectors";
 import { ClusterServiceVersionModel } from "../../models";
@@ -40,17 +42,19 @@ import {
 
 const DetailsCard: React.FC<any> = (props) => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
-  const flashClusterResource = GetFlashSystemResource(props);
+  const { name } = parseProps(props);
+  const [data, , ] = useK8sWatchResource<StorageInstanceKind[]>(
+      GetFlashSystemResource(props)
+    );
 
-  const [data, flashsystemloaded, flashsystemloadError] =
-    useK8sWatchResource<StorageInstanceKind>(flashClusterResource);
+  const fscData =  data?.find(fsc => fsc.metadata.name == name);
+
   const [subscriptions, subscriptionloaded, subscriptionloadError] =
     useK8sWatchResource<K8sKind[]>(SubscriptionResource);
 
-  const stoData = data?.[0];
   const flashSecretResource = GetSecretResource(
-    stoData?.metadata?.name,
-    stoData?.metadata?.namespace
+      fscData?.metadata?.name,
+      fscData?.metadata?.namespace
   );
   const [secret, secretloaded, secretloadError] =
     useK8sWatchResource<SecretKind>(flashSecretResource);
@@ -60,21 +64,25 @@ const DetailsCard: React.FC<any> = (props) => {
       secretloaded && !secretloadError && secretData
         ? Base64.decode(secretData)
         : "unknown",
-    [data, secretloaded, secretloadError]
+    [fscData, secretloaded, secretloadError]
   );
 
-  const flashOperatorVersion =
-    flashsystemloaded && !flashsystemloadError
-      ? getIBMStorageODFVersion(subscriptions)
-      : "unknown";
+  const flashOperatorVersion = React.useMemo(
+      () =>
+          subscriptionloaded && !subscriptionloadError
+              ? getIBMStorageODFVersion(subscriptions)
+              : "unknown",
+      [fscData, subscriptionloaded, subscriptionloadError]
+  );
+
   const operatorPath =
-    subscriptionloaded && !subscriptionloadError
-      ? `${resourcePathFromModel(
-          ClusterServiceVersionModel,
-          flashOperatorVersion,
-          stoData?.metadata.namespace
-        )}`
-      : "unknown";
+      subscriptionloaded && !subscriptionloadError
+          ? `${resourcePathFromModel(
+              ClusterServiceVersionModel,
+              flashOperatorVersion,
+              fscData?.metadata.namespace
+          )}`
+          : "unknown";
 
   return (
     <Card>
@@ -86,7 +94,6 @@ const DetailsCard: React.FC<any> = (props) => {
           <DetailItem
             key="operator-name"
             title={t("Operator Name")}
-            error={false}
             isLoading={false}
           >
             <Router>
@@ -102,7 +109,6 @@ const DetailsCard: React.FC<any> = (props) => {
           <DetailItem
             key="provider"
             title={t("Provider")}
-            error={false}
             isLoading={false}
           >
             {
@@ -115,7 +121,6 @@ const DetailsCard: React.FC<any> = (props) => {
           <DetailItem
             key="mode"
             title={t("Mode")}
-            error={false}
             isLoading={false}
           >
             External
@@ -123,7 +128,6 @@ const DetailsCard: React.FC<any> = (props) => {
           <DetailItem
             key="storage-type"
             title={t("Storage Type")}
-            error={false}
             isLoading={false}
           >
             Block
@@ -131,7 +135,6 @@ const DetailsCard: React.FC<any> = (props) => {
           <DetailItem
             key="version"
             title={t("Version")}
-            error={false}
             isLoading={false}
           >
             {flashOperatorVersion}

@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import * as React from "react";
-import * as _ from "lodash";
 import { useTranslation } from "react-i18next";
 import {
   ActivityBody,
@@ -25,8 +24,13 @@ import {
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
 import { FirehoseResource } from "@openshift-console/dynamic-plugin-sdk";
-import { IBM_STORAGE_CSI_PROVISIONER } from "../../constants/index";
-import { EventModel, StorageInstanceModel } from "../../models";
+import {
+  IBM_STORAGE_ODF_CONSOLE_NAME,
+  IBM_STORAGE_ODF_PREFIX,
+  IBM_STORAGE_CSI_PROVISIONER,
+  IBM_STORAGE_ODF_OPERATOR
+} from "../../constants/constants";
+import { EventModel } from "../../models";
 import "./activity-card.scss";
 import { EventKind } from "../../types";
 import { parseProps } from "../../selectors/index";
@@ -41,16 +45,20 @@ const RecentEvent: React.FC<any> = (props) => {
   const { name } = parseProps(props);
   const [events, eventsLoaded] = useK8sWatchResource(eventsResource);
   const FlashsystemEventFilter = (event: EventKind): boolean => {
+
     const eventSource = event?.source?.component;
-    const isIBMStorageCSIprovisioner =
-      eventSource?.indexOf(IBM_STORAGE_CSI_PROVISIONER) != -1;
-    const isFlashsystemClusterKind =
-      eventSource?.indexOf(StorageInstanceModel.kind) != -1;
-    const eventName = _.get(event, ["metadata", "name"]);
-    const isNameIncluded = name ? eventName?.indexOf(name) != -1 : false;
-    return (
-      isFlashsystemClusterKind || isIBMStorageCSIprovisioner || isNameIncluded
-    );
+    const eventName = event?.metadata.name
+    const eventInvolvedObjectName = event?.involvedObject?.name
+
+    const isIBMStorageCSIProvisioner = eventSource ? eventSource.indexOf(IBM_STORAGE_CSI_PROVISIONER) != -1 : false
+    const isObjectInvolved = eventInvolvedObjectName ? eventInvolvedObjectName == name : false;
+    const isNameIncluded = eventName ?
+        eventName.indexOf(IBM_STORAGE_ODF_PREFIX) != -1 ||
+        eventName.indexOf(IBM_STORAGE_ODF_CONSOLE_NAME) != -1 ||
+        eventName.indexOf(IBM_STORAGE_ODF_OPERATOR) != -1 ||
+        eventName.indexOf(name) != -1 : false;
+
+    return (isObjectInvolved || isNameIncluded || isIBMStorageCSIProvisioner);
   };
 
   return (

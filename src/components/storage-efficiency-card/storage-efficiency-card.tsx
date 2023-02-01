@@ -17,22 +17,23 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 import OutlinedQuestionCircleIcon from "@patternfly/react-icons/dist/js/icons/outlined-question-circle-icon";
 import { Tooltip } from "@patternfly/react-core";
-import {
-  usePrometheusPoll,
-} from "@openshift-console/dynamic-plugin-sdk-internal";
+import {useCustomPrometheusPoll} from "../custom-prometheus-poll/custom-prometheus-poll"
 
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import { parseMetricData } from "../../selectors/promethues-utils";
 import { humanizeBinaryBytes } from "../../humanize";
-import { EFFICIENCY_SAVING_QUERY } from "../../constants/queries";
+import { FlASHSYSTEM_QUERIES, StorageDashboardQuery } from "../../constants/queries";
 import "./storage-efficiency-card.scss";
+import { parseProps } from "../../selectors";
 
-const StorageEfficiencyCardBody: React.FC<any> = () => {
+const StorageEfficiencyCardBody: React.FC<any> = (props) => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
+  const { name } = parseProps(props);
 
-  const [metric, error, loading] = usePrometheusPoll({
-    query: EFFICIENCY_SAVING_QUERY,
+  const [metric, error, loading] = useCustomPrometheusPoll({
+    query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemTotalEfficiencySaving),
     endpoint: "api/v1/query" as any,
+    samples: 60
   });
 
   const [saving] =
@@ -63,7 +64,7 @@ const StorageEfficiencyCardBody: React.FC<any> = () => {
   );
 };
 
-const StorageEfficiencyCard: React.FC = () => {
+const StorageEfficiencyCard: React.FC<any> = (props) => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   return (
     <Card>
@@ -71,7 +72,7 @@ const StorageEfficiencyCard: React.FC = () => {
         <CardTitle>{t("Storage Efficiency")}</CardTitle>
       </CardHeader>
       <CardBody>
-        <StorageEfficiencyCardBody />
+        <StorageEfficiencyCardBody {...props} />
       </CardBody>
     </Card>
   );

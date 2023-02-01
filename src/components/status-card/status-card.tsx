@@ -17,17 +17,16 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { Gallery, GalleryItem } from "@patternfly/react-core";
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
+import {useCustomPrometheusPoll} from "../custom-prometheus-poll/custom-prometheus-poll"
 import {
   HealthItem,
   AlertsBody,
-  AlertItem,
-  usePrometheusPoll,
+  AlertItem
 } from "@openshift-console/dynamic-plugin-sdk-internal";
 
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import {
   getFlashsystemHealthState,
-  filterIBMFlashSystemAlerts,
   alertURL,
   PrometheusRulesResponse,
   getAlertsAndRules,
@@ -35,16 +34,21 @@ import {
 import { StorageInstanceKind } from "../../types";
 import { GetFlashSystemResource } from "../../constants/resources";
 import { parseProps } from "../../selectors/index";
+import * as _ from "lodash";
+import {IBM_FLASHSYSTEM} from "../../constants/constants";
 
-const IBMFlashSystemAlerts: React.FC = () => {
-  const [rules, alertsError, alertsLoaded] = usePrometheusPoll({
+const IBMFlashSystemAlerts: React.FC<{fscName: string}> = ({fscName}) => {
+  const [rules, alertsError, alertsLoaded] = useCustomPrometheusPoll({
     query: "",
     endpoint: "api/v1/rules" as any,
   });
 
   const myRules = rules as unknown as PrometheusRulesResponse;
   const { alerts } = getAlertsAndRules(myRules?.["data"]);
-  const filteredAlerts = filterIBMFlashSystemAlerts(alerts);
+  const filteredAlerts = _.filter(alerts, (alert) => {
+    return _.get(alert, "labels.managedBy")?.toLowerCase() === fscName.toLowerCase() &&
+        _.get(alert, "annotations.storage_type")?.toLowerCase() === IBM_FLASHSYSTEM.toLowerCase();
+  });
   return (
     <AlertsBody error={alertsError}>
       {!alertsLoaded &&
@@ -59,11 +63,14 @@ const IBMFlashSystemAlerts: React.FC = () => {
 export const StatusCard: React.FC<any> = (props) => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const { name } = parseProps(props);
-  const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind>(
-    GetFlashSystemResource(props)
+  const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind[]>(
+      GetFlashSystemResource(props)
   );
+
+  const fscData =  data?.find(fsc => fsc.metadata.name == name);
+
   const flashHealthState = getFlashsystemHealthState({
-    sto: { data: data, loaded: loaded, loadError: loadError },
+    sto: { data: fscData, loaded: loaded, loadError: loadError },
   });
 
   return (
@@ -81,7 +88,7 @@ export const StatusCard: React.FC<any> = (props) => {
             />
           </GalleryItem>
         </Gallery>
-        <IBMFlashSystemAlerts />
+        <IBMFlashSystemAlerts fscName={name}/>
       </CardBody>
     </Card>
   );

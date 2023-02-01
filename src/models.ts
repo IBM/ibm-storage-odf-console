@@ -145,3 +145,17 @@ export const PersistentVolumeModel: K8sKind = {
   labelPlural: "PersistentVolumes",
   labelPluralKey: "PersistentVolumes",
 };
+
+
+export const ConfigMapModel: K8sKind = {
+  apiVersion: 'v1',
+  label: 'ConfigMap',
+  labelKey: 'ConfigMap',
+  plural: 'configmaps',
+  abbr: 'CM',
+  namespaced: true,
+  kind: 'ConfigMap',
+  id: 'configmap',
+  labelPlural: 'ConfigMaps',
+  labelPluralKey: 'ConfigMaps',
+};

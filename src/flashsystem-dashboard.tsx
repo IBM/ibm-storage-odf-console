@@ -20,15 +20,15 @@ import { HorizontalNav } from "@openshift-console/dynamic-plugin-sdk";
 import { Grid, GridItem } from "@patternfly/react-core";
 import { useLocation, match as Match } from "react-router-dom";
 
-import StorageEfficiencyCard from "./components/storage-efficiency-card/storage-efficiency-card";
 import StatusCard from "./components/status-card/status-card";
 import DetailsCard from "./components/details-card/details-card";
 import InventoryCard from "./components/inventory-card/inventory-card";
 import ActivityCard from "./components/activity-card/activity-card";
-import RawCapacityCard from "./components/raw-capacity-card/raw-capacity-card";
+import SystemPhysicalRawCapacityCard from "./components/capacity-card/system-physical-raw-capacity-card/system-physical-raw-capacity-card";
 import UtilizationCard from "./components/utilization-card/utilization-card";
 import BreakdownCard from "./components/capacity-breakdown/capacity-breakdown-card";
 import PageHeading from "./components/heading/page-heading";
+import StorageClassOverviewDashboard from "./components/storage-class-dashboard/storage-class-dashboard";
 
 export type ODFDashboardProps = {
   match: RouteComponentProps["match"];
@@ -43,9 +43,6 @@ const UpperSection: React.FC<any> = (props) => {
             <DetailsCard {...props} />
           </GridItem>
           <GridItem>
-            <StorageEfficiencyCard />
-          </GridItem>
-          <GridItem>
             <InventoryCard />
           </GridItem>
         </Grid>
@@ -56,7 +53,7 @@ const UpperSection: React.FC<any> = (props) => {
             <StatusCard {...props} />
           </GridItem>
           <GridItem>
-            <RawCapacityCard {...props} />
+            <SystemPhysicalRawCapacityCard {...props} />
           </GridItem>
           <GridItem>
             <BreakdownCard {...props} />
@@ -101,8 +98,13 @@ export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
     const allPages = [
       {
         href: "overview",
-        name: t("Overview"),
+        name: t("Storage System Overview"),
         component: FlashsystemDashboard,
+      },
+      {
+        href: "storageclass-overview",
+        name: t("Storage Classes Overview"),
+        component: StorageClassOverviewDashboard,
       },
     ];
 
