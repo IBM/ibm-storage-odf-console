@@ -1,6 +1,6 @@
 REGISTRY="quay.io"
 NAMESPACE="ibmodffs"
-CONSOLE_IMAGE_VERSION=1.3.0
+CONSOLE_IMAGE_VERSION=1.4.0
 
 CONSOLE_NAME=ibm-storage-odf-plugin
 
