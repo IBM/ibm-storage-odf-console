@@ -1,6 +1,6 @@
 {
   "name": "ibm-storage-odf-plugin",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "IBM Storage Plugin Openshift ODF",
   "author": "IBM Support <support@ibm.com>",
   "private": true,
@@ -76,7 +76,7 @@
   },
   "consolePlugin": {
     "name": "ibm-storage-odf-plugin",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "displayName": "IBM Storage Plugin",
     "description": "IBM Storage Plugin for Openshift ODF",
     "dependencies": {
