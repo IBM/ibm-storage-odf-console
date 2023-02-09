@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import * as React from "react";
-import * as _ from "lodash";
 import { useTranslation } from "react-i18next";
 import { Select, SelectProps } from "@patternfly/react-core";
 import {useCustomPrometheusPoll} from "../custom-prometheus-poll/custom-prometheus-poll"
@@ -30,7 +29,7 @@ import "./capacity-breakdown-card.scss";
 import { humanizeBinaryBytes } from "../../humanize";
 import { BreakdownQueryMapODF } from "../../constants/queries";
 import { PROJECTS, STORAGE_CLASSES, PODS } from "../../constants/constants";
-import { getInstantVectorStats } from "../../selectors/promethues-utils";
+import { getInstantVectorStats, getSingleValue } from "../../selectors/promethues-utils";
 import { parseProps } from "../../selectors";
 import {getIBMPoolsConfigMap} from "../../constants/resources";
 import {useK8sWatchResource} from "@openshift-console/dynamic-plugin-sdk";
@@ -79,14 +78,14 @@ const BreakdownCard: React.FC<any> = (props) => {
       endpoint: "api/v1/query" as any,
       samples: 60
     });
-  const metricTotal = _.get(totalUsedmetric, "data.result[0].value[1]");
+  const metricTotal = getSingleValue(totalUsedmetric)
 
   const [usedmetric, usedLoadError, usedLoading] = useCustomPrometheusPoll({
     query: queries[queryKeys[2]],
     endpoint: "api/v1/query" as any,
     samples: 60
   });
-  const flashsystemUsed = _.get(usedmetric, "data.result[0].value[1]");
+  const flashsystemUsed = getSingleValue(usedmetric)
 
   const top6MetricsData = getInstantVectorStats(byUsedmetric, metric);
   const top5SortedMetricsData = sortInstantVectorStats(top6MetricsData);
@@ -97,7 +96,7 @@ const BreakdownCard: React.FC<any> = (props) => {
     endpoint: "api/v1/query" as any,
     samples: 60,
   });
-  const PVCsWithoutStorage = _.get(countPVCsWithoutStorage, "data.result[0].value[1]");
+  const PVCsWithoutStorage = getSingleValue(countPVCsWithoutStorage)
   if (PVCsWithoutStorage > 0 ){
     WarningMessage = "* " +  t('Provisioned capacity might be inaccurate as some PVCs are not properly associated with a specific storage system.')
     PVCWarning = true

@@ -158,3 +158,9 @@ export const getPrometheusQueryValue: (PrometheusResponse) => number | null = (
   return getInstantVectorStats(queryResult)[0]?.y;
 
 }
+
+export const getSingleValue: (PrometheusResponse) => any = (
+    response: PrometheusResponse,
+    ) => {
+  return response?.data?.result?.[0]?.value?.[1];
+}
