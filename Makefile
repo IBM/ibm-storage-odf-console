@@ -1,20 +1,22 @@
-REGISTRY="quay.io"
-NAMESPACE="ibmodffs"
-CONSOLE_IMAGE_VERSION=1.4.0
-
+REGISTRY=quay.io/ibmodffs
+IMAGE_TAG=1.4.0
+PLATFORM=linux/amd64,linux/ppc64le,linux/s390x
+TARGET_BRANCH=release-1.4.0
 CONSOLE_NAME=ibm-storage-odf-plugin
 
-CONSOLE_IMAGE=$(REGISTRY)/${NAMESPACE}/$(CONSOLE_NAME):$(CONSOLE_IMAGE_VERSION)
+CONSOLE_IMAGE=$(REGISTRY)/$(CONSOLE_NAME):$(IMAGE_TAG)
 
-
-prod-build-image:
-	docker build -t $(CONSOLE_IMAGE) -f ./Dockerfile.prod .
-
-prod-push-image: prod-build-image
-	docker push $(CONSOLE_IMAGE)
+BUILD_COMMAND = docker buildx build -t $(CONSOLE_IMAGE) --platform $(PLATFORM) --build-arg TARGET_BRANCH=$(TARGET_BRANCH) -f ./Dockerfile.prod .
+NON_PROD_BUILD_COMMAND = docker buildx build -t $(CONSOLE_IMAGE) --platform $(PLATFORM) -f ./Dockerfile .
 
 build-image:
-	docker build -t $(CONSOLE_IMAGE) -f ./Dockerfile .
+	$(BUILD_COMMAND)
 
-push-image: build-image
-	docker push $(CONSOLE_IMAGE)
+push-image:
+	$(BUILD_COMMAND) --push
+
+non-prod-build-image:
+	$(NON_PROD_BUILD_COMMAND)
+
+non-prod-push-image:
+	$(NON_PROD_BUILD_COMMAND) --push
