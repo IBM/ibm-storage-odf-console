@@ -46,9 +46,9 @@ jobs:
       shell: bash
       if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
       run: |
-        VERSION=${{ github.event.release.tag_name }}
-        VERSION=${VERSION:1}
-        echo "$VERSION" >> $GITHUB_ENV
+        BUILD_VERSION=${{ github.event.release.tag_name }}
+        BUILD_VERSION=${BUILD_VERSION:1}
+        echo "BUILD_VERSION" >> $GITHUB_ENV
 
     # Build and (optionally) push the plugin image
     - name: build the plugin image
@@ -62,4 +62,4 @@ jobs:
         # Only push if we are publishing a release
         push: ${{ github.event_name == 'release' && github.event.action == 'published' }}
         # Use a 'dev' tag, that won't be pushed, for non-release builds
-        tags: quay.io/ibmodffs/ibm-storage-odf-plugin:${{ needs.tag.outputs.version || 'dev' }}
+        tags: quay.io/ibmodffs/ibm-storage-odf-plugin:${{ needs.tag.outputs.BUILD_VERSION || 'dev' }}
