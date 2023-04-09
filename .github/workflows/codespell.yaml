@@ -10,8 +10,4 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: codespell
-      uses: codespell-project/actions-codespell@master
-      with:
-        check_filenames: true
-        check_hidden: true
-        exclude_file: yarn.lock
+      uses: crate-ci/typos@master
