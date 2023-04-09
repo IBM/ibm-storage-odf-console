@@ -47,7 +47,8 @@ jobs:
       if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
       run: |
         VERSION=${{ github.event.release.tag_name }}
-        echo "VERSION=${VERSION:1}" >> $GITHUB_ENV
+        VERSION=${VERSION:1}
+        echo "$VERSION" >> $GITHUB_ENV
 
     # Build and (optionally) push the plugin image
     - name: build the plugin image
