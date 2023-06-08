@@ -1,6 +1,6 @@
 {
   "name": "ibm-storage-odf-plugin",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "IBM Storage Plugin Openshift ODF",
   "author": "IBM Support <support@ibm.com>",
   "private": true,
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@openshift-console/plugin-shared": "^0.0.1",
     "@openshift-console/dynamic-plugin-sdk": "0.0.15",
-    "@openshift-console/dynamic-plugin-sdk-webpack": "0.0.4",
+    "@openshift-console/dynamic-plugin-sdk-webpack": "0.0.6",
     "@openshift-console/dynamic-plugin-sdk-internal": "0.0.7",
     "@types/lodash-es": "^4.17.4",
     "@types/node": "^16.7.13",
@@ -76,7 +76,7 @@
   },
   "consolePlugin": {
     "name": "ibm-storage-odf-plugin",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "displayName": "IBM Storage Plugin",
     "description": "IBM Storage Plugin for Openshift ODF",
     "dependencies": {
