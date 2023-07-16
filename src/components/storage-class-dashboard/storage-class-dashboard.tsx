@@ -41,8 +41,9 @@ let poolsSelectItems = []
 
 const StorageClassOverviewBody : React.FC<ODFDashboardProps> = (props) => {
     const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
-    const { name, namespace } = parseProps(props)
-    const cmResource = getIBMPoolsConfigMap(namespace)
+    const { name } = parseProps(props)
+    const cmResource = getIBMPoolsConfigMap()
+
     const [configMap, cmLoaded, cmLoadError] = useK8sWatchResource<ConfigMapKind>(cmResource);
 
     const cmResourceData = configMap?.data?.[name]
