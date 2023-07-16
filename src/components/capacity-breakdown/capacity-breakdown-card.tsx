@@ -43,7 +43,7 @@ let storageclassNames = []
 
 const BreakdownCard: React.FC<any> = (props) => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
-  const { name, namespace} = parseProps(props);
+  const { name } = parseProps(props);
 
   const [metricType, setMetricType] = React.useState(PROJECTS);
   const [isOpenBreakdownSelect, setBreakdownSelect] = React.useState(false);
@@ -58,7 +58,7 @@ const BreakdownCard: React.FC<any> = (props) => {
     setBreakdownSelect(!isOpenBreakdownSelect);
   };
 
-  const cmResource = getIBMPoolsConfigMap(namespace)
+  const cmResource = getIBMPoolsConfigMap()
   const [configMap, cmLoaded, cmLoadError] = useK8sWatchResource<ConfigMapKind>(cmResource);
 
   const cmResourceData = configMap?.data?.[name]

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+export const WATCH_NAMESPACE = "openshift-storage"
 export const IBM_STORAGE_ODF_OPERATOR = "ibm-storage-odf-operator";
 export const IBM_STORAGE_CSI_PROVISIONER = "block.csi.ibm.com";
 export const IBM_FLASHSYSTEM = "IBM_FLASHSYSTEM";
