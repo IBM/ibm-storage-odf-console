@@ -18,7 +18,8 @@ import { RouteComponentProps } from "react-router";
 import { useTranslation } from "react-i18next";
 import { HorizontalNav } from "@openshift-console/dynamic-plugin-sdk";
 import { Grid, GridItem } from "@patternfly/react-core";
-import { useLocation, match as Match } from "react-router-dom";
+import { match as Match } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom-v5-compat";
 
 import StatusCard from "./components/status-card/status-card";
 import DetailsCard from "./components/details-card/details-card";
@@ -87,12 +88,12 @@ const FlashsystemDashboard: React.FC<ODFDashboardProps> = (props) => {
 export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
   (props) => {
     const location = useLocation();
-
+    const navigate = useNavigate();
     React.useEffect(() => {
       if (!location.pathname.endsWith("overview")) {
-        props.history.push(`${location.pathname}/overview`);
+        navigate(`${location.pathname}/overview`);
       }
-    }, [props.history, location.pathname]);
+    }, [navigate, location.pathname]);
 
     const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
     const allPages = [
@@ -108,7 +109,7 @@ export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
       },
     ];
 
-    const systemName = props.match.params.systemName;
+    const { systemName } = useParams();
     const breadcrumbs = [
       {
         name: t("StorageSystems"),
