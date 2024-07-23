@@ -15,6 +15,7 @@
  */
 import * as React from "react";
 import { Link, BrowserRouter as Router } from "react-router-dom";
+import { CompatRouter } from "react-router-dom-v5-compat";
 import { useTranslation } from "react-i18next";
 import { Base64 } from "js-base64";
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
@@ -97,6 +98,7 @@ const DetailsCard: React.FC<any> = (props) => {
             isLoading={false}
           >
             <Router>
+            <CompatRouter>
               {" "}
               <Link
                 to={operatorPath}
@@ -104,6 +106,7 @@ const DetailsCard: React.FC<any> = (props) => {
               >
                 OpenShift Data Foundation - IBM
               </Link>{" "}
+            </CompatRouter>
             </Router>
           </DetailItem>
           <DetailItem
