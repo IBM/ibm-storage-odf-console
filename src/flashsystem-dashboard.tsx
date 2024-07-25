@@ -114,7 +114,7 @@ export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
     const breadcrumbs = [
       {
         name: t("StorageSystems"),
-        path: "/odf/systems",
+        path: "/odf/uriziv1",
       },
       {
         name: t("StorageSystem details"),
