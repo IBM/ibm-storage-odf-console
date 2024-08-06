@@ -1,7 +1,7 @@
 REGISTRY=quay.io/ibmodffs
-IMAGE_TAG=1.5.0
+IMAGE_TAG=1.6.0
 PLATFORM=linux/amd64,linux/ppc64le,linux/s390x
-TARGET_BRANCH=release-1.5.0
+TARGET_BRANCH=release-1.6.0
 CONSOLE_NAME=ibm-storage-odf-plugin
 
 CONSOLE_IMAGE=$(REGISTRY)/$(CONSOLE_NAME):$(IMAGE_TAG)
