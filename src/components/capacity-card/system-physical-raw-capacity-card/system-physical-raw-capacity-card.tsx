@@ -22,8 +22,8 @@ import { FlASHSYSTEM_QUERIES, StorageDashboardQuery } from "../../../constants/q
 import "../generic-raw-capacity-card/generic-raw-capacity-card.scss";
 
 
-const SystemPhysicalRawCapacityCard: React.FC<any> = (props) => {
-    const {name} = parseProps(props);
+const SystemPhysicalRawCapacityCard: React.FC<any> = () => {
+    const {name} = parseProps();
     const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
 
     const title = t('Physical Capacity Overview')
