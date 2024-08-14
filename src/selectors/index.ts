@@ -178,20 +178,20 @@ export const getNamespace = (resource) =>
 export const getEndpoint = (secret: SecretKind) =>
   _.get(secret, ["data", "management_address"]);
 
-export const getNameFromProps = (props) => {
+export const getNameFromProps = () => {
   const params = useParams();
   const CRname = params.name;
   const systemName = params.systemName;
   return systemName ? systemName.replace("-storagesystem", "") : CRname;
 };
 
-export const getNamespaceFromProps = (props) =>
+export const getNamespaceFromProps = () =>
   useParams().namespace;
 
-export const parseProps = (props) => {
+export const parseProps = () => {
   return {
-    name: getNameFromProps(props),
-    namespace: getNamespaceFromProps(props),
+    name: getNameFromProps(),
+    namespace: getNamespaceFromProps(),
   };
 };
 

@@ -41,8 +41,8 @@ const eventsResource: FirehoseResource = {
   prop: "events",
 };
 
-const RecentEvent: React.FC<any> = (props) => {
-  const { name } = parseProps(props);
+const RecentEvent: React.FC<any> = () => {
+  const { name } = parseProps();
   const [events, eventsLoaded] = useK8sWatchResource(eventsResource);
   const FlashsystemEventFilter = (event: EventKind): boolean => {
 
