@@ -18,7 +18,6 @@ import { RouteComponentProps } from "react-router";
 import { useTranslation } from "react-i18next";
 import { HorizontalNav } from "@openshift-console/dynamic-plugin-sdk";
 import { Grid, GridItem } from "@patternfly/react-core";
-import { match as Match } from "react-router-dom";
 import { useParams, useLocation, useNavigate } from "react-router-dom-v5-compat";
 
 import StatusCard from "./components/status-card/status-card";
@@ -32,7 +31,6 @@ import PageHeading from "./components/heading/page-heading";
 import StorageClassOverviewDashboard from "./components/storage-class-dashboard/storage-class-dashboard";
 
 export type ODFDashboardProps = {
-  match: RouteComponentProps["match"];
 };
 
 const UpperSection: React.FC<any> = (props) => {
@@ -131,7 +129,6 @@ export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
   };
 
 type FlashsystemDashboardPageProps = RouteComponentProps & {
-  match: Match<{ systemName: string }>;
 };
 
 export default FlashsystemDashboardPage;
