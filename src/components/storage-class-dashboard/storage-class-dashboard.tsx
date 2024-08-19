@@ -15,7 +15,6 @@
  */
 import * as React from "react";
 import {useTranslation} from "react-i18next";
-import {ODFDashboardProps} from "../../flashsystem-dashboard";
 import { parseProps} from "../../selectors";
 import {
     Card,
@@ -39,7 +38,7 @@ let dropdownKeys = []
 let poolsSelectItems = []
 
 
-const StorageClassOverviewBody : React.FC<ODFDashboardProps> = () => {
+const StorageClassOverviewBody : React.FC = () => {
     const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
     const { name, namespace } = parseProps()
     const cmResource = getIBMPoolsConfigMap(namespace)
@@ -149,11 +148,11 @@ const PoolsListBody = () => {
 }
 
 
-const StorageClassOverviewDashboard: React.FC<ODFDashboardProps> = (props) => {
+const StorageClassOverviewDashboard: React.FC = () => {
     return (
         <>
             <div className="co-dashboard-body">
-                <StorageClassOverviewBody {...props} />
+                <StorageClassOverviewBody />
             </div>
         </>
     );

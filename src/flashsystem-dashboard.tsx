@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import * as React from "react";
-import { RouteComponentProps } from "react-router";
 import { useTranslation } from "react-i18next";
 import { HorizontalNav } from "@openshift-console/dynamic-plugin-sdk";
 import { Grid, GridItem } from "@patternfly/react-core";
@@ -29,9 +28,6 @@ import UtilizationCard from "./components/utilization-card/utilization-card";
 import BreakdownCard from "./components/capacity-breakdown/capacity-breakdown-card";
 import PageHeading from "./components/heading/page-heading";
 import StorageClassOverviewDashboard from "./components/storage-class-dashboard/storage-class-dashboard";
-
-export type ODFDashboardProps = {
-};
 
 const UpperSection: React.FC<any> = (props) => {
   return (
@@ -73,18 +69,17 @@ const UpperSection: React.FC<any> = (props) => {
   );
 };
 
-const FlashsystemDashboard: React.FC<ODFDashboardProps> = (props) => {
+const FlashsystemDashboard: React.FC = () => {
   return (
     <>
       <div className="co-dashboard-body">
-        <UpperSection {...props} />
+        <UpperSection />
       </div>
     </>
   );
 };
 
-export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
-  (props) => {
+export const FlashsystemDashboardPage: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
     React.useEffect(() => {
@@ -127,8 +122,5 @@ export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
       </>
     );
   };
-
-type FlashsystemDashboardPageProps = RouteComponentProps & {
-};
 
 export default FlashsystemDashboardPage;
