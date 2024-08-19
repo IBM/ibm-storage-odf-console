@@ -4,6 +4,7 @@ ARG TARGET_BRANCH=release-1.6.0
 RUN apt-get install -y git
 RUN git clone https://github.com/IBM/ibm-storage-odf-console.git
 WORKDIR /ibm-storage-odf-console
+ADD "https://github.com/IBM/ibm-storage-odf-console/commits/${TARGET_BRANCH}/?per_page=1" latest_commit
 RUN git fetch origin ${TARGET_BRANCH} && git checkout origin/${TARGET_BRANCH}
 
 RUN yarn install --prod=false
