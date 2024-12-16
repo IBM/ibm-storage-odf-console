@@ -41,9 +41,9 @@ const breakdownSelectItems = getSelectOptions(dropdownKeys);
 let storageclassNames = []
 
 
-const BreakdownCard: React.FC<any> = (props) => {
+const BreakdownCard: React.FC<any> = () => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
-  const { name, namespace} = parseProps(props);
+  const { name, namespace} = parseProps();
 
   const [metricType, setMetricType] = React.useState(PROJECTS);
   const [isOpenBreakdownSelect, setBreakdownSelect] = React.useState(false);

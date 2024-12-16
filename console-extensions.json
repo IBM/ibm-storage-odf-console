@@ -14,7 +14,7 @@
     "type": "console.page/route",
     "properties": {
       "path": [
-        "/odf/system/odf.ibm.com~v1alpha1~FlashSystemCluster/:systemName"
+        "/odf/system/ns/:namespace/odf.ibm.com~v1alpha1~FlashSystemCluster/:systemName"
       ],
       "exact": false,
       "component": {
