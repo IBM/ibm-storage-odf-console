@@ -38,9 +38,9 @@ import {
 import { humanizeIOPS, humanizeLatency, ByteDataTypes } from "./utils";
 import { parseProps } from "../../selectors/index";
 
-const UtilizationCard: React.FC<any> = (props) => {
+const UtilizationCard: React.FC<any> = () => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
-  const { name } = parseProps(props);
+  const { name } = parseProps();
   const { duration } = useUtilizationDuration();
 
   const [usedCapacitymetric] = useCustomPrometheusPoll({

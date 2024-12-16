@@ -39,9 +39,9 @@ let dropdownKeys = []
 let poolsSelectItems = []
 
 
-const StorageClassOverviewBody : React.FC<ODFDashboardProps> = (props) => {
+const StorageClassOverviewBody : React.FC<ODFDashboardProps> = () => {
     const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
-    const { name, namespace } = parseProps(props)
+    const { name, namespace } = parseProps()
     const cmResource = getIBMPoolsConfigMap(namespace)
     const [configMap, cmLoaded, cmLoadError] = useK8sWatchResource<ConfigMapKind>(cmResource);
 
@@ -55,7 +55,7 @@ const StorageClassOverviewBody : React.FC<ODFDashboardProps> = (props) => {
     return (
         <>
              { cmLoaded && isPoolsAvailable &&
-                 <PoolsListBody {...props} /> }
+                 <PoolsListBody /> }
              { !cmLoaded && !cmLoadError &&
                  <LoadingCardBody /> }
              { !cmLoaded && cmLoadError &&
@@ -92,9 +92,9 @@ const ErrorCardBody: React.FC<ErrorCardBodyProps> = (props) => {
     );
 };
 
-const PoolsListBody = (props) => {
+const PoolsListBody = () => {
     const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
-    const { name } = parseProps(props);
+    const { name } = parseProps();
 
     const initialPoolName = dropdownKeys? dropdownKeys.at(0): ''
     const [poolName, setPool] = React.useState(initialPoolName);
