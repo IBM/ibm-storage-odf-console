@@ -60,8 +60,8 @@ export const GetSecretResource = (name?: string, namespace?: string) => {
   return resource;
 };
 
-export const GetFlashSystemResource = (props) => {
-  const { name, namespace } = parseProps(props);
+export const GetFlashSystemResource = () => {
+  const { name, namespace } = parseProps();
   return newFlashSystemResource(name, namespace);
 };
 

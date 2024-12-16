@@ -12,7 +12,7 @@ jobs:
     name: codespell
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: codespell
       uses: codespell-project/actions-codespell@v1
@@ -20,3 +20,4 @@ jobs:
         check_filenames: true
         check_hidden: true
         exclude_file: yarn.lock
+        ignore_words_list: NotIn
