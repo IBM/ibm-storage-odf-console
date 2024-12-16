@@ -60,11 +60,11 @@ const IBMFlashSystemAlerts: React.FC<{fscName: string}> = ({fscName}) => {
   );
 };
 
-export const StatusCard: React.FC<any> = (props) => {
+export const StatusCard: React.FC<any> = () => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
-  const { name } = parseProps(props);
+  const { name } = parseProps();
   const [data, loaded, loadError] = useK8sWatchResource<StorageInstanceKind[]>(
-      GetFlashSystemResource(props)
+      GetFlashSystemResource()
   );
 
   const fscData =  data?.find(fsc => fsc.metadata.name == name);
