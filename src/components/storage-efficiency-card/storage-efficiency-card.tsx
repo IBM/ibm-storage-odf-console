@@ -26,9 +26,9 @@ import { FlASHSYSTEM_QUERIES, StorageDashboardQuery } from "../../constants/quer
 import "./storage-efficiency-card.scss";
 import { parseProps } from "../../selectors";
 
-const StorageEfficiencyCardBody: React.FC<any> = (props) => {
+const StorageEfficiencyCardBody: React.FC<any> = () => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
-  const { name } = parseProps(props);
+  const { name } = parseProps();
 
   const [metric, error, loading] = useCustomPrometheusPoll({
     query: FlASHSYSTEM_QUERIES(name, StorageDashboardQuery.SystemTotalEfficiencySaving),

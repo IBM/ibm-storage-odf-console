@@ -40,11 +40,11 @@ import {
   GetSecretResource,
 } from "../../constants/resources";
 
-const DetailsCard: React.FC<any> = (props) => {
+const DetailsCard: React.FC<any> = () => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
-  const { name } = parseProps(props);
+  const { name } = parseProps();
   const [data, , ] = useK8sWatchResource<StorageInstanceKind[]>(
-      GetFlashSystemResource(props)
+      GetFlashSystemResource()
     );
 
   const fscData =  data?.find(fsc => fsc.metadata.name == name);
