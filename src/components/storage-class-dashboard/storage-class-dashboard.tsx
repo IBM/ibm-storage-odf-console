@@ -18,15 +18,17 @@ import {useTranslation} from "react-i18next";
 import {ODFDashboardProps} from "../../flashsystem-dashboard";
 import { parseProps} from "../../selectors";
 import {
-    Card,
-    CardBody,
-    CardHeader,
-    CardTitle,
-    Grid,
-    GridItem,
-    Select,
-    SelectProps
-} from "@patternfly/react-core";
+	Card,
+	CardBody,
+	CardHeader,
+	CardTitle,
+	Grid,
+	GridItem
+} from '@patternfly/react-core';
+import {
+	Select,
+	SelectProps
+} from '@patternfly/react-core/deprecated';
 import {getSelectOptions} from "../breakdown-card/breakdown-dropdown";
 import { PoolPhysicalRawCapacityCard } from "../capacity-card/pool-physical-raw-capacity-card/pool-physical-raw-capacity-card";
 import {useK8sWatchResource} from "@openshift-console/dynamic-plugin-sdk";

@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 import * as React from "react";
+
 import {
-  SelectOption,
-  SelectGroup,
-  OptionsMenuItemGroup,
-  OptionsMenuItem,
-} from "@patternfly/react-core";
+	OptionsMenuItemGroup,
+	OptionsMenuItem,
+	SelectOption,
+	SelectGroup
+} from '@patternfly/react-core/deprecated';
 
 type GroupedSelectItems = {
   group: string;

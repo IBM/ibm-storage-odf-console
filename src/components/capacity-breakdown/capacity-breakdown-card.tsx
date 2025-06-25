@@ -15,7 +15,10 @@
  */
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import { Select, SelectProps } from "@patternfly/react-core";
+import {
+	Select,
+	SelectProps
+} from '@patternfly/react-core/deprecated';
 import {useCustomPrometheusPoll} from "../custom-prometheus-poll/custom-prometheus-poll"
 import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 

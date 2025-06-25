@@ -119,7 +119,7 @@ export const RawCapacityCard: React.FC<RawCapacityCardProps> = (props) => {
                                 subTitleComponent={
                                     <ChartLabel
                                         dy={5}
-                                        style={{ fill: `var(--pf-global--palette--black-500)` }}
+                                        style={{ fill: `var(--pf-v5-global--palette--black-500)` }}
                                     />
                                 }
                             />

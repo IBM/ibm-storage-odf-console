@@ -45,7 +45,7 @@ const StorageEfficiencyCardBody: React.FC<any> = () => {
   return (
     <div className="co-inventory-card__item">
       <div className="co-utilization-card__item-section-multiline">
-        <h4 className="pf-c-content pf-m-md">{t("Savings")}</h4>
+        <h4 className="pf-v5-c-content pf-m-md">{t("Savings")}</h4>
         <div className="text-secondary">
           {status}
           <span className="ibm-storage-efficiency-card-help">

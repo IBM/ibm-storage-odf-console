@@ -10,14 +10,14 @@
 
 .flashsystem-capacity-breakdown-card-header__dropdown {
   max-width: 12em;
-  @media screen and (min-width: $pf-global--breakpoint--lg) {
+  @media screen and (min-width: $pf-v5-global--breakpoint--lg) {
     min-width: 12em;
   }
 }
 
 .flashsystem-capacity-breakdown-card__error {
-    margin-top: var(--pf-global--spacer--xs);
-    margin-bottom: var(--pf-global--spacer--xs);
+    margin-top: var(--pf-v5-global--spacer--xs);
+    margin-bottom: var(--pf-v5-global--spacer--xs);
     width: 100%;
     text-align: start;
     font-weight: bold;
