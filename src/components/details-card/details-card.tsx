@@ -18,13 +18,10 @@ import { Link, BrowserRouter as Router } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Base64 } from "js-base64";
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
-import {
-  DetailsBody,
-} from "@openshift-console/dynamic-plugin-sdk-internal";
 
 import { OverviewDetailItem as DetailItem} from "@openshift-console/plugin-shared";
 
-import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
+import { Card, CardBody, CardHeader, CardTitle, DescriptionList } from '@patternfly/react-core';
 import { ExternalLink } from "./Link";
 import { StorageInstanceKind, K8sKind, SecretKind } from "../../types";
 import {
@@ -90,7 +87,7 @@ const DetailsCard: React.FC<any> = () => {
         <CardTitle>{t("Details")}</CardTitle>
       </CardHeader>
       <CardBody>
-        <DetailsBody>
+        <DescriptionList>
           <DetailItem
             key="operator-name"
             title={t("Operator Name")}
@@ -139,7 +136,7 @@ const DetailsCard: React.FC<any> = () => {
           >
             {flashOperatorVersion}
           </DetailItem>
-        </DetailsBody>
+        </DescriptionList>
       </CardBody>
     </Card>
   );
