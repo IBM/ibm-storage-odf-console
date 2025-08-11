@@ -17,6 +17,7 @@
     "ts-node": "ts-node -O '{\"module\":\"commonjs\"}' -I '/node_modules/(?!(@openshift-console)/)/'"
   },
   "dependencies": {
+    "@babel/runtime": "^7.26.10",
     "@patternfly/patternfly": "^5.4.2",
     "@patternfly/react-charts": "^7.4.8",
     "@patternfly/react-core": "5.4.8",
