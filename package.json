@@ -90,6 +90,7 @@
     }
   },
   "resolutions": {
-    "d3-color": "3.1.0"
+    "d3-color": "3.1.0",
+    "@babel/runtime": "7.26.10"
   }
 }
