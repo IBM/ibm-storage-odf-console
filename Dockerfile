@@ -1,9 +1,13 @@
-FROM --platform=$BUILDPLATFORM node:18.20.8 as builder
+FROM --platform=$BUILDPLATFORM node:22.21.1-bullseye AS builder
 
 WORKDIR /usr/src/app
 COPY . /usr/src/app
 RUN yarn install
-RUN yarn build
+
+RUN yarn clean
+RUN NODE_ENV=production yarn ts-node ./node_modules/.bin/webpack
+RUN yarn locales
+
 
 FROM --platform=$BUILDPLATFORM node:18.20.8-alpine
 WORKDIR /usr/src/app
