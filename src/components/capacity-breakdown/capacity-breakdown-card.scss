@@ -1,4 +1,4 @@
-@import "~@patternfly/patternfly/sass-utilities/all";
+@use "@patternfly/patternfly/sass-utilities/all" as *;
 
 .flashsystem-capacity-breakdown-card__body {
   padding-top: 24px;

@@ -1,4 +1,4 @@
-@import "./skeleton-screen.scss";
+@use "./skeleton-screen.scss" as *;
 
 .flashsystem-raw-usage {
   &__container {

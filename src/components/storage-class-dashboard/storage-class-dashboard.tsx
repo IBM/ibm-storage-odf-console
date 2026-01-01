@@ -23,12 +23,16 @@ import {
 	CardHeader,
 	CardTitle,
 	Grid,
-	GridItem
+	GridItem,
+	Select,
+	SelectList,
+	MenuToggle,
+	MenuToggleElement,
 } from '@patternfly/react-core';
 import {
 	Select,
 	SelectProps
-} from '@patternfly/react-core/deprecated';
+} from '@patternfly/react-core';
 import {getSelectOptions} from "../breakdown-card/breakdown-dropdown";
 import { PoolPhysicalRawCapacityCard } from "../capacity-card/pool-physical-raw-capacity-card/pool-physical-raw-capacity-card";
 import {useK8sWatchResource} from "@openshift-console/dynamic-plugin-sdk";
@@ -116,17 +120,28 @@ const PoolsListBody = () => {
                 <div className="flashsystem-pool-statistics__header">
                     <Select
                         className="flashsystem-pool-statistics__dropdown"
-                        autoFocus={false}
-                        onSelect={handlePoolChange}
-                        onToggle={() => setPoolSelect(!isPoolSelectOpen)}
                         isOpen={isPoolSelectOpen}
-                        selections={[poolName]}
-                        placeholderText="Choose pool"
-                        aria-label="Choose By Dropdown"
-                        isCheckboxSelectionBadgeHidden>
-                        {poolsSelectItems}
-                    </Select>
-                </div>
+                        selected={poolName}
+                        onSelect={(_event, value) => {
+                          handlePoolChange(value as string);
+                          setPoolSelect(false);
+                        }}
+                        onOpenChange={(isOpen) => setPoolSelect(isOpen)}
+                  toggle={(toggleRef: React.Ref<MenuToggleElement>) => (
+                    <MenuToggle
+                      ref={toggleRef}
+                      onClick={() => setPoolSelect(!isPoolSelectOpen)}
+                      isExpanded={isPoolSelectOpen}
+                    >
+                      {poolName || "Choose pool"}
+                    </MenuToggle>
+                  )}
+                >
+                  <SelectList>
+                    {poolsSelectItems}
+                  </SelectList>
+                </Select>
+              </div>
             </CardHeader>
             {poolName &&
                 <CardBody className="flashsystem-physical-pool-statistics__body">
