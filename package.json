@@ -68,7 +68,7 @@
     "read-pkg": "5.x",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.97.2",
-    "sass-loader": "^13",
+    "sass-loader": "^16.0.5",
     "style-loader": "^0.23.1",
     "thread-loader": "^3",
     "ts-loader": "6.2.2",

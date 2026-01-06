@@ -16,11 +16,11 @@
 import * as React from "react";
 
 import {
-	OptionsMenuItemGroup,
-	OptionsMenuItem,
+	MenuItemGroup,
+	MenuItem,
 	SelectOption,
 	SelectGroup
-} from '@patternfly/react-core/deprecated';
+} from '@patternfly/react-core';
 
 type GroupedSelectItems = {
   group: string;
@@ -45,21 +45,21 @@ export const getOptionsMenuItems = (
   onSelect: (e) => void
 ) => {
   return dropdownItems.map(({ group, items }) => (
-    <OptionsMenuItemGroup
+    <MenuItemGroup
       className="nb-data-consumption-card__dropdown-item--hide-list-style"
       key={group}
       groupTitle={group}
     >
       {items.map((item) => (
-        <OptionsMenuItem
+        <MenuItem
           onSelect={onSelect}
           isSelected={selectedItems.includes(item)}
           id={item}
           key={item}
         >
           {item}
-        </OptionsMenuItem>
+        </MenuItem>
       ))}
-    </OptionsMenuItemGroup>
+    </MenuItemGroup>
   ));
 };

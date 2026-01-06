@@ -41,30 +41,40 @@ const config: webpack.Configuration = {
   },
   cache: {
     type: "filesystem",
+    buildDependencies: { config: [__filename] },
   },
   module: {
     rules: [
-      { test: /create-flashsystem-page.tsx/, loader: "ignore-loader" },
+      { test: /create-flashsystem-page\.tsx$/, loader: "ignore-loader" },
+
+      // 2) TS/JS: faster builds using transpileOnly in loader (type-check separately)
       {
-        test: /(\.jsx?)|(\.tsx?)$/,
+        test: /\.[jt]sx?$/,
         exclude: /node_modules/,
         use: [
           {
             loader: "ts-loader",
             options: {
               configFile: path.resolve(__dirname, "tsconfig.json"),
+              transpileOnly: true, // speed; run `tsc --noEmit` in CI or prebuild for type-check
             },
           },
         ],
       },
+
+      // 3) SCSS (both node_modules/@openshift-console/plugin-shared and src)
       {
-        test: /\.scss$/,
+        test: /\.s[ac]ss$/,
         include: [
           /node_modules\/@openshift-console\/plugin-shared/,
           /src/,
         ],
         use: [
-          { loader: "thread-loader" },
+          // `thread-loader` is optional. If you keep it, place it BEFORE heavy loaders.
+          // It can help in large projects but sometimes interacts poorly with caching/loader state.
+          // Remove it if you see no speed gain or get odd warnings.
+          // { loader: "thread-loader" },
+
           { loader: "style-loader" },
           {
             loader: "css-loader",
@@ -73,6 +83,7 @@ const config: webpack.Configuration = {
             },
           },
           {
+            // Needed when you use relative paths + source maps before sass-loader
             loader: "resolve-url-loader",
             options: {
               sourceMap: true,
@@ -81,24 +92,29 @@ const config: webpack.Configuration = {
           {
             loader: "sass-loader",
             options: {
+              implementation: require("sass"),
+              sourceMap: true, // must be true for resolve-url-loader to work properly
               sassOptions: {
-                outputStyle: 'compressed',
-                quietDeps: true,
+                outputStyle: "compressed",
+                quietDeps: true, // suppress deprecation noise from node_modules
               },
-              sourceMap: true,
             },
           },
         ],
       },
+
+      // 4) Plain CSS
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
       },
+
+      // 5) Assets: replace file-loader with Webpack 5 Asset Modules
       {
-        test: /\.(png|jpg|jpeg|gif|svg|woff2?|ttf|eot|otf)(\?.*$|$)/,
-        loader: "file-loader",
-        options: {
-          name: "assets/[name].[ext]",
+        test: /\.(png|jpg|jpeg|gif|svg|woff2?|ttf|eot|otf)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/[name][ext]", // or 'assets/[name].[contenthash][ext]' if you want hashing
         },
       },
     ],
