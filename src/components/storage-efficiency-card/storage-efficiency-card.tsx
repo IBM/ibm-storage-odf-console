@@ -15,7 +15,7 @@
  */
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import OutlinedQuestionCircleIcon from "@patternfly/react-icons/dist/js/icons/outlined-question-circle-icon";
+import { OutlinedQuestionCircleIcon } from "@patternfly/react-icons";
 import { Tooltip } from "@patternfly/react-core";
 import {useCustomPrometheusPoll} from "../custom-prometheus-poll/custom-prometheus-poll"
 
