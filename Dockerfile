@@ -9,7 +9,7 @@ RUN NODE_ENV=production yarn ts-node ./node_modules/.bin/webpack
 RUN yarn locales
 
 
-FROM --platform=$BUILDPLATFORM node:18.20.8-alpine
+FROM --platform=$BUILDPLATFORM node:22.21.1-alpine
 WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/dist ./dist
 RUN npm install http-server -g
