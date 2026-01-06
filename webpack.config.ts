@@ -39,6 +39,9 @@ const config: webpack.Configuration = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
+  cache: {
+    type: "filesystem",
+  },
   module: {
     rules: [
       { test: /create-flashsystem-page.tsx/, loader: "ignore-loader" },
@@ -61,7 +64,6 @@ const config: webpack.Configuration = {
           /src/,
         ],
         use: [
-          { loader: "cache-loader" },
           { loader: "thread-loader" },
           { loader: "style-loader" },
           {
