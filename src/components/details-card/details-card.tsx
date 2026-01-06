@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import * as React from "react";
-import { Link, BrowserRouter as Router } from "react-router-dom";
+import { Link, BrowserRouter as Router } from "react-router-dom-v5-compat";
 import { useTranslation } from "react-i18next";
 import { Base64 } from "js-base64";
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";

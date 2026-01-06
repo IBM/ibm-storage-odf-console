@@ -36,6 +36,10 @@
     "react-router-dom": "5.3.4",
     "react-router-dom-v5-compat": "6.11.2"
   },
+  "peerDependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  },
   "devDependencies": {
     "@openshift-console/dynamic-plugin-sdk": "1.8.0",
     "@openshift-console/dynamic-plugin-sdk-internal": "1.0.0",
@@ -43,21 +47,21 @@
     "@openshift-console/plugin-shared": "^0.0.1",
     "@types/lodash-es": "^4.17.4",
     "@types/node": "^16.7.13",
-    "@types/react": "^17.0.1",
-    "@types/react-dom": "^17.0.1",
+    "@types/react": "17.0.90",
+    "@types/react-dom": "17.0.26",
     "@types/react-helmet": "^6.1.1",
     "@types/react-router": "5.1.20",
     "@types/react-router-dom": "5.3.3",
     "@types/webpack-dev-server": "^3.11.5",
-    "@typescript-eslint/eslint-plugin": "^4.28.4",
-    "@typescript-eslint/parser": "^4.28.4",
-    "cache-loader": "1.x",
+    "@typescript-eslint/eslint-plugin": "^6",
+    "@typescript-eslint/parser": "^6",
+    "cache-loader": "^4",
     "comment-json": "4.x",
     "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^7.1.2",
     "eslint": "^8",
     "eslint-plugin-react": "^7.24.0",
-    "file-loader": "1.x",
+    "file-loader": "^6",
     "http-server": "0.12.x",
     "husky": "^4.2.5",
     "i18next-parser": "^3.3.0",
@@ -67,10 +71,10 @@
     "sass": "^1.55.0",
     "sass-loader": "^13.0.2",
     "style-loader": "^0.23.1",
-    "thread-loader": "1.x",
+    "thread-loader": "^3",
     "ts-loader": "6.2.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.x",
+    "typescript": "5.3.3",
     "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1"
   },
@@ -93,6 +97,12 @@
   },
   "resolutions": {
     "d3-color": "3.1.0",
-    "@babel/runtime": "7.26.10"
+    "@babel/runtime": "7.26.10",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "@types/react": "17.0.90",
+    "@types/react-dom": "17.0.26",
+    "@types/react-router": "5.1.20",
+    "@types/react-router-dom": "5.3.3"
   }
 }

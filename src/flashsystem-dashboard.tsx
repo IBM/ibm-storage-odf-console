@@ -30,8 +30,7 @@ import BreakdownCard from "./components/capacity-breakdown/capacity-breakdown-ca
 import PageHeading from "./components/heading/page-heading";
 import StorageClassOverviewDashboard from "./components/storage-class-dashboard/storage-class-dashboard";
 
-export type ODFDashboardProps = {
-};
+export interface ODFDashboardProps {}
 
 const UpperSection: React.FC<any> = (props) => {
   return (
@@ -128,7 +127,6 @@ export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
     );
   };
 
-type FlashsystemDashboardPageProps = RouteComponentProps & {
-};
+type FlashsystemDashboardPageProps = RouteComponentProps;
 
 export default FlashsystemDashboardPage;
