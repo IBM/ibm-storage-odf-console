@@ -18,7 +18,8 @@
 import * as webpack from "webpack";
 import * as path from "path";
 import { ConsoleRemotePlugin } from "@openshift-console/dynamic-plugin-sdk-webpack";
-import * as CopyWebpackPlugin from "copy-webpack-plugin";
+import CopyWebpackPlugin from "copy-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 const config: webpack.Configuration = {
   mode: "development",
@@ -75,11 +76,11 @@ const config: webpack.Configuration = {
           // Remove it if you see no speed gain or get odd warnings.
           // { loader: "thread-loader" },
 
-          { loader: "style-loader" },
+          { loader: MiniCssExtractPlugin.loader },
           {
             loader: "css-loader",
             options: {
-              sourceMap: true,
+              sourceMap: false,
             },
           },
           {
@@ -106,7 +107,7 @@ const config: webpack.Configuration = {
       // 4) Plain CSS
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, { loader: "css-loader", options: { sourceMap: false } }],
       },
 
       // 5) Assets: replace file-loader with Webpack 5 Asset Modules
@@ -120,12 +121,16 @@ const config: webpack.Configuration = {
     ],
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[name].css",
+    }),
     new ConsoleRemotePlugin(),
     new CopyWebpackPlugin({
       patterns: [{ from: path.resolve(__dirname, "locales"), to: "locales" }],
     }),
   ],
-  devtool: "cheap-module-source-map",
+  devtool: "source-map",
   optimization: {
     chunkIds: "named",
     minimize: false,

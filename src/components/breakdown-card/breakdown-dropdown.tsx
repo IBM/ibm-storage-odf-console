@@ -1,4 +1,4 @@
-/**
+ /**
  * Copyright contributors to the ibm-storage-odf-console project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,15 +12,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+*/
 import * as React from "react";
 
 import {
-	MenuItemGroup,
-	MenuItem,
-	SelectOption,
-	SelectGroup
-} from '@patternfly/react-core';
+  MenuItem,
+  SelectOption,
+  SelectGroup,
+} from "@patternfly/react-core";
 
 type GroupedSelectItems = {
   group: string;
@@ -39,27 +38,37 @@ export const getGroupedSelectOptions = (
     </SelectGroup>
   ));
 
-export const getOptionsMenuItems = (
+// --- Menu migration: OptionsMenuItemGroup/OptionsMenuItem -> MenuItem ---
+export const getMenuItems = (
   dropdownItems: GroupedSelectItems,
   selectedItems: string[],
-  onSelect: (e) => void
-) => {
-  return dropdownItems.map(({ group, items }) => (
-    <MenuItemGroup
+  onSelect: (e: React.MouseEvent, id?: string) => void
+): React.ReactElement[] => {
+  // We flatten to a single array of MenuItems.
+  // Each group renders a disabled "header" MenuItem (for label),
+  // followed by its actual selectable items.
+  return dropdownItems.flatMap(({ group, items }, groupIdx) => [
+    // Group header (non-interactive)
+    <MenuItem
+      key={`group-header-${groupIdx}-${group}`}
+      isDisabled
       className="nb-data-consumption-card__dropdown-item--hide-list-style"
-      key={group}
-      groupTitle={group}
+      // Prevent pointer/click & style like a label
+      style={{ fontWeight: 600, pointerEvents: "none" }}
     >
-      {items.map((item) => (
-        <MenuItem
-          onSelect={onSelect}
-          isSelected={selectedItems.includes(item)}
-          id={item}
-          key={item}
-        >
-          {item}
-        </MenuItem>
-      ))}
-    </MenuItemGroup>
-  ));
+      {group}
+    </MenuItem>,
+
+    // Selectable items
+    ...items.map((item) => (
+      <MenuItem
+        key={item}
+        itemId={item}
+        isSelected={selectedItems.includes(item)}
+        onClick={(e) => onSelect(e, item)}
+      >
+        {item}
+      </MenuItem>
+    )),
+  ]);
 };
