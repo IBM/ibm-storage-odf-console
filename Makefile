@@ -1,6 +1,6 @@
-REGISTRY=quay.io/ibmodffs
+REGISTRY=quay.io/shlomitn
 IMAGE_TAG=1.9.0
-PLATFORM=linux/amd64,linux/ppc64le,linux/s390x
+PLATFORM=linux/amd64
 TARGET_BRANCH=release-1.9.0
 CONSOLE_NAME=ibm-storage-odf-plugin
 
