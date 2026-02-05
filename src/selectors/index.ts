@@ -16,7 +16,6 @@
 import * as _ from "lodash";
 
 import {K8sKind, SecretKind, K8sResourceKind, PodKind} from "../types";
-import { normalizeNamespace } from "../constants/resources";
 import { IBM_STORAGE_ODF_OPERATOR } from "../constants/constants";
 import { useParams } from "react-router-dom-v5-compat";
 
@@ -38,12 +37,11 @@ export const resourcePathFromModel = (
   let url = '/k8s/';
 
   if (!namespaced) {
-    url += 'cluster/';
-  } else {
-    const ns = normalizeNamespace(namespace);
-    if (ns) {
-      url += `ns/${encodeURIComponent(ns)}/`;
-    }
+    url += "cluster/";
+  }
+
+  if (namespaced) {
+    url += namespace ? `ns/${namespace}/` : "all-namespaces/";
   }
 
   if (crd) {
