@@ -17,10 +17,16 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 import {
 	Select,
-	SelectProps
+	SelectProps,
+	SelectList,
+	MenuToggle,
+	MenuToggleElement,
+	Card,
+	CardBody,
+	CardHeader,
+	CardTitle
 } from '@patternfly/react-core';
 import {useCustomPrometheusPoll} from "../custom-prometheus-poll/custom-prometheus-poll"
-import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 
 import { BreakdownCardBody } from "../breakdown-card/breakdown-body";
 import {
@@ -106,27 +112,37 @@ const BreakdownCard: React.FC<any> = () => {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>
-          {t("Provisioned Capacity Breakdown")}
-        </CardTitle>
-        <div className="flashsystem-capacity-breakdown-card__header">
-          <Select
-            className="flashsystem-capacity-breakdown-card-header__dropdown"
-            autoFocus={false}
-            onSelect={handleMetricsChange}
-            onToggle={() => setBreakdownSelect(!isOpenBreakdownSelect)}
-            isOpen={isOpenBreakdownSelect}
-            selections={[metricType]}
-            placeholderText={metricType}
-            aria-label="Break By Dropdown"
-            isCheckboxSelectionBadgeHidden
-          >
+  <Card>
+    <CardHeader>
+      <CardTitle>
+        {t("Provisioned Capacity Breakdown")}
+      </CardTitle>
+      <div className="flashsystem-capacity-breakdown-card__header">
+        <Select
+          className="flashsystem-capacity-breakdown-card-header__dropdown"
+          isOpen={isOpenBreakdownSelect}
+          selected={metricType}
+          onSelect={(_event, value) => {
+            handleMetricsChange(value as string);
+            setBreakdownSelect(false);
+          }}
+          onOpenChange={(isOpen) => setBreakdownSelect(isOpen)}
+          toggle={(toggleRef: React.Ref<MenuToggleElement>) => (
+            <MenuToggle
+              ref={toggleRef}
+              onClick={() => setBreakdownSelect(!isOpenBreakdownSelect)}
+              isExpanded={isOpenBreakdownSelect}
+            >
+              {metricType}
+            </MenuToggle>
+          )}
+        >
+          <SelectList>
             {breakdownSelectItems}
-          </Select>
-        </div>
-      </CardHeader>
+          </SelectList>
+        </Select>
+      </div>
+    </CardHeader>
       <CardBody className="flashsystem-capacity-breakdown-card__body">
         <BreakdownCardBody
             isStorageclassAvailable={storageclassNames.length!=0 && cmLoaded}
