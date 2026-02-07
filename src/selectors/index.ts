@@ -34,7 +34,7 @@ export const resourcePathFromModel = (
 ) => {
   const { plural, namespaced, crd } = model;
 
-  let url = '/k8s/';
+  let url = "/k8s/";
 
   if (!namespaced) {
     url += "cluster/";

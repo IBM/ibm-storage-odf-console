@@ -24,18 +24,10 @@ import {
 import { referenceForModel, parseProps } from "../selectors";
 import {IBM_POOLS_CONFIGMAP_NAME} from "./constants"
 
-
-export const normalizeNamespace = (ns?: string): string | undefined => {
-  // Treat empty strings, '#ALL_NS#', 'ALL_NAMESPACES', etc. as undefined
-  if (!ns) return undefined;
-  if (ns === '#ALL_NS#' || ns === 'ALL_NAMESPACES') return undefined;
-  return ns;
-};
-
 export const SubscriptionResource: WatchK8sResource = {
   isList: true,
   kind: referenceForModel(SubscriptionModel),
-  namespaced: false, // this is probably wrong. Subscription _is_ namespaced
+  namespaced: false,
 };
 
 export const OperatorResource: WatchK8sResource = {
@@ -52,7 +44,7 @@ export const newFlashSystemResource = (name: string, namespace?: string) => {
   const resource: WatchK8sResource = {
     kind: referenceForModel(StorageInstanceModel),
     name: name,
-    namespace: normalizeNamespace(namespace),
+    namespace: namespace,
     isList: true,
   };
   return resource;
@@ -62,7 +54,7 @@ export const GetSecretResource = (name?: string, namespace?: string) => {
   const resource: WatchK8sResource = {
     isList: false,
     kind: SecretModel.kind,
-    namespace: normalizeNamespace(namespace),
+    namespace: namespace,
     name: name,
   };
   return resource;
@@ -77,7 +69,7 @@ export const getIBMPoolsConfigMap = (namespace?: string) => {
   const resource: WatchK8sResource = {
     isList: false,
     kind: ConfigMapModel.kind,
-    namespace: normalizeNamespace(namespace),
+    namespace: namespace,
     name: IBM_POOLS_CONFIGMAP_NAME,
   };
   return resource;
