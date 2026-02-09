@@ -36,5 +36,6 @@ RUN npm install -g http-server
 
 EXPOSE 9003
 
-# Use CMD for overridable defaults; add SSL support
-CMD ["http-server", "./dist", "-p", "9003", "-c-1", "--cors", "--ssl", "--cert", "/var/serving-cert/tls.crt", "--key", "/var/serving-cert/tls.key"]
+
+ENTRYPOINT ["http-server"]
+CMD ["./dist", "-p", "9003", "-c-1", "--cors", "--ssl", "--cert", "/var/serving-cert/tls.crt", "--key", "/var/serving-cert/tls.key"]

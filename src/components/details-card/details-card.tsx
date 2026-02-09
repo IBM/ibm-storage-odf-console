@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import * as React from "react";
-import { Link, BrowserRouter as Router } from "react-router-dom-v5-compat";
+import { Link } from "react-router-dom-v5-compat";
 import { useTranslation } from "react-i18next";
 import { Base64 } from "js-base64";
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
@@ -93,15 +93,12 @@ const DetailsCard: React.FC<any> = () => {
             title={t("Operator Name")}
             isLoading={false}
           >
-            <Router>
-              {" "}
-              <Link
-                to={operatorPath}
-                onClick={() => (window.location.href = operatorPath)}
-              >
-                OpenShift Data Foundation - IBM
-              </Link>{" "}
-            </Router>
+            <Link
+              to={operatorPath}
+              onClick={() => (window.location.href = operatorPath)}
+            >
+              OpenShift Data Foundation - IBM
+            </Link>
           </DetailItem>
           <DetailItem
             key="provider"
