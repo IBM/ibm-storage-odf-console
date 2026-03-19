@@ -30,6 +30,7 @@ import BreakdownCard from "./components/capacity-breakdown/capacity-breakdown-ca
 import PageHeading from "./components/heading/page-heading";
 import StorageClassOverviewDashboard from "./components/storage-class-dashboard/storage-class-dashboard";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ODFDashboardProps {}
 
 const UpperSection: React.FC<any> = (props) => {
