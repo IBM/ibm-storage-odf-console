@@ -125,7 +125,22 @@ const config: webpack.Configuration = {
       filename: "[name].css",
       chunkFilename: "[name].css",
     }),
-    new ConsoleRemotePlugin(),
+    new ConsoleRemotePlugin({
+      pluginMetadata: {
+        name: "ibm-storage-odf-plugin",
+        version: "1.9.0",
+        displayName: "IBM Storage ODF Plugin",
+        description: "IBM storage specific console page for ODF",
+        exposedModules: {
+          IBMStorageODFDetailPage: "./src/flashsystem-dashboard.tsx",
+        },
+        dependencies: {
+          "@console/pluginAPI": "*",
+        },
+      },
+      extensions: require("./console-extensions.json"),
+    }
+),
     new CopyWebpackPlugin({
       patterns: [{ from: path.resolve(__dirname, "locales"), to: "locales" }],
     }),

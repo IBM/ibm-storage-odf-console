@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
 import { Base64 } from "js-base64";
 import { useK8sWatchResource } from "@openshift-console/dynamic-plugin-sdk";
 
-import { OverviewDetailItem as DetailItem} from "@openshift-console/plugin-shared";
+import { OverviewDetailItem as DetailItem } from "./OverviewDetailItem";
 
 import { Card, CardBody, CardHeader, CardTitle, DescriptionList } from '@patternfly/react-core';
 import { ExternalLink } from "./Link";
