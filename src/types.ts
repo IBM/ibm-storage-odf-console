@@ -17,6 +17,15 @@ import {
   K8sResourceCommon,
   ObjectMetadata,
 } from "@openshift-console/dynamic-plugin-sdk";
+import { K8sModel } from '@openshift-console/dynamic-plugin-sdk/lib/api/common-types';
+
+// Re-export K8sModel as K8sKind for backward compatibility
+// The SDK's K8sModel type is compatible with our usage
+export type K8sKind = K8sModel & {
+  // Additional properties that may be used in the codebase
+  labelKey?: string;
+  labelPluralKey?: string;
+};
 
 export type WatchFlashSystemResource = {
   sto: K8sResourceCommon[];

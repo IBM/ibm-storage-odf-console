@@ -7,7 +7,7 @@ CONSOLE_NAME=ibm-storage-odf-plugin
 CONSOLE_IMAGE=$(REGISTRY)/$(CONSOLE_NAME):$(IMAGE_TAG)
 
 BUILD_COMMAND = docker buildx build -t $(CONSOLE_IMAGE) --platform $(PLATFORM) --build-arg TARGET_BRANCH=$(TARGET_BRANCH) -f ./Dockerfile.prod .
-NON_PROD_BUILD_COMMAND = docker buildx build ---progress=plain -t $(CONSOLE_IMAGE) --platform $(PLATFORM) -f ./Dockerfile .
+NON_PROD_BUILD_COMMAND = docker buildx build -t $(CONSOLE_IMAGE) --platform $(PLATFORM) -f ./Dockerfile .
 PUSH_COMMAND = docker push $(CONSOLE_IMAGE)
 
 build-image:
