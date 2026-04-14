@@ -1,4 +1,4 @@
-@use "@patternfly/patternfly/sass-utilities/all" as *;
+@use '@patternfly/patternfly/sass-utilities/all' as *;
 
 .flashsystem-capacity-breakdown-card__body {
   padding-top: 24px;
@@ -10,15 +10,16 @@
 
 .flashsystem-capacity-breakdown-card-header__dropdown {
   max-width: 12em;
+
   @media screen and (min-width: $pf-v5-global--breakpoint--lg) {
     min-width: 12em;
   }
 }
 
 .flashsystem-capacity-breakdown-card__error {
-    margin-top: var(--pf-v5-global--spacer--xs);
-    margin-bottom: var(--pf-v5-global--spacer--xs);
-    width: 100%;
-    text-align: start;
-    font-weight: bold;
+  margin-top: var(--pf-v5-global--spacer--xs);
+  margin-bottom: var(--pf-v5-global--spacer--xs);
+  width: 100%;
+  text-align: start;
+  font-weight: bold;
 }

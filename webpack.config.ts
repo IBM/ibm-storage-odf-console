@@ -20,6 +20,9 @@ import * as path from "path";
 import { ConsoleRemotePlugin } from "@openshift-console/dynamic-plugin-sdk-webpack";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import * as sass from "sass";
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const consoleExtensions = require("./console-extensions.json");
 
 const config: webpack.Configuration = {
   mode: "development",
@@ -93,7 +96,7 @@ const config: webpack.Configuration = {
           {
             loader: "sass-loader",
             options: {
-              implementation: require("sass"),
+              implementation: sass,
               sourceMap: true, // must be true for resolve-url-loader to work properly
               sassOptions: {
                 outputStyle: "compressed",
@@ -138,7 +141,7 @@ const config: webpack.Configuration = {
           "@console/pluginAPI": "*",
         },
       },
-      extensions: require("./console-extensions.json"),
+      extensions: consoleExtensions,
     }
 ),
     new CopyWebpackPlugin({
