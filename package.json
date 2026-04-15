@@ -24,8 +24,7 @@
     "lint-fix": "yarn lint-ts-fix && yarn lint-css-fix",
     "lint-ts": "yarn eslint --ext .ts,.tsx .",
     "lint-ts-fix": "yarn eslint --fix --ext .ts,.tsx .",
-    "prepare": "husky",
-    
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{ts,tsx,mts}": "eslint --cache --fix -c ./.eslintrc.js",
