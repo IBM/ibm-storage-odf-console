@@ -75,14 +75,16 @@ spec:
   type: ClusterIP
   sessionAffinity: None
 ---
-apiVersion: console.openshift.io/v1alpha1
+apiVersion: console.openshift.io/v1
 kind: ConsolePlugin
 metadata:
   name: ibm-storage-odf-plugin
 spec:
   displayName: "IBM Storage Plugin for Openshift ODF"
-  service:
-    name: ibm-storage-odf-plugin
-    namespace: ibm-storage-odf-plugin
-    port: 9003
-    basePath: "/"
+  backend:
+    service:
+      name: ibm-storage-odf-plugin
+      namespace: ibm-storage-odf-plugin
+      port: 9003
+      basePath: "/"
+    type: Service

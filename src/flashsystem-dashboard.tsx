@@ -130,4 +130,8 @@ export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
 
 type FlashsystemDashboardPageProps = RouteComponentProps;
 
+// Named export for OpenShift Console plugin
+export const IBMStorageODFDetailPage = FlashsystemDashboardPage;
+
+// Keep default export for backward compatibility
 export default FlashsystemDashboardPage;
