@@ -26,18 +26,15 @@ import {
 	GridItem,
 	Select,
 	SelectList,
+	SelectProps,
 	MenuToggle,
 	MenuToggleElement,
-} from '@patternfly/react-core';
-import {
-	Select,
-	SelectProps
 } from '@patternfly/react-core';
 import {getSelectOptions} from "../breakdown-card/breakdown-dropdown";
 import { PoolPhysicalRawCapacityCard } from "../capacity-card/pool-physical-raw-capacity-card/pool-physical-raw-capacity-card";
 import {useK8sWatchResource} from "@openshift-console/dynamic-plugin-sdk";
 import {ConfigMapKind} from "../../types";
-import {getIBMPoolsConfigMap} from "../../constants/resources";
+import {getIBMPoolsConfigMap, GetFlashSystemResource} from "../../constants/resources";
 import {getPoolNames} from "../utils";
 import { PoolLogicalRawCapacityCard } from "../capacity-card/pool-logical-raw-capacity-card/pool-logical-raw-capacity-card";
 
@@ -48,7 +45,15 @@ let poolsSelectItems = []
 const StorageClassOverviewBody : React.FC<ODFDashboardProps> = () => {
     const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
     const { name, namespace } = parseProps()
-    const cmResource = getIBMPoolsConfigMap(namespace)
+    
+    // Fetch FlashSystemCluster to get the namespace if not available from URL
+    const flashSystemResource = GetFlashSystemResource()
+    const [flashSystem, fsLoaded, fsLoadError] = useK8sWatchResource<any>(flashSystemResource);
+    
+    // Use namespace from FlashSystemCluster if URL doesn't provide it
+    const effectiveNamespace = namespace || flashSystem?.metadata?.namespace;
+    
+    const cmResource = getIBMPoolsConfigMap(effectiveNamespace)
     const [configMap, cmLoaded, cmLoadError] = useK8sWatchResource<ConfigMapKind>(cmResource);
 
     const cmResourceData = configMap?.data?.[name]
@@ -102,13 +107,13 @@ const PoolsListBody = () => {
     const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
     const { name } = parseProps();
 
-    const initialPoolName = dropdownKeys? dropdownKeys.at(0): ''
+    const initialPoolName = dropdownKeys && dropdownKeys.length > 0 ? dropdownKeys[0] : ''
     const [poolName, setPool] = React.useState(initialPoolName);
     const [isPoolSelectOpen, setPoolSelect] = React.useState(false);
 
-    const handlePoolChange: SelectProps["onSelect"] = (_e, pool) => {
-        setPool(pool as string);
-        setPoolSelect(!isPoolSelectOpen);
+    const handlePoolChange = (pool: string) => {
+        setPool(pool);
+        setPoolSelect(false);
     };
 
     return (

@@ -40,7 +40,7 @@ import { BreakdownQueryMapODF } from "../../constants/queries";
 import { PROJECTS, STORAGE_CLASSES, PODS } from "../../constants/constants";
 import { getInstantVectorStats, getSingleValue } from "../../selectors/promethues-utils";
 import { parseProps } from "../../selectors";
-import {getIBMPoolsConfigMap} from "../../constants/resources";
+import {getIBMPoolsConfigMap, GetFlashSystemResource} from "../../constants/resources";
 import {useK8sWatchResource} from "@openshift-console/dynamic-plugin-sdk";
 import {ConfigMapKind} from "../../types";
 import {getStorageClassNames} from "../utils";
@@ -54,6 +54,13 @@ const BreakdownCard: React.FC<any> = () => {
   const { t } = useTranslation("plugin__ibm-storage-odf-plugin");
   const { name, namespace} = parseProps();
 
+  // Fetch FlashSystemCluster to get the namespace if not available from URL
+  const flashSystemResource = GetFlashSystemResource()
+  const [flashSystem, fsLoaded, fsLoadError] = useK8sWatchResource<any>(flashSystemResource);
+  
+  // Use namespace from FlashSystemCluster if URL doesn't provide it
+  const effectiveNamespace = namespace || flashSystem?.metadata?.namespace;
+
   const [metricType, setMetricType] = React.useState(PROJECTS);
   const [isOpenBreakdownSelect, setBreakdownSelect] = React.useState(false);
   const { model, metric, queries } = BreakdownQueryMapODF(name, metricType);
@@ -62,12 +69,12 @@ const BreakdownCard: React.FC<any> = () => {
   let WarningMessage = '';
   let PVCWarning = false;
 
-  const handleMetricsChange: SelectProps["onSelect"] = (_e, breakdown) => {
-    setMetricType(breakdown as string);
-    setBreakdownSelect(!isOpenBreakdownSelect);
+  const handleMetricsChange = (breakdown: string) => {
+    setMetricType(breakdown);
+    setBreakdownSelect(false);
   };
 
-  const cmResource = getIBMPoolsConfigMap(namespace)
+  const cmResource = getIBMPoolsConfigMap(effectiveNamespace)
   const [configMap, cmLoaded, cmLoadError] = useK8sWatchResource<ConfigMapKind>(cmResource);
 
   const cmResourceData = configMap?.data?.[name]
