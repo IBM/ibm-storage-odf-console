@@ -50,8 +50,21 @@ const StorageClassOverviewBody : React.FC<ODFDashboardProps> = () => {
     const flashSystemResource = GetFlashSystemResource()
     const [flashSystem, fsLoaded, fsLoadError] = useK8sWatchResource<any>(flashSystemResource);
     
-    // Use namespace from FlashSystemCluster if URL doesn't provide it
-    const effectiveNamespace = namespace || flashSystem?.metadata?.namespace;
+    // Determine effective namespace:
+    // 1. Use namespace from URL if available (takes priority)
+    // 2. Otherwise, extract from FlashSystemCluster resource
+    // 3. Handle both single object (when namespace provided) and array (when no namespace)
+    let effectiveNamespace = namespace;
+    if (!effectiveNamespace && fsLoaded && flashSystem && !fsLoadError) {
+        if (Array.isArray(flashSystem)) {
+            // List mode: find the matching FlashSystemCluster by name
+            const matchingCluster = flashSystem.find(fs => fs?.metadata?.name === name);
+            effectiveNamespace = matchingCluster?.metadata?.namespace;
+        } else {
+            // Single object mode: extract namespace directly
+            effectiveNamespace = flashSystem?.metadata?.namespace;
+        }
+    }
     
     const cmResource = getIBMPoolsConfigMap(effectiveNamespace)
     const [configMap, cmLoaded, cmLoadError] = useK8sWatchResource<ConfigMapKind>(cmResource);

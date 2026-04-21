@@ -41,11 +41,13 @@ export const FlashSystemResource: WatchK8sResource = {
 };
 
 export const newFlashSystemResource = (name: string, namespace?: string) => {
+  // When namespace is provided, fetch single resource (isList: false)
+  // When namespace is NOT provided, fetch all resources (isList: true) for backward compatibility
   const resource: WatchK8sResource = {
     kind: referenceForModel(StorageInstanceModel),
-    name: name,
+    name: namespace ? name : undefined,  // Only set name when namespace is provided
     namespace: namespace,
-    isList: true,
+    isList: !namespace,  // List mode when no namespace, single resource when namespace provided
   };
   return resource;
 };
