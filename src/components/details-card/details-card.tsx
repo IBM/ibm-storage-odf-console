@@ -60,11 +60,20 @@ const DetailsCard: React.FC<any> = () => {
     useK8sWatchResource<SecretKind>(flashSecretResource);
   const secretData = getEndpoint(secret);
   const endpointAddress = React.useMemo(
-    () =>
-      secretloaded && !secretloadError && secretData
-        ? Base64.decode(secretData)
-        : "unknown",
-    [fscData, secretloaded, secretloadError]
+    () => {
+      if (!secretloaded || secretloadError || !secretData) {
+        return "unknown";
+      }
+      
+      try {
+        // secretData is base64 encoded from Kubernetes secret
+        return Base64.decode(secretData);
+      } catch (error) {
+        console.error('Error decoding base64 secret data:', error, 'secretData:', secretData);
+        return "unknown";
+      }
+    },
+    [secretData, secretloaded, secretloadError]
   );
 
   const flashOperatorVersion = React.useMemo(
@@ -72,7 +81,7 @@ const DetailsCard: React.FC<any> = () => {
           subscriptionloaded && !subscriptionloadError
               ? getIBMStorageODFVersion(subscriptions)
               : "unknown",
-      [fscData, subscriptionloaded, subscriptionloadError]
+      [subscriptions, subscriptionloaded, subscriptionloadError]
   );
 
   const operatorPath =

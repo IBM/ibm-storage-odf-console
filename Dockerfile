@@ -36,14 +36,13 @@ FROM --platform=$BUILDPLATFORM node:22.21.1-alpine
 
 WORKDIR /usr/src/app
 
-# Copy only what you need at runtime (ocales are already in dist/locales)
+# Copy only what you need at runtime (locales are already in dist/locales)
 COPY --from=builder /usr/src/app/dist ./dist
 
 # Lightweight static server
 RUN npm install -g http-server
 
 EXPOSE 9003
-
 
 ENTRYPOINT ["http-server"]
 CMD ["./dist", "-p", "9003", "-c-1", "--cors", "--ssl", "--cert", "/var/serving-cert/tls.crt", "--key", "/var/serving-cert/tls.key"]
