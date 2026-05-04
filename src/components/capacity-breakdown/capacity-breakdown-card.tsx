@@ -37,7 +37,7 @@ import { getSelectOptions } from "../breakdown-card/breakdown-dropdown";
 import "./capacity-breakdown-card.scss";
 import { humanizeBinaryBytes } from "../../humanize";
 import { BreakdownQueryMapODF } from "../../constants/queries";
-import { PROJECTS, STORAGE_CLASSES, PODS } from "../../constants/constants";
+import { PROJECTS, STORAGE_CLASSES, PODS, IBM_STORAGE_ODF_OPERATOR_NAMESPACE } from "../../constants/constants";
 import { getInstantVectorStats, getSingleValue } from "../../selectors/promethues-utils";
 import { parseProps } from "../../selectors";
 import {getIBMPoolsConfigMap, GetFlashSystemResource} from "../../constants/resources";
@@ -58,8 +58,8 @@ const BreakdownCard: React.FC<any> = () => {
   const flashSystemResource = GetFlashSystemResource()
   const [flashSystem, fsLoaded, fsLoadError] = useK8sWatchResource<any>(flashSystemResource);
   
-  // Use namespace from FlashSystemCluster if URL doesn't provide it
-  const effectiveNamespace = namespace || flashSystem?.metadata?.namespace;
+  // Use namespace priority: URL param > FlashSystemCluster namespace > hardcoded operator namespace
+  const effectiveNamespace = namespace || flashSystem?.metadata?.namespace || IBM_STORAGE_ODF_OPERATOR_NAMESPACE;
 
   const [metricType, setMetricType] = React.useState(PROJECTS);
   const [isOpenBreakdownSelect, setBreakdownSelect] = React.useState(false);
