@@ -22,7 +22,7 @@ import {
   ConfigMapModel,
 } from "../models";
 import { referenceForModel, parseProps } from "../selectors";
-import {IBM_POOLS_CONFIGMAP_NAME} from "./constants"
+import {IBM_POOLS_CONFIGMAP_NAME, DEFAULT_ODF_NAMESPACE} from "./constants"
 
 export const SubscriptionResource: WatchK8sResource = {
   isList: true,
@@ -54,7 +54,7 @@ export const GetSecretResource = (name?: string, namespace?: string) => {
   const resource: WatchK8sResource = {
     isList: false,
     kind: SecretModel.kind,
-    namespace: namespace,
+    namespace: namespace ?? DEFAULT_ODF_NAMESPACE,
     name: name,
   };
   return resource;
@@ -69,7 +69,7 @@ export const getIBMPoolsConfigMap = (namespace?: string) => {
   const resource: WatchK8sResource = {
     isList: false,
     kind: ConfigMapModel.kind,
-    namespace: namespace,
+    namespace: namespace ?? DEFAULT_ODF_NAMESPACE,
     name: IBM_POOLS_CONFIGMAP_NAME,
   };
   return resource;

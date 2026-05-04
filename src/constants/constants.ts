@@ -24,6 +24,8 @@ export const STORAGE_CLASS_POOLS_KEY = 'storageclass';
 export const INVALID_PROMETHEUS_CHILD_STATS = -1;
 export const IBM_STORAGE_ODF_PREFIX = "ibm-flashsystem-storage";
 export const IBM_STORAGE_ODF_CONSOLE_NAME = "ibm-odf-console";
+export const DEFAULT_ODF_NAMESPACE = 'openshift-storage';
+export const IBM_STORAGE_ODF_OPERATOR_NAMESPACE = 'openshift-storage';
 
 
 

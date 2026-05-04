@@ -83,8 +83,7 @@ spec:
   displayName: "IBM Storage Plugin for Openshift ODF"
   backend:
     service:
-      name: ibm-storage-odf-plugin
-      namespace: ibm-storage-odf-plugin
+      name: ibm-odf-console-service
+      namespace: openshift-storage
       port: 9003
-      basePath: "/"
     type: Service
