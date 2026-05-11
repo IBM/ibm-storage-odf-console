@@ -114,7 +114,7 @@ export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
     // Determine the correct breadcrumb path based on the current route
     // If namespace is in URL, use the namespaced route, otherwise use external-systems
     const systemsListPath = namespace
-      ? `/odf/system/ns/${namespace}/odf.ibm.com~v1alpha1~flashsystemcluster`
+      ? "/odf/cluster/systems"
       : "/odf/external-systems";
     
     const breadcrumbs = [
