@@ -26,11 +26,22 @@ type GroupedSelectItems = {
   items: string[];
 }[];
 
+/**
+ * Generate Select options for PatternFly dropdown.
+ *
+ * IMPORTANT:
+ * - `value` is NOT displayed automatically
+ * - Children (`{item}`) is REQUIRED for visible label
+ */
 export const getSelectOptions = (selectItems: string[]): React.ReactElement[] =>
-  selectItems.map((item) => <SelectOption key={item} value={item} />);
+  selectItems.map((item) => (
+    <SelectOption key={item} value={item}>
+      {item}
+    </SelectOption>
+  ));
 
 export const getGroupedSelectOptions = (
-  groupedSelectItems: GroupedSelectItems
+  groupedSelectItems: { group: string; items: string[] }[]
 ): React.ReactElement[] =>
   groupedSelectItems.map(({ group, items }) => (
     <SelectGroup key={group} label={group}>

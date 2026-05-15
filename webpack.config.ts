@@ -20,6 +20,9 @@ import * as path from "path";
 import { ConsoleRemotePlugin } from "@openshift-console/dynamic-plugin-sdk-webpack";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import * as sass from "sass";
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const consoleExtensions = require("./console-extensions.json");
 
 const config: webpack.Configuration = {
   mode: "development",
@@ -93,7 +96,7 @@ const config: webpack.Configuration = {
           {
             loader: "sass-loader",
             options: {
-              implementation: require("sass"),
+              implementation: sass,
               sourceMap: true, // must be true for resolve-url-loader to work properly
               sassOptions: {
                 outputStyle: "compressed",
@@ -125,7 +128,22 @@ const config: webpack.Configuration = {
       filename: "[name].css",
       chunkFilename: "[name].css",
     }),
-    new ConsoleRemotePlugin(),
+    new ConsoleRemotePlugin({
+      pluginMetadata: {
+        name: "ibm-storage-odf-plugin",
+        version: "1.9.0",
+        displayName: "IBM Storage ODF Plugin",
+        description: "IBM storage specific console page for ODF",
+        exposedModules: {
+          IBMStorageODFDetailPage: "./src/flashsystem-dashboard.tsx",
+        },
+        dependencies: {
+          "@console/pluginAPI": "*",
+        },
+      },
+      extensions: consoleExtensions,
+    }
+),
     new CopyWebpackPlugin({
       patterns: [{ from: path.resolve(__dirname, "locales"), to: "locales" }],
     }),

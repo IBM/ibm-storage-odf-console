@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { K8sKind } from "./types";
+import { K8sModel } from '@openshift-console/dynamic-plugin-sdk/lib/api/common-types';
 
-export const StorageInstanceModel: K8sKind = {
+export const StorageInstanceModel: K8sModel = {
   label: "IBM Flash System",
   labelPlural: "IBM Flash Systems",
   apiVersion: "v1alpha1",
@@ -27,7 +27,7 @@ export const StorageInstanceModel: K8sKind = {
   crd: true,
 };
 
-export const SubscriptionModel: K8sKind = {
+export const SubscriptionModel: K8sModel = {
   kind: "Subscription",
   label: "Subscription",
   labelPlural: "Subscriptions",
@@ -40,7 +40,7 @@ export const SubscriptionModel: K8sKind = {
   legacyPluralURL: true,
 };
 
-export const ClusterServiceVersionModel: K8sKind = {
+export const ClusterServiceVersionModel: K8sModel = {
   kind: "ClusterServiceVersion",
   label: "ClusterServiceVersion",
   labelPlural: "ClusterServiceVersions",
@@ -54,7 +54,7 @@ export const ClusterServiceVersionModel: K8sKind = {
   legacyPluralURL: true,
 };
 
-export const SecretModel: K8sKind = {
+export const SecretModel: K8sModel = {
   apiVersion: "v1",
   apiGroup: "core",
   label: "Secret",
@@ -68,7 +68,7 @@ export const SecretModel: K8sKind = {
   labelPluralKey: "Secrets",
 };
 
-export const PersistentVolumeClaimModel: K8sKind = {
+export const PersistentVolumeClaimModel: K8sModel = {
   label: "PersistentVolumeClaim",
   labelKey: "PersistentVolumeClaim",
   apiVersion: "v1",
@@ -81,7 +81,7 @@ export const PersistentVolumeClaimModel: K8sKind = {
   labelPluralKey: "PersistentVolumeClaims",
 };
 
-export const EventModel: K8sKind = {
+export const EventModel: K8sModel = {
   apiVersion: "v1",
   label: "Event",
   labelKey: "Event",
@@ -94,7 +94,7 @@ export const EventModel: K8sKind = {
   labelPluralKey: "Events",
 };
 
-export const ProjectModel: K8sKind = {
+export const ProjectModel: K8sModel = {
   apiVersion: "v1",
   apiGroup: "project.openshift.io",
   label: "Project",
@@ -107,7 +107,7 @@ export const ProjectModel: K8sKind = {
   labelPluralKey: "Projects",
 };
 
-export const PodModel: K8sKind = {
+export const PodModel: K8sModel = {
   apiVersion: "v1",
   label: "Pod",
   labelKey: "Pod",
@@ -120,7 +120,7 @@ export const PodModel: K8sKind = {
   labelPluralKey: "Pods",
 };
 
-export const StorageClassModel: K8sKind = {
+export const StorageClassModel: K8sModel = {
   label: "StorageClass",
   labelKey: "StorageClass",
   labelPlural: "StorageClasses",
@@ -134,7 +134,7 @@ export const StorageClassModel: K8sKind = {
   id: "storageclass",
 };
 
-export const PersistentVolumeModel: K8sKind = {
+export const PersistentVolumeModel: K8sModel = {
   label: "PersistentVolume",
   labelKey: "PersistentVolume",
   apiVersion: "v1",
@@ -147,7 +147,7 @@ export const PersistentVolumeModel: K8sKind = {
 };
 
 
-export const ConfigMapModel: K8sKind = {
+export const ConfigMapModel: K8sModel = {
   apiVersion: 'v1',
   label: 'ConfigMap',
   labelKey: 'ConfigMap',

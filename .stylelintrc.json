@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-sass-guidelines"
+  ],
+  "plugins": [
+    "stylelint-order"
+  ],
+  "rules": {
+    "selector-class-pattern": null,
+    "max-nesting-depth": 3,
+    "selector-max-compound-selectors": 4,
+    "order/properties-alphabetical-order": null,
+    "custom-property-pattern": null,
+    "media-query-no-invalid": null
+  }
+}

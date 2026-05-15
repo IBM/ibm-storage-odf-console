@@ -30,7 +30,7 @@ import BreakdownCard from "./components/capacity-breakdown/capacity-breakdown-ca
 import PageHeading from "./components/heading/page-heading";
 import StorageClassOverviewDashboard from "./components/storage-class-dashboard/storage-class-dashboard";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface ODFDashboardProps {}
 
 const UpperSection: React.FC<any> = (props) => {
@@ -109,10 +109,18 @@ export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
 
     const params = useParams();
     const systemName = params.systemName;
+    const namespace = params.namespace;
+    
+    // Determine the correct breadcrumb path based on the current route
+    // If namespace is in URL, use the namespaced route, otherwise use external-systems
+    const systemsListPath = namespace
+      ? "/odf/cluster/systems"
+      : "/odf/external-systems";
+    
     const breadcrumbs = [
       {
         name: t("StorageSystems"),
-        path: "/odf/systems",
+        path: systemsListPath,
       },
       {
         name: t("StorageSystem details"),
@@ -130,4 +138,8 @@ export const FlashsystemDashboardPage: React.FC<FlashsystemDashboardPageProps> =
 
 type FlashsystemDashboardPageProps = RouteComponentProps;
 
+// Named export for OpenShift Console plugin
+export const IBMStorageODFDetailPage = FlashsystemDashboardPage;
+
+// Keep default export for backward compatibility
 export default FlashsystemDashboardPage;
