@@ -15,7 +15,7 @@ RUN yarn install
 RUN yarn build
 RUN mv ./dist ../compatibility
 
-FROM --platform=$BUILDPLATFORM registry.access.redhat.com/ubi9/nginx-124:1-1773852029
+FROM --platform=$BUILDPLATFORM registry.access.redhat.com/ubi9/nginx-124:1-1776865104
 ADD default.conf "${NGINX_CONFIGURATION_PATH}"
 COPY --from=builder /app .
 COPY --from=builder /compatibility ./compatibility
