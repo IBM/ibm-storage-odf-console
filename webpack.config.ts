@@ -131,7 +131,7 @@ const config: webpack.Configuration = {
     new ConsoleRemotePlugin({
       pluginMetadata: {
         name: "ibm-storage-odf-plugin",
-        version: "1.9.0",
+        version: "1.9.1",
         displayName: "IBM Storage ODF Plugin",
         description: "IBM storage specific console page for ODF",
         exposedModules: {

@@ -29,7 +29,7 @@ const packageJsonPath = path.join(pluginDir, 'package.json');
 if (!fs.existsSync(packageJsonPath)) {
   const packageJson = {
     name: `@ibm-storage-odf/${plugin}-plugin`,
-    version: '1.9.0',
+    version: '1.9.1',
     private: true,
     description: `IBM Storage ODF ${plugin} Plugin`
   };
