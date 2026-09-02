@@ -64,7 +64,8 @@
     "@remix-run/router": "1.23.4",
     "brace-expansion": "1.1.18",
     "linkify-it": "5.0.2",
-    "js-yaml": "4.3.2"
+    "js-yaml": "4.3.2",
+    "browserslist": "4.28.7"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.667.0",
