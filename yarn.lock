@@ -10487,7 +10487,7 @@ react-router-dom-v5-compat@^6.11.2:
     history "^5.3.0"
     react-router "6.30.0"
 
-react-router-dom-v5-compat@^6.30.3:
+react-router-dom-v5-compat@^6.30.6:
   version "6.30.6"
   resolved "https://registry.yarnpkg.com/react-router-dom-v5-compat/-/react-router-dom-v5-compat-6.30.6.tgz#5e0cfcac22bceafd15809c4de4dab8f5eb6c9656"
   integrity sha512-I54amXpivD3V0r1BYUIj1qLOljXx+UpbLG63Bqbm3BdKH62z4H3znC0L7SyMTYAMEDZuUjDSlqtkBRG/OEDXBg==
