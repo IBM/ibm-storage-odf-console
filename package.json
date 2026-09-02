@@ -53,7 +53,7 @@
     "underscore.string": "^3.3.6",
     "undici": "^6.21.1",
     "webpack": "^5.97.1",
-    "webpack-bundle-analyzer/ws": "^7.5.10",
+    "webpack-bundle-analyzer/ws": "7.5.11",
     "webpack-dev-server/express": "^4.21.0",
     "lodash-es": "4.18.1",
     "lodash": "4.18.1",
