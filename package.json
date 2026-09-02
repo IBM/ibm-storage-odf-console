@@ -63,8 +63,7 @@
     "react-router": "6.30.6",
     "@remix-run/router": "1.23.4",
     "brace-expansion": "1.1.18",
-    "linkify-it": "5.0.2",
-    "immutable": "5.1.8"
+    "linkify-it": "5.0.2"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.667.0",
