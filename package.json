@@ -66,7 +66,8 @@
     "linkify-it": "5.0.2",
     "js-yaml": "4.3.2",
     "browserslist": "4.28.7",
-    "ws": "7.5.11"
+    "ws": "7.5.11",
+    "sass/immutable": "5.1.8"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.667.0",
