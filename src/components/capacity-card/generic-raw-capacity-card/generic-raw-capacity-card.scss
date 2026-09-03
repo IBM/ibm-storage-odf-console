@@ -13,8 +13,12 @@
   }
 
   &__chart {
-    flex-grow: 0.5;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 150px;
+    height: 150px;
     max-height: 180px;
+    overflow: hidden;
   }
 
   &--error {

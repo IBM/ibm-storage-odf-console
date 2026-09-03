@@ -149,17 +149,11 @@ const PoolsListBody = () => {
               </div>
             </CardHeader>
             {poolName &&
-                <CardBody className="flashsystem-physical-pool-statistics__body">
-                    <Grid>
+                <CardBody>
+                    <Grid hasGutter>
                         <GridItem span={6}>
-                            <PoolPhysicalRawCapacityCard name={name} pool_name={poolName}  />
+                            <PoolPhysicalRawCapacityCard name={name} pool_name={poolName} />
                         </GridItem>
-                    </Grid>
-                </CardBody>
-            }
-            {poolName &&
-                <CardBody className="flashsystem-logical-pool-statistics__body">
-                    <Grid>
                         <GridItem span={6}>
                             <PoolLogicalRawCapacityCard name={name} pool_name={poolName} />
                         </GridItem>
